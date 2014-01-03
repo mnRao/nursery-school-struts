@@ -1,102 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DUKE CORP</title>
-
+<title><tiles:insertAttribute name="title" ignore="true" /></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="assets/css/thin-admin.css" rel="stylesheet" media="screen">
 <link href="assets/css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="assets/style/style.css" rel="stylesheet">
+<link href="assets/style/dashboard.css" rel="stylesheet">
+<link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css"
+	rel="stylesheet" type="text/css" media="screen" />
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-	<div class="login-logo">
-		<img src="assets/images/logo.png" width="147" height="33">
+
+	<div class="container">
+		<tiles:insertAttribute name="header" />
 	</div>
-
-	<div class="widget">
-		<div class="login-content">
-			<div class="widget-content" style="padding-bottom: 0;">
-				<s:form action="login.action" method="post" cssClass="no-margin">
-					<h3 class="form-title">Login to your account</h3>
-
-					<fieldset>
-						<div class="form-group no-margin">
-							<label for="email">Email</label>
-
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon"> <i class="icon-user"></i>
-								</span>
-								<!-- 								<input type="email" placeholder="Your Email" -->
-								<!-- 									class="form-control input-lg" id="email" /> -->
-								<s:textfield cssClass="form-control input-lg" name="username"
-									key="label.username" placeholder="Your Email"
-									size="20"></s:textfield>
-							</div>
-
-						</div>
-
-						<div class="form-group">
-							<label for="password">Password</label>
-
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon"> <i class="icon-lock"></i>
-								</span> 
-									<s:password cssClass="form-control input-lg" placeholder="Your Password" name="password" key="label.password" size="20"></s:password>
-							</div>
-
-						</div>
-					</fieldset>
-					<div class="form-actions">
-						<label class="checkbox">
-							<div class="checker">
-								<span><input type="checkbox" value="1" name="remember"></span>
-							</div> Remember me
-						</label>
-<!-- 						<button class="btn btn-warning pull-right" type="submit"> -->
-<!-- 							Login <i class="m-icon-swapright m-icon-white"></i> -->
-<!-- 						</button> -->
-						<s:submit cssClass="btn btn-warning pull-right" method="execute" key="label.login" align="center" />
-						<div class="forgot">
-							<a href="#" class="forgot">Forgot Username or Password?</a>
-							<s:actionerror />
-						</div>
+	<div class="wrapper">
+		<div class="left-nav">
+			<tiles:insertAttribute name="menu" />
+		</div>
+		<div class="page-content">
+			<div class="content container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h2 class="page-title">
+							<tiles:insertAttribute name="headTitle" />
+						</h2>
 					</div>
-
-
-				</s:form>
-
-
+				</div>
+				<tiles:insertAttribute name="body" />
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
+	<tiles:insertAttribute name="footer" />
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="assets/js/jquery.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/smooth-sliding-menu.js"></script>
+	<script class="include" type="text/javascript"
+		src="assets/javascript/jquery191.min.js"></script>
+	<script class="include" type="text/javascript"
+		src="assets/javascript/jquery.jqplot.min.js"></script>
 
-
-
-
+	<script src="assets/sparkline/jquery.sparkline.js"
+		type="text/javascript"></script>
+	<script src="assets/sparkline/jquery.customSelect.min.js"></script>
+	<script src="assets/sparkline/sparkline-chart.js"></script>
+	<script src="assets/sparkline/easy-pie-chart.js"></script>
 
 	<!--switcher html start-->
 	<div class="demo_changer active" style="right: 0px;">
 		<div class="demo-icon"></div>
 		<div class="form_holder">
-
-
 			<div class="predefined_styles">
 				<a class="styleswitch" rel="a" href="#"><img alt=""
 					src="assets/images/a.jpg"></a> <a class="styleswitch" rel="b"
@@ -114,10 +81,8 @@
 					src="assets/images/i.jpg"></a> <a class="styleswitch" rel="j"
 					href="#"><img alt="" src="assets/images/j.jpg"></a>
 			</div>
-
 		</div>
 	</div>
-
 
 	<!--switcher html end-->
 	<script src="assets/switcher/switcher.js"></script>
@@ -144,9 +109,5 @@
 		href="assets/switcher/i.css" title="i" media="all" />
 	<link rel="alternate stylesheet" type="text/css"
 		href="assets/switcher/j.css" title="j" media="all" />
-
-</body>
 </body>
 </html>
-
-
