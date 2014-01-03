@@ -35,8 +35,7 @@
 								<!-- 								<input type="email" placeholder="Your Email" -->
 								<!-- 									class="form-control input-lg" id="email" /> -->
 								<s:textfield cssClass="form-control input-lg" name="username"
-									key="label.username" placeholder="Your Email"
-									size="20"></s:textfield>
+									key="label.username" placeholder="Your Email" size="20"></s:textfield>
 							</div>
 
 						</div>
@@ -46,8 +45,10 @@
 
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i class="icon-lock"></i>
-								</span> 
-									<s:password cssClass="form-control input-lg" placeholder="Your Password" name="password" key="label.password" size="20"></s:password>
+								</span>
+								<s:password cssClass="form-control input-lg"
+									placeholder="Your Password" name="password"
+									key="label.password" size="20"></s:password>
 							</div>
 
 						</div>
@@ -58,13 +59,14 @@
 								<span><input type="checkbox" value="1" name="remember"></span>
 							</div> Remember me
 						</label>
-<!-- 						<button class="btn btn-warning pull-right" type="submit"> -->
-<!-- 							Login <i class="m-icon-swapright m-icon-white"></i> -->
-<!-- 						</button> -->
-						<s:submit cssClass="btn btn-warning pull-right" method="execute" key="label.login" align="center" />
+						<!-- 						<button class="btn btn-warning pull-right" type="submit"> -->
+						<!-- 							Login <i class="m-icon-swapright m-icon-white"></i> -->
+						<!-- 						</button> -->
+						<s:submit cssClass="btn btn-warning pull-right" method="execute"
+							key="label.login" align="center" />
 						<div class="forgot">
-							<a href="#" class="forgot">Forgot Username or Password?</a>
-							<s:actionerror />
+							<!-- 							<a href="#" class="forgot">Forgot Username or Password?</a> -->
+							<s:actionerror cssClass="forgot" />
 						</div>
 					</div>
 
