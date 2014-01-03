@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="MainLayout" template="/templates/MainLayout.jsp">
+		<put-attribute name="title" value="Duke Corp" />
+		<put-attribute name="header" value="/templates/header.jsp" />
+		<put-attribute name="menu" value="/templates/menu.jsp" />
+		<put-attribute name="headTitle" value="Default Title" />
+		<put-attribute name="body" value="/templates/body.jsp" />
+		<put-attribute name="footer" value="/templates/footer.jsp" />
+	</definition>
+
+	<definition name="tiger" extends="MainLayout">
+		<put-attribute name="headTitle" value="Tiger" />
+		<put-attribute name="body" value="/pages/tiger.jsp" />
+	</definition>
+
+	<definition name="lion" extends="MainLayout">
+		<put-attribute name="headTitle" value="Lion" />
+		<put-attribute name="body" value="/pages/lion.jsp" />
+	</definition>
+
+	<definition name="Dashboard" extends="MainLayout">
+		<put-attribute name="headTitle" value="Dash Board" />
+		<put-attribute name="body" value="/pages/Dashboard.jsp" />
+	</definition>
+
+</tiles-definitions>

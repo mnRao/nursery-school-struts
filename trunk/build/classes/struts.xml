@@ -8,11 +8,22 @@
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
 
-<!-- 	<constant name="struts.convention.result.path" value="/www/" /> -->
+	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
 	<package name="default" extends="struts-default" namespace="/">
-		<action name="login" method="authenticate" class="com.duke.nurseryschool.LoginAction">
-			<result name="success">Welcome.jsp</result>
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<action name="*Menu" method="{1}" class="com.duke.nurseryschool.MenuAction">
+			<result name="tiger" type="tiles">tiger</result>
+			<result name="lion" type="tiles">lion</result>
+		</action>
+		
+		<action name="login" method="authenticate"
+			class="com.duke.nurseryschool.LoginAction">
+			<result name="success" type="tiles">Dashboard</result>
+<!-- 			<result name="success">Welcome.jsp</result> -->
 			<result name="error">Login.jsp</result>
 		</action>
 	</package>
