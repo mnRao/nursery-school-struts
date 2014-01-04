@@ -5,8 +5,8 @@
 
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	<constant name="struts.devMode" value="false" />
-	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="global" />
 
 	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
@@ -15,15 +15,25 @@
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+		<action name="locale" method="execute"
+			class="com.duke.nurseryschool.core.LocaleAction">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="basicStack" />
+			<!-- <interceptor-ref name="defaultStack"> -->
+			<!-- <param name="i18n.parameterName">request_locale</param> -->
+			<!-- </interceptor-ref> -->
+			<result name="success">Login.jsp</result>
+		</action>
+
 		<action name="*Menu" method="{1}" class="com.duke.nurseryschool.MenuAction">
 			<result name="tiger" type="tiles">tiger</result>
 			<result name="lion" type="tiles">lion</result>
 		</action>
-		
+
 		<action name="login" method="authenticate"
 			class="com.duke.nurseryschool.LoginAction">
 			<result name="success" type="tiles">Dashboard</result>
-<!-- 			<result name="success">Welcome.jsp</result> -->
+			<!-- <result name="success">Welcome.jsp</result> -->
 			<result name="error">Login.jsp</result>
 		</action>
 	</package>

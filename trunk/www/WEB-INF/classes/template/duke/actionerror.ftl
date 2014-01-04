@@ -36,17 +36,19 @@
  style="${parameters.cssStyle?html}"<#rt/>
 </#if>
 >
-<div class="alert alert-block alert-danger fade in">
-	<button type="button" class="close close-sm"
-		data-dismiss="alert">
-		<i class="icon-remove"></i>
-	</button>
-	<#list actionErrors as error>
-		<#if error?if_exists != "">
-            <span><#if parameters.escape>${error!?html}<#else>${error!}</#if></span><#rt/><#rt/>
-        </#if>
-	</#list>
-	</div>
+		<div class="forgot">
+			<div class="alert alert-block alert-danger fade in">
+				<button type="button" class="close close-sm"
+					data-dismiss="alert">
+					<i class="icon-remove"></i>
+				</button>
+				<#list actionErrors as error>
+					<#if error?if_exists != "">
+			            <span><#if parameters.escape>${error!?html}<#else>${error!}</#if></span><#rt/><#rt/>
+			        </#if>
+				</#list>
+			</div>
+		</div>
 	</ul>
 </#if>
 

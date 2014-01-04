@@ -1,0 +1,5 @@
+label.username= Tên đăng nhập
+label.password= Mật khẩu
+label.login= Đăng nhập
+label.rememberMe = Ghi nhớ ?
+error.login= Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại sau

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,82 +22,74 @@
 		<div class="login-content">
 			<div class="widget-content" style="padding-bottom: 0;">
 				<s:form action="login.action" method="post" cssClass="no-margin">
-					<h3 class="form-title">Login to your account</h3>
-
+					<h3 class="form-title">
+						<s:text name="label.login" />
+					</h3>
 					<fieldset>
 						<div class="form-group no-margin">
-							<label for="email">Email</label>
-
+							<%-- 							<s:label key="label.username"></s:label> --%>
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i class="icon-user"></i>
 								</span>
-								<!-- 								<input type="email" placeholder="Your Email" -->
-								<!-- 									class="form-control input-lg" id="email" /> -->
 								<s:textfield cssClass="form-control input-lg" name="username"
-									key="label.username" placeholder="Your Email" size="20"></s:textfield>
+									key="label.username" placeholder="%{getText('label.username')}"
+									size="20"></s:textfield>
 							</div>
-
 						</div>
-
 						<div class="form-group">
-							<label for="password">Password</label>
-
+							<%-- 							<s:label key="label.password"></s:label> --%>
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i class="icon-lock"></i>
 								</span>
 								<s:password cssClass="form-control input-lg"
-									placeholder="Your Password" name="password"
+									placeholder="%{getText('label.password')}" name="password"
 									key="label.password" size="20"></s:password>
 							</div>
-
 						</div>
 					</fieldset>
 					<div class="form-actions">
 						<label class="checkbox">
 							<div class="checker">
 								<span><input type="checkbox" value="1" name="remember"></span>
-							</div> Remember me
+							</div> <s:text name="label.rememberMe"></s:text>
 						</label>
-						<!-- 						<button class="btn btn-warning pull-right" type="submit"> -->
-						<!-- 							Login <i class="m-icon-swapright m-icon-white"></i> -->
-						<!-- 						</button> -->
 						<s:submit cssClass="btn btn-warning pull-right" method="execute"
-							key="label.login" align="center" />
-						<div class="forgot">
-							<!-- 							<a href="#" class="forgot">Forgot Username or Password?</a> -->
-							<s:actionerror cssClass="forgot" />
-						</div>
+							key="label.login" align="center">
+							<i class="m-icon-swapright m-icon-white"></i>
+						</s:submit>
+						<s:actionerror cssClass="forgot" />
 					</div>
-
-
 				</s:form>
 
-
+				<!-- 	Localization -->
+				<s:url id="localeEN" namespace="/" action="locale">
+					<s:param name="request_locale">en</s:param>
+				</s:url>
+				<s:url id="localeVI" namespace="/" action="locale">
+					<s:param name="request_locale">vi_VN</s:param>
+				</s:url>
+				<div style="text-align: center">
+					<s:a href="%{localeEN}">
+						<img src="assets/app/English.png" height="24"
+							style="display: inline-block" />
+					</s:a>
+					<s:a href="%{localeVI}">
+						<img src="assets/app/Vietnamese.png" height="24"
+							style="display: inline-block" />
+					</s:a>
+				</div>
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="assets/js/jquery.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 
-
-
-
-
 	<!--switcher html start-->
 	<div class="demo_changer active" style="right: 0px;">
 		<div class="demo-icon"></div>
 		<div class="form_holder">
-
-
 			<div class="predefined_styles">
 				<a class="styleswitch" rel="a" href="#"><img alt=""
 					src="assets/images/a.jpg"></a> <a class="styleswitch" rel="b"
@@ -116,10 +107,8 @@
 					src="assets/images/i.jpg"></a> <a class="styleswitch" rel="j"
 					href="#"><img alt="" src="assets/images/j.jpg"></a>
 			</div>
-
 		</div>
 	</div>
-
 
 	<!--switcher html end-->
 	<script src="assets/switcher/switcher.js"></script>
@@ -147,7 +136,6 @@
 	<link rel="alternate stylesheet" type="text/css"
 		href="assets/switcher/j.css" title="j" media="all" />
 
-</body>
 </body>
 </html>
 
