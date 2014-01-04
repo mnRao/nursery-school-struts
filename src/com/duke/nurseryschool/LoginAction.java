@@ -1,5 +1,6 @@
 package com.duke.nurseryschool;
 
+import com.duke.nurseryschool.helper.Constant;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport {
@@ -8,11 +9,11 @@ public class LoginAction extends ActionSupport {
 
 	public String authenticate() {
 		if (username.equals("admin") && password.equals("admin")) {
-			return "success";
+			return Constant.RESPONSE_SUCCESS;
 		}
 		else {
 			addActionError(getText("error.login"));
-			return "error";
+			return Constant.RESPONSE_ERROR;
 		}
 	}
 
