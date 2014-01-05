@@ -28,5 +28,10 @@
 		<put-attribute name="headTitle" value="Dash Board" />
 		<put-attribute name="body" value="/pages/Dashboard.jsp" />
 	</definition>
+	
+	<definition name="Student" extends="MainLayout">
+		<put-attribute name="headTitle" value="Student Management" />
+		<put-attribute name="body" value="/Student.jsp" />
+	</definition>
 
 </tiles-definitions>

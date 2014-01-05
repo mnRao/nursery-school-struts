@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DUKE CORP</title>
-
+<%-- <title><s:text name="global.title"></s:text></title> --%>
+<title>Duke Corp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -13,7 +13,7 @@
 <link href="assets/css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="assets/style/style.css" rel="stylesheet">
 </head>
-<body>
+<body onload="setFocusToLoginTextBox()">
 	<div class="login-logo">
 		<img src="assets/images/logo.png" width="147" height="33">
 	</div>
@@ -21,13 +21,12 @@
 	<div class="widget">
 		<div class="login-content">
 			<div class="widget-content" style="padding-bottom: 0;">
-				<s:form action="login.action" method="post" cssClass="no-margin">
+				<s:form namespace="/" action="login" method="post" cssClass="no-margin">
 					<h3 class="form-title">
 						<s:text name="label.login" />
 					</h3>
 					<fieldset>
 						<div class="form-group no-margin">
-							<%-- 							<s:label key="label.username"></s:label> --%>
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i class="icon-user"></i>
 								</span>
@@ -37,7 +36,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<%-- 							<s:label key="label.password"></s:label> --%>
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i class="icon-lock"></i>
 								</span>
@@ -47,17 +45,17 @@
 							</div>
 						</div>
 					</fieldset>
+					<s:actionerror />
 					<div class="form-actions">
 						<label class="checkbox">
 							<div class="checker">
 								<span><input type="checkbox" value="1" name="remember"></span>
 							</div> <s:text name="label.rememberMe"></s:text>
 						</label>
-						<s:submit cssClass="btn btn-warning pull-right" method="execute"
+						<s:submit cssClass="btn btn-warning pull-right" 
 							key="label.login" align="center">
 							<i class="m-icon-swapright m-icon-white"></i>
 						</s:submit>
-						<s:actionerror cssClass="forgot" />
 					</div>
 				</s:form>
 
@@ -78,6 +76,7 @@
 							style="display: inline-block" />
 					</s:a>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -85,57 +84,7 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="assets/js/jquery.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
-
-	<!--switcher html start-->
-	<div class="demo_changer active" style="right: 0px;">
-		<div class="demo-icon"></div>
-		<div class="form_holder">
-			<div class="predefined_styles">
-				<a class="styleswitch" rel="a" href="#"><img alt=""
-					src="assets/images/a.jpg"></a> <a class="styleswitch" rel="b"
-					href="#"><img alt="" src="assets/images/b.jpg"></a> <a
-					class="styleswitch" rel="c" href="#"><img alt=""
-					src="assets/images/c.jpg"></a> <a class="styleswitch" rel="d"
-					href="#"><img alt="" src="assets/images/d.jpg"></a> <a
-					class="styleswitch" rel="e" href="#"><img alt=""
-					src="assets/images/e.jpg"></a> <a class="styleswitch" rel="f"
-					href="#"><img alt="" src="assets/images/f.jpg"></a> <a
-					class="styleswitch" rel="g" href="#"><img alt=""
-					src="assets/images/g.jpg"></a> <a class="styleswitch" rel="h"
-					href="#"><img alt="" src="assets/images/h.jpg"></a> <a
-					class="styleswitch" rel="i" href="#"><img alt=""
-					src="assets/images/i.jpg"></a> <a class="styleswitch" rel="j"
-					href="#"><img alt="" src="assets/images/j.jpg"></a>
-			</div>
-		</div>
-	</div>
-
-	<!--switcher html end-->
-	<script src="assets/switcher/switcher.js"></script>
-	<script src="assets/switcher/moderziner.custom.js"></script>
-	<link href="assets/switcher/switcher.css" rel="stylesheet">
-	<link href="assets/switcher/switcher-defult.css" rel="stylesheet">
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/a.css" title="a" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/b.css" title="b" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/c.css" title="c" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/d.css" title="d" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/e.css" title="e" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/f.css" title="f" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/g.css" title="g" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/h.css" title="h" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/i.css" title="i" media="all" />
-	<link rel="alternate stylesheet" type="text/css"
-		href="assets/switcher/j.css" title="j" media="all" />
-
+	<script src="assets/js/app.js"></script>
 </body>
 </html>
 
