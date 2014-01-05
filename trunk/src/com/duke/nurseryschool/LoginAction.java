@@ -8,13 +8,17 @@ public class LoginAction extends ActionSupport {
 	private String password;
 
 	public String authenticate() {
-		if (username.equals("admin") && password.equals("admin")) {
+		if ("admin".equals(username) && "admin".equals(password)) {
 			return Constant.RESPONSE_SUCCESS;
 		}
 		else {
 			addActionError(getText("error.login"));
 			return Constant.RESPONSE_ERROR;
 		}
+	}
+
+	public String dashboard() {
+		return Constant.RESPONSE_SUCCESS;
 	}
 
 	public String getUsername() {

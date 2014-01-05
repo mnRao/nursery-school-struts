@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="global" />
 
@@ -15,13 +15,11 @@
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+		<!-- Locale -->
 		<action name="locale" method="execute"
 			class="com.duke.nurseryschool.core.LocaleAction">
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
-			<!-- <interceptor-ref name="defaultStack"> -->
-			<!-- <param name="i18n.parameterName">request_locale</param> -->
-			<!-- </interceptor-ref> -->
 			<result name="success">Login.jsp</result>
 		</action>
 
@@ -33,8 +31,28 @@
 		<action name="login" method="authenticate"
 			class="com.duke.nurseryschool.LoginAction">
 			<result name="success" type="tiles">Dashboard</result>
-			<!-- <result name="success">Welcome.jsp</result> -->
 			<result name="error">Login.jsp</result>
+		</action>
+		<action name="dashboard" method="dashboard"
+			class="com.duke.nurseryschool.LoginAction">
+			<result name="success" type="tiles">Dashboard</result>
+		</action>
+	</package>
+
+	<package name="apphibernate" extends="hibernate-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<!-- Student -->
+		<action name="addStudent" method="execute"
+			class="com.duke.nurseryschool.StudentAction">
+			<result name="success" type="redirect">listStudents</result>
+		</action>
+		<action name="listStudents" method="listStudents"
+			class="com.duke.nurseryschool.StudentAction">
+			<result name="success" type="tiles">Student</result>
+			<!-- <result name="success">Student.jsp</result> -->
 		</action>
 	</package>
 

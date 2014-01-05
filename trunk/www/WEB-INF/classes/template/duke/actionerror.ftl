@@ -23,32 +23,42 @@
 
 
 <#if (actionErrors?? && actionErrors?size > 0)>
-	<ul<#rt/>
-<#if parameters.id?if_exists != "">
- id="${parameters.id?html}"<#rt/>
-</#if>            
-<#if parameters.cssClass??>
- class="${parameters.cssClass?html}"<#rt/>
-<#else>
- class="errorMessage"<#rt/>
-</#if>
-<#if parameters.cssStyle??>
- style="${parameters.cssStyle?html}"<#rt/>
-</#if>
->
-		<div class="forgot">
-			<div class="alert alert-block alert-danger fade in">
-				<button type="button" class="close close-sm"
-					data-dismiss="alert">
-					<i class="icon-remove"></i>
-				</button>
+		<div class="alert alert-block alert-danger fade in">
+			<button type="button" class="close close-sm" data-dismiss="alert">
+				<i class="icon-remove"></i>
+			</button>
+			
+			<#if (actionErrors?size > 1)>
+				<ul<#rt/>
+				<#if parameters.id?if_exists != "">
+				 id="${parameters.id?html}"<#rt/>
+				</#if>            
+				<#if parameters.cssClass??>
+				 class="${parameters.cssClass?html}"<#rt/>
+				<#else>
+				 class="errorMessage"<#rt/>
+				</#if>
+				<#if parameters.cssStyle??>
+				 style="${parameters.cssStyle?html}"<#rt/>
+				</#if>
+				>
+			</#if>
+		
 				<#list actionErrors as error>
 					<#if error?if_exists != "">
-			            <span><#if parameters.escape>${error!?html}<#else>${error!}</#if></span><#rt/><#rt/>
+						
+						<#if (actionErrors?size > 1)><li></#if>
+		            		<#if parameters.escape>${error!?html}<#else>${error!}</#if>
+		            	<#if (actionErrors?size > 1)></li></#if>
+		            	
+		            	<#rt/>
+		            	<#rt/>
 			        </#if>
 				</#list>
-			</div>
+			
+			<#if (actionErrors?size > 1)>
+				</ul>
+			</#if>
 		</div>
-	</ul>
 </#if>
 

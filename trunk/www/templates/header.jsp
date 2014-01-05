@@ -1,11 +1,15 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+
 <div class="top-navbar header b-b">
 	<a data-original-title="Toggle navigation"
 		class="toggle-side-nav pull-left" href="#"><i class="icon-reorder"></i>
 	</a>
 	<div class="brand pull-left">
-		<a href="index.html"><img src="assets/images/logo.png" width="147"
-			height="33"></a>
+		<s:url id="homeUrl" namespace="/" action="dashboard" />
+		<s:a href="%{homeUrl}">
+			<img src="assets/images/logo.png" width="147" height="33">
+		</s:a>
 	</div>
 	<ul class="nav navbar-nav navbar-right  hidden-xs">
 		<li class="dropdown"><a data-toggle="dropdown"
