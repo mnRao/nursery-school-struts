@@ -32,6 +32,7 @@
 			class="com.duke.nurseryschool.LoginAction">
 			<result name="success" type="tiles">Dashboard</result>
 			<result name="error">Login.jsp</result>
+			<result name="input">Login.jsp</result>
 		</action>
 		<action name="dashboard" method="dashboard"
 			class="com.duke.nurseryschool.LoginAction">

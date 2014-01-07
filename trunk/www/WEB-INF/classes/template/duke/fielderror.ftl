@@ -20,7 +20,13 @@
  * under the License.
  */
 -->
-<#if fieldErrors??><#t/>
+<#--<#if fieldErrors??><#t/>-->
+<#if (fieldErrors?? && fieldErrors?size > 0)><#t/>
+	<div class="alert alert-block alert-danger fade in">
+		<button type="button" class="close close-sm" data-dismiss="alert">
+			<i class="icon-remove"></i>
+		</button>
+
     <#assign eKeys = fieldErrors.keySet()><#t/>
     <#assign eKeysSize = eKeys.size()><#t/>
     <#assign doneStartUlTag=false><#t/>
@@ -79,4 +85,6 @@
         </ul>
         </#if><#t/>
     </#if><#t/>
+    
+    </div>
 </#if><#t/>

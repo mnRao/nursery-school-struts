@@ -1,8 +1,8 @@
 package com.duke.nurseryschool;
 
-import com.opensymphony.xwork2.ActionSupport;
+import com.duke.nurseryschool.core.CoreAction;
 
-public class MenuAction extends ActionSupport {
+public class MenuAction extends CoreAction {
 	public String tiger() {
 		return "tiger";
 	}

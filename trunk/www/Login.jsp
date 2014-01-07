@@ -45,6 +45,7 @@
 							</div>
 						</div>
 					</fieldset>
+					<s:fielderror />
 					<s:actionerror />
 					<div class="form-actions">
 						<label class="checkbox">
