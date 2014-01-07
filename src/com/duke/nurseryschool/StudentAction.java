@@ -3,16 +3,13 @@ package com.duke.nurseryschool;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-
+import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.Student;
 import com.duke.nurseryschool.hibernate.StudentDAO;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class StudentAction extends ActionSupport implements
-		ModelDriven<Student> {
+public class StudentAction extends CoreAction implements ModelDriven<Student> {
 
 	Student student = new Student();
 	List<Student> students = new ArrayList<Student>();

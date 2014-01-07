@@ -23,42 +23,42 @@
 
 
 <#if (actionErrors?? && actionErrors?size > 0)>
-		<div class="alert alert-block alert-danger fade in">
-			<button type="button" class="close close-sm" data-dismiss="alert">
-				<i class="icon-remove"></i>
-			</button>
-			
-			<#if (actionErrors?size > 1)>
-				<ul<#rt/>
-				<#if parameters.id?if_exists != "">
-				 id="${parameters.id?html}"<#rt/>
-				</#if>            
-				<#if parameters.cssClass??>
-				 class="${parameters.cssClass?html}"<#rt/>
-				<#else>
-				 class="errorMessage"<#rt/>
-				</#if>
-				<#if parameters.cssStyle??>
-				 style="${parameters.cssStyle?html}"<#rt/>
-				</#if>
-				>
-			</#if>
+	<div class="alert alert-block alert-danger fade in">
+		<button type="button" class="close close-sm" data-dismiss="alert">
+			<i class="icon-remove"></i>
+		</button>
 		
-				<#list actionErrors as error>
-					<#if error?if_exists != "">
-						
-						<#if (actionErrors?size > 1)><li></#if>
-		            		<#if parameters.escape>${error!?html}<#else>${error!}</#if>
-		            	<#if (actionErrors?size > 1)></li></#if>
-		            	
-		            	<#rt/>
-		            	<#rt/>
-			        </#if>
-				</#list>
-			
-			<#if (actionErrors?size > 1)>
-				</ul>
+		<#if (actionErrors?size > 1)>
+			<ul<#rt/>
+			<#if parameters.id?if_exists != "">
+			 id="${parameters.id?html}"<#rt/>
+			</#if>            
+			<#if parameters.cssClass??>
+			 class="${parameters.cssClass?html}"<#rt/>
+			<#else>
+			 class="errorMessage"<#rt/>
 			</#if>
-		</div>
+			<#if parameters.cssStyle??>
+			 style="${parameters.cssStyle?html}"<#rt/>
+			</#if>
+			>
+		</#if>
+	
+			<#list actionErrors as error>
+				<#if error?if_exists != "">
+					
+					<#if (actionErrors?size > 1)><li></#if>
+	            		<#if parameters.escape>${error!?html}<#else>${error!}</#if>
+	            	<#if (actionErrors?size > 1)></li></#if>
+	            	
+	            	<#rt/>
+	            	<#rt/>
+		        </#if>
+			</#list>
+		
+		<#if (actionErrors?size > 1)>
+			</ul>
+		</#if>
+	</div>
 </#if>
 
