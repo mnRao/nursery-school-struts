@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 
 @Entity
 @Table
@@ -19,6 +22,7 @@ public class Student {
 	@Column(name = "gender")
 	private int gender;
 	@Column(name = "address")
+	// @NotNull
 	private String address;
 	@Column(name = "homePhone")
 	private String homePhone;

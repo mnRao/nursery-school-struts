@@ -49,10 +49,12 @@
 		<action name="addStudent" method="execute"
 			class="com.duke.nurseryschool.StudentAction">
 			<result name="success" type="redirect">listStudents</result>
+			<result name="input" type="redirect">listStudents</result>
 		</action>
 		<action name="listStudents" method="listStudents"
 			class="com.duke.nurseryschool.StudentAction">
 			<result name="success" type="tiles">Student</result>
+			<result name="input" type="tiles">Student</result>
 			<!-- <result name="success">Student.jsp</result> -->
 		</action>
 	</package>

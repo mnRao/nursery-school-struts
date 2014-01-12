@@ -2,6 +2,15 @@
 	background-color: #FFFFFF;
 }
 
-.footer{
-	text-align:center;
+.footer {
+	text-align: center;
 }
+
+/* Fix top navigation bar */
+/* .top-navbar { */
+/* 	position: fixed; */
+/* } */
+
+/* .wrapper { */
+/* 	margin-top: 70px; */
+/* } */
