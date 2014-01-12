@@ -5,6 +5,7 @@ public final class Constant {
 
 	public static final String RESPONSE_SUCCESS = "success";
 	public static final String RESPONSE_ERROR = "error";
+	public static final String RESPONSE_INPUT = "input";
 
 	public static final class TAG {
 		public static final String LOGIN_USERNAME = "username";

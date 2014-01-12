@@ -2,6 +2,12 @@ package com.duke.nurseryschool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
@@ -18,6 +24,19 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 	@Override
 	public Student getModel() {
 		return student;
+	}
+
+	@Override
+	public void validate() {
+		ValidatorFactory vFactory = Validation.buildDefaultValidatorFactory();
+		Validator validator = vFactory.getValidator();
+		Set<ConstraintViolation<Student>> constraintViolations = validator
+				.validate(student);
+		for (ConstraintViolation<Student> violation : constraintViolations) {
+			addActionError(violation.getMessage());
+		}
+
+		super.validate();
 	}
 
 	@Override

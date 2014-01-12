@@ -6,7 +6,7 @@
 		class="toggle-side-nav pull-left" href="#"><i class="icon-reorder"></i>
 	</a>
 	<div class="brand pull-left">
-		<s:url id="homeUrl" namespace="/" action="dashboard" />
+		<s:url id="homeUrl" namespace="/" action="login" />
 		<s:a href="%{homeUrl}">
 			<img src="assets/images/logo.png" width="147" height="33">
 		</s:a>

@@ -1,5 +1,7 @@
 package com.duke.nurseryschool;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 
@@ -9,11 +11,11 @@ public class LoginAction extends CoreAction {
 
 	public String authenticate() {
 		if ("admin".equals(username) && "admin".equals(password)) {
-			return Constant.RESPONSE_SUCCESS;
+			return SUCCESS;
 		}
 		else {
 			addActionError(getText("error.login"));
-			return Constant.RESPONSE_ERROR;
+			return ERROR;
 		}
 	}
 
@@ -27,11 +29,21 @@ public class LoginAction extends CoreAction {
 			addFieldError(Constant.TAG.LOGIN_PASSWORD,
 					getText(Constant.I18N.ERROR_LOGIN_PASSWORD));
 		}
+		logger.info("Info Validating");
+
 		super.validate();
 	}
 
+	// @Override
+	// @SkipValidation
+	// public String input() {
+	// return INPUTc String input() {
+	// return INPUT;
+	// };
+	// }
+
 	public String dashboard() {
-		return Constant.RESPONSE_SUCCESS;
+		return SUCCESS;
 	}
 
 	public String getUsername() {

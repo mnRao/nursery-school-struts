@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -33,6 +33,12 @@
 		</div>
 		<div class="page-content">
 			<div class="content container">
+				<s:if test="hasActionErrors()">
+					<s:actionerror />
+				</s:if>
+				<s:if test="hasActionMessages()">
+					<s:actionmessage />
+				</s:if>
 				<div class="row">
 					<div class="col-lg-12">
 						<h2 class="page-title">
@@ -62,7 +68,7 @@
 	<script src="assets/sparkline/easy-pie-chart.js"></script>
 
 	<!--switcher html start-->
-	<div class="demo_changer active" style="right: 0px;">
+	<div class="demo_changer" style="right: -145px;">
 		<div class="demo-icon"></div>
 		<div class="form_holder">
 			<div class="predefined_styles">
