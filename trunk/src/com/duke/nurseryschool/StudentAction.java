@@ -11,15 +11,18 @@ import javax.validation.ValidatorFactory;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.hibernate.Student;
-import com.duke.nurseryschool.hibernate.StudentDAO;
+import com.duke.nurseryschool.hibernate.bean.Student;
+import com.duke.nurseryschool.hibernate.dao.StudentDAO;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class StudentAction extends CoreAction implements ModelDriven<Student> {
 
-	Student student = new Student();
-	List<Student> students = new ArrayList<Student>();
-	StudentDAO dao = new StudentDAO();
+	private static final long serialVersionUID = -3023527426370035860L;
+
+	private Student student = new Student();
+	private List<Student> students = new ArrayList<Student>();
+	private final StudentDAO dao = new StudentDAO();
 
 	@Override
 	public Student getModel() {
@@ -42,12 +45,12 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 	@Override
 	public String execute() {
 		dao.addStudent(student);
-		return Constant.RESPONSE_SUCCESS;
+		return Action.SUCCESS;
 	}
 
 	public String listStudents() {
 		students = dao.getStudents();
-		return Constant.RESPONSE_SUCCESS;
+		return Action.SUCCESS;
 	}
 
 	public Student getStudent() {

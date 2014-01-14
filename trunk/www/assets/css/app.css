@@ -1,6 +1,9 @@
 .dropdown-menu {
 	background-color: #FFFFFF;
 }
+.dropdown-menu li{
+	background-color: #FFFFFF;
+}
 
 .footer {
 	text-align: center;
