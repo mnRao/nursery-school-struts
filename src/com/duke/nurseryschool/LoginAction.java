@@ -42,10 +42,6 @@ public class LoginAction extends CoreAction {
 	// };
 	// }
 
-	public String dashboard() {
-		return SUCCESS;
-	}
-
 	public String getUsername() {
 		return username;
 	}

@@ -33,5 +33,10 @@
 		<put-attribute name="headTitle" value="Student Management" />
 		<put-attribute name="body" value="/Student.jsp" />
 	</definition>
+	
+	<definition name="Month" extends="MainLayout">
+		<put-attribute name="headTitle" value="Month Management" />
+		<put-attribute name="body" value="/Month.jsp" />
+	</definition>
 
 </tiles-definitions>

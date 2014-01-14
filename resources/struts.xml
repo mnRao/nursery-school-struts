@@ -34,8 +34,8 @@
 			<result name="error">Login.jsp</result>
 			<result name="input">Login.jsp</result>
 		</action>
-		<action name="dashboard" method="dashboard"
-			class="com.duke.nurseryschool.LoginAction">
+		<action name="dashboard" method="execute"
+			class="com.duke.nurseryschool.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
 		</action>
 	</package>
@@ -56,6 +56,16 @@
 			<result name="success" type="tiles">Student</result>
 			<result name="input" type="tiles">Student</result>
 			<!-- <result name="success">Student.jsp</result> -->
+		</action>
+		<!-- Month -->
+		<action name="addMonth" method="execute" class="com.duke.nurseryschool.MonthAction">
+			<result name="success" type="redirect">listMonths</result>
+			<result name="input" type="redirect">listMonths</result>
+		</action>
+		<action name="listMonths" method="listMonths"
+			class="com.duke.nurseryschool.MonthAction">
+			<result name="success" type="tiles">Month</result>
+			<result name="input" type="tiles">Month</result>
 		</action>
 	</package>
 
