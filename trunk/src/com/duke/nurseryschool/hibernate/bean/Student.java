@@ -1,13 +1,22 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "student")
 public class Student {
 	@Id
 	@GeneratedValue
@@ -15,7 +24,7 @@ public class Student {
 	@Column(name = "name")
 	private String name;
 	@Column(name = "dateOfBirth")
-	private String dateOfBirth;
+	private Date dateOfBirth;
 	@Column(name = "gender")
 	private int gender;
 	@Column(name = "address")
@@ -26,12 +35,34 @@ public class Student {
 	private boolean isActive;
 	@Column(name = "description")
 	private String description;
-	@Column(name = "classId")
-	private int classId;
 
-	// public Student() {
-	//
-	// }
+	@ManyToOne
+	@JoinColumn(name = "classId")
+	private Classes associatedClass;
+
+	@ManyToMany(cascade = {
+		CascadeType.ALL
+	})
+	@JoinTable(name = "parent_student_map", joinColumns = {
+		@JoinColumn(name = "studentId")
+	}, inverseJoinColumns = {
+		@JoinColumn(name = "parentId")
+	})
+	private Set<Parent> parents = new HashSet<Parent>();
+
+	public Student() {
+	}
+
+	public Student(String name, Date dateOfBirth, int gender, String address,
+			String homePhone, boolean isActive, String description) {
+		this.name = name;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.address = address;
+		this.homePhone = homePhone;
+		this.isActive = isActive;
+		this.description = description;
+	}
 
 	public int getStudentId() {
 		return this.studentId;
@@ -49,11 +80,11 @@ public class Student {
 		this.name = name;
 	}
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return this.dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -97,12 +128,20 @@ public class Student {
 		this.description = description;
 	}
 
-	public int getClassId() {
-		return this.classId;
+	public Classes getAssociatedClass() {
+		return this.associatedClass;
 	}
 
-	public void setClassId(int classId) {
-		this.classId = classId;
+	public void setAssociatedClass(Classes associatedClass) {
+		this.associatedClass = associatedClass;
+	}
+
+	public Set<Parent> getParents() {
+		return this.parents;
+	}
+
+	public void setParents(Set<Parent> parents) {
+		this.parents = parents;
 	}
 
 }

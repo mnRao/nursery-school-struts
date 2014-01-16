@@ -15,6 +15,7 @@
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+
 		<!-- Locale -->
 		<action name="locale" method="execute"
 			class="com.duke.nurseryschool.core.LocaleAction">
@@ -45,6 +46,7 @@
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+
 		<!-- Student -->
 		<action name="addStudent" method="execute"
 			class="com.duke.nurseryschool.StudentAction">
@@ -58,7 +60,8 @@
 			<!-- <result name="success">Student.jsp</result> -->
 		</action>
 		<!-- Month -->
-		<action name="addMonth" method="execute" class="com.duke.nurseryschool.MonthAction">
+		<action name="addMonth" method="execute"
+			class="com.duke.nurseryschool.MonthAction">
 			<result name="success" type="redirect">listMonths</result>
 			<result name="input" type="redirect">listMonths</result>
 		</action>

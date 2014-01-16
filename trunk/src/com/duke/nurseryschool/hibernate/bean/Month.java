@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "month")
 public class Month {
 	@Id
 	@GeneratedValue
@@ -18,7 +18,7 @@ public class Month {
 	private int year;
 
 	public int getMonthId() {
-		return monthId;
+		return this.monthId;
 	}
 
 	public void setMonthId(int monthId) {
@@ -26,7 +26,7 @@ public class Month {
 	}
 
 	public int getMonth() {
-		return month;
+		return this.month;
 	}
 
 	public void setMonth(int month) {
@@ -34,7 +34,7 @@ public class Month {
 	}
 
 	public int getYear() {
-		return year;
+		return this.year;
 	}
 
 	public void setYear(int year) {
