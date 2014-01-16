@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <title><s:text name="global.title"></s:text></title> --%>
 <title>Duke Corp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -23,14 +22,14 @@
 			<div class="col-md-7">
 				<div class="description">
 					<h3>Oops! You're lost.</h3>
-					<p>
-						We can not find the page you're looking for.
-					</p>
+					<p>We can not find the page you're looking for.</p>
+					<div class="doc-buttons">
+						<a class="btn btn-s-md btn-primary btn-rounded"  onclick="history.back()">Back</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="assets/js/jquery.js"></script>

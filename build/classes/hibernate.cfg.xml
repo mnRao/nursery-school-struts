@@ -19,7 +19,11 @@
 			org.hibernate.dialect.MySQLDialect
 		</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
+		
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Student" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Month" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Parent" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Course" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Classes" />
 	</session-factory>
 </hibernate-configuration> 
