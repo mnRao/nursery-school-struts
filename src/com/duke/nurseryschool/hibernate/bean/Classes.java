@@ -26,6 +26,9 @@ public class Classes {
 	@OneToMany(mappedBy = "associatedClass")
 	private Set<Student> students;
 
+	@OneToMany(mappedBy = "classMonth.associatedClass")
+	private Set<FeePolicy> feePolicies;
+
 	public Classes() {
 
 	}
@@ -56,6 +59,22 @@ public class Classes {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Set<Student> getStudents() {
+		return this.students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
+
+	public Set<FeePolicy> getFeePolicies() {
+		return this.feePolicies;
+	}
+
+	public void setFeePolicies(Set<FeePolicy> feePolicies) {
+		this.feePolicies = feePolicies;
 	}
 
 }
