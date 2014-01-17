@@ -9,7 +9,7 @@
 	<constant name="struts.custom.i18n.resources" value="global" />
 
 	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
-
+	
 	<package name="default" extends="struts-default" namespace="/">
 		<result-types>
 			<result-type name="tiles"
@@ -21,19 +21,14 @@
 			class="com.duke.nurseryschool.core.LocaleAction">
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
-			<result name="success">Login.jsp</result>
-		</action>
-
-		<action name="*Menu" method="{1}" class="com.duke.nurseryschool.MenuAction">
-			<result name="tiger" type="tiles">tiger</result>
-			<result name="lion" type="tiles">lion</result>
+			<result name="success" type="tiles">Login</result>
 		</action>
 
 		<action name="login" method="authenticate"
 			class="com.duke.nurseryschool.LoginAction">
 			<result name="success" type="tiles">Dashboard</result>
-			<result name="error">Login.jsp</result>
-			<result name="input">Login.jsp</result>
+			<result name="error" type="tiles">Login</result>
+			<result name="input" type="tiles">Login</result>
 		</action>
 		<action name="dashboard" method="execute"
 			class="com.duke.nurseryschool.DashboardAction">
