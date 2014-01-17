@@ -19,6 +19,7 @@ public final class Constant {
 	public static final class DATABASE_QUERY {
 		public static final String ALL_MONTHS = "from Month";
 		public static final String ALL_STUDENTS = "from Student";
+		public static final String ALL_SUBJECTS = "from Subject";
 	}
 
 	public static final class BUSINESS_LOGIC {

@@ -20,10 +20,17 @@
 		</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		
-		<mapping class="com.duke.nurseryschool.hibernate.bean.Student" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Classes" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Course" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.ExtraFeeMap" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.ExtraFeeType" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.FeeDetails" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.FeePolicy" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Month" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Parent" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.Course" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.Classes" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Payment" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Student" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Subject" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.SubjectFeeMap" />
 	</session-factory>
 </hibernate-configuration> 

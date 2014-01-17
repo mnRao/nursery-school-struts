@@ -3,13 +3,16 @@
 
 <div id="side-nav">
 	<ul id="nav">
-		<li class="current"><a href="<s:url action="dashboard"/>"> <i
-				class="icon-dashboard"></i> Dashboard
-		</a></li>
-		<li><a href='<s:url action="listStudents"/>'> <i
+		<li class="current"><a href="<s:url action="dashboard"/>"><i
+				class="icon-dashboard"></i> Dashboard </a></li>
+		<li><a href='<s:url action="listStudents"/>'><i
 				class="icon-user"></i> <s:text name="label.student" /></a></li>
 		<li><a href='<s:url action="listMonths"/>'> <i
-				class="icon-table"></i> <s:text name="label.month.month" /></a></li>
+				class="icon-table"></i>
+			<s:text name="label.month.month" /></a></li>
+		<li><a href='<s:url action="listSubject"/>'> <i
+				class="icon-table"></i>
+			<s:text name="label.subject" /></a></li>
 		<li><a href="#"> <i class="icon-desktop"></i> UI Features <span
 				class="label label-info pull-right">7</span> <i
 				class="arrow icon-angle-left"></i></a>

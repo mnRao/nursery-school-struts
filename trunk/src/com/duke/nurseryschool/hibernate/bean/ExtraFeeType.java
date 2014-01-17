@@ -1,5 +1,7 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +18,17 @@ public class ExtraFeeType {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "extraFeeType")
-	private ExtraFeeMap extraFeeMap;
+	@OneToMany(mappedBy = "feeDetailsExtraFee.extraFeeType")
+	private Set<ExtraFeeMap> extraFeeMaps;
 
 	public ExtraFeeType() {
 	}
 
-	public ExtraFeeType(int extraFeeTypeId, String name, ExtraFeeMap extraFeeMap) {
-		super();
+	public ExtraFeeType(int extraFeeTypeId, String name,
+			Set<ExtraFeeMap> extraFeeMaps) {
 		this.extraFeeTypeId = extraFeeTypeId;
 		this.name = name;
-		this.extraFeeMap = extraFeeMap;
+		this.extraFeeMaps = extraFeeMaps;
 	}
 
 	public int getExtraFeeTypeId() {
@@ -45,12 +47,12 @@ public class ExtraFeeType {
 		this.name = name;
 	}
 
-	public ExtraFeeMap getExtraFeeMap() {
-		return this.extraFeeMap;
+	public Set<ExtraFeeMap> getExtraFeeMap() {
+		return this.extraFeeMaps;
 	}
 
-	public void setExtraFeeMap(ExtraFeeMap extraFeeMap) {
-		this.extraFeeMap = extraFeeMap;
+	public void setExtraFeeMap(Set<ExtraFeeMap> extraFeeMaps) {
+		this.extraFeeMaps = extraFeeMaps;
 	}
 
 }

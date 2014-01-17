@@ -1,10 +1,11 @@
 package com.duke.nurseryschool.hibernate.bean;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 
 @Entity
 @Table(name = "fee_policy")
@@ -16,13 +17,8 @@ public class FeePolicy {
 	@Column(name = "availableDays")
 	private int availableDays;
 
-	@ManyToOne
-	@JoinColumn(name = "classId")
-	private Classes associatedClass;
-
-	@ManyToOne
-	@JoinColumn(name = "monthId")
-	private Month month;
+	@EmbeddedId
+	private ClassMonth classMonth;
 
 	public FeePolicy() {
 	}
@@ -57,22 +53,6 @@ public class FeePolicy {
 
 	public void setAvailableDays(int availableDays) {
 		this.availableDays = availableDays;
-	}
-
-	public Classes getAssociatedClass() {
-		return this.associatedClass;
-	}
-
-	public void setAssociatedClass(Classes associatedClass) {
-		this.associatedClass = associatedClass;
-	}
-
-	public Month getMonth() {
-		return this.month;
-	}
-
-	public void setMonth(Month month) {
-		this.month = month;
 	}
 
 }

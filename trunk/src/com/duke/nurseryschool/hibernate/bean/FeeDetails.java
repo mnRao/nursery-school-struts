@@ -1,11 +1,14 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +30,12 @@ public class FeeDetails {
 	@ManyToOne
 	@JoinColumn(name = "monthId;")
 	private Month month;
+
+	@OneToMany(mappedBy = "studentFeeDetails.feeDetails")
+	private Set<Payment> payments;
+
+	@OneToMany(mappedBy = "feeDetailsExtraFee.feeDetails")
+	private Set<ExtraFeeMap> extraFeeMaps;
 
 	public FeeDetails() {
 	}
@@ -85,6 +94,22 @@ public class FeeDetails {
 
 	public void setMonth(Month month) {
 		this.month = month;
+	}
+
+	public Set<Payment> getPayments() {
+		return this.payments;
+	}
+
+	public void setPayments(Set<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public Set<ExtraFeeMap> getExtraFeeMaps() {
+		return this.extraFeeMaps;
+	}
+
+	public void setExtraFeeMaps(Set<ExtraFeeMap> extraFeeMaps) {
+		this.extraFeeMaps = extraFeeMaps;
 	}
 
 }

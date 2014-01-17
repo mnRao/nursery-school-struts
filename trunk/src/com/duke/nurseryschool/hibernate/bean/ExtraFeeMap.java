@@ -1,10 +1,14 @@
 package com.duke.nurseryschool.hibernate.bean;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.duke.nurseryschool.hibernate.bean.embedded.FeeDetailsExtraFee;
 
 @Entity
 @Table(name = "extra_fee_map")
@@ -12,23 +16,17 @@ public class ExtraFeeMap {
 	@Column(name = "amount")
 	private double amount;
 
-	@ManyToOne
-	@JoinColumn(name = "feeDetailsId")
-	private FeeDetails feeDetails;
-
-	@ManyToOne
-	@JoinColumn(name = "extraFeeTypeId")
-	private ExtraFeeType extraFeeType;
+	@EmbeddedId
+	private FeeDetailsExtraFee feeDetailsExtraFee;
 
 	public ExtraFeeMap() {
 	}
 
 	public ExtraFeeMap(double amount, FeeDetails feeDetails,
 			ExtraFeeType extraFeeType) {
-		super();
 		this.amount = amount;
-		this.feeDetails = feeDetails;
-		this.extraFeeType = extraFeeType;
+		this.feeDetailsExtraFee = new FeeDetailsExtraFee(feeDetails,
+				extraFeeType);
 	}
 
 	public double getAmount() {
@@ -37,22 +35,6 @@ public class ExtraFeeMap {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
-	}
-
-	public FeeDetails getFeeDetails() {
-		return this.feeDetails;
-	}
-
-	public void setFeeDetails(FeeDetails feeDetails) {
-		this.feeDetails = feeDetails;
-	}
-
-	public ExtraFeeType getExtraFeeType() {
-		return this.extraFeeType;
-	}
-
-	public void setExtraFeeType(ExtraFeeType extraFeeType) {
-		this.extraFeeType = extraFeeType;
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -49,6 +50,9 @@ public class Student {
 		@JoinColumn(name = "parentId")
 	})
 	private Set<Parent> parents = new HashSet<Parent>();
+
+	@OneToMany(mappedBy = "studentFeeDetails.student")
+	private Set<Payment> payments;
 
 	public Student() {
 	}
@@ -142,6 +146,14 @@ public class Student {
 
 	public void setParents(Set<Parent> parents) {
 		this.parents = parents;
+	}
+
+	public Set<Payment> getPayments() {
+		return this.payments;
+	}
+
+	public void setPayments(Set<Payment> payments) {
+		this.payments = payments;
 	}
 
 }

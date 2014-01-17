@@ -1,5 +1,7 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +18,16 @@ public class Subject {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "subject")
-	private SubjectFeeMap subjectFeeMap;
+	@OneToMany(mappedBy = "subjectFee.subject")
+	private Set<SubjectFeeMap> subjectFeeMaps;
 
 	public Subject() {
 	}
 
-	public Subject(int subjectId, String name, SubjectFeeMap subjectFeeMap) {
-		super();
+	public Subject(int subjectId, String name, Set<SubjectFeeMap> subjectFeeMaps) {
 		this.subjectId = subjectId;
 		this.name = name;
-		this.subjectFeeMap = subjectFeeMap;
+		this.subjectFeeMaps = subjectFeeMaps;
 	}
 
 	public int getSubjectId() {
@@ -45,12 +46,20 @@ public class Subject {
 		this.name = name;
 	}
 
-	public SubjectFeeMap getSubjectFeeMap() {
-		return this.subjectFeeMap;
+	public Set<SubjectFeeMap> getSubjectFeeMap() {
+		return this.subjectFeeMaps;
 	}
 
-	public void setSubjectFeeMap(SubjectFeeMap subjectFeeMap) {
-		this.subjectFeeMap = subjectFeeMap;
+	public void setSubjectFeeMap(Set<SubjectFeeMap> subjectFeeMaps) {
+		this.subjectFeeMaps = subjectFeeMaps;
+	}
+
+	public Set<SubjectFeeMap> getSubjectFeeMaps() {
+		return this.subjectFeeMaps;
+	}
+
+	public void setSubjectFeeMaps(Set<SubjectFeeMap> subjectFeeMaps) {
+		this.subjectFeeMaps = subjectFeeMaps;
 	}
 
 }

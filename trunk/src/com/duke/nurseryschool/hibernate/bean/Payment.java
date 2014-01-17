@@ -1,10 +1,14 @@
 package com.duke.nurseryschool.hibernate.bean;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.duke.nurseryschool.hibernate.bean.embedded.StudentFeeDetails;
 
 @Entity
 @Table(name = "payment")
@@ -22,13 +26,8 @@ public class Payment {
 	@Column(name = "note")
 	private String note;
 
-	@ManyToOne
-	@JoinColumn(name = "studentId")
-	private Student student;
-
-	@ManyToOne
-	@JoinColumn(name = "feeDetailsId")
-	private FeeDetails feeDetails;
+	@EmbeddedId
+	private StudentFeeDetails studentFeeDetails;
 
 	public Payment() {
 	}
@@ -43,8 +42,7 @@ public class Payment {
 		this.totalFee = totalFee;
 		this.isPaid = isPaid;
 		this.note = note;
-		this.student = student;
-		this.feeDetails = feeDetails;
+		this.studentFeeDetails = new StudentFeeDetails(student, feeDetails);
 	}
 
 	public int getAbsenseCount() {
@@ -93,22 +91,6 @@ public class Payment {
 
 	public void setNote(String note) {
 		this.note = note;
-	}
-
-	public Student getStudent() {
-		return this.student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
-	public FeeDetails getFeeDetails() {
-		return this.feeDetails;
-	}
-
-	public void setFeeDetails(FeeDetails feeDetails) {
-		this.feeDetails = feeDetails;
 	}
 
 }
