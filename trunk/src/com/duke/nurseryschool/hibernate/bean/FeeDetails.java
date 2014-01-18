@@ -28,7 +28,7 @@ public class FeeDetails {
 	@JoinColumn(name = "classId")
 	private Classes associatedClass;
 	@ManyToOne
-	@JoinColumn(name = "monthId;")
+	@JoinColumn(name = "monthId")
 	private Month month;
 
 	@OneToMany(mappedBy = "studentFeeDetails.feeDetails")

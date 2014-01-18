@@ -70,16 +70,6 @@
 			<result name="success" type="tiles">Subject</result>
 		</action>
 		
-<!-- 		<action name="addMonth" method="execute" -->
-<!-- 			class="com.duke.nurseryschool.MonthAction"> -->
-<!-- 			<result name="success" type="redirect">listMonths</result> -->
-<!-- 			<result name="input" type="redirect">listMonths</result> -->
-<!-- 		</action> -->
-<!-- 		<action name="listMonths" method="listMonths" -->
-<!-- 			class="com.duke.nurseryschool.MonthAction"> -->
-<!-- 			<result name="success" type="tiles">Month</result> -->
-<!-- 			<result name="input" type="tiles">Month</result> -->
-<!-- 		</action> -->
 	</package>
 
 </struts>
