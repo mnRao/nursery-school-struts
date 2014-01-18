@@ -14,10 +14,14 @@ public final class Constant {
 	public static final class I18N {
 		public static final String ERROR_LOGIN_USERNAME = "error.login.username";
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
+
+		public static final String SUCCESS_MODEL_CREATE = "success.model.create";
 	}
 
 	public static final class DATABASE_QUERY {
 		public static final String ALL_MONTHS = "from Month";
+		public static final String ALL_CLASSES = "from Classes";
+		public static final String ALL_COURSES = "from Course";
 		public static final String ALL_STUDENTS = "from Student";
 		public static final String ALL_SUBJECTS = "from Subject";
 	}

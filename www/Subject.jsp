@@ -10,8 +10,10 @@
 			</div>
 			<div class="widget-content">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="active"><a data-toggle="tab" href="#firstTab"><s:text name="tab.label.first"/></a></li>
-					<li class=""><a data-toggle="tab" href="#secondTab"><s:text name="tab.label.second"/></a></li>
+					<li class="active"><a data-toggle="tab" href="#firstTab"><s:text
+								name="tab.label.first" /></a></li>
+					<li class=""><a data-toggle="tab" href="#secondTab"><s:text
+								name="tab.label.second" /></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div id="firstTab" class="tab-pane fade active in">
@@ -50,14 +52,16 @@
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="months">
+								<s:iterator value="subjects">
 									<tr>
 										<td><s:property value="subjectId" /></td>
 										<td><s:property value="name" /></td>
-										<td class="hidden-xs"><button
-												class="btn btn-sm btn-primary">Edit</button>
-											<button data-toggle="button" class="btn btn-sm btn-warning">
-												Delete</button></td>
+										<td class="hidden-xs">
+											<button class="btn btn-sm btn-primary">Edit</button> <s:url
+												id="deleteUrl" action="deleteSubject">
+												<s:param name="subjectId" value="%{subjectId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+										</td>
 									</tr>
 								</s:iterator>
 							</tbody>

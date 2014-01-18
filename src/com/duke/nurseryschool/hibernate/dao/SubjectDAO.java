@@ -32,7 +32,36 @@ public class SubjectDAO {
 		return subjects;
 	}
 
-	public void addSubject(Subject subject) {
-		this.session.save(subject);
+	public Subject getSubject(int subjectId) {
+		Subject subject = null;
+		try {
+			subject = (Subject) this.session.get(Subject.class, subjectId);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return subject;
+	}
+
+	public void saveOrUpdateSubject(Subject subject) {
+		try {
+			this.session.saveOrUpdate(subject);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteSubject(int subjectId) {
+		try {
+			Subject subject = (Subject) this.session.get(Subject.class,
+					subjectId);
+			this.session.delete(subject);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
 	}
 }

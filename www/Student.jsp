@@ -130,7 +130,8 @@
 										<td><s:property value="homePhone" /></td>
 										<td><s:property value="isActive" /></td>
 										<td><s:property value="classId" /></td>
-										<td class="hidden-xs"><button
+										<td class="hidden-xs">
+										<button
 												class="btn btn-sm btn-primary">Edit</button>
 											<button data-toggle="button" class="btn btn-sm btn-warning">
 												Delete</button></td>

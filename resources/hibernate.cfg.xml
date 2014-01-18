@@ -9,7 +9,8 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="hibernate.connection.url">
-			jdbc:mysql://localhost/nursery_school
+			jdbc:mysql://localhost/nursery_school?UseUnicode=true&amp;characterEncoding=utf8
+<!-- 			jdbc:mysql://localhost/nursery_school -->
 		</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password"></property>
