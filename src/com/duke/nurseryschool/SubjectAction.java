@@ -8,6 +8,7 @@ import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Subject;
 import com.duke.nurseryschool.hibernate.dao.SubjectDAO;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class SubjectAction extends CoreAction implements ModelDriven<Subject> {
@@ -23,13 +24,12 @@ public class SubjectAction extends CoreAction implements ModelDriven<Subject> {
 		return this.subject;
 	}
 
-	// /////////////////////////////////
-
-	public String add() {
+	public String saveOrUpdate() {
 		this.dao.saveOrUpdateSubject(this.subject);
 		this.addActionMessage(this.getText(Constant.I18N.SUCCESS_MODEL_CREATE));
 
-		return this.list();
+		// Redirect to list action
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	public String list() {
@@ -40,7 +40,16 @@ public class SubjectAction extends CoreAction implements ModelDriven<Subject> {
 	public String delete() {
 		this.dao.deleteSubject(Integer.parseInt(this.request
 				.getParameter("subjectId")));
-		return this.list();
+		// Redirect to list action
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	public String edit() {
+		this.subject = this.dao.getSubject(Integer.parseInt(this.request
+				.getParameter("subjectId")));
+		// Load all
+		this.subjects = this.dao.getSubjects();
+		return Action.SUCCESS;
 	}
 
 	public List<Subject> getSubjects() {

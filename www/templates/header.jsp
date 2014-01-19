@@ -110,19 +110,32 @@
 				</a></li>
 				<li class="footer"><a href="#">View all messages</a></li>
 			</ul></li>
+
+		<!-- 	Localization -->
+		<s:url id="localeEN" namespace="/" action="locale">
+			<s:param name="request_locale">en</s:param>
+		</s:url>
+		<s:url id="localeVI" namespace="/" action="locale">
+			<s:param name="request_locale">vi_VN</s:param>
+		</s:url>
 		<li class="dropdown user  hidden-xs"><a data-toggle="dropdown"
-			class="dropdown-toggle" href="#"> <i class="icon-male"></i> <span
-				class="username">John Doe</span> <i class="icon-caret-down small"></i>
+			class="dropdown-toggle" href="#"> <i class="icon-bookmark-empty"></i>
+				<span class="username"><s:text name="ui.header.language"/></span> <i
+				class="icon-caret-down small"></i>
 		</a>
 			<ul class="dropdown-menu">
-				<li><a href="user_profile.html"><i class="icon-user"></i>
-						My Profile</a></li>
-				<li><a href="fullCalendar.html"><i class="icon-calendar"></i>
-						My Calendar</a></li>
-				<li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
-				<li class="divider"></li>
-				<li><a href="<s:url action="login" />"><i class="icon-key"></i> Log Out</a></li>
+				<li><s:a href="%{localeEN}">
+						<img src="assets/app/English.png" height="24"
+							style="display: inline-block" /> <s:text name="ui.header.language.english"/>
+					</s:a></li>
+				<li><s:a href="%{localeVI}">
+						<img src="assets/app/Vietnamese.png" height="24"
+							style="display: inline-block" /> <s:text name="ui.header.language.vietnamese"/>
+					</s:a></li>
 			</ul></li>
+		<!-- 		Logout -->
+		<li class="dropdown user  hidden-xs"><a
+			href="<s:url action="login" />"><i class="icon-signout"></i> <s:text name="ui.header.logout"/></a></li>
 	</ul>
 	<form class="pull-right">
 		<input type="search" placeholder="Search..." class="search"

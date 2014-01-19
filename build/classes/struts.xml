@@ -66,10 +66,12 @@
 			<result name="input" type="tiles">Month</result>
 		</action>
 		<!-- Subject -->
-		<action name="*Subject" method="{1}" class="com.duke.nurseryschool.SubjectAction">
+		<action name="*Subject" method="{1}"
+			class="com.duke.nurseryschool.SubjectAction">
 			<result name="success" type="tiles">Subject</result>
+			<result name="successRedirect" type="redirect">listSubject</result>
 		</action>
-		
+
 	</package>
 
 </struts>

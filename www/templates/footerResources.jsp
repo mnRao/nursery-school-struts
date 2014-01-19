@@ -11,7 +11,21 @@
 	type="text/javascript"></script>
 <script src="assets/sparkline/jquery.customSelect.min.js"></script>
 <script src="assets/sparkline/sparkline-chart.js"></script>
-<script src="assets/sparkline/easy-pie-chart.js"></script>
+<!-- <script src="assets/sparkline/easy-pie-chart.js"></script> -->
+<!-- Dynamic Table -->
+<script type="text/javascript" language="javascript"
+	src="assets/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('#dynamicTable').dataTable({
+			"sPaginationType" : "full_numbers",
+			aoColumnDefs : [ {
+				bSortable : false,
+				aTargets : [ -1 ]
+			} ]
+		});
+	});
+</script>
 
 <!--switcher html start-->
 <div class="demo_changer" style="right: -145px;">
