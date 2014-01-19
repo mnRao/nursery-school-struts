@@ -6,6 +6,7 @@
 <link href="assets/css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="assets/style/style.css" rel="stylesheet">
 <link href="assets/style/dashboard.css" rel="stylesheet">
+<link href="assets/css/dynamic_table.css" rel="stylesheet">
 <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css"
 	rel="stylesheet" type="text/css" media="screen" />
 <link href="assets/css/app.css" rel="stylesheet">

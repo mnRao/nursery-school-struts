@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Duke Corp</title>
+<title>404 Error</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen">

@@ -5,6 +5,7 @@
 
 <tiles-definitions>
 
+	<!-- Layouts -->
 	<definition name="MainLayout" template="/templates/MainLayout.jsp">
 		<put-attribute name="title" value="Duke Corp" />
 		<put-attribute name="headerResources" value="/templates/headerResources.jsp" />
@@ -15,14 +16,15 @@
 		<put-attribute name="footer" value="/templates/footer.jsp" />
 		<put-attribute name="footerResources" value="/templates/footerResources.jsp" />
 	</definition>
-	<definition name="LoginLayout" template="/templates/LoginLayout.jsp">
+	<definition name="BaseLayout" template="/templates/BaseLayout.jsp">
 		<put-attribute name="title" value="Duke Corp" />
 		<put-attribute name="headerResources" value="/templates/headerResources.jsp" />
 		<put-attribute name="body" value="/templates/body.jsp" />
 		<put-attribute name="footerResources" value="/templates/footerResources.jsp" />
 	</definition>
 
-	<definition name="Login" extends="LoginLayout">
+	<!-- Pages -->
+	<definition name="Login" extends="BaseLayout">
 		<put-attribute name="body" value="/Login.jsp" />
 	</definition>
 
