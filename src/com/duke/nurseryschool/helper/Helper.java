@@ -15,7 +15,7 @@ public class Helper {
 	 */
 	public static String getTabCss(int tabNumber, boolean isContent) {
 		String actionName = ActionContext.getContext().getName();
-		boolean isSpecialCase = actionName.equals("editSubject");
+		boolean isSpecialCase = actionName.contains("edit");
 		String cssClass = calculateTabCss(tabNumber, isSpecialCase, isContent);
 
 		return cssClass;

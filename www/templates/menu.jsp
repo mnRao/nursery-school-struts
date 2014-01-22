@@ -13,6 +13,23 @@
 		<li><a href='<s:url action="listSubject"/>'> <i
 				class="icon-table"></i>
 			<s:text name="label.subject" /></a></li>
+		<li><a href='<s:url action="listCourse"/>'> <i
+				class="icon-table"></i>
+			<s:text name="label.course" /></a></li>	
+		<li><a href='<s:url action="listClasses"/>'> <i
+				class="icon-table"></i>
+			<s:text name="label.classes" /></a></li>	
+		<li><a href='<s:url action="listParent"/>'> <i
+				class="icon-table"></i>
+			<s:text name="label.parent" /></a></li>	
+		<li><a href='<s:url action="listFeePolicy"/>'> <i
+			class="icon-table"></i>
+		<s:text name="label.feePolicy" /></a></li>	
+		<li><a href='<s:url action="listPayment"/>'> <i
+			class="icon-table"></i>
+		<s:text name="label.payment" /></a></li>	
+			
+			
 		<li><a href="#"> <i class="icon-desktop"></i> UI Features <span
 				class="label label-info pull-right">7</span> <i
 				class="arrow icon-angle-left"></i></a>

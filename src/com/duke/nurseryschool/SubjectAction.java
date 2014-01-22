@@ -26,7 +26,7 @@ public class SubjectAction extends CoreAction implements ModelDriven<Subject> {
 
 	public String saveOrUpdate() {
 		this.dao.saveOrUpdateSubject(this.subject);
-		this.addActionMessage(this.getText(Constant.I18N.SUCCESS_MODEL_CREATE));
+		this.addActionMessage(this.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
 
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;

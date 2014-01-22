@@ -23,7 +23,7 @@ public class MonthAction extends CoreAction implements ModelDriven<Month> {
 
 	@Override
 	public String execute() {
-		this.dao.addMonth(this.month);
+		this.dao.saveOrUpdateMonth(this.month);
 		return Action.SUCCESS;
 	}
 

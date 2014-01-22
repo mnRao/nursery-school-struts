@@ -26,24 +26,26 @@
 							id="dynamicTable">
 							<thead>
 								<tr>
-									<th><s:text name="label.subject.subjectId" /></th>
-									<th><s:text name="label.subject.name" /></th>
+									<th><s:text name="label.course.courseId" /></th>
+									<th><s:text name="label.course.startYear" /></th>
+									<th><s:text name="label.course.endYear" /></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="subjects">
+								<s:iterator value="courses">
 									<tr class="gradeC">
-										<td><s:property value="subjectId" /></td>
-										<td><s:property value="name" /></td>
+										<td><s:property value="courseId" /></td>
+										<td><s:property value="startYear" /></td>
+										<td><s:property value="endYear" /></td>
 										<td>
 										   <s:url id="editUrl"
-										      action="editSubject">
-										      <s:param name="subjectId" value="%{subjectId}" />
+										      action="editCourse">
+										      <s:param name="courseId" value="%{courseId}" />
 										   </s:url>
 										   <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-										   <s:url id="deleteUrl" action="deleteSubject">
-										      <s:param name="subjectId" value="%{subjectId}" />
+										   <s:url id="deleteUrl" action="deleteCourse">
+										      <s:param name="courseId" value="%{courseId}" />
 										   </s:url>
 										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
 										</td>
@@ -55,20 +57,26 @@
 					
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
-						<s:form action="saveOrUpdateSubject" cssClass="form-horizontal">
+						<s:form action="saveOrUpdateCourse" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
 									<s:text name="form.legend" />
 								</legend>
 								<div class="control-group">
-									<s:push value="subject">
-										<s:hidden name="subjectId" />
+									<s:push value="course">
+										<s:hidden name="courseId" />
 										<div class="col-md-2">
-											<s:label key="label.subject" cssClass="control-label" />
+											<s:label key="label.course" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.subject" name="name"
+												<s:textfield key="label.course.startYear" name="startYear"
+													cssClass="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:textfield key="label.course.endYear" name="endYear"
 													cssClass="form-control" />
 											</div>
 										</div>

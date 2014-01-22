@@ -20,7 +20,7 @@ public final class Constant {
 		public static final String ERROR_LOGIN_USERNAME = "error.login.username";
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 
-		public static final String SUCCESS_MODEL_CREATE = "success.model.create";
+		public static final String SUCCESS_RECORD_CREATE_UPDATE = "success.model.create";
 	}
 
 	public static final class DATABASE_QUERY {

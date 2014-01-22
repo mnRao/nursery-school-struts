@@ -25,7 +25,6 @@ public class FeePolicy {
 
 	public FeePolicy(double feePerNormalMeal, double feePerBreakfast,
 			int availableDays) {
-		super();
 		this.feePerNormalMeal = feePerNormalMeal;
 		this.feePerBreakfast = feePerBreakfast;
 		this.availableDays = availableDays;
@@ -53,6 +52,14 @@ public class FeePolicy {
 
 	public void setAvailableDays(int availableDays) {
 		this.availableDays = availableDays;
+	}
+
+	public ClassMonth getClassMonth() {
+		return this.classMonth;
+	}
+
+	public void setClassMonth(ClassMonth classMonth) {
+		this.classMonth = classMonth;
 	}
 
 }
