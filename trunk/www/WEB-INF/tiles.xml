@@ -47,5 +47,30 @@
 		<put-attribute name="headTitle" value="Subject Management" />
 		<put-attribute name="body" value="/Subject.jsp" />
 	</definition>
+	
+	<definition name="Course" extends="MainLayout">
+		<put-attribute name="headTitle" value="Course Management" />
+		<put-attribute name="body" value="/Course.jsp" />
+	</definition>
+	
+	<definition name="Classes" extends="MainLayout">
+		<put-attribute name="headTitle" value="Class Management" />
+		<put-attribute name="body" value="/Classes.jsp" />
+	</definition>
+	
+	<definition name="Parent" extends="MainLayout">
+		<put-attribute name="headTitle" value="Parent Management" />
+		<put-attribute name="body" value="/Parent.jsp" />
+	</definition>
+	
+	<definition name="FeePolicy" extends="MainLayout">
+		<put-attribute name="headTitle" value="Fee Policy Management" />
+		<put-attribute name="body" value="/FeePolicy.jsp" />
+	</definition>
+	
+	<definition name="Payment" extends="MainLayout">
+		<put-attribute name="headTitle" value="Payment Management" />
+		<put-attribute name="body" value="/Payment.jsp" />
+	</definition>
 
 </tiles-definitions>

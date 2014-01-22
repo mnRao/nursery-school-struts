@@ -28,6 +28,7 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.bean.Subject;
 import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
+import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 
 public class TestHibernate {
@@ -64,6 +65,16 @@ public class TestHibernate {
 		student1.setAssociatedClass(class1);
 		this.session.save(student1);
 
+		// Embedded
+		Month month1 = new Month(1, 1991);
+		this.session.save(month1);
+
+		ClassMonth classMonthEmbedded = new ClassMonth(class1, month1);
+
+		FeePolicy feePolicy1 = new FeePolicy(10, 5, 22);
+		feePolicy1.setClassMonth(classMonthEmbedded);
+		this.session.save(feePolicy1);
+
 		// Commit all
 		this.session.getTransaction().commit();
 
@@ -78,6 +89,15 @@ public class TestHibernate {
 		assertEquals(1,
 				this.session.createQuery(Constant.DATABASE_QUERY.ALL_CLASSES)
 						.list().size());
+
+		// Assert embedded
+		List<FeePolicy> feePolicies = this.session.createQuery(
+				Constant.DATABASE_QUERY.ALL_FEE_POLICIES).list();
+		assertEquals(1, feePolicies.size());
+		assertEquals("Code 1", feePolicies.get(0).getClassMonth()
+				.getAssociatedClass().getCode());
+		assertEquals(1991, feePolicies.get(0).getClassMonth().getMonth()
+				.getYear());
 	}
 
 	@After

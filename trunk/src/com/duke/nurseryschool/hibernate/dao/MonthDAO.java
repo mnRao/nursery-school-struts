@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Month;
+import com.duke.nurseryschool.hibernate.bean.Month;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
@@ -23,8 +24,8 @@ public class MonthDAO {
 	public List<Month> getMonths() {
 		List<Month> months = new ArrayList<Month>();
 		try {
-			months = session.createQuery(Constant.DATABASE_QUERY.ALL_MONTHS)
-					.list();
+			months = this.session.createQuery(
+					Constant.DATABASE_QUERY.ALL_MONTHS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -33,7 +34,36 @@ public class MonthDAO {
 		return months;
 	}
 
-	public void addMonth(Month month) {
-		session.save(month);
+	public Month getMonth(int monthId) {
+		Month month = null;
+		try {
+			month = (Month) this.session.get(Month.class,
+					Integer.valueOf(monthId));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return month;
+	}
+
+	public void saveOrUpdateMonth(Month month) {
+		try {
+			this.session.saveOrUpdate(month);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteMonth(int monthId) {
+		try {
+			Month month = (Month) this.session.get(Month.class, monthId);
+			this.session.delete(month);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
 	}
 }

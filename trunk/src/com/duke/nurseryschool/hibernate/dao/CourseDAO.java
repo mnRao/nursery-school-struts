@@ -32,7 +32,35 @@ public class CourseDAO {
 		return courses;
 	}
 
-	public void addCourse(Course course) {
-		this.session.save(course);
+	public Course getCourse(int courseId) {
+		Course course = null;
+		try {
+			course = (Course) this.session.get(Course.class, courseId);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return course;
+	}
+
+	public void saveOrUpdateCourse(Course course) {
+		try {
+			this.session.saveOrUpdate(course);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteCourse(int courseId) {
+		try {
+			Course course = (Course) this.session.get(Course.class, courseId);
+			this.session.delete(course);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
 	}
 }

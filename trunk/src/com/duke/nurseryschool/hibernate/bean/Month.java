@@ -17,6 +17,15 @@ public class Month {
 	@Column(name = "year")
 	private int year;
 
+	public Month() {
+	}
+
+	public Month(int month, int year) {
+		super();
+		this.month = month;
+		this.year = year;
+	}
+
 	public int getMonthId() {
 		return this.monthId;
 	}

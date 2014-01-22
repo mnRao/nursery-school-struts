@@ -26,24 +26,30 @@
 							id="dynamicTable">
 							<thead>
 								<tr>
-									<th><s:text name="label.subject.subjectId" /></th>
-									<th><s:text name="label.subject.name" /></th>
+									<th><s:text name="label.parent.parentId" /></th>
+									<th><s:text name="label.parent.name" /></th>
+									<th><s:text name="label.parent.gender" /></th>
+									<th><s:text name="label.parent.job" /></th>
+									<th><s:text name="label.parent.phoneNumber" /></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="subjects">
+								<s:iterator value="parents">
 									<tr class="gradeC">
-										<td><s:property value="subjectId" /></td>
+										<td><s:property value="parentId" /></td>
 										<td><s:property value="name" /></td>
+										<td><s:property value="gender" /></td>
+										<td><s:property value="job" /></td>
+										<td><s:property value="phoneNumber" /></td>
 										<td>
 										   <s:url id="editUrl"
-										      action="editSubject">
-										      <s:param name="subjectId" value="%{subjectId}" />
+										      action="editParent">
+										      <s:param name="parentId" value="%{parentId}" />
 										   </s:url>
 										   <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-										   <s:url id="deleteUrl" action="deleteSubject">
-										      <s:param name="subjectId" value="%{subjectId}" />
+										   <s:url id="deleteUrl" action="deleteParent">
+										      <s:param name="parentId" value="%{parentId}" />
 										   </s:url>
 										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
 										</td>
@@ -55,20 +61,47 @@
 					
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
-						<s:form action="saveOrUpdateSubject" cssClass="form-horizontal">
+						<s:form action="saveOrUpdateParent" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
 									<s:text name="form.legend" />
 								</legend>
 								<div class="control-group">
-									<s:push value="subject">
-										<s:hidden name="subjectId" />
+									<s:push value="parent">
+										<s:hidden name="parentId" />
 										<div class="col-md-2">
-											<s:label key="label.subject" cssClass="control-label" />
+											<s:label key="label.parent.name" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.subject" name="name"
+												<s:textfield key="label.parent.name" name="name"
+													cssClass="form-control" />
+											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.parent.gender" cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:textfield key="label.parent.gender" name="gender"
+													cssClass="form-control" />
+											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.parent.job" cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:textfield key="label.parent.job" name="job"
+													cssClass="form-control" />
+											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.parent.phoneNumber" cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:textfield key="label.parent.phoneNumber" name="phoneNumber"
 													cssClass="form-control" />
 											</div>
 										</div>

@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Classes;
-import com.duke.nurseryschool.hibernate.bean.Month;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
@@ -33,7 +32,37 @@ public class ClassesDAO {
 		return classes;
 	}
 
-	public void addClass(Classes classes) {
-		this.session.save(classes);
+	public Classes getClasses(int classesId) {
+		Classes classes = null;
+		try {
+			classes = (Classes) this.session.get(Classes.class,
+					Integer.valueOf(classesId));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return classes;
+	}
+
+	public void saveOrUpdateClasses(Classes classes) {
+		try {
+			this.session.saveOrUpdate(classes);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteClasses(int classesId) {
+		try {
+			Classes classes = (Classes) this.session.get(Classes.class,
+					classesId);
+			this.session.delete(classes);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
 	}
 }
