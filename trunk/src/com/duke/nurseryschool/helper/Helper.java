@@ -11,6 +11,20 @@ public class Helper {
 	}
 
 	/**
+	 * Check whether mapping key is allowed to be modified
+	 */
+	public static boolean changingMappingKeyAllowed() {
+		if (getActionName().contains("edit"))
+			return false;
+		else
+			return true;
+	}
+
+	private static String getActionName() {
+		return ActionContext.getContext().getName();
+	}
+
+	/**
 	 * Compute CSS class for given tab (header | content), regarding tab number
 	 */
 	public static String getTabCss(int tabNumber, boolean isContent) {

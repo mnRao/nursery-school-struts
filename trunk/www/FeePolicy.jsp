@@ -71,6 +71,14 @@
 								</legend>
 								<div class="control-group">
 									<!-- Mapping fields -->
+									<s:set var="changingMappingKeyAllowed"><%=Helper.changingMappingKeyAllowed()%></s:set>
+									<s:if test="%{#changingMappingKeyAllowed}">
+										<s:set name="isReadOnly" value="false" />
+									</s:if>
+									<s:else>
+										<s:set name="isReadOnly" value="true" />
+									</s:else>
+
 									<div class="col-md-2">
 										<s:label key="label.feePolicy.classId"
 											cssClass="control-label" />
@@ -78,7 +86,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<s:textfield key="label.feePolicy.classId" name="classId"
-												cssClass="form-control" />
+												cssClass="form-control" readonly="%{isReadOnly}" />
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -88,7 +96,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<s:textfield key="label.feePolicy.monthId" name="monthId"
-												cssClass="form-control" />
+												cssClass="form-control" readonly="%{isReadOnly}" />
 										</div>
 									</div>
 
