@@ -72,5 +72,15 @@
 		<put-attribute name="headTitle" value="Payment Management" />
 		<put-attribute name="body" value="/Payment.jsp" />
 	</definition>
+	
+	<definition name="ExtraFeeType" extends="MainLayout">
+		<put-attribute name="headTitle" value="Extra Fee Type Management" />
+		<put-attribute name="body" value="/ExtraFeeType.jsp" />
+	</definition>
+	
+	<definition name="FeeDetails" extends="MainLayout">
+		<put-attribute name="headTitle" value="Fee Details Management" />
+		<put-attribute name="body" value="/FeeDetails.jsp" />
+	</definition>
 
 </tiles-definitions>

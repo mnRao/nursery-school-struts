@@ -28,6 +28,12 @@
 		<li><a href='<s:url action="listPayment"/>'> <i
 			class="icon-table"></i>
 		<s:text name="label.payment" /></a></li>	
+		<li><a href='<s:url action="listExtraFeeType"/>'> <i
+			class="icon-table"></i>
+		<s:text name="label.extraFeeType" /></a></li>
+		<li><a href='<s:url action="listFeeDetails"/>'> <i
+			class="icon-table"></i>
+		<s:text name="label.feeDetails" /></a></li>
 			
 			
 		<li><a href="#"> <i class="icon-desktop"></i> UI Features <span

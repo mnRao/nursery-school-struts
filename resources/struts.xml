@@ -101,6 +101,18 @@
 			<result name="success" type="tiles">Payment</result>
 			<result name="successRedirect" type="redirect">listPayment</result>
 		</action>
+		<!-- ExtraFeeType -->
+		<action name="*ExtraFeeType" method="{1}"
+			class="com.duke.nurseryschool.ExtraFeeTypeAction">
+			<result name="success" type="tiles">ExtraFeeType</result>
+			<result name="successRedirect" type="redirect">listExtraFeeType</result>
+		</action>
+		<!-- FeeDetails -->
+		<action name="*FeeDetails" method="{1}"
+			class="com.duke.nurseryschool.FeeDetailsAction">
+			<result name="success" type="tiles">FeeDetails</result>
+			<result name="successRedirect" type="redirect">listFeeDetails</result>
+		</action>
 	</package>
 
 </struts>
