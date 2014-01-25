@@ -23,7 +23,7 @@ public class StudentDAO {
 	public List<Student> getStudents() {
 		List<Student> students = new ArrayList<Student>();
 		try {
-			students = session
+			students = this.session
 					.createQuery(Constant.DATABASE_QUERY.ALL_STUDENTS).list();
 		}
 		catch (Exception e) {
@@ -32,7 +32,36 @@ public class StudentDAO {
 		return students;
 	}
 
-	public void addStudent(Student student) {
-		session.save(student);
+	public Student getStudent(int studentId) {
+		Student student = null;
+		try {
+			student = (Student) this.session.get(Student.class, studentId);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return student;
+	}
+
+	public void saveOrUpdateStudent(Student student) {
+		try {
+			this.session.saveOrUpdate(student);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteStudent(int studentId) {
+		try {
+			Student student = (Student) this.session.get(Student.class,
+					studentId);
+			this.session.delete(student);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
 	}
 }

@@ -13,7 +13,7 @@ public class Month {
 	@GeneratedValue
 	private int monthId;
 	@Column(name = "month")
-	private int month;
+	private int monthName;// Avoid using "month" => might be misunderstood
 	@Column(name = "year")
 	private int year;
 
@@ -21,8 +21,7 @@ public class Month {
 	}
 
 	public Month(int month, int year) {
-		super();
-		this.month = month;
+		this.monthName = month;
 		this.year = year;
 	}
 
@@ -34,20 +33,20 @@ public class Month {
 		this.monthId = monthId;
 	}
 
-	public int getMonth() {
-		return this.month;
-	}
-
-	public void setMonth(int month) {
-		this.month = month;
-	}
-
 	public int getYear() {
 		return this.year;
 	}
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public int getMonthName() {
+		return this.monthName;
+	}
+
+	public void setMonthName(int monthName) {
+		this.monthName = monthName;
 	}
 
 }

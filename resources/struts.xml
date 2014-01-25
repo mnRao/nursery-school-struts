@@ -43,27 +43,16 @@
 		</result-types>
 
 		<!-- Student -->
-		<action name="addStudent" method="execute"
-			class="com.duke.nurseryschool.StudentAction">
-			<result name="success" type="redirect">listStudents</result>
-			<result name="input" type="redirect">listStudents</result>
-		</action>
-		<action name="listStudents" method="listStudents"
+		<action name="*Student" method="{1}"
 			class="com.duke.nurseryschool.StudentAction">
 			<result name="success" type="tiles">Student</result>
-			<result name="input" type="tiles">Student</result>
-			<!-- <result name="success">Student.jsp</result> -->
+			<result name="successRedirect" type="redirect">listStudent</result>
 		</action>
 		<!-- Month -->
-		<action name="addMonth" method="execute"
-			class="com.duke.nurseryschool.MonthAction">
-			<result name="success" type="redirect">listMonths</result>
-			<result name="input" type="redirect">listMonths</result>
-		</action>
-		<action name="listMonths" method="listMonths"
+		<action name="*Month" method="{1}"
 			class="com.duke.nurseryschool.MonthAction">
 			<result name="success" type="tiles">Month</result>
-			<result name="input" type="tiles">Month</result>
+			<result name="successRedirect" type="redirect">listMonth</result>
 		</action>
 		<!-- Subject -->
 		<action name="*Subject" method="{1}"
