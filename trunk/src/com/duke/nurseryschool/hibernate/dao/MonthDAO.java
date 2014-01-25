@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Month;
-import com.duke.nurseryschool.hibernate.bean.Month;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
@@ -38,7 +37,7 @@ public class MonthDAO {
 		Month month = null;
 		try {
 			month = (Month) this.session.get(Month.class,
-					Integer.valueOf(monthId));
+					monthId);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
