@@ -68,17 +68,25 @@
 
 								<div class="control-group">
 									<div class="col-md-2">
-											<s:label key="label.student.classId" cssClass="control-label" />
+										<s:label key="label.student.classId" cssClass="control-label" />
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<%-- 												<s:textfield key="label.student.classId" name="classId" --%>
+											<%-- 													cssClass="form-control" /> --%>
+											<s:select list="classNameList" name="classId"
+												 headerKey="-1"
+												headerValue="label.student" 
+												value="selectedClassId"/>
+											<s:select 
+												headerKey="-1" headerValue="Select Search Engines"
+												list="classList" name="classList"
+												value="defaultSearchEngine" />
 										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:textfield key="label.student.classId" name="classId"
-													cssClass="form-control" />
-											</div>
-										</div>
-								
+									</div>
+
 									<s:push value="student">
-										<s:hidden name="studentId"/>
+										<s:hidden name="studentId" />
 										<div class="col-md-2">
 											<s:label key="label.student.name" cssClass="control-label" />
 										</div>
@@ -132,7 +140,7 @@
 							<div class="form-actions">
 								<div>
 									<s:submit cssClass="btn btn-primary" />
-									
+
 								</div>
 							</div>
 						</s:form>

@@ -4,6 +4,12 @@ public final class Constant {
 	public static final String EMPTY_STRING = "";
 	public static final String SPACE = " ";
 
+	public static final class PUNCTUATION_MARK {
+		public static final String BRACKET_OPEN = "[";
+		public static final String BRACKET_CLOSE = "]";
+		public static final String HYPHEN = "-";
+	}
+
 	public static final class ACTION_RESULT {
 		public static final String SUCCESS_REDIRECT = "successRedirect";
 	}
