@@ -19,7 +19,7 @@
 								name="tab.label.first" /></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-				
+
 					<div id="firstTab"
 						class="tab-pane fade <%=Helper.getTabCss(1, true)%>">
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
@@ -28,31 +28,29 @@
 								<tr>
 									<th><s:text name="label.classes.classesId" /></th>
 									<th><s:text name="label.classes.code" /></th>
+									<th><s:text name="label.classes.courseId" /></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="classess">
+								<s:iterator value="allClasses">
 									<tr class="gradeC">
 										<td><s:property value="classId" /></td>
 										<td><s:property value="code" /></td>
-										<td>
-										   <s:url id="editUrl"
-										      action="editClasses">
-										      <s:param name="classesId" value="%{classesId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-										   <s:url id="deleteUrl" action="deleteClasses">
-										      <s:param name="classesId" value="%{classesId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+										<td><s:property value="course.label" /></td>
+										<td><s:url id="editUrl" action="editClasses">
+												<s:param name="classId" value="%{classId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
+											<s:url id="deleteUrl" action="deleteClasses">
+												<s:param name="classId" value="%{classId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
 										</td>
 									</tr>
 								</s:iterator>
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
 						<s:form action="saveOrUpdateClasses" cssClass="form-horizontal">
@@ -62,7 +60,19 @@
 								</legend>
 								<div class="control-group">
 									<s:push value="classes">
-										<s:hidden name="classesId" />
+										<s:hidden name="classId" />
+										<div class="col-md-2">
+											<s:label key="label.classes.courseId"
+												cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:select list="courseList" listKey="courseId"
+													listValue="label" name="courseId" headerKey="-1"
+													headerValue="%{getText('select.course')}"
+													value="%{courseId}" />
+											</div>
+										</div>
 										<div class="col-md-2">
 											<s:label key="label.classes.code" cssClass="control-label" />
 										</div>
@@ -82,7 +92,7 @@
 							</div>
 						</s:form>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>

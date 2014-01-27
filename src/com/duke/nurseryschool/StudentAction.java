@@ -28,7 +28,9 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 	private final StudentDAO dao = new StudentDAO();
 	private final ClassesDAO classesDAO = new ClassesDAO();
 
-	private int classId;
+	private String classId;
+	private List<Classes> classList;
+	private ArrayList<String> classNameList;
 
 	@Override
 	public Student getModel() {
@@ -51,7 +53,8 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 
 	public String saveOrUpdate() {
 		// Set class based on ID
-		Classes associatedClass = this.classesDAO.getClasses(this.classId);
+		Classes associatedClass = this.classesDAO.getClasses(Integer
+				.parseInt(this.classId));
 		this.student.setAssociatedClass(associatedClass);
 
 		this.dao.saveOrUpdateStudent(this.student);
@@ -63,6 +66,8 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 	}
 
 	public String list() {
+		this.populateClassList();
+
 		this.students = this.dao.getStudents();
 		return Action.SUCCESS;
 	}
@@ -75,13 +80,25 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 	}
 
 	public String edit() {
+		this.populateClassList();
+
 		this.student = this.dao.getStudent(Integer.parseInt(this.request
 				.getParameter("studentId")));
-		this.classId = this.student.getAssociatedClass().getClassId();
+		this.classId = String.valueOf(this.student.getAssociatedClass()
+				.getClassId());
 
 		// Load all
 		this.students = this.dao.getStudents();
 		return Action.SUCCESS;
+	}
+
+	private void populateClassList() {
+		// Populate class list
+		this.classList = this.classesDAO.getClasses();
+		this.classNameList = new ArrayList<>();
+		for (Classes classes : this.classList) {
+			this.classNameList.add(classes.getCode());
+		}
 	}
 
 	public Student getStudent() {
@@ -100,12 +117,28 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 		this.students = students;
 	}
 
-	public int getClassId() {
+	public String getClassId() {
 		return this.classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(String classId) {
 		this.classId = classId;
+	}
+
+	public List<Classes> getClassList() {
+		return this.classList;
+	}
+
+	public void setClassList(List<Classes> classList) {
+		this.classList = classList;
+	}
+
+	public ArrayList<String> getClassNameList() {
+		return this.classNameList;
+	}
+
+	public void setClassNameList(ArrayList<String> classNameList) {
+		this.classNameList = classNameList;
 	}
 
 }

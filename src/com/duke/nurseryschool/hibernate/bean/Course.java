@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.helper.Constant;
+
 @Entity
 @Table(name = "course")
 public class Course {
@@ -29,6 +31,17 @@ public class Course {
 	public Course(int startYear, int endYear) {
 		this.startYear = startYear;
 		this.endYear = endYear;
+	}
+
+	@Override
+	public String toString() {
+		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.startYear
+				+ Constant.PUNCTUATION_MARK.HYPHEN + this.endYear
+				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
+	}
+
+	public String getLabel() {
+		return this.toString();
 	}
 
 	public int getCourseId() {
