@@ -48,6 +48,10 @@
 										      <s:param name="courseId" value="%{courseId}" />
 										   </s:url>
 										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+										   <s:url id="addClassUrl" action="autoSetCourseClasses">
+										      <s:param name="courseId" value="%{courseId}" />
+										   </s:url>
+										   <s:a cssClass="btn btn-sm btn-warning" href="%{addClassUrl}">Add Class</s:a>
 										</td>
 									</tr>
 								</s:iterator>

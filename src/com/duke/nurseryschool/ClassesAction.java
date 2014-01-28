@@ -49,6 +49,16 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes> {
 		return Action.SUCCESS;
 	}
 
+	public String autoSetCourse() {
+		// For autoset classId
+		String classIdParam = this.request.getParameter("classId");
+		if (classIdParam != null) {
+			this.classes = this.dao.getClasses(Integer.parseInt(classIdParam));
+		}
+
+		return this.list();
+	}
+
 	public String delete() {
 		this.dao.deleteClasses(Integer.parseInt(this.request
 				.getParameter("classId")));
