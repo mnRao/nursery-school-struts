@@ -1,7 +1,8 @@
 package com.duke.nurseryschool.helper;
 
 public enum Grade {
-	SECOND(2, "D"), THIRD(3, "C"), FOURTH(4, "B"), FIFTH(5, "A");
+	SECOND(2, "D"), THIRD(3, "C"), FOURTH(4, "B"), FIFTH(5, "A"), GRADUATED(0,
+			"Z");
 
 	private int grade;
 	private String alphabeticalSymbol;

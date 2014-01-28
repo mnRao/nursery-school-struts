@@ -50,6 +50,12 @@
 											<s:url id="deleteUrl" action="deleteFeeDetails">
 												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											<s:url id="addSubjectUrl" action="addSubjectFeeDetails">
+												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addSubjectUrl}">Add Subject</s:a>
+											<s:url id="addExtraFeeUrl" action="addExtraFeeFeeDetails">
+												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addExtraFeeUrl}">Add Extra Fee</s:a>
 										</td>
 									</tr>
 								</s:iterator>

@@ -3,8 +3,29 @@ package com.duke.nurseryschool.helper;
 import java.util.Calendar;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.DefaultTextProvider;
+import com.opensymphony.xwork2.TextProvider;
 
 public class Helper {
+
+	public static String calculateGenderText(int gender)
+			throws InstantiationException, IllegalAccessException {
+		TextProvider textProvider = DefaultTextProvider.class.newInstance();
+
+		String genderText = Constant.EMPTY_STRING;
+		switch (gender) {
+			case 0:
+				genderText = textProvider
+						.getText(Constant.I18N.FORM_GENDER_FEMALE);
+				break;
+			case 1:
+				genderText = textProvider
+						.getText(Constant.I18N.FORM_GENDER_MALE);
+				break;
+		}
+
+		return genderText;
+	}
 
 	/**
 	 * Ex: [2012-2013]
@@ -74,11 +95,4 @@ public class Helper {
 		return cssClass;
 	}
 
-	public static Grade getHighestGrade() {
-		return Grade.FIFTH;
-	}
-
-	public static Grade getLowestGrade() {
-		return Grade.SECOND;
-	}
 }
