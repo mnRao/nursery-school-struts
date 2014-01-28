@@ -29,6 +29,7 @@
 									<th><s:text name="label.classes.classesId" /></th>
 									<th><s:text name="label.classes.code" /></th>
 									<th><s:text name="label.classes.courseId" /></th>
+									<th><s:text name="label.classes.currentName" /></th>
 									<th></th>
 								</tr>
 							</thead>
@@ -38,6 +39,7 @@
 										<td><s:property value="classId" /></td>
 										<td><s:property value="code" /></td>
 										<td><s:property value="course.label" /></td>
+										<td><s:property value="currentName" /></td>
 										<td><s:url id="editUrl" action="editClasses">
 												<s:param name="classId" value="%{classId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>

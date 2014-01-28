@@ -12,14 +12,15 @@ public enum Grade {
 	}
 
 	public int getGrade() {
-		return grade;
+		return this.grade;
 	}
 
 	public String getLabel() {
-		return alphabeticalSymbol;
+		return this.alphabeticalSymbol;
 	}
 
 	public String getOfficialLabel() {
-		return alphabeticalSymbol + grade;
+		return this.alphabeticalSymbol + this.grade;
 	}
+
 }

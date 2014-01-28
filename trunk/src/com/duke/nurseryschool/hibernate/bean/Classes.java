@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.helper.Grade;
+import com.duke.nurseryschool.helper.Helper;
+
 @Entity
 @Table(name = "class")
 public class Classes {
@@ -29,12 +32,36 @@ public class Classes {
 	@OneToMany(mappedBy = "classMonth.associatedClass")
 	private Set<FeePolicy> feePolicies;
 
+	// Virtual current grade
+	private Grade grade;
+
 	public Classes() {
 
 	}
 
 	public Classes(String code) {
 		this.code = code;
+	}
+
+	public String getCurrentName() {
+		int startYear = this.course.getStartYear();
+		int endYear = this.course.getEndYear();
+		int currentYear = Helper.calculateCurrentYear();
+		if (currentYear >= endYear) {
+			this.grade = Helper.getHighestGrade();
+		}
+		else if (currentYear <= startYear) {
+			this.grade = Helper.getLowestGrade();
+		}
+		else if (currentYear == startYear + 1) {
+			this.grade = Grade.THIRD;
+		}
+		else {
+			this.grade = Grade.FOURTH;
+		}
+		// TODO Use month to calculate grade
+
+		return this.grade.getOfficialLabel();
 	}
 
 	public int getClassId() {
