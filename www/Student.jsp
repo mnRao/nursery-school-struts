@@ -41,7 +41,7 @@
 									<tr class="gradeC">
 										<td><s:property value="name" /></td>
 										<td><s:property value="dateOfBirth" /></td>
-										<td><s:property value="gender" /></td>
+										<td><s:property value="genderText"/></td>
 										<td><s:property value="address" /></td>
 										<td><s:property value="homePhone" /></td>
 										<td><s:property value="isActive" /></td>
@@ -72,16 +72,9 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<%-- 												<s:textfield key="label.student.classId" name="classId" --%>
-											<%-- 													cssClass="form-control" /> --%>
-											<s:select list="classNameList" name="classId"
-												 headerKey="-1"
-												headerValue="label.student" 
-												value="selectedClassId"/>
-											<s:select 
-												headerKey="-1" headerValue="Select Search Engines"
-												list="classList" name="classList"
-												value="defaultSearchEngine" />
+											<s:select list="classList" listKey="classId" listValue="label"
+												name="classId" headerKey="-1"
+												headerValue="%{getText('select.class')}" value="%{classId}" />
 										</div>
 									</div>
 
@@ -107,21 +100,22 @@
 											</div>
 										</div>
 										<div class="col-md-2">
-											<s:label key="label.student.gender" cssClass="control-label" />
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:textfield key="label.student.gender" name="gender"
-													cssClass="form-control" />
-											</div>
-										</div>
-										<div class="col-md-2">
 											<s:label key="label.student.address" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.student.address" name="address"
 													cssClass="form-control" />
+											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.student.gender" cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:select name="gender" headerKey="-1"
+													list="#{0: getText('form.gender.female'), '1': getText('form.gender.male')}"
+													value="gender"  />
 											</div>
 										</div>
 										<div class="col-md-2">

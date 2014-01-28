@@ -30,6 +30,10 @@
 						class="icon-table"></i> <s:text name="label.feePolicy" /></a></li>
 				<li><a href='<s:url action="listFeeDetails"/>'> <i
 						class="icon-table"></i> <s:text name="label.feeDetails" /></a></li>
+				<li><a href='<s:url action="listExtraFeeMap"/>'> <i
+						class="icon-table"></i> <s:text name="label.extraFeeMap" /></a></li>
+				<li><a href='<s:url action="listSubjectFeeMap"/>'> <i
+						class="icon-table"></i> <s:text name="label.subjectFeeMap" /></a></li>
 				<li><a href='<s:url action="listPayment"/>'> <i
 						class="icon-table"></i> <s:text name="label.payment" /></a></li>
 			</ul></li>

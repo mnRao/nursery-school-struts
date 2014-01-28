@@ -1,5 +1,6 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.Helper;
 
@@ -43,23 +45,40 @@ public class Classes {
 		this.code = code;
 	}
 
+	public String getLabel() {
+		return this.classId + Constant.PUNCTUATION_MARK.HYPHEN
+				+ this.course.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN
+				+ this.code;
+	}
+
 	public String getCurrentName() {
 		int startYear = this.course.getStartYear();
 		int endYear = this.course.getEndYear();
-		int currentYear = Helper.calculateCurrentYear();
-		if (currentYear >= endYear) {
-			this.grade = Helper.getHighestGrade();
+
+		// Base on month actualYear (Ex: Course: [2013-2014]; Current month:
+		// 01-2014 => actualYear = 2013
+		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		int actualYear = Helper.calculateCurrentYear();
+		if (currentMonth < 9) {
+			actualYear = actualYear - 1;
 		}
-		else if (currentYear <= startYear) {
-			this.grade = Helper.getLowestGrade();
+
+		// Choose grade
+		if (actualYear > endYear) {
+			this.grade = Grade.GRADUATED;
 		}
-		else if (currentYear == startYear + 1) {
+		else if (actualYear == endYear) {
+			this.grade = Grade.FIFTH;
+		}
+		else if (actualYear == startYear + 1) {
 			this.grade = Grade.THIRD;
 		}
-		else {
+		else if (actualYear == startYear + 2) {
 			this.grade = Grade.FOURTH;
 		}
-		// TODO Use month to calculate grade
+		else if (actualYear <= startYear) {
+			this.grade = Grade.SECOND;
+		}
 
 		return this.grade.getOfficialLabel();
 	}

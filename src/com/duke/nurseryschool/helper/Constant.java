@@ -27,6 +27,8 @@ public final class Constant {
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 
 		public static final String SUCCESS_RECORD_CREATE_UPDATE = "success.model.create";
+		public static final String FORM_GENDER_MALE = "form.gender.male";
+		public static final String FORM_GENDER_FEMALE = "form.gender.female";
 	}
 
 	public static final class DATABASE_QUERY {
