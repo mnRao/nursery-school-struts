@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.Helper;
@@ -46,39 +47,13 @@ public class Classes {
 	}
 
 	public String getLabel() {
-		return this.classId + Constant.PUNCTUATION_MARK.HYPHEN
-				+ this.course.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN
+		return this.course.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN
 				+ this.code;
 	}
 
 	public String getCurrentName() {
-		int startYear = this.course.getStartYear();
-		int endYear = this.course.getEndYear();
-
-		// Base on month actualYear (Ex: Course: [2013-2014]; Current month:
-		// 01-2014 => actualYear = 2013
-		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-		int actualYear = Helper.calculateCurrentYear();
-		if (currentMonth < 9) {
-			actualYear = actualYear - 1;
-		}
-
-		// Choose grade
-		if (actualYear > endYear) {
-			this.grade = Grade.GRADUATED;
-		}
-		else if (actualYear == endYear) {
-			this.grade = Grade.FIFTH;
-		}
-		else if (actualYear == startYear + 1) {
-			this.grade = Grade.THIRD;
-		}
-		else if (actualYear == startYear + 2) {
-			this.grade = Grade.FOURTH;
-		}
-		else if (actualYear <= startYear) {
-			this.grade = Grade.SECOND;
-		}
+		this.grade = BusinessLogicSolver.calculateGrade(
+				this.course.getStartYear(), this.course.getEndYear());
 
 		return this.grade.getOfficialLabel();
 	}

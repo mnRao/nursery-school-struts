@@ -30,6 +30,9 @@ public class FeeDetailsAction extends CoreAction implements
 	private int classId;
 	private int monthId;
 
+	private List<Classes> classList;
+	private List<Month> monthList;
+
 	@Override
 	public FeeDetails getModel() {
 		return this.feeDetail;
@@ -51,6 +54,8 @@ public class FeeDetailsAction extends CoreAction implements
 	}
 
 	public String list() {
+		this.populateClassAndMonthLists();
+
 		this.feeDetails = this.dao.getFeeDetails();
 		return Action.SUCCESS;
 	}
@@ -65,6 +70,8 @@ public class FeeDetailsAction extends CoreAction implements
 	}
 
 	public String edit() {
+		this.populateClassAndMonthLists();
+
 		// Get params
 		String feeDetailsId = this.request.getParameter("feeDetailsId");
 		this.feeDetail = this.dao.getFeeDetails(Integer.parseInt(feeDetailsId));
@@ -74,6 +81,16 @@ public class FeeDetailsAction extends CoreAction implements
 		// Load all
 		this.feeDetails = this.dao.getFeeDetails();
 		return Action.SUCCESS;
+	}
+
+	private void populateClassAndMonthLists() {
+		// Populate class list
+		this.classList = this.classesDAO.getClasses();
+		this.monthList = this.monthDAO.getMonths();
+	}
+
+	public String autoSetClass() {
+		return this.list();
 	}
 
 	public List<FeeDetails> getFeeDetails() {
@@ -106,6 +123,26 @@ public class FeeDetailsAction extends CoreAction implements
 
 	public void setMonthId(int monthId) {
 		this.monthId = monthId;
+	}
+
+	public void setFeeDetail(FeeDetails feeDetail) {
+		this.feeDetail = feeDetail;
+	}
+
+	public List<Classes> getClassList() {
+		return this.classList;
+	}
+
+	public void setClassList(List<Classes> classList) {
+		this.classList = classList;
+	}
+
+	public List<Month> getMonthList() {
+		return this.monthList;
+	}
+
+	public void setMonthList(List<Month> monthList) {
+		this.monthList = monthList;
 	}
 
 }

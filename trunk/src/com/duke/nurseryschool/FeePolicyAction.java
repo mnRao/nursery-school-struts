@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
@@ -30,6 +29,9 @@ public class FeePolicyAction extends CoreAction implements
 	private int classId;
 	private int monthId;
 
+	private List<Classes> classList;
+	private List<Month> monthList;
+
 	@Override
 	public FeePolicy getModel() {
 		return this.feePolicy;
@@ -49,6 +51,8 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	public String list() {
+		this.populateClassAndMonthLists();
+
 		this.feePolicies = this.dao.getFeePolicies();
 		return Action.SUCCESS;
 	}
@@ -65,6 +69,8 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	public String edit() {
+		this.populateClassAndMonthLists();
+
 		// Get params
 		String classId = this.request.getParameter("classId");
 		String monthId = this.request.getParameter("monthId");
@@ -74,6 +80,17 @@ public class FeePolicyAction extends CoreAction implements
 		// Load all
 		this.feePolicies = this.dao.getFeePolicies();
 		return Action.SUCCESS;
+	}
+
+	private void populateClassAndMonthLists() {
+		// Populate class list
+		this.classList = this.classesDAO.getClasses();
+		this.monthList = this.monthDAO.getMonths();
+	}
+
+	/* Auto set classId (implied by getter/setter) */
+	public String autoSetClass() {
+		return this.list();
 	}
 
 	public List<FeePolicy> getFeePolicies() {
@@ -114,6 +131,22 @@ public class FeePolicyAction extends CoreAction implements
 
 	public void setMonthId(int monthId) {
 		this.monthId = monthId;
+	}
+
+	public List<Classes> getClassList() {
+		return this.classList;
+	}
+
+	public void setClassList(List<Classes> classList) {
+		this.classList = classList;
+	}
+
+	public List<Month> getMonthList() {
+		return this.monthList;
+	}
+
+	public void setMonthList(List<Month> monthList) {
+		this.monthList = monthList;
 	}
 
 }

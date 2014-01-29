@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
+import com.duke.nurseryschool.helper.Constant;
+
 @Entity
 @Table(name = "month")
 public class Month {
@@ -23,6 +26,13 @@ public class Month {
 	public Month(int month, int year) {
 		this.monthName = month;
 		this.year = year;
+	}
+
+	public String getLabel() {
+		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.year
+				+ Constant.PUNCTUATION_MARK.HYPHEN
+				+ BusinessLogicSolver.getStandardMonthName(this.monthName)
+				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
 	}
 
 	public int getMonthId() {
