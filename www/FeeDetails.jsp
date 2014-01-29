@@ -39,8 +39,8 @@
 							<tbody>
 								<s:iterator value="feeDetails">
 									<tr class="gradeC">
-										<td><s:property value="associatedClass.classId" /></td>
-										<td><s:property value="month.monthId" /></td>
+										<td><s:property value="associatedClass.label" /></td>
+										<td><s:property value="month.label" /></td>
 										<td><s:property value="basicStudyFee" /></td>
 										<td><s:property value="totalExtraStudyFee" /></td>
 										<td><s:property value="totalExtraFee" /></td>
@@ -86,8 +86,11 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:textfield key="label.feeDetails.classId" name="classId"
-												cssClass="form-control" readonly="%{isReadOnly}" />
+											<%-- 											<s:textfield key="label.feeDetails.classId" name="classId" --%>
+											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
+											<s:select list="classList" listKey="classId"
+												listValue="label" name="classId" headerKey="-1"
+												headerValue="%{getText('select.class')}" value="%{classId}" />
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -96,8 +99,11 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:textfield key="label.feeDetails.monthId" name="monthId"
-												cssClass="form-control" readonly="%{isReadOnly}" />
+											<%-- 											<s:textfield key="label.feeDetails.monthId" name="monthId" --%>
+											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
+											<s:select list="monthList" listKey="monthId"
+												listValue="label" name="monthId" headerKey="-1"
+												headerValue="%{getText('select.month')}" value="%{monthId}" />
 										</div>
 									</div>
 
@@ -113,6 +119,10 @@
 													name="basicStudyFee" cssClass="form-control" />
 											</div>
 										</div>
+
+										<legend class="section">
+											<s:text name="form.legend.computed" />
+										</legend>
 										<div class="col-md-2">
 											<s:label key="label.feeDetails.totalExtraStudyFee"
 												cssClass="control-label" />

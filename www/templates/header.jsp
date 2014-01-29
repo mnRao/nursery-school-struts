@@ -1,4 +1,4 @@
-<%@page import="com.duke.nurseryschool.helper.Helper"%>
+<%@page import="com.duke.nurseryschool.helper.BusinessLogicSolver"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
@@ -14,7 +14,7 @@
 	</div>
 	<ul class="nav navbar-nav navbar-right  hidden-xs">
 		<li class="dropdown hidden-xs"><a href="#" /><i
-				class="icon-cogs"> </i><s:text name="ui.header.currentYear" /> <%= Helper.calculateCurrentAcademicYear() %> </a></li>
+				class="icon-cogs"> </i><s:text name="ui.header.currentYear" /> <%= BusinessLogicSolver.calculateCurrentAcademicYear() %> </a></li>
 		<!-- 	Localization -->
 		<s:url id="localeEN" namespace="/" action="locale">
 			<s:param name="request_locale">en</s:param>
@@ -23,7 +23,7 @@
 			<s:param name="request_locale">vi_VN</s:param>
 		</s:url>
 		<li class="dropdown user  hidden-xs"><a data-toggle="dropdown"
-			class="dropdown-toggle" href="#"> <i class="icon-bookmark-empty"></i>
+			class="dropdown-toggle" href="#"> <i class="icon-flag"></i>
 				<span class="username"><s:text name="ui.header.language" /></span> <i
 				class="icon-caret-down small"></i>
 		</a>

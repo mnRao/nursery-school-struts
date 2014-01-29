@@ -3,6 +3,7 @@ package com.duke.nurseryschool.helper;
 public final class Constant {
 	public static final String EMPTY_STRING = "";
 	public static final String SPACE = " ";
+	public static final String ZERO = "0";
 
 	public static final class PUNCTUATION_MARK {
 		public static final String BRACKET_OPEN = "[";
@@ -47,5 +48,8 @@ public final class Constant {
 	public static final class BUSINESS_LOGIC {
 		public static final int YEAR_STARTING_MONTH = 9;
 		public static final int YEAR_ENDING_MONTH = 5;
+
+		public static final int FEMALE = 0;
+		public static final int MALE = 1;
 	}
 }

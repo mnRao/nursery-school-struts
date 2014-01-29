@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
 
 @Entity
 @Table(name = "student")
@@ -72,7 +72,7 @@ public class Student {
 
 	public String getGenderText() throws InstantiationException,
 			IllegalAccessException {
-		return Helper.calculateGenderText(this.gender);
+		return BusinessLogicSolver.calculateGenderText(this.gender);
 	}
 
 	public int getStudentId() {

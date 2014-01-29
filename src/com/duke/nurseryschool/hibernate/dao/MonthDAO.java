@@ -1,12 +1,14 @@
 package com.duke.nurseryschool.hibernate.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.comparator.MonthComparator;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
@@ -29,6 +31,8 @@ public class MonthDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		// Sort
+		Collections.sort(months, new MonthComparator());
 
 		return months;
 	}
@@ -36,8 +40,7 @@ public class MonthDAO {
 	public Month getMonth(int monthId) {
 		Month month = null;
 		try {
-			month = (Month) this.session.get(Month.class,
-					monthId);
+			month = (Month) this.session.get(Month.class, monthId);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

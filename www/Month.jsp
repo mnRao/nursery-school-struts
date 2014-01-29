@@ -26,6 +26,7 @@
 							<thead>
 								<tr>
 									<th><s:text name="label.month.monthId" /></th>
+									<th><s:text name="label.month.label" /></th>
 									<th><s:text name="label.month.month" /></th>
 									<th><s:text name="label.month.year" /></th>
 									<th></th>
@@ -35,6 +36,7 @@
 								<s:iterator value="months">
 									<tr class="gradeC">
 										<td><s:property value="monthId" /></td>
+										<td><s:property value="label" /></td>
 										<td><s:property value="monthName" /></td>
 										<td><s:property value="year" /></td>
 																				<td><s:url id="editUrl" action="editMonth">

@@ -46,6 +46,12 @@
 											<s:url id="deleteUrl" action="deleteClasses">
 												<s:param name="classId" value="%{classId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											<s:url id="addFeePolicyUrl" action="autoSetClassFeePolicy">
+												<s:param name="classId" value="%{classId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeePolicyUrl}">Add Fee Policy</s:a>
+											<s:url id="addFeeDetailsUrl" action="autoSetClassFeeDetails">
+												<s:param name="classId" value="%{classId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeDetailsUrl}">Add Fee Details</s:a>
 										</td>
 									</tr>
 								</s:iterator>
