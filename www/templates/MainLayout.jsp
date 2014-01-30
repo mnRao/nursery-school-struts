@@ -27,7 +27,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h2 class="page-title">
-							<tiles:insertAttribute name="headTitle" />
+							<small><tiles:insertAttribute name="headTitle" /></small>
 						</h2>
 					</div>
 				</div>
