@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
@@ -19,7 +20,7 @@ import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "class")
-public class Classes {
+public class Classes implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int classId;
@@ -46,6 +47,7 @@ public class Classes {
 		this.code = code;
 	}
 
+	@Override
 	public String getLabel() {
 		return this.course.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN
 				+ this.code;

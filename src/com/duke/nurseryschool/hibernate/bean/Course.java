@@ -9,11 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.Constant;
 
 @Entity
 @Table(name = "course")
-public class Course {
+public class Course implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int courseId;
@@ -34,14 +35,10 @@ public class Course {
 	}
 
 	@Override
-	public String toString() {
+	public String getLabel() {
 		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.startYear
 				+ Constant.PUNCTUATION_MARK.HYPHEN + this.endYear
 				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
-	}
-
-	public String getLabel() {
-		return this.toString();
 	}
 
 	public int getCourseId() {

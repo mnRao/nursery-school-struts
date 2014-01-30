@@ -102,6 +102,18 @@
 			<result name="success" type="tiles">FeeDetails</result>
 			<result name="successRedirect" type="redirect">listFeeDetails</result>
 		</action>
+		<!-- ExtraFeeMap -->
+		<action name="*ExtraFeeMap" method="{1}"
+			class="com.duke.nurseryschool.ExtraFeeMapAction">
+			<result name="success" type="tiles">ExtraFeeMap</result>
+			<result name="successRedirect" type="redirect">listExtraFeeMap</result>
+		</action>
+		<!-- SubjectFeeMap -->
+		<action name="*SubjectFeeMap" method="{1}"
+			class="com.duke.nurseryschool.SubjectFeeMapAction">
+			<result name="success" type="tiles">SubjectFeeMap</result>
+			<result name="successRedirect" type="redirect">listSubjectFeeMap</result>
+		</action>
 	</package>
 
 </struts>

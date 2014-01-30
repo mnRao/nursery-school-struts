@@ -84,7 +84,7 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes> {
 		this.courseList = this.courseDAO.getCourses();
 		this.courseNameList = new ArrayList<>();
 		for (Course course : this.courseList) {
-			this.courseNameList.add(course.toString());
+			this.courseNameList.add(course.getLabel());
 		}
 	}
 

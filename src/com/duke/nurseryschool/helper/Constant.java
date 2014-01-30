@@ -36,6 +36,7 @@ public final class Constant {
 		public static final String ALL_CLASSES = "from Classes";
 		public static final String ALL_COURSES = "from Course";
 		public static final String ALL_EXTRA_FEE_TYPES = "from ExtraFeeType";
+		public static final String ALL_EXTRA_FEE_MAPS = "from ExtraFeeMap";
 		public static final String ALL_FEE_DETAILS = "from FeeDetails";
 		public static final String ALL_FEE_POLICIES = "from FeePolicy";
 		public static final String ALL_MONTHS = "from Month";
@@ -43,6 +44,7 @@ public final class Constant {
 		public static final String ALL_PAYMENTS = "from Payment";
 		public static final String ALL_STUDENTS = "from Student";
 		public static final String ALL_SUBJECTS = "from Subject";
+		public static final String ALL_SUBJECT_FEE_MAPS = "from SubjectFeeMap";
 	}
 
 	public static final class BUSINESS_LOGIC {

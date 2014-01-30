@@ -24,10 +24,8 @@ public class Subject {
 	public Subject() {
 	}
 
-	public Subject(int subjectId, String name, Set<SubjectFeeMap> subjectFeeMaps) {
-		this.subjectId = subjectId;
+	public Subject(String name) {
 		this.name = name;
-		this.subjectFeeMaps = subjectFeeMaps;
 	}
 
 	public int getSubjectId() {

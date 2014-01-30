@@ -1,7 +1,13 @@
 package com.duke.nurseryschool.helper;
 
 import java.util.Calendar;
+import java.util.Set;
 
+import org.hibernate.Session;
+
+import com.duke.nurseryschool.hibernate.HibernateUtil;
+import com.duke.nurseryschool.hibernate.bean.FeeDetails;
+import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
 import com.opensymphony.xwork2.DefaultTextProvider;
 import com.opensymphony.xwork2.TextProvider;
 
@@ -98,5 +104,26 @@ public class BusinessLogicSolver {
 			return Integer.toString(monthName);
 		else
 			return Constant.ZERO + monthName;
+	}
+
+	public static void recalculateExtraStudyFee(int feeDetailsId,
+			Session session) {
+		FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
+				Integer.valueOf(feeDetailsId));
+		feeDetails = recalculateExtraStudyFee(feeDetails, session);
+		session.saveOrUpdate(feeDetails);
+	}
+
+	private static FeeDetails recalculateExtraStudyFee(FeeDetails feeDetails,
+			Session session) {
+		// Calculate total study fee for all subjects
+		Set<SubjectFeeMap> allSubjectFeeMaps = feeDetails.getSubjectFeeMaps();
+		double totalStudyFee = 0;
+		for (SubjectFeeMap cSubjectFeeMap : allSubjectFeeMaps) {
+			totalStudyFee += cSubjectFeeMap.getAmount();
+		}
+		feeDetails.setTotalExtraStudyFee(totalStudyFee);
+
+		return feeDetails;
 	}
 }

@@ -19,6 +19,9 @@ public class SubjectFee implements Serializable {
 	@JoinColumn(name = "subjectId")
 	private Subject subject;
 
+	public SubjectFee() {
+	}
+
 	public SubjectFee(FeeDetails feeDetails, Subject subject) {
 		this.feeDetails = feeDetails;
 		this.subject = subject;

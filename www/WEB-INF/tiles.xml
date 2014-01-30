@@ -82,5 +82,15 @@
 		<put-attribute name="headTitle" value="Fee Details Management" />
 		<put-attribute name="body" value="/FeeDetails.jsp" />
 	</definition>
+	
+	<definition name="ExtraFeeMap" extends="MainLayout">
+		<put-attribute name="headTitle" value="Extra Fee Map Management" />
+		<put-attribute name="body" value="/ExtraFeeMap.jsp" />
+	</definition>
+	
+	<definition name="SubjectFeeMap" extends="MainLayout">
+		<put-attribute name="headTitle" value="Subject Fee Map Management" />
+		<put-attribute name="body" value="/SubjectFeeMap.jsp" />
+	</definition>
 
 </tiles-definitions>
