@@ -19,8 +19,10 @@ public class FeeDetailsExtraFee implements Serializable {
 	@JoinColumn(name = "extraFeeTypeId")
 	private ExtraFeeType extraFeeType;
 
+	public FeeDetailsExtraFee() {
+	}
+
 	public FeeDetailsExtraFee(FeeDetails feeDetails, ExtraFeeType extraFeeType) {
-		super();
 		this.feeDetails = feeDetails;
 		this.extraFeeType = extraFeeType;
 	}

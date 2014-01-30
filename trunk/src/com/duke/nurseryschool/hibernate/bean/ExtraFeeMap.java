@@ -37,4 +37,12 @@ public class ExtraFeeMap {
 		this.amount = amount;
 	}
 
+	public FeeDetailsExtraFee getFeeDetailsExtraFee() {
+		return this.feeDetailsExtraFee;
+	}
+
+	public void setFeeDetailsExtraFee(FeeDetailsExtraFee feeDetailsExtraFee) {
+		this.feeDetailsExtraFee = feeDetailsExtraFee;
+	}
+
 }

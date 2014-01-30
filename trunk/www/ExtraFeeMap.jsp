@@ -26,30 +26,30 @@
 							id="dynamicTable">
 							<thead>
 								<tr>
-									<th><s:text name="label.subjectFeeMap.feeDetailsId" /></th>
-									<th><s:text name="label.subjectFeeMap.subjectId" /></th>
-									<th><s:text name="label.subjectFeeMap.amount" /></th>
+									<th><s:text name="label.extraFeeMap.feeDetailsId" /></th>
+									<th><s:text name="label.extraFeeMap.extraFeeTypeId" /></th>
+									<th><s:text name="label.extraFeeMap.amount" /></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="subjectFeeMaps">
+								<s:iterator value="extraFeeMaps">
 									<tr class="gradeC">
 										<td><s:property
-												value="subjectFee.feeDetails.label" /></td>
-										<td><s:property value="subjectFee.subject.name" /></td>
+												value="feeDetailsExtraFee.feeDetails.label" /></td>
+										<td><s:property value="feeDetailsExtraFee.extraFeeType.name" /></td>
 										<td><s:property value="amount" /></td>
-										<td><s:url id="editUrl" action="editSubjectFeeMap">
-												<s:param name="subjectId"
-													value="%{subjectFee.subject.subjectId}" />
+										<td><s:url id="editUrl" action="editExtraFeeMap">
+												<s:param name="extraFeeTypeId"
+													value="%{feeDetailsExtraFee.extraFeeType.extraFeeTypeId}" />
 												<s:param name="feeDetailsId"
-													value="%{subjectFee.feeDetails.feeDetailsId}" />
+													value="%{feeDetailsExtraFee.feeDetails.feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deleteSubjectFeeMap">
-												<s:param name="subjectId"
-													value="%{subjectFee.subject.subjectId}" />
+											<s:url id="deleteUrl" action="deleteExtraFeeMap">
+												<s:param name="extraFeeTypeId"
+													value="%{feeDetailsExtraFee.extraFeeType.extraFeeTypeId}" />
 												<s:param name="feeDetailsId"
-													value="%{subjectFee.feeDetails.feeDetailsId}" />
+													value="%{feeDetailsExtraFee.feeDetails.feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
 										</td>
 									</tr>
@@ -60,7 +60,7 @@
 
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
-						<s:form action="saveOrUpdateSubjectFeeMap"
+						<s:form action="saveOrUpdateExtraFeeMap"
 							cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
@@ -74,23 +74,23 @@
 									</s:if>
 									<s:else>
 										<s:set name="isReadOnly" value="true" />
-										<s:hidden name="subjectId"/>
+										<s:hidden name="extraFeeTypeId"/>
 										<s:hidden name="feeDetailsId"/>
 									</s:else>
 
 									<div class="col-md-2">
-										<s:label key="label.subject" cssClass="control-label" />
+										<s:label key="label.extraFeeType" cssClass="control-label" />
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:select list="subjectList" listKey="subjectId"
-												listValue="name" name="subjectId" headerKey="-1"
-												headerValue="%{getText('select.subject')}"
-												value="%{subjectId}" disabled="%{isReadOnly}"/>
+											<s:select list="extraFeeTypeList" listKey="extraFeeTypeId"
+												listValue="name" name="extraFeeTypeId" headerKey="-1"
+												headerValue="%{getText('select.extraFeeType')}"
+												value="%{extraFeeTypeId}" disabled="%{isReadOnly}"/>
 										</div>
 									</div>
 									<div class="col-md-2">
-										<s:label key="label.subjectFeeMap.feeDetailsId"
+										<s:label key="label.extraFeeMap.feeDetailsId"
 											cssClass="control-label" />
 									</div>
 									<div class="col-md-4">
@@ -102,14 +102,14 @@
 										</div>
 									</div>
 
-									<s:push value="subjectFeeMap">
+									<s:push value="extraFeeMap">
 										<div class="col-md-2">
-											<s:label key="label.subjectFeeMap.amount"
+											<s:label key="label.extraFeeMap.amount"
 												cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.subjectFeeMap.amount" name="amount"
+												<s:textfield key="label.extraFeeMap.amount" name="amount"
 													cssClass="form-control" />
 											</div>
 										</div>

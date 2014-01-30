@@ -6,6 +6,7 @@ import java.util.Set;
 import org.hibernate.Session;
 
 import com.duke.nurseryschool.hibernate.HibernateUtil;
+import com.duke.nurseryschool.hibernate.bean.ExtraFeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeeDetails;
 import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
 import com.opensymphony.xwork2.DefaultTextProvider;
@@ -123,6 +124,26 @@ public class BusinessLogicSolver {
 			totalStudyFee += cSubjectFeeMap.getAmount();
 		}
 		feeDetails.setTotalExtraStudyFee(totalStudyFee);
+
+		return feeDetails;
+	}
+
+	public static void recalculateExtraFee(int feeDetailsId, Session session) {
+		FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
+				Integer.valueOf(feeDetailsId));
+		feeDetails = recalculateExtraFee(feeDetails, session);
+		session.saveOrUpdate(feeDetails);
+	}
+
+	private static FeeDetails recalculateExtraFee(FeeDetails feeDetails,
+			Session session) {
+		// Calculate total study fee for all subjects
+		Set<ExtraFeeMap> allExtraFeeMaps = feeDetails.getExtraFeeMaps();
+		double totalExtraFee = 0;
+		for (ExtraFeeMap cExtraFeeMap : allExtraFeeMaps) {
+			totalExtraFee += cExtraFeeMap.getAmount();
+		}
+		feeDetails.setTotalExtraFee(totalExtraFee);
 
 		return feeDetails;
 	}
