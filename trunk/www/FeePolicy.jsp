@@ -77,6 +77,8 @@
 									</s:if>
 									<s:else>
 										<s:set name="isReadOnly" value="true" />
+										<s:hidden name="classId"/>
+										<s:hidden name="monthId"/>
 									</s:else>
 
 									<div class="col-md-2">
@@ -85,11 +87,9 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<%-- 											<s:textfield key="label.feePolicy.classId" name="classId" --%>
-											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
 											<s:select list="classList" listKey="classId" listValue="label"
 												name="classId" headerKey="-1"
-												headerValue="%{getText('select.class')}" value="%{classId}" />
+												headerValue="%{getText('select.class')}" value="%{classId}" disabled="%{isReadOnly}" />
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -98,11 +98,9 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<%-- 											<s:textfield key="label.feePolicy.monthId" name="monthId" --%>
-											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
 											<s:select list="monthList" listKey="monthId" listValue="label"
 												name="monthId" headerKey="-1"
-												headerValue="%{getText('select.month')}" value="%{monthId}" />
+												headerValue="%{getText('select.month')}" value="%{monthId}" disabled="%{isReadOnly}"/>
 										</div>
 									</div>
 

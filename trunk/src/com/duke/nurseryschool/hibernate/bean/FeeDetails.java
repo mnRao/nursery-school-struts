@@ -11,9 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.helper.Constant;
+
 @Entity
 @Table(name = "fee_details")
-public class FeeDetails {
+public class FeeDetails implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int feeDetailsId;
@@ -37,15 +40,23 @@ public class FeeDetails {
 	@OneToMany(mappedBy = "feeDetailsExtraFee.feeDetails")
 	private Set<ExtraFeeMap> extraFeeMaps;
 
+	@OneToMany(mappedBy = "subjectFee.feeDetails")
+	private Set<SubjectFeeMap> subjectFeeMaps;
+
 	public FeeDetails() {
 	}
 
 	public FeeDetails(double basicStudyFee, double totalExtraFee,
 			double totalExtraStudyFee) {
-		super();
 		this.basicStudyFee = basicStudyFee;
 		this.totalExtraFee = totalExtraFee;
 		this.totalExtraStudyFee = totalExtraStudyFee;
+	}
+
+	@Override
+	public String getLabel() {
+		return this.associatedClass.getLabel()
+				+ Constant.PUNCTUATION_MARK.HYPHEN + this.month.getLabel();
 	}
 
 	public int getFeeDetailsId() {
@@ -110,6 +121,14 @@ public class FeeDetails {
 
 	public void setExtraFeeMaps(Set<ExtraFeeMap> extraFeeMaps) {
 		this.extraFeeMaps = extraFeeMaps;
+	}
+
+	public Set<SubjectFeeMap> getSubjectFeeMaps() {
+		return this.subjectFeeMaps;
+	}
+
+	public void setSubjectFeeMaps(Set<SubjectFeeMap> subjectFeeMaps) {
+		this.subjectFeeMaps = subjectFeeMaps;
 	}
 
 }

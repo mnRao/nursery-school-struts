@@ -70,13 +70,16 @@
 									<s:push value="course">
 										<s:hidden name="courseId" />
 										<div class="col-md-2">
-											<s:label key="label.course" cssClass="control-label" />
+											<s:label key="label.course.startYear" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.course.startYear" name="startYear"
 													cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.course.endYear" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">

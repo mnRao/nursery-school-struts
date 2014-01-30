@@ -33,4 +33,12 @@ public class SubjectFeeMap {
 		this.amount = amount;
 	}
 
+	public SubjectFee getSubjectFee() {
+		return this.subjectFee;
+	}
+
+	public void setSubjectFee(SubjectFee subjectFee) {
+		this.subjectFee = subjectFee;
+	}
+
 }

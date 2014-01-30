@@ -120,6 +120,7 @@
 											<div class="form-group">
 												<s:textfield key="label.payment.feeDetailsId" name="payment.studentFeeDetails.feeDetailsId"
 													cssClass="form-control" />
+												
 											</div>
 										</div>
 									</s:push>

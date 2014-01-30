@@ -50,7 +50,7 @@
 											<s:url id="deleteUrl" action="deleteFeeDetails">
 												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-											<s:url id="addSubjectUrl" action="addSubjectFeeDetails">
+											<s:url id="addSubjectUrl" action="autoSetFeeDetailsSubjectFeeMap">
 												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addSubjectUrl}">Add Subject</s:a>
 											<s:url id="addExtraFeeUrl" action="addExtraFeeFeeDetails">
@@ -78,6 +78,8 @@
 									</s:if>
 									<s:else>
 										<s:set name="isReadOnly" value="true" />
+										<s:hidden name="classId"/>
+										<s:hidden name="monthId"/>
 									</s:else>
 
 									<div class="col-md-2">
@@ -90,7 +92,7 @@
 											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
 											<s:select list="classList" listKey="classId"
 												listValue="label" name="classId" headerKey="-1"
-												headerValue="%{getText('select.class')}" value="%{classId}" />
+												headerValue="%{getText('select.class')}" value="%{classId}" disabled="%{isReadOnly}" />
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -103,7 +105,7 @@
 											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
 											<s:select list="monthList" listKey="monthId"
 												listValue="label" name="monthId" headerKey="-1"
-												headerValue="%{getText('select.month')}" value="%{monthId}" />
+												headerValue="%{getText('select.month')}" value="%{monthId}" disabled="%{isReadOnly}"/>
 										</div>
 									</div>
 

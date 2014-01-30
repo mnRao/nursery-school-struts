@@ -5,11 +5,13 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 
 @Entity
 @Table(name = "fee_policy")
-public class FeePolicy {
+public class FeePolicy implements BeanLabel {
 	@Column(name = "feePerNormalMeal")
 	private double feePerNormalMeal;
 	@Column(name = "feePerBreakfast")
@@ -28,6 +30,13 @@ public class FeePolicy {
 		this.feePerNormalMeal = feePerNormalMeal;
 		this.feePerBreakfast = feePerBreakfast;
 		this.availableDays = availableDays;
+	}
+
+	@Override
+	public String getLabel() {
+		return this.classMonth.getAssociatedClass().getLabel()
+				+ Constant.PUNCTUATION_MARK.HYPHEN
+				+ this.classMonth.getMonth().getLabel();
 	}
 
 	public double getFeePerNormalMeal() {

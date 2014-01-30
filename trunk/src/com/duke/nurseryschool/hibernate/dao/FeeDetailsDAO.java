@@ -8,8 +8,10 @@ import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.ExtraFeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeeDetails;
 import com.duke.nurseryschool.hibernate.bean.Month;
+import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
 import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;

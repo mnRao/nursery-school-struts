@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Course;
@@ -75,6 +76,25 @@ public class TestHibernate {
 		feePolicy1.setClassMonth(classMonthEmbedded);
 		this.session.save(feePolicy1);
 
+		// Subject fee map
+		Subject subject1 = new Subject("First Subject");
+		this.session.save(subject1);
+
+		FeeDetails feeDetails1 = new FeeDetails();
+		feeDetails1.setAssociatedClass(class1);
+		feeDetails1.setMonth(month1);
+		feeDetails1.setBasicStudyFee(100);
+		this.session.save(feeDetails1);
+
+		this.session.flush();
+
+		SubjectFeeMap subjectFeeMap1 = new SubjectFeeMap(200, feeDetails1,
+				subject1);
+		this.session.save(subjectFeeMap1);
+
+		BusinessLogicSolver.recalculateExtraStudyFee(
+				feeDetails1.getFeeDetailsId(), this.session);
+
 		// Commit all
 		this.session.getTransaction().commit();
 
@@ -98,6 +118,17 @@ public class TestHibernate {
 				.getAssociatedClass().getCode());
 		assertEquals(1991, feePolicies.get(0).getClassMonth().getMonth()
 				.getYear());
+
+		// Assert subject fee map
+		List<SubjectFeeMap> subjectFeeMaps = this.session.createQuery(
+				Constant.DATABASE_QUERY.ALL_SUBJECT_FEE_MAPS).list();
+		assertEquals(1, subjectFeeMaps.size());
+		assertEquals("First Subject", subjectFeeMaps.get(0).getSubjectFee()
+				.getSubject().getName());
+		assertEquals(100, subjectFeeMaps.get(0).getSubjectFee().getFeeDetails()
+				.getBasicStudyFee(), 0.1);
+		assertEquals(200, subjectFeeMaps.get(0).getSubjectFee().getFeeDetails()
+				.getTotalExtraStudyFee(), 0.1);
 	}
 
 	@After
