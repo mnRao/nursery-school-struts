@@ -54,4 +54,20 @@ public final class Constant {
 		public static final int FEMALE = 0;
 		public static final int MALE = 1;
 	}
+
+	public static final class MENU_ITEM {
+		public static final String DASHBOARD = "dashboard";
+		public static final String COURSE = "Course";
+		public static final String CLASS = "Class";
+		public static final String STUDENT = "Student";
+		public static final String PARENT = "Parent";
+		public static final String SUBJECT = "Subject";
+		public static final String EXTRA_FEE_TYPE = "ExtraFeeType";
+		public static final String MONTH = "Month";
+		public static final String FEE_POLICY = "FeePolicy";
+		public static final String FEE_DETAILS = "FeeDetails";
+		public static final String EXTRA_FEE_MAP = "ExtraFeeMap";
+		public static final String SUBJECT_FEE_MAP = "SubjectFeeMap";
+		public static final String PAYMENT = "Payment";
+	}
 }

@@ -52,8 +52,8 @@
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
 											<s:url id="addSubjectUrl" action="autoSetFeeDetailsSubjectFeeMap">
 												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addSubjectUrl}">Add Subject</s:a>
-											<s:url id="addExtraFeeUrl" action="addExtraFeeFeeDetails">
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addSubjectUrl}">Add Subject Fee</s:a>
+											<s:url id="addExtraFeeUrl" action="autoSetFeeDetailsExtraFeeMap">
 												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addExtraFeeUrl}">Add Extra Fee</s:a>
 										</td>
@@ -88,8 +88,6 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<%-- 											<s:textfield key="label.feeDetails.classId" name="classId" --%>
-											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
 											<s:select list="classList" listKey="classId"
 												listValue="label" name="classId" headerKey="-1"
 												headerValue="%{getText('select.class')}" value="%{classId}" disabled="%{isReadOnly}" />
@@ -101,8 +99,6 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<%-- 											<s:textfield key="label.feeDetails.monthId" name="monthId" --%>
-											<%-- 												cssClass="form-control" readonly="%{isReadOnly}" /> --%>
 											<s:select list="monthList" listKey="monthId"
 												listValue="label" name="monthId" headerKey="-1"
 												headerValue="%{getText('select.month')}" value="%{monthId}" disabled="%{isReadOnly}"/>

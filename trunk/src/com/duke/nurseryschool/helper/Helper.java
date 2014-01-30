@@ -26,6 +26,14 @@ public class Helper {
 		return ActionContext.getContext().getName();
 	}
 
+	public static String isMenuItemActive(String menuItem) {
+		String currentActionName = getActionName();
+		if (currentActionName.contains(menuItem))
+			return "current";
+		else
+			return Constant.EMPTY_STRING;
+	}
+
 	/**
 	 * Compute CSS class for given tab (header | content), regarding tab number
 	 */
