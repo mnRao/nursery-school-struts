@@ -56,6 +56,11 @@
 											<s:url id="addExtraFeeUrl" action="autoSetFeeDetailsExtraFeeMap">
 												<s:param name="feeDetailsId" value="%{feeDetailsId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addExtraFeeUrl}">Add Extra Fee</s:a>
+											
+											<s:url id="excelUrl" action="generateExcel">
+												<s:param name="feeDetailsId"
+													value="%{feeDetailsId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">Excel</s:a>
 										</td>
 									</tr>
 								</s:iterator>

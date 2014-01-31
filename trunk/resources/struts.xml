@@ -114,6 +114,15 @@
 			<result name="success" type="tiles">SubjectFeeMap</result>
 			<result name="successRedirect" type="redirect">listSubjectFeeMap</result>
 		</action>
+		<!-- Excel Generator-->
+		<action name="generateExcel" class="com.duke.nurseryschool.ExcelGeneratorAction">
+			<result name="success" type="stream">
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+				<param name="contentType">appliation/vnd.ms-excel</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
 	</package>
 
 </struts>

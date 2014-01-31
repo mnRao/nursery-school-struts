@@ -40,8 +40,8 @@
 								<s:iterator value="feePolicies">
 									<tr class="gradeC">
 										<td><s:property
-												value="classMonth.associatedClass.classId" /></td>
-										<td><s:property value="classMonth.month.monthId" /></td>
+												value="classMonth.associatedClass.label" /></td>
+										<td><s:property value="classMonth.month.label" /></td>
 										<td><s:property value="feePerNormalMeal" /></td>
 										<td><s:property value="feePerBreakfast" /></td>
 										<td><s:property value="availableDays" /></td>

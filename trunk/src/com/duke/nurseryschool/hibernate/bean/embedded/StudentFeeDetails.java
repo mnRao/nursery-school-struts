@@ -20,6 +20,9 @@ public class StudentFeeDetails implements Serializable {
 	@JoinColumn(name = "feeDetailsId")
 	private FeeDetails feeDetails;
 
+	public StudentFeeDetails() {
+	}
+
 	public StudentFeeDetails(Student student, FeeDetails feeDetails) {
 		this.student = student;
 		this.feeDetails = feeDetails;

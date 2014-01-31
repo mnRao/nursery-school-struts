@@ -3,9 +3,6 @@ package com.duke.nurseryschool.hibernate.bean;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.hibernate.bean.embedded.StudentFeeDetails;
@@ -13,8 +10,8 @@ import com.duke.nurseryschool.hibernate.bean.embedded.StudentFeeDetails;
 @Entity
 @Table(name = "payment")
 public class Payment {
-	@Column(name = "absenseCount")
-	private int absenseCount;
+	@Column(name = "absenceCount")
+	private int absenceCount;
 	@Column(name = "totalNormalMealFee")
 	private double totalNormalMealFee;
 	@Column(name = "totalBreakfastFee")
@@ -35,8 +32,7 @@ public class Payment {
 	public Payment(int absenseCount, double totalNormalMealFee,
 			double totalBreakfastFee, double totalFee, int isPaid, String note,
 			Student student, FeeDetails feeDetails) {
-		super();
-		this.absenseCount = absenseCount;
+		this.absenceCount = absenseCount;
 		this.totalNormalMealFee = totalNormalMealFee;
 		this.totalBreakfastFee = totalBreakfastFee;
 		this.totalFee = totalFee;
@@ -45,12 +41,12 @@ public class Payment {
 		this.studentFeeDetails = new StudentFeeDetails(student, feeDetails);
 	}
 
-	public int getAbsenseCount() {
-		return this.absenseCount;
+	public int getAbsenceCount() {
+		return this.absenceCount;
 	}
 
-	public void setAbsenseCount(int absenseCount) {
-		this.absenseCount = absenseCount;
+	public void setAbsenceCount(int absenceCount) {
+		this.absenceCount = absenceCount;
 	}
 
 	public double getTotalNormalMealFee() {
@@ -91,6 +87,14 @@ public class Payment {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public StudentFeeDetails getStudentFeeDetails() {
+		return this.studentFeeDetails;
+	}
+
+	public void setStudentFeeDetails(StudentFeeDetails studentFeeDetails) {
+		this.studentFeeDetails = studentFeeDetails;
 	}
 
 }

@@ -8,6 +8,8 @@ public final class Constant {
 	public static final class PUNCTUATION_MARK {
 		public static final String BRACKET_OPEN = "[";
 		public static final String BRACKET_CLOSE = "]";
+		public static final String PARENTHESIS_OPEN = "(";
+		public static final String PARENTHESIS_CLOSE = ")";
 		public static final String HYPHEN = "-";
 	}
 
@@ -30,6 +32,12 @@ public final class Constant {
 		public static final String SUCCESS_RECORD_CREATE_UPDATE = "success.model.create";
 		public static final String FORM_GENDER_MALE = "form.gender.male";
 		public static final String FORM_GENDER_FEMALE = "form.gender.female";
+
+		public static final String EXCEL_HEADER_PAYMENT = "excel.header.top.payment";
+		public static final String EXCEL_HEADER_MONTH = "excel.header.top.month";
+		public static final String EXCEL_HEADER_YEAR = "excel.header.top.year";
+		public static final String EXCEL_HEADER_CLASS = "excel.header.top.class";
+		public static final String EXCEL_HEADER_DAYS = "excel.header.top.availableDays";
 	}
 
 	public static final class DATABASE_QUERY {
@@ -56,7 +64,7 @@ public final class Constant {
 	}
 
 	public static final class MENU_ITEM {
-		public static final String DASHBOARD = "dashboard";
+		public static final String DASHBOARD = "Dashboard";
 		public static final String COURSE = "Course";
 		public static final String CLASS = "Class";
 		public static final String STUDENT = "Student";
