@@ -14,7 +14,9 @@
 	</div>
 	<ul class="nav navbar-nav navbar-right  hidden-xs">
 		<li class="dropdown hidden-xs"><a href="#" /><i
-				class="icon-cogs"> </i><s:text name="ui.header.currentYear" /> <%= BusinessLogicSolver.calculateCurrentAcademicYear() %> </a></li>
+			class="icon-cogs"> </i>
+		<s:text name="ui.header.currentYear" /> <%=BusinessLogicSolver.calculateCurrentAcademicYear()%>
+			</a></li>
 		<!-- 	Localization -->
 		<s:url id="localeEN" namespace="/" action="locale">
 			<s:param name="request_locale">en</s:param>
@@ -23,8 +25,8 @@
 			<s:param name="request_locale">vi_VN</s:param>
 		</s:url>
 		<li class="dropdown user  hidden-xs"><a data-toggle="dropdown"
-			class="dropdown-toggle" href="#"> <i class="icon-flag"></i>
-				<span class="username"><s:text name="ui.header.language" /></span> <i
+			class="dropdown-toggle" href="#"> <i class="icon-flag"></i> <span
+				class="username"><s:text name="ui.header.language" /></span> <i
 				class="icon-caret-down small"></i>
 		</a>
 			<ul class="dropdown-menu">
@@ -44,8 +46,8 @@
 			href="<s:url action="login" />"><i class="icon-signout"></i> <s:text
 					name="ui.header.logout" /></a></li>
 	</ul>
-	<form class="pull-right">
-		<input type="search" placeholder="Search..." class="search"
-			id="search-input">
-	</form>
+	<!-- 	<form class="pull-right"> -->
+	<!-- 		<input type="search" placeholder="Search..." class="search" -->
+	<!-- 			id="search-input"> -->
+	<!-- 	</form> -->
 </div>

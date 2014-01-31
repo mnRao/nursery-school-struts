@@ -16,11 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
+import com.duke.nurseryschool.helper.Constant;
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class Student implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int studentId;
@@ -68,6 +70,15 @@ public class Student {
 		this.homePhone = homePhone;
 		this.isActive = isActive;
 		this.description = description;
+	}
+
+	@Override
+	public String getLabel() {
+		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.name
+				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE
+				+ Constant.PUNCTUATION_MARK.HYPHEN
+				+ this.getAssociatedClass().getCourse().getLabel()
+				+ this.getAssociatedClass().getCode();
 	}
 
 	public String getGenderText() throws InstantiationException,

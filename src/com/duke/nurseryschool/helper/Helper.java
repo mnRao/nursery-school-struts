@@ -57,4 +57,15 @@ public class Helper {
 		return cssClass;
 	}
 
+	public static String getI18N(String key) {
+		TextProvider textProvider = null;
+		try {
+			textProvider = DefaultTextProvider.class.newInstance();
+		}
+		catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return textProvider.getText(key);
+	}
 }
