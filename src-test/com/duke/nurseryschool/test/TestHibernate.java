@@ -92,8 +92,8 @@ public class TestHibernate {
 				subject1);
 		this.session.save(subjectFeeMap1);
 
-		BusinessLogicSolver.recalculateExtraStudyFee(
-				feeDetails1.getFeeDetailsId(), this.session);
+		// BusinessLogicSolver.recalculateExtraStudyFee(
+		// feeDetails1.getFeeDetailsId(), this.session);
 
 		// Commit all
 		this.session.getTransaction().commit();
@@ -109,6 +109,7 @@ public class TestHibernate {
 		assertEquals(1,
 				this.session.createQuery(Constant.DATABASE_QUERY.ALL_CLASSES)
 						.list().size());
+		assertEquals(1, students.get(0).getParents().size());
 
 		// Assert embedded
 		List<FeePolicy> feePolicies = this.session.createQuery(

@@ -39,6 +39,11 @@ public class Helper {
 	 */
 	public static String getTabCss(int tabNumber, boolean isContent) {
 		String actionName = ActionContext.getContext().getName();
+
+		// Cases for necessary hidden tab
+		if (isInvisible(tabNumber, actionName))
+			return "app-hidden";
+
 		boolean isSpecialCase = actionName.contains("edit")
 				|| actionName.contains("autoSet");
 		String cssClass = calculateTabCss(tabNumber, isSpecialCase, isContent);
@@ -55,6 +60,18 @@ public class Helper {
 		}
 
 		return cssClass;
+	}
+
+	/**
+	 * Prevent from editing directly. Only allow create in auto-set mode
+	 */
+	private static boolean isInvisible(int tabNumber, String actionName) {
+		if (tabNumber == 2 && actionName.contains("Parent")
+				&& !actionName.contains("autoSet")
+				&& !actionName.contains("edit"))
+			return true;
+		else
+			return false;
 	}
 
 	public static String getI18N(String key) {

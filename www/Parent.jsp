@@ -19,7 +19,7 @@
 								name="tab.label.first" /></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-				
+
 					<div id="firstTab"
 						class="tab-pane fade <%=Helper.getTabCss(1, true)%>">
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
@@ -42,23 +42,19 @@
 										<td><s:property value="gender" /></td>
 										<td><s:property value="job" /></td>
 										<td><s:property value="phoneNumber" /></td>
-										<td>
-										   <s:url id="editUrl"
-										      action="editParent">
-										      <s:param name="parentId" value="%{parentId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-										   <s:url id="deleteUrl" action="deleteParent">
-										      <s:param name="parentId" value="%{parentId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+										<td><s:url id="editUrl" action="editParent">
+												<s:param name="parentId" value="%{parentId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
+											<s:url id="deleteUrl" action="deleteParent">
+												<s:param name="parentId" value="%{parentId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
 										</td>
 									</tr>
 								</s:iterator>
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
 						<s:form action="saveOrUpdateParent" cssClass="form-horizontal">
@@ -67,8 +63,31 @@
 									<s:text name="form.legend" />
 								</legend>
 								<div class="control-group">
+									<!-- Mapping fields -->
+									<s:set var="changingMappingKeyAllowed"><%=Helper.changingMappingKeyAllowed()%></s:set>
+									<s:if test="%{#changingMappingKeyAllowed}">
+										<s:set name="isReadOnly" value="false" />
+									</s:if>
+									<s:else>
+										<s:set name="isReadOnly" value="true" />
+										<s:hidden name="studentId" />
+									</s:else>
+									<div class="col-md-2">
+										<s:label key="label.parent.studentId" cssClass="control-label" />
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<s:select list="studentList" listKey="studentId"
+												listValue="label" name="studentId" headerKey="-1"
+												headerValue="%{getText('select.student')}"
+												value="%{studentId}" disabled="%{isReadOnly}" />
+										</div>
+									</div>
+
 									<s:push value="parent">
 										<s:hidden name="parentId" />
+
+
 										<div class="col-md-2">
 											<s:label key="label.parent.name" cssClass="control-label" />
 										</div>
@@ -83,8 +102,9 @@
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.parent.gender" name="gender"
-													cssClass="form-control" />
+												<s:select name="gender" headerKey="-1"
+													list="#{0: getText('form.gender.female'), '1': getText('form.gender.male')}"
+													value="gender" />
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -97,12 +117,13 @@
 											</div>
 										</div>
 										<div class="col-md-2">
-											<s:label key="label.parent.phoneNumber" cssClass="control-label" />
+											<s:label key="label.parent.phoneNumber"
+												cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.parent.phoneNumber" name="phoneNumber"
-													cssClass="form-control" />
+												<s:textfield key="label.parent.phoneNumber"
+													name="phoneNumber" cssClass="form-control" />
 											</div>
 										</div>
 									</s:push>
@@ -115,7 +136,7 @@
 							</div>
 						</s:form>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>

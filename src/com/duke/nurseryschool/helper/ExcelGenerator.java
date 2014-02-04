@@ -103,9 +103,9 @@ public class ExcelGenerator {
 		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, "Order");
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, "Full name");
 		this.addCaption(sheet, 2, HEADER_NORMAL_ROW, "Study fee");
-		this.addCaption(sheet, 3, HEADER_NORMAL_ROW, "Absence count");
 
-		this.addCaption(sheet, 4, HEADER_NORMAL_ROW, "Meal");
+		this.addCaption(sheet, 3, HEADER_NORMAL_ROW, "Meal");
+		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW, "Absence count");
 		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW,
 				"Total normal meal fee");
 		this.addCaption(sheet, 5, HEADER_NORMAL_SPANNED_ROW,
@@ -145,9 +145,9 @@ public class ExcelGenerator {
 		sheet.mergeCells(0, HEADER_NORMAL_ROW, 0, HEADER_NORMAL_SPANNED_ROW);
 		sheet.mergeCells(1, HEADER_NORMAL_ROW, 1, HEADER_NORMAL_SPANNED_ROW);
 		sheet.mergeCells(2, HEADER_NORMAL_ROW, 2, HEADER_NORMAL_SPANNED_ROW);
-		sheet.mergeCells(3, HEADER_NORMAL_ROW, 3, HEADER_NORMAL_SPANNED_ROW);
+		// sheet.mergeCells(3, HEADER_NORMAL_ROW, 3, HEADER_NORMAL_SPANNED_ROW);
 
-		sheet.mergeCells(4, HEADER_NORMAL_ROW, CONTENT_SUBJECT_START_COL - 1,
+		sheet.mergeCells(3, HEADER_NORMAL_ROW, CONTENT_SUBJECT_START_COL - 1,
 				HEADER_NORMAL_ROW);
 		sheet.mergeCells(CONTENT_SUBJECT_START_COL, HEADER_NORMAL_ROW,
 				this.extraFeeStartCol - 1, HEADER_NORMAL_ROW);

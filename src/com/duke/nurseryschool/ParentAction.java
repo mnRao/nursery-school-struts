@@ -5,8 +5,12 @@ import java.util.List;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Parent;
+import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.dao.ParentDAO;
+import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -16,6 +20,11 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	private List<Parent> parents = new ArrayList<Parent>();
 	private ParentDAO dao = new ParentDAO();
 
+	private int studentId;
+
+	private List<Student> studentList;
+	private StudentDAO studentDAO = new StudentDAO();
+
 	@Override
 	public Parent getModel() {
 		return this.parent;
@@ -23,6 +32,12 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 
 	public String saveOrUpdate() {
 		this.dao.saveOrUpdateParent(this.parent);
+
+		// Set student based on studentId
+		Student student = this.studentDAO.getStudent(this.studentId);
+		student.getParents().add(this.parent);
+		this.studentDAO.saveOrUpdateStudent(student);
+
 		this.addActionMessage(this
 				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
 
@@ -31,6 +46,8 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	}
 
 	public String list() {
+		this.populateLists();
+
 		this.parents = this.dao.getParents();
 		return Action.SUCCESS;
 	}
@@ -43,11 +60,21 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	}
 
 	public String edit() {
+		this.populateLists();
+
 		this.parent = this.dao.getParent(Integer.parseInt(this.request
 				.getParameter("parentId")));
 		// Load all
 		this.parents = this.dao.getParents();
 		return Action.SUCCESS;
+	}
+
+	private void populateLists() {
+		this.studentList = this.studentDAO.getStudents();
+	}
+
+	public String autoSetStudent() {
+		return this.list();
 	}
 
 	public List<Parent> getParents() {
@@ -64,6 +91,22 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 
 	public void setParent(Parent parent) {
 		this.parent = parent;
+	}
+
+	public int getStudentId() {
+		return this.studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public List<Student> getStudentList() {
+		return this.studentList;
+	}
+
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
 	}
 
 }
