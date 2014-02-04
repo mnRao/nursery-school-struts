@@ -9,12 +9,22 @@ h2 small, .h2 small {
 	background-color: #FFFFFF;
 }
 
+/* Centralize footer items */
 .footer {
 	text-align: center;
 }
 
+/* Hide some tabs */
 .app-hidden{
 	visibility: hidden;
+}
+
+.table th{
+	color : black;
+}
+
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+	background-color: #C9ED84;
 }
 
 /* Fix top navigation bar */

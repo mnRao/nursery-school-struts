@@ -34,9 +34,11 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 		this.dao.saveOrUpdateParent(this.parent);
 
 		// Set student based on studentId
-		Student student = this.studentDAO.getStudent(this.studentId);
-		student.getParents().add(this.parent);
-		this.studentDAO.saveOrUpdateStudent(student);
+		if (this.studentId != 0) {
+			Student student = this.studentDAO.getStudent(this.studentId);
+			student.getParents().add(this.parent);
+			this.studentDAO.saveOrUpdateStudent(student);
+		}
 
 		this.addActionMessage(this
 				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));

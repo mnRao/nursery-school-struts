@@ -79,6 +79,14 @@ public class StudentAction extends CoreAction implements ModelDriven<Student> {
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	public String deleteParentMap() {
+		this.dao.deleteParentMap(
+				Integer.parseInt(this.request.getParameter("studentId")),
+				Integer.parseInt(this.request.getParameter("parentId")));
+
+		return this.list();
+	}
+
 	public String edit() {
 		this.populateClassList();
 

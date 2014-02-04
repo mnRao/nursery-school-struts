@@ -26,6 +26,7 @@
 							id="dynamicTable">
 							<thead>
 								<tr>
+									<th><s:text name="label.student.studentId" /></th>
 									<th><s:text name="label.student.name" /></th>
 									<th><s:text name="label.student.dateOfBirth" /></th>
 									<th><s:text name="label.student.gender" /></th>
@@ -39,9 +40,10 @@
 							<tbody>
 								<s:iterator value="students">
 									<tr class="gradeC">
+										<td><s:property value="studentId" /></td>
 										<td><s:property value="name" /></td>
 										<td><s:property value="dateOfBirth" /></td>
-										<td><s:property value="genderText"/></td>
+										<td><s:property value="genderText" /></td>
 										<td><s:property value="address" /></td>
 										<td><s:property value="homePhone" /></td>
 										<td><s:property value="isActive" /></td>
@@ -55,7 +57,66 @@
 											<s:url id="addParentUrl" action="autoSetStudentParent">
 												<s:param name="studentId" value="%{studentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addParentUrl}">Add parent</s:a>
-										</td>
+
+											<s:a href="#myModal%{studentId}" data-toggle="modal"
+												cssClass="btn btn-sm btn-success">Show parents</s:a> <s:div
+												aria-hidden="true" aria-labelledby="myModalLabel"
+												role="dialog" tabindex="-1" id="myModal%{studentId}"
+												cssClass="modal fade" style="display: none;">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button aria-hidden="true" data-dismiss="modal"
+																class="close" type="button">x</button>
+															<h4 class="modal-title">All parents</h4>
+														</div>
+														<div class="modal-body">
+
+															<%-- 														<s:property value="%{parents.size()}"/> --%>
+															<s:if test="%{parents.isEmpty()}">No data</s:if>
+															<s:else>
+																<table class="table table-hover">
+																	<thead>
+																		<tr>
+																			<th>#</th>
+																			<th><s:text name="label.parent.name" /></th>
+																			<th><s:text name="label.parent.job" /></th>
+																			<th><s:text name="label.parent.gender" /></th>
+																			<th><s:text name="label.parent.phoneNumber" /></th>
+																			<th class="hidden-xs"></th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<s:iterator value="parents">
+																			<tr>
+																				<td><s:property value="parentId" /></td>
+																				<td><s:property value="name" /></td>
+																				<td><s:property value="job" /></td>
+																				<td><s:property value="genderText" /></td>
+																				<td><s:property value="phoneNumber" /></td>
+																				<td class="hidden-xs"><s:url id="editUrl"
+																						action="editParent">
+																						<s:param name="parentId" value="%{parentId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-primary"
+																						href="%{editUrl}">Edit</s:a> <s:url id="deleteUrl"
+																						action="deleteParentMapStudent">
+																						<s:param name="studentId" value="%{studentId}" />
+																						<s:param name="parentId" value="%{parentId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
+																						href="%{deleteUrl}">Delete Map</s:a></td>
+																			</tr>
+																		</s:iterator>
+																	</tbody>
+																</table>
+															</s:else>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</s:div></td>
 									</tr>
 								</s:iterator>
 							</tbody>
@@ -75,8 +136,8 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:select list="classList" listKey="classId" listValue="label"
-												name="classId" headerKey="-1"
+											<s:select list="classList" listKey="classId"
+												listValue="label" name="classId" headerKey="-1"
 												headerValue="%{getText('select.class')}" value="%{classId}" />
 										</div>
 									</div>
@@ -118,7 +179,7 @@
 											<div class="form-group">
 												<s:select name="gender" headerKey="-1"
 													list="#{0: getText('form.gender.female'), '1': getText('form.gender.male')}"
-													value="gender"  />
+													value="gender" />
 											</div>
 										</div>
 										<div class="col-md-2">
