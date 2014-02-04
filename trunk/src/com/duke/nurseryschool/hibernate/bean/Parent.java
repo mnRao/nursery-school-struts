@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -84,6 +86,10 @@ public class Parent {
 
 	public void setStudents(Set<Student> students) {
 		this.students = students;
+	}
+
+	public void addStudent(Student student) {
+		this.students.add(student);
 	}
 
 }

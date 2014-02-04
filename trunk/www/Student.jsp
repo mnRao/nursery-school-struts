@@ -52,6 +52,9 @@
 											<s:url id="deleteUrl" action="deleteStudent">
 												<s:param name="studentId" value="%{studentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											<s:url id="addParentUrl" action="autoSetStudentParent">
+												<s:param name="studentId" value="%{studentId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addParentUrl}">Add parent</s:a>
 										</td>
 									</tr>
 								</s:iterator>

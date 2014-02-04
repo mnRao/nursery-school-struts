@@ -13,6 +13,9 @@ h2 small, .h2 small {
 	text-align: center;
 }
 
+.app-hidden{
+	visibility: hidden;
+}
 
 /* Fix top navigation bar */
 /* .top-navbar { */
