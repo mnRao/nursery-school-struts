@@ -48,6 +48,7 @@
 											<s:url id="deleteUrl" action="deleteParent">
 												<s:param name="parentId" value="%{parentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+
 										</td>
 									</tr>
 								</s:iterator>
