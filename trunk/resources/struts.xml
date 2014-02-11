@@ -54,18 +54,10 @@
 		</action>
 		<action name="logoutAuth" method="logout"
 			class="com.duke.nurseryschool.AuthenticationAction">
-			<result name="input" type="tiles">Login</result>
-			<result name="error" type="redirect">loginAuth</result>
-		</action>
-		<!-- <action name="*Auth" method="{1}" -->
-		<!-- class="com.duke.nurseryschool.AuthenticationAction"> -->
-		<!-- <interceptor-ref name="noLoginStack" /> -->
+			<interceptor-ref name="noLoginStack" />
 
-		<!-- <result name="success" type="tiles">Dashboard</result> -->
-		<!-- <result name="error" type="tiles">Login</result> -->
-		<!-- <result name="input" type="tiles">Login</result> -->
-		<!-- <result name="LogoutSuccess" type="tiles">Login</result> -->
-		<!-- </action> -->
+			<result name="LogoutSuccess" type="redirect">loginAuth</result>
+		</action>
 
 		<action name="dashboard" method="execute"
 			class="com.duke.nurseryschool.DashboardAction">
