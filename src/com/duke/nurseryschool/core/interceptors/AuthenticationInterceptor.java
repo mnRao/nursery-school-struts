@@ -29,10 +29,10 @@ public class AuthenticationInterceptor implements Interceptor {
 		String user = (String) sessionAttributes.get(Constant.SESSION_USER);
 
 		// Clear session when logging out
-		String method = actionInvocation.getProxy().getMethod();
-		if (method.equals("logout")) {
-			sessionAttributes.clear();
-		}
+		// String method = actionInvocation.getProxy().getMethod();
+		// if (method.equals("logout")) {
+		// sessionAttributes.clear();
+		// }
 
 		if (user == null || user.equals("")) {
 			return Action.LOGIN;

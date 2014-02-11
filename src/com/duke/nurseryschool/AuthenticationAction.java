@@ -1,5 +1,7 @@
 package com.duke.nurseryschool;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 
@@ -18,8 +20,11 @@ public class AuthenticationAction extends CoreAction {
 		}
 	}
 
+	@SkipValidation
 	public String logout() {
 		System.out.println("Logging out ...");
+
+		this.sessionAttributes.clear();
 
 		return "LogoutSuccess";
 	}
