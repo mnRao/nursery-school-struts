@@ -1,1 +1,1 @@
-<% response.sendRedirect("loginAuth.action"); %>
+<% response.sendRedirect("loginAuth"); %>
