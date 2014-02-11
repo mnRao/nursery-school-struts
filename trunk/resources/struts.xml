@@ -10,11 +10,31 @@
 
 	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
+
+
 	<package name="default" extends="struts-default" namespace="/">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+		<interceptors>
+			<interceptor name="authentication"
+				class="com.duke.nurseryschool.core.interceptors.AuthenticationInterceptor" />
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+			<interceptor-stack name="noLoginStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="authStack"></default-interceptor-ref>
+
+
+		<global-results>
+			<result name="login" type="redirect">loginAuth</result>
+		</global-results>
 
 		<!-- Locale -->
 		<action name="locale" method="execute"
@@ -24,12 +44,29 @@
 			<result name="success" type="tiles">Login</result>
 		</action>
 
-		<action name="login" method="authenticate"
-			class="com.duke.nurseryschool.LoginAction">
+		<action name="loginAuth" method="login"
+			class="com.duke.nurseryschool.AuthenticationAction">
+			<interceptor-ref name="noLoginStack" />
+
 			<result name="success" type="tiles">Dashboard</result>
 			<result name="error" type="tiles">Login</result>
 			<result name="input" type="tiles">Login</result>
 		</action>
+		<action name="logoutAuth" method="logout"
+			class="com.duke.nurseryschool.AuthenticationAction">
+			<result name="input" type="tiles">Login</result>
+			<result name="error" type="redirect">loginAuth</result>
+		</action>
+		<!-- <action name="*Auth" method="{1}" -->
+		<!-- class="com.duke.nurseryschool.AuthenticationAction"> -->
+		<!-- <interceptor-ref name="noLoginStack" /> -->
+
+		<!-- <result name="success" type="tiles">Dashboard</result> -->
+		<!-- <result name="error" type="tiles">Login</result> -->
+		<!-- <result name="input" type="tiles">Login</result> -->
+		<!-- <result name="LogoutSuccess" type="tiles">Login</result> -->
+		<!-- </action> -->
+
 		<action name="dashboard" method="execute"
 			class="com.duke.nurseryschool.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
@@ -114,7 +151,7 @@
 			<result name="success" type="tiles">SubjectFeeMap</result>
 			<result name="successRedirect" type="redirect">listSubjectFeeMap</result>
 		</action>
-		<!-- Excel Generator-->
+		<!-- Excel Generator -->
 		<action name="generateExcel" class="com.duke.nurseryschool.ExcelGeneratorAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
