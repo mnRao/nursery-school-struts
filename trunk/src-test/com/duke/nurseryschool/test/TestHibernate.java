@@ -1,6 +1,6 @@
 package com.duke.nurseryschool.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,22 +15,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Course;
-import com.duke.nurseryschool.hibernate.bean.ExtraFeeMap;
-import com.duke.nurseryschool.hibernate.bean.ExtraFeeType;
-import com.duke.nurseryschool.hibernate.bean.FeeDetails;
+import com.duke.nurseryschool.hibernate.bean.Fee;
+import com.duke.nurseryschool.hibernate.bean.FeeGroup;
+import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Parent;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
-import com.duke.nurseryschool.hibernate.bean.Subject;
-import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
-import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
-import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 
 public class TestHibernate {
 
@@ -70,27 +66,21 @@ public class TestHibernate {
 		Month month1 = new Month(1, 1991);
 		this.session.save(month1);
 
-		ClassMonth classMonthEmbedded = new ClassMonth(class1, month1);
-
-		FeePolicy feePolicy1 = new FeePolicy(10, 5, 22);
-		feePolicy1.setClassMonth(classMonthEmbedded);
+		FeePolicy feePolicy1 = new FeePolicy();
+		feePolicy1.setAssociatedClass(class1);
+		feePolicy1.setMonth(month1);
 		this.session.save(feePolicy1);
 
 		// Subject fee map
-		Subject subject1 = new Subject("First Subject");
+		Fee subject1 = new Fee("First Subject");
 		this.session.save(subject1);
 
-		FeeDetails feeDetails1 = new FeeDetails();
+		FeePolicy feeDetails1 = new FeePolicy();
 		feeDetails1.setAssociatedClass(class1);
 		feeDetails1.setMonth(month1);
-		feeDetails1.setBasicStudyFee(100);
 		this.session.save(feeDetails1);
 
 		this.session.flush();
-
-		SubjectFeeMap subjectFeeMap1 = new SubjectFeeMap(200, feeDetails1,
-				subject1);
-		this.session.save(subjectFeeMap1);
 
 		// BusinessLogicSolver.recalculateExtraStudyFee(
 		// feeDetails1.getFeeDetailsId(), this.session);
@@ -115,21 +105,14 @@ public class TestHibernate {
 		List<FeePolicy> feePolicies = this.session.createQuery(
 				Constant.DATABASE_QUERY.ALL_FEE_POLICIES).list();
 		assertEquals(1, feePolicies.size());
-		assertEquals("Code 1", feePolicies.get(0).getClassMonth()
-				.getAssociatedClass().getCode());
-		assertEquals(1991, feePolicies.get(0).getClassMonth().getMonth()
-				.getYear());
+		assertEquals("Code 1", feePolicies.get(0).getAssociatedClass()
+				.getCode());
+		assertEquals(1991, feePolicies.get(0).getMonth().getYear());
 
 		// Assert subject fee map
-		List<SubjectFeeMap> subjectFeeMaps = this.session.createQuery(
-				Constant.DATABASE_QUERY.ALL_SUBJECT_FEE_MAPS).list();
+		List<AlternativeFeeMap> subjectFeeMaps = this.session.createQuery(
+				Constant.DATABASE_QUERY.ALL_ALTERNATIVE_FEE_MAPS).list();
 		assertEquals(1, subjectFeeMaps.size());
-		assertEquals("First Subject", subjectFeeMaps.get(0).getSubjectFee()
-				.getSubject().getName());
-		assertEquals(100, subjectFeeMaps.get(0).getSubjectFee().getFeeDetails()
-				.getBasicStudyFee(), 0.1);
-		assertEquals(200, subjectFeeMaps.get(0).getSubjectFee().getFeeDetails()
-				.getTotalExtraStudyFee(), 0.1);
 	}
 
 	@After
@@ -145,16 +128,14 @@ public class TestHibernate {
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 		// Includes all beans
 		configuration.addAnnotatedClass(Classes.class)
-				.addAnnotatedClass(Course.class)
-				.addAnnotatedClass(ExtraFeeMap.class)
-				.addAnnotatedClass(ExtraFeeType.class)
-				.addAnnotatedClass(FeeDetails.class)
+				.addAnnotatedClass(Course.class).addAnnotatedClass(Fee.class)
+				.addAnnotatedClass(FeeGroup.class)
+				.addAnnotatedClass(FeeMap.class)
 				.addAnnotatedClass(FeePolicy.class)
 				.addAnnotatedClass(Month.class).addAnnotatedClass(Parent.class)
 				.addAnnotatedClass(Payment.class)
 				.addAnnotatedClass(Student.class)
-				.addAnnotatedClass(Subject.class)
-				.addAnnotatedClass(SubjectFeeMap.class);
+				.addAnnotatedClass(AlternativeFeeMap.class);
 		// H2 memory database for testing
 		// Note: Need to specify a trivial database name (not to test on actual
 		// database & rollback)

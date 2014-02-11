@@ -39,7 +39,7 @@
 										<td><s:property value="label" /></td>
 										<td><s:property value="monthName" /></td>
 										<td><s:property value="year" /></td>
-																				<td><s:url id="editUrl" action="editMonth">
+										<td><s:url id="editUrl" action="editMonth">
 												<s:param name="monthId" value="%{monthId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
 											<s:url id="deleteUrl" action="deleteMonth">
@@ -67,7 +67,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.month.month" name="monthName"
-													cssClass="form-control" />
+													cssClass="form-control" type="number" />
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -76,7 +76,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.month.year" name="year"
-													cssClass="form-control" />
+													cssClass="form-control" type="number" />
 											</div>
 										</div>
 									</s:push>

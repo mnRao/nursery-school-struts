@@ -48,7 +48,6 @@
 											<s:url id="deleteUrl" action="deleteParent">
 												<s:param name="parentId" value="%{parentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-
 										</td>
 									</tr>
 								</s:iterator>
@@ -127,7 +126,25 @@
 													name="phoneNumber" cssClass="form-control" />
 											</div>
 										</div>
+
+										<legend class="section">
+											<s:text name="form.legend.select" />
+										</legend>
+										<div class="col-md-2">
+											<s:label key="label.parent" cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:select list="parents" listKey="parentId"
+													listValue="label" name="parentId" headerKey="-1"
+													headerValue="%{getText('select.parent')}"
+													value="parentId" disabled="%{isReadOnly}" />
+											</div>
+										</div>
 									</s:push>
+
+
+
 								</div>
 							</fieldset>
 							<div class="form-actions">

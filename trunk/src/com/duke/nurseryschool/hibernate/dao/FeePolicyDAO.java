@@ -35,17 +35,11 @@ public class FeePolicyDAO {
 		return feePolicies;
 	}
 
-	public FeePolicy getFeePolicy(int classId, int monthId) {
-		Classes associatedClass = (Classes) this.session.get(Classes.class,
-				Integer.valueOf(classId));
-		Month month = (Month) this.session.get(Month.class,
-				Integer.valueOf(monthId));
-		ClassMonth classMonth = new ClassMonth(associatedClass, month);
-
+	public FeePolicy getFeePolicy(int feePolicyId) {
 		FeePolicy feePolicy = null;
 		try {
 			feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
-					classMonth);
+					feePolicyId);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,16 +57,10 @@ public class FeePolicyDAO {
 		}
 	}
 
-	public void deleteFeePolicy(int classId, int monthId) {
-		Classes associatedClass = (Classes) this.session.get(Classes.class,
-				Integer.valueOf(classId));
-		Month month = (Month) this.session.get(Month.class,
-				Integer.valueOf(monthId));
-		ClassMonth classMonth = new ClassMonth(associatedClass, month);
-
+	public void deleteFeePolicy(int feePolicyId) {
 		try {
 			FeePolicy feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
-					classMonth);
+					feePolicyId);
 			this.session.delete(feePolicy);
 		}
 		catch (Exception e) {
@@ -80,4 +68,5 @@ public class FeePolicyDAO {
 			e.printStackTrace();
 		}
 	}
+
 }

@@ -7,10 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.hibernate.bean.FeeDetails;
 import com.duke.nurseryschool.hibernate.bean.Payment;
-import com.duke.nurseryschool.hibernate.bean.Student;
-import com.duke.nurseryschool.hibernate.bean.embedded.StudentFeeDetails;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
@@ -35,18 +32,10 @@ public class PaymentDAO {
 		return payments;
 	}
 
-	public Payment getPayment(int studentId, int feeDetailsId) {
-		Student student = (Student) this.session.get(Student.class,
-				Integer.valueOf(studentId));
-		FeeDetails feeDetails = (FeeDetails) this.session.get(FeeDetails.class,
-				Integer.valueOf(feeDetailsId));
-		StudentFeeDetails studentFeeDetails = new StudentFeeDetails(student,
-				feeDetails);
-
+	public Payment getPayment(int paymentId) {
 		Payment payment = null;
 		try {
-			payment = (Payment) this.session.get(Payment.class,
-					studentFeeDetails);
+			payment = (Payment) this.session.get(Payment.class, paymentId);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

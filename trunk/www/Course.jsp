@@ -75,7 +75,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.course.startYear" name="startYear"
-													cssClass="form-control" />
+													cssClass="form-control" type="number"/>
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -84,7 +84,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.course.endYear" name="endYear"
-													cssClass="form-control" />
+													cssClass="form-control" type="number"/>
 											</div>
 										</div>
 									</s:push>

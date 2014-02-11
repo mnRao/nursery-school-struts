@@ -12,9 +12,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.helper.Constant;
+
 @Entity
 @Table(name = "parent")
-public class Parent {
+public class Parent implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int parentId;
@@ -38,6 +41,13 @@ public class Parent {
 		this.name = name;
 		this.job = job;
 		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
+	public String getLabel() {
+		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.name
+				+ Constant.PUNCTUATION_MARK.HYPHEN + this.job
+				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
 	}
 
 	public int getParentId() {

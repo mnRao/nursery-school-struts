@@ -40,7 +40,9 @@ public class FeePolicyAction extends CoreAction implements
 	public String saveOrUpdate() {
 		Classes associatedClass = this.classesDAO.getClasses(this.classId);
 		Month month = this.monthDAO.getMonth(this.monthId);
-		this.feePolicy.setClassMonth(new ClassMonth(associatedClass, month));
+		this.feePolicy.setAssociatedClass(associatedClass);
+		this.feePolicy.setMonth(month);
+		// this.feePolicy.setClassMonth(new ClassMonth(associatedClass, month));
 
 		this.dao.saveOrUpdateFeePolicy(this.feePolicy);
 		this.addActionMessage(this
@@ -51,7 +53,7 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	public String list() {
-		this.populateClassAndMonthLists();
+		this.populateLists();
 
 		this.feePolicies = this.dao.getFeePolicies();
 		return Action.SUCCESS;
@@ -59,30 +61,29 @@ public class FeePolicyAction extends CoreAction implements
 
 	public String delete() {
 		// Get params
-		String classId = this.request.getParameter("classId");
-		String monthId = this.request.getParameter("monthId");
+		String feePolicyId = this.request.getParameter("feePolicyId");
 
-		this.dao.deleteFeePolicy(Integer.parseInt(classId),
-				Integer.parseInt(monthId));
+		this.dao.deleteFeePolicy(Integer.parseInt(feePolicyId));
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	public String edit() {
-		this.populateClassAndMonthLists();
+		this.populateLists();
 
 		// Get params
-		String classId = this.request.getParameter("classId");
-		String monthId = this.request.getParameter("monthId");
-		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(classId),
-				Integer.parseInt(monthId));
+		String feePolicyId = this.request.getParameter("feePolicyId");
+		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(feePolicyId));
+
+		this.classId = this.feePolicy.getAssociatedClass().getClassId();
+		this.monthId = this.feePolicy.getMonth().getMonthId();
 
 		// Load all
 		this.feePolicies = this.dao.getFeePolicies();
 		return Action.SUCCESS;
 	}
 
-	private void populateClassAndMonthLists() {
+	private void populateLists() {
 		// Populate class list
 		this.classList = this.classesDAO.getClasses();
 		this.monthList = this.monthDAO.getMonths();
@@ -93,14 +94,6 @@ public class FeePolicyAction extends CoreAction implements
 		return this.list();
 	}
 
-	public List<FeePolicy> getFeePolicies() {
-		return this.feePolicies;
-	}
-
-	public void setFeePolicies(List<FeePolicy> feePolicys) {
-		this.feePolicies = feePolicys;
-	}
-
 	public FeePolicy getFeePolicy() {
 		return this.feePolicy;
 	}
@@ -109,12 +102,12 @@ public class FeePolicyAction extends CoreAction implements
 		this.feePolicy = feePolicy;
 	}
 
-	public ClassMonth getClassMonth() {
-		return this.feePolicy.getClassMonth();
+	public List<FeePolicy> getFeePolicies() {
+		return this.feePolicies;
 	}
 
-	public void setClassMonth(ClassMonth classMonth) {
-		this.feePolicy.setClassMonth(classMonth);
+	public void setFeePolicies(List<FeePolicy> feePolicies) {
+		this.feePolicies = feePolicies;
 	}
 
 	public int getClassId() {

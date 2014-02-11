@@ -2,15 +2,14 @@ package com.duke.nurseryschool;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import jxl.write.WriteException;
 
 import com.duke.nurseryschool.helper.ExcelGenerator;
-import com.duke.nurseryschool.hibernate.bean.FeeDetails;
-import com.duke.nurseryschool.hibernate.dao.FeeDetailsDAO;
+import com.duke.nurseryschool.hibernate.bean.FeePolicy;
+import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -19,20 +18,19 @@ public class ExcelGeneratorAction extends ActionSupport {
 	private InputStream fileInputStream;
 	private String fileName;
 
-	private FeeDetailsDAO feeDetailsDAO = new FeeDetailsDAO();
-	private int feeDetailsId;
+	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	private int feePolicyId;
 
 	@Override
 	public String execute() throws WriteException, IOException {
-		FeeDetails feeDetails = this.feeDetailsDAO
-				.getFeeDetails(this.feeDetailsId);
+		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 
 		// File for download
 		this.fileName = "MyFile.xls";
 		String filePath = "C:\\" + this.fileName;
 		this.fileInputStream = new FileInputStream(new File(filePath));
 
-		ExcelGenerator excelGenerator = new ExcelGenerator(filePath, feeDetails);
+		ExcelGenerator excelGenerator = new ExcelGenerator(filePath, feePolicy);
 		excelGenerator.write();
 
 		return Action.SUCCESS;
@@ -54,12 +52,12 @@ public class ExcelGeneratorAction extends ActionSupport {
 		this.fileName = fileName;
 	}
 
-	public int getFeeDetailsId() {
-		return this.feeDetailsId;
+	public int getFeePolicyId() {
+		return this.feePolicyId;
 	}
 
-	public void setFeeDetailsId(int feeDetailsId) {
-		this.feeDetailsId = feeDetailsId;
+	public void setFeePolicyId(int feePolicyId) {
+		this.feePolicyId = feePolicyId;
 	}
 
 }

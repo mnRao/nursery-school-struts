@@ -1,14 +1,7 @@
 package com.duke.nurseryschool.helper;
 
 import java.util.Calendar;
-import java.util.Set;
 
-import org.hibernate.Session;
-
-import com.duke.nurseryschool.hibernate.HibernateUtil;
-import com.duke.nurseryschool.hibernate.bean.ExtraFeeMap;
-import com.duke.nurseryschool.hibernate.bean.FeeDetails;
-import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
 import com.opensymphony.xwork2.DefaultTextProvider;
 import com.opensymphony.xwork2.TextProvider;
 
@@ -23,25 +16,31 @@ public class BusinessLogicSolver {
 		// Base on month actualYear (Ex: Course: [2013-2014]; Current month:
 		// 01-2014 => actualYear = 2013
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-		int actualYear = Helper.calculateCurrentYear();
+		int currentYear = Helper.calculateCurrentYear();
+		int actualYear = currentYear;
 		if (currentMonth < 9) {
-			actualYear = actualYear - 1;
+			actualYear = currentYear - 1;
 		}
 
 		// Choose grade
-		if (actualYear > endYear) {
+		if (currentYear > endYear
+				|| (currentYear == endYear && currentMonth > 9)) {
 			grade = Grade.GRADUATED;
 		}
-		else if (actualYear == endYear) {
+		else if ((currentYear == endYear - 1 && currentMonth > 9)
+				|| currentYear == endYear && currentMonth < 9) {
 			grade = Grade.FIFTH;
 		}
-		else if (actualYear == startYear + 1) {
+		else if ((currentYear == endYear - 2 && currentMonth > 9)
+				|| currentYear == endYear - 1 && currentMonth < 9) {
 			grade = Grade.THIRD;
 		}
-		else if (actualYear == startYear + 2) {
+		else if ((currentYear == endYear - 3 && currentMonth > 9)
+				|| currentYear == endYear - 2 && currentMonth < 9) {
 			grade = Grade.FOURTH;
 		}
-		else if (actualYear <= startYear) {
+		else if ((currentYear == endYear - 4 && currentMonth > 9)
+				|| currentYear == endYear - 3 && currentMonth < 9) {
 			grade = Grade.SECOND;
 		}
 
@@ -107,44 +106,46 @@ public class BusinessLogicSolver {
 			return Constant.ZERO + monthName;
 	}
 
-	public static void recalculateExtraStudyFee(int feeDetailsId,
-			Session session) {
-		FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
-				Integer.valueOf(feeDetailsId));
-		feeDetails = recalculateExtraStudyFee(feeDetails, session);
-		session.saveOrUpdate(feeDetails);
-	}
-
-	private static FeeDetails recalculateExtraStudyFee(FeeDetails feeDetails,
-			Session session) {
-		// Calculate total study fee for all subjects
-		Set<SubjectFeeMap> allSubjectFeeMaps = feeDetails.getSubjectFeeMaps();
-		double totalStudyFee = 0;
-		for (SubjectFeeMap cSubjectFeeMap : allSubjectFeeMaps) {
-			totalStudyFee += cSubjectFeeMap.getAmount();
-		}
-		feeDetails.setTotalExtraStudyFee(totalStudyFee);
-
-		return feeDetails;
-	}
-
-	public static void recalculateExtraFee(int feeDetailsId, Session session) {
-		FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
-				Integer.valueOf(feeDetailsId));
-		feeDetails = recalculateExtraFee(feeDetails, session);
-		session.saveOrUpdate(feeDetails);
-	}
-
-	private static FeeDetails recalculateExtraFee(FeeDetails feeDetails,
-			Session session) {
-		// Calculate total study fee for all subjects
-		Set<ExtraFeeMap> allExtraFeeMaps = feeDetails.getExtraFeeMaps();
-		double totalExtraFee = 0;
-		for (ExtraFeeMap cExtraFeeMap : allExtraFeeMaps) {
-			totalExtraFee += cExtraFeeMap.getAmount();
-		}
-		feeDetails.setTotalExtraFee(totalExtraFee);
-
-		return feeDetails;
-	}
+	// public static void recalculateExtraStudyFee(int feeDetailsId,
+	// Session session) {
+	// FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
+	// Integer.valueOf(feeDetailsId));
+	// feeDetails = recalculateExtraStudyFee(feeDetails, session);
+	// session.saveOrUpdate(feeDetails);
+	// }
+	//
+	// private static FeeDetails recalculateExtraStudyFee(FeeDetails feeDetails,
+	// Session session) {
+	// // Calculate total study fee for all subjects
+	// Set<AlternativeFeeMap> allSubjectFeeMaps =
+	// feeDetails.getSubjectFeeMaps();
+	// double totalStudyFee = 0;
+	// for (AlternativeFeeMap cSubjectFeeMap : allSubjectFeeMaps) {
+	// totalStudyFee += cSubjectFeeMap.getAmount();
+	// }
+	// feeDetails.setTotalExtraStudyFee(totalStudyFee);
+	//
+	// return feeDetails;
+	// }
+	//
+	// public static void recalculateExtraFee(int feeDetailsId, Session session)
+	// {
+	// FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
+	// Integer.valueOf(feeDetailsId));
+	// feeDetails = recalculateExtraFee(feeDetails, session);
+	// session.saveOrUpdate(feeDetails);
+	// }
+	//
+	// private static FeeDetails recalculateExtraFee(FeeDetails feeDetails,
+	// Session session) {
+	// // Calculate total study fee for all subjects
+	// Set<FeeMap> allExtraFeeMaps = feeDetails.getExtraFeeMaps();
+	// double totalExtraFee = 0;
+	// for (FeeMap cExtraFeeMap : allExtraFeeMaps) {
+	// totalExtraFee += cExtraFeeMap.getAmount();
+	// }
+	// feeDetails.setTotalExtraFee(totalExtraFee);
+	//
+	// return feeDetails;
+	// }
 }

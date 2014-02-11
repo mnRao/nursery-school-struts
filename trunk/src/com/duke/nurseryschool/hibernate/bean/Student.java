@@ -58,7 +58,7 @@ public class Student implements BeanLabel {
 	})
 	private Set<Parent> parents = new HashSet<Parent>();
 
-	@OneToMany(mappedBy = "studentFeeDetails.student")
+	@OneToMany(mappedBy = "student")
 	private Set<Payment> payments;
 
 	public Student() {

@@ -83,11 +83,10 @@
 			<result name="success" type="tiles">Month</result>
 			<result name="successRedirect" type="redirect">listMonth</result>
 		</action>
-		<!-- Subject -->
-		<action name="*Subject" method="{1}"
-			class="com.duke.nurseryschool.SubjectAction">
-			<result name="success" type="tiles">Subject</result>
-			<result name="successRedirect" type="redirect">listSubject</result>
+		<!-- Fee -->
+		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.FeeAction">
+			<result name="success" type="tiles">Fee</result>
+			<result name="successRedirect" type="redirect">listFee</result>
 		</action>
 		<!-- Course -->
 		<action name="*Course" method="{1}"
@@ -100,6 +99,7 @@
 			class="com.duke.nurseryschool.ClassesAction">
 			<result name="success" type="tiles">Classes</result>
 			<result name="successRedirect" type="redirect">listClasses</result>
+			<result name="input" type="tiles">Classes</result>
 		</action>
 		<!-- Parent -->
 		<action name="*Parent" method="{1}"
@@ -119,29 +119,24 @@
 			<result name="success" type="tiles">Payment</result>
 			<result name="successRedirect" type="redirect">listPayment</result>
 		</action>
-		<!-- ExtraFeeType -->
-		<action name="*ExtraFeeType" method="{1}"
-			class="com.duke.nurseryschool.ExtraFeeTypeAction">
-			<result name="success" type="tiles">ExtraFeeType</result>
-			<result name="successRedirect" type="redirect">listExtraFeeType</result>
+		<!-- FeeGroup -->
+		<action name="*FeeGroup" method="{1}"
+			class="com.duke.nurseryschool.FeeGroupAction">
+			<result name="success" type="tiles">FeeGroup</result>
+			<result name="successRedirect" type="redirect">listFeeGroup</result>
 		</action>
-		<!-- FeeDetails -->
-		<action name="*FeeDetails" method="{1}"
-			class="com.duke.nurseryschool.FeeDetailsAction">
-			<result name="success" type="tiles">FeeDetails</result>
-			<result name="successRedirect" type="redirect">listFeeDetails</result>
+		<!-- FeeMap -->
+		<action name="*FeeMap" method="{1}"
+			class="com.duke.nurseryschool.FeeMapAction">
+			<result name="success" type="tiles">FeeMap</result>
+			<result name="successRedirect" type="redirect">listFeeMap</result>
 		</action>
-		<!-- ExtraFeeMap -->
-		<action name="*ExtraFeeMap" method="{1}"
-			class="com.duke.nurseryschool.ExtraFeeMapAction">
-			<result name="success" type="tiles">ExtraFeeMap</result>
-			<result name="successRedirect" type="redirect">listExtraFeeMap</result>
-		</action>
-		<!-- SubjectFeeMap -->
-		<action name="*SubjectFeeMap" method="{1}"
-			class="com.duke.nurseryschool.SubjectFeeMapAction">
-			<result name="success" type="tiles">SubjectFeeMap</result>
-			<result name="successRedirect" type="redirect">listSubjectFeeMap</result>
+		<!-- AlternativeFeeMap -->
+		<action name="*AlternativeFeeChargeMap" method="{1}"
+			class="com.duke.nurseryschool.AlternativeFeeMapAction">
+			<result name="success" type="tiles">AlternativeFeeMap</result>
+			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap
+			</result>
 		</action>
 		<!-- Excel Generator -->
 		<action name="generateExcel" class="com.duke.nurseryschool.ExcelGeneratorAction">

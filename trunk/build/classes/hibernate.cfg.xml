@@ -22,17 +22,16 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
 		
+		<mapping class="com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Classes" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Course" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.ExtraFeeMap" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.ExtraFeeType" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.FeeDetails" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.Fee" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.FeeGroup" />
+		<mapping class="com.duke.nurseryschool.hibernate.bean.FeeMap" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.FeePolicy" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Month" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Parent" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Payment" />
 		<mapping class="com.duke.nurseryschool.hibernate.bean.Student" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.Subject" />
-		<mapping class="com.duke.nurseryschool.hibernate.bean.SubjectFeeMap" />
 	</session-factory>
 </hibernate-configuration> 

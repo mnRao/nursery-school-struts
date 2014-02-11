@@ -1,20 +1,18 @@
 package com.duke.nurseryschool;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.hibernate.bean.FeeDetails;
+import com.duke.nurseryschool.helper.comparator.StudentComparator;
+import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
-import com.duke.nurseryschool.hibernate.bean.Subject;
-import com.duke.nurseryschool.hibernate.bean.embedded.StudentFeeDetails;
-import com.duke.nurseryschool.hibernate.bean.embedded.SubjectFee;
-import com.duke.nurseryschool.hibernate.dao.FeeDetailsDAO;
+import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
-import com.duke.nurseryschool.hibernate.dao.SubjectDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -22,16 +20,16 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 
 	private Payment payment = new Payment();
 	private List<Payment> payments = new ArrayList<Payment>();
-	private PaymentDAO dao = new PaymentDAO();
+	final private PaymentDAO dao = new PaymentDAO();
 
-	private FeeDetailsDAO feeDetailsDAO = new FeeDetailsDAO();
-	private StudentDAO studentDAO = new StudentDAO();
+	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	final private StudentDAO studentDAO = new StudentDAO();
 
-	private int feeDetailsId;
+	private int feePolicyId;
 	private int studentId;
 
 	private List<Student> studentList;
-	private List<FeeDetails> feeDetailsList;
+	private List<FeePolicy> feePolicyList;
 
 	@Override
 	public Payment getModel() {
@@ -39,11 +37,10 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 	}
 
 	public String saveOrUpdate() {
-		FeeDetails feeDetails = this.feeDetailsDAO
-				.getFeeDetails(this.feeDetailsId);
+		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		Student student = this.studentDAO.getStudent(this.studentId);
-		this.payment.setStudentFeeDetails(new StudentFeeDetails(student,
-				feeDetails));
+		this.payment.setFeePolicy(feePolicy);
+		this.payment.setStudent(student);
 
 		this.dao.saveOrUpdatePayment(this.payment);
 		this.addActionMessage(this
@@ -68,32 +65,53 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 	}
 
 	public String edit() {
-		this.populateLists();
+		this.payment = this.dao.getPayment(Integer.parseInt(this.request
+				.getParameter("paymentId")));
+		this.feePolicyId = this.payment.getFeePolicy().getFeePolicyId();
+		this.studentId = this.payment.getStudent().getStudentId();
 
-		this.payment = this.dao.getPayment(this.studentId, this.feeDetailsId);
+		this.populateLists();
 		// Load all
 		this.payments = this.dao.getPayments();
 		return Action.SUCCESS;
 	}
 
 	private void populateLists() {
+		// String feePolicyIdText = this.request.getParameter("feePolicyId");
+		// if (feePolicyIdText != null) {
+		// this.feePolicyId = Integer.parseInt(feePolicyIdText);
+		// }
+		// else {
+		// this.feePolicyId = 0;
+		// }
+
 		// Populate class list
-		this.studentList = this.studentDAO.getStudents();
-		this.feeDetailsList = this.feeDetailsDAO.getFeeDetails();
+		this.feePolicyList = this.feePolicyDAO.getFeePolicies();
+
+		if (this.feePolicyId != 0) {
+			FeePolicy feePolicy = this.feePolicyDAO
+					.getFeePolicy(this.feePolicyId);
+			if (feePolicy != null)
+				this.studentList = new ArrayList<Student>();
+			this.studentList.addAll(feePolicy.getAssociatedClass()
+					.getStudents());
+
+			// Sort
+			Collections.sort(this.studentList, new StudentComparator());
+		}
+		else {
+			this.studentList = this.studentDAO.getStudents();
+		}
+	}
+
+	public String autoSetFeePolicy() {
+		return this.list();
 	}
 
 	public String generateExcel() {
 		// TODO
 
 		return this.list();
-	}
-
-	public List<Payment> getPayments() {
-		return this.payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
 	}
 
 	public Payment getPayment() {
@@ -104,12 +122,20 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 		this.payment = payment;
 	}
 
-	public int getFeeDetailsId() {
-		return this.feeDetailsId;
+	public List<Payment> getPayments() {
+		return this.payments;
 	}
 
-	public void setFeeDetailsId(int feeDetailsId) {
-		this.feeDetailsId = feeDetailsId;
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public int getFeePolicyId() {
+		return this.feePolicyId;
+	}
+
+	public void setFeePolicyId(int feePolicyId) {
+		this.feePolicyId = feePolicyId;
 	}
 
 	public int getStudentId() {
@@ -128,12 +154,12 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 		this.studentList = studentList;
 	}
 
-	public List<FeeDetails> getFeeDetailsList() {
-		return this.feeDetailsList;
+	public List<FeePolicy> getFeePolicyList() {
+		return this.feePolicyList;
 	}
 
-	public void setFeeDetailsList(List<FeeDetails> feeDetailsList) {
-		this.feeDetailsList = feeDetailsList;
+	public void setFeePolicyList(List<FeePolicy> feePolicyList) {
+		this.feePolicyList = feePolicyList;
 	}
 
 }

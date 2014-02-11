@@ -3,6 +3,8 @@ package com.duke.nurseryschool;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Course;
@@ -12,6 +14,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class CourseAction extends CoreAction implements ModelDriven<Course> {
 
+	// @Valid
 	private Course course = new Course();
 	private List<Course> courses = new ArrayList<Course>();
 	private CourseDAO dao = new CourseDAO();
@@ -23,7 +26,8 @@ public class CourseAction extends CoreAction implements ModelDriven<Course> {
 
 	public String saveOrUpdate() {
 		this.dao.saveOrUpdateCourse(this.course);
-		this.addActionMessage(this.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
+		this.addActionMessage(this
+				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
 
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
