@@ -7,7 +7,7 @@
 	<div class="login-content">
 		<div class="widget-content" style="padding-bottom: 0;">
 		
-			<s:form namespace="/" action="login" method="post"
+			<s:form namespace="/" action="loginAuth" method="post"
 				cssClass="no-margin">
 				<h3 class="form-title">
 					<s:text name="label.login" />

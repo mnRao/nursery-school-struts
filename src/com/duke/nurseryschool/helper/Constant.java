@@ -4,6 +4,8 @@ public final class Constant {
 	public static final String EMPTY_STRING = "";
 	public static final String SPACE = " ";
 	public static final String ZERO = "0";
+	
+	public static final String SESSION_USER = "USER";
 
 	public static final class PUNCTUATION_MARK {
 		public static final String BRACKET_OPEN = "[";
