@@ -43,9 +43,9 @@
 		<put-attribute name="body" value="/Month.jsp" />
 	</definition>
 	
-	<definition name="Subject" extends="MainLayout">
-		<put-attribute name="headTitle" value="Subject Management" />
-		<put-attribute name="body" value="/Subject.jsp" />
+	<definition name="Fee" extends="MainLayout">
+		<put-attribute name="headTitle" value="Fee Management" />
+		<put-attribute name="body" value="/Fee.jsp" />
 	</definition>
 	
 	<definition name="Course" extends="MainLayout">
@@ -73,24 +73,19 @@
 		<put-attribute name="body" value="/Payment.jsp" />
 	</definition>
 	
-	<definition name="ExtraFeeType" extends="MainLayout">
-		<put-attribute name="headTitle" value="Extra Fee Type Management" />
-		<put-attribute name="body" value="/ExtraFeeType.jsp" />
+	<definition name="FeeGroup" extends="MainLayout">
+		<put-attribute name="headTitle" value="Fee Group Management" />
+		<put-attribute name="body" value="/FeeGroup.jsp" />
 	</definition>
 	
-	<definition name="FeeDetails" extends="MainLayout">
-		<put-attribute name="headTitle" value="Fee Details Management" />
-		<put-attribute name="body" value="/FeeDetails.jsp" />
+	<definition name="FeeMap" extends="MainLayout">
+		<put-attribute name="headTitle" value="Fee Map Management" />
+		<put-attribute name="body" value="/FeeMap.jsp" />
 	</definition>
 	
-	<definition name="ExtraFeeMap" extends="MainLayout">
-		<put-attribute name="headTitle" value="Extra Fee Map Management" />
-		<put-attribute name="body" value="/ExtraFeeMap.jsp" />
-	</definition>
-	
-	<definition name="SubjectFeeMap" extends="MainLayout">
-		<put-attribute name="headTitle" value="Subject Fee Map Management" />
-		<put-attribute name="body" value="/SubjectFeeMap.jsp" />
+	<definition name="AlternativeFeeMap" extends="MainLayout">
+		<put-attribute name="headTitle" value="Alternative Fee Map Management" />
+		<put-attribute name="body" value="/AlternativeFeeMap.jsp" />
 	</definition>
 
 </tiles-definitions>

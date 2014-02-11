@@ -1,6 +1,7 @@
 package com.duke.nurseryschool.hibernate.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.comparator.StudentComparator;
 import com.duke.nurseryschool.hibernate.bean.Parent;
 import com.duke.nurseryschool.hibernate.bean.Student;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
@@ -32,6 +34,9 @@ public class StudentDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		// Sort
+		Collections.sort(students, new StudentComparator());
+
 		return students;
 	}
 

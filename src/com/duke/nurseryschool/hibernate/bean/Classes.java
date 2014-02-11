@@ -1,6 +1,5 @@
 package com.duke.nurseryschool.hibernate.bean;
 
-import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,11 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
-import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "class")
@@ -24,6 +25,8 @@ public class Classes implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int classId;
+	@NotEmpty
+	@Length(min = 2, max = 20)
 	@Column(name = "code")
 	private String code;
 	@ManyToOne
@@ -33,7 +36,7 @@ public class Classes implements BeanLabel {
 	@OneToMany(mappedBy = "associatedClass")
 	private Set<Student> students;
 
-	@OneToMany(mappedBy = "classMonth.associatedClass")
+	@OneToMany(mappedBy = "associatedClass")
 	private Set<FeePolicy> feePolicies;
 
 	// Virtual current grade
@@ -50,7 +53,8 @@ public class Classes implements BeanLabel {
 	@Override
 	public String getLabel() {
 		return this.course.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN
-				+ this.code;
+				+ this.code + Constant.PUNCTUATION_MARK.HYPHEN
+				+ this.grade.getOfficialLabel();
 	}
 
 	public String getCurrentName() {

@@ -21,7 +21,6 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	private ParentDAO dao = new ParentDAO();
 
 	private int studentId;
-
 	private List<Student> studentList;
 	private StudentDAO studentDAO = new StudentDAO();
 
@@ -31,8 +30,11 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	}
 
 	public String saveOrUpdate() {
+		// If chosen from drop-down list
+		// if (this.parentId != 0) {
+		// this.parent = this.dao.getParent(this.parentId);
+		// }
 		this.dao.saveOrUpdateParent(this.parent);
-
 		// Set student based on studentId
 		if (this.studentId != 0) {
 			Student student = this.studentDAO.getStudent(this.studentId);
@@ -110,5 +112,13 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
 	}
+
+	// public int getParentId() {
+	// return this.parentId;
+	// }
+	//
+	// public void setParentId(int parentId) {
+	// this.parentId = parentId;
+	// }
 
 }

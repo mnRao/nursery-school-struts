@@ -10,11 +10,31 @@
 
 	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
+
+
 	<package name="default" extends="struts-default" namespace="/">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+		<interceptors>
+			<interceptor name="authentication"
+				class="com.duke.nurseryschool.core.interceptors.AuthenticationInterceptor" />
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+			<interceptor-stack name="noLoginStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="authStack"></default-interceptor-ref>
+
+
+		<global-results>
+			<result name="login" type="redirect">loginAuth</result>
+		</global-results>
 
 		<!-- Locale -->
 		<action name="locale" method="execute"
@@ -24,12 +44,21 @@
 			<result name="success" type="tiles">Login</result>
 		</action>
 
-		<action name="login" method="authenticate"
-			class="com.duke.nurseryschool.LoginAction">
+		<action name="loginAuth" method="login"
+			class="com.duke.nurseryschool.AuthenticationAction">
+			<interceptor-ref name="noLoginStack" />
+
 			<result name="success" type="tiles">Dashboard</result>
 			<result name="error" type="tiles">Login</result>
 			<result name="input" type="tiles">Login</result>
 		</action>
+		<action name="logoutAuth" method="logout"
+			class="com.duke.nurseryschool.AuthenticationAction">
+			<interceptor-ref name="noLoginStack" />
+
+			<result name="LogoutSuccess" type="redirect">loginAuth</result>
+		</action>
+
 		<action name="dashboard" method="execute"
 			class="com.duke.nurseryschool.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
@@ -54,11 +83,10 @@
 			<result name="success" type="tiles">Month</result>
 			<result name="successRedirect" type="redirect">listMonth</result>
 		</action>
-		<!-- Subject -->
-		<action name="*Subject" method="{1}"
-			class="com.duke.nurseryschool.SubjectAction">
-			<result name="success" type="tiles">Subject</result>
-			<result name="successRedirect" type="redirect">listSubject</result>
+		<!-- Fee -->
+		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.FeeAction">
+			<result name="success" type="tiles">Fee</result>
+			<result name="successRedirect" type="redirect">listFee</result>
 		</action>
 		<!-- Course -->
 		<action name="*Course" method="{1}"
@@ -71,6 +99,7 @@
 			class="com.duke.nurseryschool.ClassesAction">
 			<result name="success" type="tiles">Classes</result>
 			<result name="successRedirect" type="redirect">listClasses</result>
+			<result name="input" type="tiles">Classes</result>
 		</action>
 		<!-- Parent -->
 		<action name="*Parent" method="{1}"
@@ -90,31 +119,26 @@
 			<result name="success" type="tiles">Payment</result>
 			<result name="successRedirect" type="redirect">listPayment</result>
 		</action>
-		<!-- ExtraFeeType -->
-		<action name="*ExtraFeeType" method="{1}"
-			class="com.duke.nurseryschool.ExtraFeeTypeAction">
-			<result name="success" type="tiles">ExtraFeeType</result>
-			<result name="successRedirect" type="redirect">listExtraFeeType</result>
+		<!-- FeeGroup -->
+		<action name="*FeeGroup" method="{1}"
+			class="com.duke.nurseryschool.FeeGroupAction">
+			<result name="success" type="tiles">FeeGroup</result>
+			<result name="successRedirect" type="redirect">listFeeGroup</result>
 		</action>
-		<!-- FeeDetails -->
-		<action name="*FeeDetails" method="{1}"
-			class="com.duke.nurseryschool.FeeDetailsAction">
-			<result name="success" type="tiles">FeeDetails</result>
-			<result name="successRedirect" type="redirect">listFeeDetails</result>
+		<!-- FeeMap -->
+		<action name="*FeeMap" method="{1}"
+			class="com.duke.nurseryschool.FeeMapAction">
+			<result name="success" type="tiles">FeeMap</result>
+			<result name="successRedirect" type="redirect">listFeeMap</result>
 		</action>
-		<!-- ExtraFeeMap -->
-		<action name="*ExtraFeeMap" method="{1}"
-			class="com.duke.nurseryschool.ExtraFeeMapAction">
-			<result name="success" type="tiles">ExtraFeeMap</result>
-			<result name="successRedirect" type="redirect">listExtraFeeMap</result>
+		<!-- AlternativeFeeMap -->
+		<action name="*AlternativeFeeChargeMap" method="{1}"
+			class="com.duke.nurseryschool.AlternativeFeeMapAction">
+			<result name="success" type="tiles">AlternativeFeeMap</result>
+			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap
+			</result>
 		</action>
-		<!-- SubjectFeeMap -->
-		<action name="*SubjectFeeMap" method="{1}"
-			class="com.duke.nurseryschool.SubjectFeeMapAction">
-			<result name="success" type="tiles">SubjectFeeMap</result>
-			<result name="successRedirect" type="redirect">listSubjectFeeMap</result>
-		</action>
-		<!-- Excel Generator-->
+		<!-- Excel Generator -->
 		<action name="generateExcel" class="com.duke.nurseryschool.ExcelGeneratorAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>

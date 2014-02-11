@@ -3,6 +3,8 @@ package com.duke.nurseryschool;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Classes;
@@ -14,6 +16,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class ClassesAction extends CoreAction implements ModelDriven<Classes> {
 
+	@Valid
 	private Classes classes = new Classes();
 	private List<Classes> allClasses = new ArrayList<Classes>();
 	private ClassesDAO dao = new ClassesDAO();

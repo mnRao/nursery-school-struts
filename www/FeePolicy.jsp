@@ -28,10 +28,12 @@
 							id="dynamicTable">
 							<thead>
 								<tr>
+									<th><s:text name="label.feePolicy.feePolicyId" /></th>
 									<th><s:text name="label.feePolicy.classId" /></th>
 									<th><s:text name="label.feePolicy.monthId" /></th>
 									<th><s:text name="label.feePolicy.feePerNormalMeal" /></th>
-									<th><s:text name="label.feePolicy.feePerBreakfast" /></th>
+									<th><s:text name="label.feePolicy.totalBreakfastFee" /></th>
+									<th><s:text name="label.feePolicy.penaltyFeePerBreakfast" /></th>
 									<th><s:text name="label.feePolicy.availableDays" /></th>
 									<th></th>
 								</tr>
@@ -39,22 +41,30 @@
 							<tbody>
 								<s:iterator value="feePolicies">
 									<tr class="gradeC">
-										<td><s:property
-												value="classMonth.associatedClass.label" /></td>
-										<td><s:property value="classMonth.month.label" /></td>
+										<td><s:property value="feePolicyId" /></td>
+										<td><s:property value="associatedClass.label" /></td>
+										<td><s:property value="month.label" /></td>
 										<td><s:property value="feePerNormalMeal" /></td>
-										<td><s:property value="feePerBreakfast" /></td>
+										<td><s:property value="totalBreakfastFee" /></td>
+										<td><s:property value="penaltyFeePerBreakfast" /></td>
 										<td><s:property value="availableDays" /></td>
 										<td><s:url id="editUrl" action="editFeePolicy">
-												<s:param name="classId"
-													value="%{classMonth.associatedClass.classId}" />
-												<s:param name="monthId" value="%{classMonth.month.monthId}" />
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
 											<s:url id="deleteUrl" action="deleteFeePolicy">
-												<s:param name="classId"
-													value="%{classMonth.associatedClass.classId}" />
-												<s:param name="monthId" value="%{classMonth.month.monthId}" />
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											
+											<s:url id="addFeeMapUrl" action="autoSetFeePolicyFeeMap">
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}">Add Fee Map</s:a>
+											<s:url id="addPaymentUrl" action="autoSetFeePolicyPayment">
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">Add Payment</s:a>
+											<s:url id="excelUrl" action="generateExcel">
+												<s:param name="feeDetailsId"
+													value="%{feeDetailsId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">Excel</s:a>
 										</td>
 									</tr>
 								</s:iterator>
@@ -77,8 +87,8 @@
 									</s:if>
 									<s:else>
 										<s:set name="isReadOnly" value="true" />
-										<s:hidden name="classId"/>
-										<s:hidden name="monthId"/>
+										<s:hidden name="classId" />
+										<s:hidden name="monthId" />
 									</s:else>
 
 									<div class="col-md-2">
@@ -87,9 +97,10 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:select list="classList" listKey="classId" listValue="label"
-												name="classId" headerKey="-1"
-												headerValue="%{getText('select.class')}" value="%{classId}" disabled="%{isReadOnly}" />
+											<s:select list="classList" listKey="classId"
+												listValue="label" name="classId" headerKey="-1"
+												headerValue="%{getText('select.class')}" value="%{classId}"
+												disabled="%{isReadOnly}" />
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -98,13 +109,15 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:select list="monthList" listKey="monthId" listValue="label"
-												name="monthId" headerKey="-1"
-												headerValue="%{getText('select.month')}" value="%{monthId}" disabled="%{isReadOnly}"/>
+											<s:select list="monthList" listKey="monthId"
+												listValue="label" name="monthId" headerKey="-1"
+												headerValue="%{getText('select.month')}" value="%{monthId}"
+												disabled="%{isReadOnly}" />
 										</div>
 									</div>
 
 									<s:push value="feePolicy">
+										<s:hidden name="feePolicyId"/>
 										<div class="col-md-2">
 											<s:label key="label.feePolicy.feePerNormalMeal"
 												cssClass="control-label" />
@@ -116,13 +129,23 @@
 											</div>
 										</div>
 										<div class="col-md-2">
-											<s:label key="label.feePolicy.feePerBreakfast"
+											<s:label key="label.feePolicy.totalBreakfastFee"
 												cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.feePolicy.feePerBreakfast"
-													name="feePerBreakfast" cssClass="form-control" />
+												<s:textfield key="label.feePolicy.totalBreakfastFee"
+													name="totalBreakfastFee" cssClass="form-control" />
+											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.feePolicy.penaltyFeePerBreakfast"
+												cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:textfield key="label.feePolicy.penaltyFeePerBreakfast"
+													name="penaltyFeePerBreakfast" cssClass="form-control" />
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -132,7 +155,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.feePolicy.availableDays"
-													name="availableDays" cssClass="form-control" />
+													name="availableDays" cssClass="form-control" type="number"/>
 											</div>
 										</div>
 									</s:push>

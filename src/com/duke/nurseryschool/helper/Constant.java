@@ -45,16 +45,15 @@ public final class Constant {
 	public static final class DATABASE_QUERY {
 		public static final String ALL_CLASSES = "from Classes";
 		public static final String ALL_COURSES = "from Course";
-		public static final String ALL_EXTRA_FEE_TYPES = "from ExtraFeeType";
-		public static final String ALL_EXTRA_FEE_MAPS = "from ExtraFeeMap";
-		public static final String ALL_FEE_DETAILS = "from FeeDetails";
+		public static final String ALL_FEE_GROUPS = "from FeeGroup";
+		public static final String ALL_FEE_MAPS = "from FeeMap";
 		public static final String ALL_FEE_POLICIES = "from FeePolicy";
 		public static final String ALL_MONTHS = "from Month";
 		public static final String ALL_PARENTS = "from Parent";
 		public static final String ALL_PAYMENTS = "from Payment";
 		public static final String ALL_STUDENTS = "from Student";
-		public static final String ALL_SUBJECTS = "from Subject";
-		public static final String ALL_SUBJECT_FEE_MAPS = "from SubjectFeeMap";
+		public static final String ALL_FEES = "from Fee";
+		public static final String ALL_ALTERNATIVE_FEE_MAPS = "from AlternativeFeeMap";
 	}
 
 	public static final class BUSINESS_LOGIC {
@@ -71,13 +70,13 @@ public final class Constant {
 		public static final String CLASS = "Class";
 		public static final String STUDENT = "Student";
 		public static final String PARENT = "Parent";
-		public static final String SUBJECT = "Subject";
-		public static final String EXTRA_FEE_TYPE = "ExtraFeeType";
+		public static final String FEE = "Fee";
+		public static final String FEE_GROUP = "FeeGroup";
 		public static final String MONTH = "Month";
 		public static final String FEE_POLICY = "FeePolicy";
 		public static final String FEE_DETAILS = "FeeDetails";
 		public static final String EXTRA_FEE_MAP = "ExtraFeeMap";
-		public static final String SUBJECT_FEE_MAP = "SubjectFeeMap";
+		public static final String ALTERNATIVE_FEE_MAP = "AlternativeFeeMap";
 		public static final String PAYMENT = "Payment";
 	}
 }

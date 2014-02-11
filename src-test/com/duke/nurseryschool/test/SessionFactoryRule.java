@@ -10,16 +10,15 @@ import org.junit.runners.model.Statement;
 
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Course;
-import com.duke.nurseryschool.hibernate.bean.ExtraFeeMap;
-import com.duke.nurseryschool.hibernate.bean.ExtraFeeType;
-import com.duke.nurseryschool.hibernate.bean.FeeDetails;
+import com.duke.nurseryschool.hibernate.bean.FeeGroup;
+import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Parent;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
-import com.duke.nurseryschool.hibernate.bean.Subject;
-import com.duke.nurseryschool.hibernate.bean.SubjectFeeMap;
+import com.duke.nurseryschool.hibernate.bean.Fee;
+import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 
 public class SessionFactoryRule implements MethodRule {
 	private SessionFactory sessionFactory;
@@ -73,16 +72,14 @@ public class SessionFactoryRule implements MethodRule {
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 		// Includes all beans
 		configuration.addAnnotatedClass(Classes.class)
-				.addAnnotatedClass(Course.class)
-				.addAnnotatedClass(ExtraFeeMap.class)
-				.addAnnotatedClass(ExtraFeeType.class)
-				.addAnnotatedClass(FeeDetails.class)
+				.addAnnotatedClass(Course.class).addAnnotatedClass(Fee.class)
+				.addAnnotatedClass(FeeGroup.class)
+				.addAnnotatedClass(FeeMap.class)
 				.addAnnotatedClass(FeePolicy.class)
 				.addAnnotatedClass(Month.class).addAnnotatedClass(Parent.class)
 				.addAnnotatedClass(Payment.class)
 				.addAnnotatedClass(Student.class)
-				.addAnnotatedClass(Subject.class)
-				.addAnnotatedClass(SubjectFeeMap.class);
+				.addAnnotatedClass(AlternativeFeeMap.class);
 		// H2 memory database for testing
 		configuration.setProperty("hibernate.dialect",
 				"org.hibernate.dialect.H2Dialect");

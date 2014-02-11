@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.Constant;
@@ -18,8 +21,10 @@ public class Course implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int courseId;
+	// @NotNull
 	@Column(name = "startYear")
 	private int startYear;
+	// @NotNull(message = "Could not be null")
 	@Column(name = "endYear")
 	private int endYear;
 	@OneToMany(mappedBy = "course")
