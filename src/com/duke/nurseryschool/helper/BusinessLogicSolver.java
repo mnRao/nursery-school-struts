@@ -33,11 +33,11 @@ public class BusinessLogicSolver {
 		}
 		else if ((currentYear == endYear - 2 && currentMonth > 9)
 				|| currentYear == endYear - 1 && currentMonth < 9) {
-			grade = Grade.THIRD;
+			grade = Grade.FOURTH;
 		}
 		else if ((currentYear == endYear - 3 && currentMonth > 9)
 				|| currentYear == endYear - 2 && currentMonth < 9) {
-			grade = Grade.FOURTH;
+			grade = Grade.THIRD;
 		}
 		else if ((currentYear == endYear - 4 && currentMonth > 9)
 				|| currentYear == endYear - 3 && currentMonth < 9) {
@@ -73,11 +73,16 @@ public class BusinessLogicSolver {
 	 * Ex: [2012-2013]
 	 */
 	public static String calculateCurrentAcademicYear() {
-		int startingYear, endingYear;
 		// Month starting at 0 (from January)
 		// => plus 1 to compare
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		int currentYear = Helper.calculateCurrentYear();
+		return calculateCurrentAcademicYear(currentMonth, currentYear);
+	}
+
+	public static String calculateCurrentAcademicYear(int currentMonth,
+			int currentYear) {
+		int startingYear, endingYear;
 		// Check current month to define starting year
 		if (currentMonth >= 9 && currentMonth <= 12) {
 			startingYear = currentYear;
