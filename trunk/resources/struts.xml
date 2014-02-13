@@ -63,7 +63,7 @@
 		</action>
 	</package>
 
-	<package name="apphibernate" extends="hibernate-default, default">
+	<package name="apphibernate" extends="hibernate-default">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
@@ -144,6 +144,7 @@
 				<param name="inputName">fileInputStream</param>
 				<param name="bufferSize">1024</param>
 			</result>
+			<result name="error" type="redirect">listFeePolicy</result>
 		</action>
 	</package>
 

@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.format.Alignment;
+import jxl.format.VerticalAlignment;
 import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.WritableCellFormat;
@@ -17,11 +19,14 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.Fee;
+import com.duke.nurseryschool.hibernate.bean.FeeGroup;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
@@ -29,104 +34,119 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
+import com.duke.nurseryschool.hibernate.dao.FeeGroupDAO;
 
 public class ExcelGenerator {
+	// Excel's configurations
 	private WritableCellFormat timesBold;
 	private WritableCellFormat times;
 	private String outputFile;
 
-	// private FeeDetails feeDetails;
 	private Classes associatedClass;
 	private Month month;
-	private List<AlternativeFeeMap> subjectFeeMaps = new ArrayList<AlternativeFeeMap>();
-	private List<FeeMap> extraFeeMaps = new ArrayList<FeeMap>();
+	private List<Payment> payments = new ArrayList<Payment>();
+	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
 	private FeePolicy feePolicy;
 
-	private int lastCol;
-	private int extraFeeStartCol;
+	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
+	private List<Fee> fees = new ArrayList<Fee>();
+	private List<Fee> staticFees = new ArrayList<Fee>();
+
+	private int lastColumn;
+	// private int extraFeeStartCol;
 	private int otherStartCol;
 
 	private Session session;
 	private Transaction transaction;
 
+	// Positions for elements
 	private static final int HEADER_TOP_ROW = 0;
 	private static final int HEADER_TOP_COLUMN = 0;
 	private static final int HEADER_NORMAL_ROW = 1;
 	private static final int HEADER_NORMAL_SPANNED_ROW = 2;
 	private static final int CONTENT_START_ROW = 3;
-	private static final int CONTENT_SUBJECT_START_COL = 6;
+	// private static final int CONTENT_DYNAMIC_FEES_START_COL = 6;
+	private static final int CONTENT_STATIC_FEES_START_COL = 5;
 
-	public ExcelGenerator(String outpuFile, FeePolicy feePolicy)
+	int TRIVIAL_LAST_COLUMNS_SIZE = 3;
+
+	public ExcelGenerator(String outputFile, FeePolicy feePolicy)
 			throws IllegalStateException {
-		this.outputFile = outpuFile;
-		this.feePolicy = feePolicy;
-		this.associatedClass = this.feePolicy.getAssociatedClass();
-		this.month = this.feePolicy.getMonth();
-		// this.subjectFeeMaps.addAll(this.feePolicy.getSubjectFeeMaps());
-		// this.extraFeeMaps.addAll(this.feePolicy.getExtraFeeMaps());
-
-		// Match policy & payment
+		// Init Hibernate session
 		this.session = HibernateUtil.getSessionFactory().getCurrentSession();
 		this.transaction = this.session.beginTransaction();
-		this.assignFeePolicy(this.associatedClass, this.month);
+
+		this.outputFile = outputFile;
+		this.feePolicy = feePolicy;
+		// Assignment for comfortability
+		this.associatedClass = this.feePolicy.getAssociatedClass();
+		this.month = this.feePolicy.getMonth();
+		this.feeMaps.addAll(this.feePolicy.getFeeMaps());
+		this.payments.addAll(this.feePolicy.getPayments());
+		this.getStaticData();
+
+		if (this.payments.size() == 0) {
+			throw new IllegalStateException(
+					"No payment applied. Please specify one first.");
+		}
 
 		// Calculate columns
-		this.calculateData();
+		this.calculateDataPositions();
 	}
 
 	public void write() throws IOException, WriteException {
 		File file = new File(this.outputFile);
 		WritableWorkbook workbook = Workbook.createWorkbook(file);
+		// Sheet for current class
 		WritableSheet sheet = workbook.createSheet(
 				this.associatedClass.getCurrentName(), 0);
-
+		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
 		this.createContents(sheet);
-
+		// Flush and close
 		workbook.write();
 		workbook.close();
 	}
 
 	private void createHeaders(WritableSheet sheet)
 			throws RowsExceededException, WriteException {
-		int lastColumn = 12;
-
-		// TODO
 		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW, this
-				.calculateHeaderTopMost(this.month.getMonthName(),
+				.generateTopMostHeaderLabel(this.month.getMonthName(),
 						this.month.getYear(), this.associatedClass.getLabel(),
 						this.feePolicy));
 
 		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, "Order");
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, "Full name");
-		this.addCaption(sheet, 2, HEADER_NORMAL_ROW, "Study fee");
 
-		this.addCaption(sheet, 3, HEADER_NORMAL_ROW, "Meal");
-		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW, "Absence count");
-		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW,
+		this.addCaption(sheet, 2, HEADER_NORMAL_ROW, "Meal");
+		this.addCaption(sheet, 2, HEADER_NORMAL_SPANNED_ROW, "Absence count");
+		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW,
 				"Total normal meal fee");
-		this.addCaption(sheet, 5, HEADER_NORMAL_SPANNED_ROW,
+		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW,
 				"Total breakfast fee");
 
-		// // Subjects
-		// int dynamicCol = CONTENT_SUBJECT_START_COL;
-		// this.addCaption(sheet, CONTENT_SUBJECT_START_COL, HEADER_NORMAL_ROW,
-		// "Subjects");
-		// for (AlternativeFeeMap subjectFeeMap : this.subjectFeeMaps) {
-		// this.addCaption(sheet, dynamicCol, HEADER_NORMAL_SPANNED_ROW,
-		// subjectFeeMap.getSubjectFee().getSubject().getName());
-		// dynamicCol++;
-		// }
-		// // Extra fees
-		// this.addCaption(sheet, this.extraFeeStartCol, HEADER_NORMAL_ROW,
-		// "Extra");
-		// for (FeeMap extraFeeMap : this.extraFeeMaps) {
-		// this.addCaption(sheet, dynamicCol, HEADER_NORMAL_SPANNED_ROW,
-		// extraFeeMap.getFeeDetailsExtraFee().getExtraFeeType()
-		// .getName());
-		// dynamicCol++;
-		// }
+		// Static fees
+		int dynamicCol = CONTENT_STATIC_FEES_START_COL;
+		for (Fee staticFee : this.staticFees) {
+			this.addCaption(sheet, dynamicCol, HEADER_NORMAL_ROW,
+					staticFee.getName());
+			dynamicCol++;
+		}
+
+		// Dyamic fees
+		// int dynamicCol = CONTENT_DYNAMIC_FEES_START_COL;
+		int feeCount = 0;
+		for (FeeGroup feeGroup : this.feeGroups) {
+			this.addCaption(sheet, dynamicCol, HEADER_NORMAL_ROW,
+					feeGroup.getName());
+			for (Fee fee : feeGroup.getFees()) {
+				this.addCaption(sheet, dynamicCol, HEADER_NORMAL_SPANNED_ROW,
+						fee.getName());
+				dynamicCol++;
+				feeCount++;
+			}
+		}
 
 		// Others
 		this.addCaption(sheet, this.otherStartCol, HEADER_NORMAL_ROW, "Total");
@@ -138,20 +158,39 @@ public class ExcelGenerator {
 				"Note");
 
 		// Merge cells
-		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW, lastColumn,
+		this.mergeHeaderCells(sheet);
+	}
+
+	private void mergeHeaderCells(WritableSheet sheet) throws WriteException,
+			RowsExceededException {
+		// All columns top row
+		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW, this.lastColumn,
 				HEADER_TOP_ROW);
+		// 2-row height for 2 first items
 		sheet.mergeCells(0, HEADER_NORMAL_ROW, 0, HEADER_NORMAL_SPANNED_ROW);
 		sheet.mergeCells(1, HEADER_NORMAL_ROW, 1, HEADER_NORMAL_SPANNED_ROW);
-		sheet.mergeCells(2, HEADER_NORMAL_ROW, 2, HEADER_NORMAL_SPANNED_ROW);
-		// sheet.mergeCells(3, HEADER_NORMAL_ROW, 3, HEADER_NORMAL_SPANNED_ROW);
 
-		sheet.mergeCells(3, HEADER_NORMAL_ROW, CONTENT_SUBJECT_START_COL - 1,
-				HEADER_NORMAL_ROW);
-		sheet.mergeCells(CONTENT_SUBJECT_START_COL, HEADER_NORMAL_ROW,
-				this.extraFeeStartCol - 1, HEADER_NORMAL_ROW);
-		sheet.mergeCells(this.extraFeeStartCol, HEADER_NORMAL_ROW,
-				this.otherStartCol - 1, HEADER_NORMAL_ROW);
+		// Meal's items
+		sheet.mergeCells(2, HEADER_NORMAL_ROW,
+				CONTENT_STATIC_FEES_START_COL - 1, HEADER_NORMAL_ROW);
+		// 2-row height for static fees
+		for (int i = 0; i < this.staticFees.size(); i++) {
+			sheet.mergeCells(CONTENT_STATIC_FEES_START_COL + i,
+					HEADER_NORMAL_ROW, CONTENT_STATIC_FEES_START_COL + i,
+					HEADER_NORMAL_SPANNED_ROW);
+		}
 
+		// Dynamic fees
+		int dynamicCol = CONTENT_STATIC_FEES_START_COL + this.staticFees.size();
+		for (FeeGroup feeGroup : this.feeGroups) {
+			int limit = dynamicCol + feeGroup.getFees().size();
+			sheet.mergeCells(dynamicCol, HEADER_NORMAL_ROW, limit - 1,
+					HEADER_NORMAL_ROW);
+
+			dynamicCol = limit;
+		}
+
+		// 2-row height for 4 last columns
 		sheet.mergeCells(this.otherStartCol, HEADER_NORMAL_ROW,
 				this.otherStartCol, HEADER_NORMAL_SPANNED_ROW);
 		sheet.mergeCells(this.otherStartCol + 1, HEADER_NORMAL_ROW,
@@ -166,37 +205,41 @@ public class ExcelGenerator {
 			throws RowsExceededException, WriteException {
 		int count = 1;
 		int row = CONTENT_START_ROW;
-		for (Student student : this.associatedClass.getStudents()) {
-			// Get payment
-			// Payment payment = this.getPayment(student.getStudentId(),
-			// this.feeDetails.getFeeDetailsId());
-			//
-			// this.addNumber(sheet, 0, row, count);
-			// this.addLabel(sheet, 1, row, student.getName());
-			// this.addNumber(sheet, 2, row,
-			// this.feeDetails.getBasicStudyFee());
-			// this.addNumber(sheet, 3, row, payment.getAbsenceCount());
-			// this.addNumber(sheet, 4, row, payment.getTotalNormalMealFee());
-			// this.addNumber(sheet, 5, row, payment.getTotalBreakfastFee());
-			//
-			// // Subjects
-			// int dynamicCol = CONTENT_SUBJECT_START_COL;
-			// for (AlternativeFeeMap subjectFeeMap : this.subjectFeeMaps) {
-			// this.addNumber(sheet, dynamicCol, row,
-			// subjectFeeMap.getAmount());
-			// dynamicCol++;
-			// }
-			// // Extra fees
-			// dynamicCol = this.extraFeeStartCol;
-			// for (FeeMap extraFeeMap : this.extraFeeMaps) {
-			// this.addNumber(sheet, dynamicCol, row, extraFeeMap.getAmount());
-			// dynamicCol++;
-			// }
-			//
-			// // Other remaining contents
-			// this.addNumber(sheet, this.otherStartCol, row,
-			// payment.getTotalFee());
-			// this.addLabel(sheet, this.lastCol, row, payment.getNote());
+		for (Payment payment : this.payments) {
+			this.addNumber(sheet, 0, row, count);
+			this.addLabel(sheet, 1, row, payment.getStudent().getName());
+			// this.addNumber(sheet, 2, row, 11111111);// TODO Basic study fee
+			this.addNumber(sheet, 2, row, payment.getAbsenceCount());
+			this.addNumber(sheet, 3, row, payment.getTotalNormalMealFee());
+			this.addNumber(sheet, 4, row, payment.getTotalBreakfastFee());
+
+			// Static fees
+			int dynamicCol = CONTENT_STATIC_FEES_START_COL;
+			for (Fee staticFee : this.staticFees) {
+				double calculatedAmount = BusinessLogicSolver
+						.calculateFeeAmount(this.session, staticFee,
+								this.feePolicy, payment);
+				this.addNumber(sheet, dynamicCol, row, calculatedAmount);
+				dynamicCol++;
+			}
+			// Dynamic fees
+			// int dynamicCol = CONTENT_DYNAMIC_FEES_START_COL;
+			for (FeeGroup feeGroup : this.feeGroups) {
+				Set<Fee> groupFees = feeGroup.getFees();
+
+				for (Fee fee : groupFees) {
+					double calculatedAmount = BusinessLogicSolver
+							.calculateFeeAmount(this.session, fee,
+									this.feePolicy, payment);
+					this.addNumber(sheet, dynamicCol, row, calculatedAmount);
+					dynamicCol++;
+				}
+			}
+
+			// Other remaining contents
+			this.addNumber(sheet, this.otherStartCol, row,
+					payment.getTotalFee());
+			this.addLabel(sheet, this.lastColumn, row, payment.getNote());
 
 			count++;
 			row++;
@@ -222,6 +265,7 @@ public class ExcelGenerator {
 		sheet.addCell(label);
 	}
 
+	/* Define styles */
 	private void addStyles() throws WriteException {
 		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
 		this.times = new WritableCellFormat(times10pt);
@@ -232,6 +276,7 @@ public class ExcelGenerator {
 				WritableFont.BOLD, false);
 		this.timesBold = new WritableCellFormat(times10ptBold);
 		this.timesBold.setAlignment(Alignment.CENTRE);
+		this.timesBold.setVerticalAlignment(VerticalAlignment.CENTRE);
 		this.timesBold.setWrap(true);
 
 		CellView cv = new CellView();
@@ -240,7 +285,8 @@ public class ExcelGenerator {
 		cv.setAutosize(true);
 	}
 
-	private String calculateHeaderTopMost(int month, int year,
+	/* Generate label for top most header */
+	private String generateTopMostHeaderLabel(int month, int year,
 			String className, FeePolicy feePolicy) {
 		StringBuffer headerTop = new StringBuffer();
 		headerTop.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_PAYMENT))
@@ -260,30 +306,36 @@ public class ExcelGenerator {
 		return headerTop.toString();
 	}
 
-	private void calculateData() {
-		this.extraFeeStartCol = CONTENT_SUBJECT_START_COL
-				+ this.subjectFeeMaps.size();
-		this.otherStartCol = this.extraFeeStartCol + this.extraFeeMaps.size();
-		this.lastCol = this.otherStartCol + 3;
+	/* Positions for some critical elements */
+	private void calculateDataPositions() {
+		this.otherStartCol = CONTENT_STATIC_FEES_START_COL + this.fees.size()
+				- 1;
+		this.lastColumn = this.otherStartCol + this.TRIVIAL_LAST_COLUMNS_SIZE;
 	}
 
-	public void assignFeePolicy(Classes associatedClass, Month month) {
-		ClassMonth classMonth = new ClassMonth(associatedClass, month);
-		FeePolicy feePolicy = null;
+	/**
+	 * FeeGroup and Fee do not depend on FeePolicy
+	 */
+	public void getStaticData() {
 		try {
-			feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
-					classMonth);
+			this.feeGroups = this.session.createQuery(
+					Constant.DATABASE_QUERY.ALL_FEE_GROUPS).list();
+			this.fees = this.session.createQuery(
+					Constant.DATABASE_QUERY.ALL_FEES).list();
+			this.staticFees = this.getFeeByType(FeeType.STATIC);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
-		// Assignment
-		this.feePolicy = feePolicy;
-		if (this.feePolicy == null) {
-			throw new IllegalStateException(
-					"No fee policy applied. Please specify one first.");
-		}
+	public List<Fee> getFeeByType(FeeType feeType) {
+		String hql = "FROM Fee F WHERE F.type = :typeId";
+		Query query = this.session.createQuery(hql);
+		query.setParameter("typeId", feeType);
+		List<Fee> results = query.list();
+
+		return results;
 	}
 
 	// public Payment getPayment(int studentId, int feePolicyId) {

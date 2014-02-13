@@ -30,21 +30,24 @@ public class TestHelper {
 	}
 
 	/**
-	 * This test passes ONLY in 2014. For other years, consider +- DIFF_YEAR for
-	 * both startYear and endYear
+	 * This test passes ONLY in Feb, 2014. For other years, consider +-
+	 * DIFF_YEAR for both startYear and endYear
 	 */
 	@Test
 	public void testGradeCalculation() {
-		assertEquals(Grade.GRADUATED,
-				BusinessLogicSolver.calculateGrade(2009, 2013));
+		// TODO TEST ALL YEARS (FOR LOOP)
+		assertEquals(Grade.UNIDENTIFIED,
+				BusinessLogicSolver.calculateGrade(2009, 2013, 2, 2014));
 		assertEquals(Grade.FIFTH,
-				BusinessLogicSolver.calculateGrade(2010, 2014));
+				BusinessLogicSolver.calculateGrade(2010, 2014, 2, 2014));
 		assertEquals(Grade.FOURTH,
-				BusinessLogicSolver.calculateGrade(2011, 2015));
+				BusinessLogicSolver.calculateGrade(2011, 2015, 2, 2014));
 		assertEquals(Grade.THIRD,
-				BusinessLogicSolver.calculateGrade(2012, 2016));
+				BusinessLogicSolver.calculateGrade(2012, 2016, 2, 2014));
 		assertEquals(Grade.SECOND,
-				BusinessLogicSolver.calculateGrade(2013, 2017));
+				BusinessLogicSolver.calculateGrade(2013, 2017, 2, 2014));
+		assertEquals(Grade.UNIDENTIFIED,
+				BusinessLogicSolver.calculateGrade(2014, 2018, 2, 2014));
 		;
 	}
 
