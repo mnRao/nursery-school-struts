@@ -4,8 +4,10 @@ public final class Constant {
 	public static final String EMPTY_STRING = "";
 	public static final String SPACE = " ";
 	public static final String ZERO = "0";
-	
+
 	public static final String SESSION_USER = "USER";
+
+	public static final String EXCEL_SUFFIX = ".xls";
 
 	public static final class PUNCTUATION_MARK {
 		public static final String BRACKET_OPEN = "[";
@@ -28,6 +30,7 @@ public final class Constant {
 	// When modifying key in global.properties => must also modify this class
 	// appropriately
 	public static final class I18N {
+		public static final String ERROR_NO_PAYMENT_APPLIED = "error.no.payment.applied";
 		public static final String ERROR_LOGIN_USERNAME = "error.login.username";
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 
@@ -40,6 +43,8 @@ public final class Constant {
 		public static final String EXCEL_HEADER_YEAR = "excel.header.top.year";
 		public static final String EXCEL_HEADER_CLASS = "excel.header.top.class";
 		public static final String EXCEL_HEADER_DAYS = "excel.header.top.availableDays";
+
+		public static final String EXCEL_FILE_PREFIX_TITLE = "excel.file.prefix_title";
 	}
 
 	public static final class DATABASE_QUERY {

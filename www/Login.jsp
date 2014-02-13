@@ -54,12 +54,12 @@
 			<s:url id="localeVI" namespace="/" action="locale">
 				<s:param name="request_locale">vi_VN</s:param>
 			</s:url>
-			<div style="text-align: center">
-				<s:a href="%{localeEN}">
+			<div style="text-align: center; margin:5px;">
+				<s:a href="%{localeEN}" style="padding:4px;">
 					<img src="assets/app/English.png" height="24"
 						style="display: inline-block" />
 				</s:a>
-				<s:a href="%{localeVI}">
+				<s:a href="%{localeVI}" style="padding:4px;">
 					<img src="assets/app/Vietnamese.png" height="24"
 						style="display: inline-block" />
 				</s:a>

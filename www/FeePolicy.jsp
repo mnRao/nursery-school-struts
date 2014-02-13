@@ -62,8 +62,8 @@
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">Add Payment</s:a>
 											<s:url id="excelUrl" action="generateExcel">
-												<s:param name="feeDetailsId"
-													value="%{feeDetailsId}" />
+												<s:param name="feePolicyId"
+													value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">Excel</s:a>
 										</td>
 									</tr>

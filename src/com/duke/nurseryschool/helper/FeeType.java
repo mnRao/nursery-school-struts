@@ -43,4 +43,5 @@ public enum FeeType {
 
 		return UNKNOWN;
 	}
+
 }

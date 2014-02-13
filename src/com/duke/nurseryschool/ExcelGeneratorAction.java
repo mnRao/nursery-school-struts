@@ -7,7 +7,9 @@ import java.io.InputStream;
 
 import jxl.write.WriteException;
 
+import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.ExcelGenerator;
+import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.opensymphony.xwork2.Action;
@@ -26,14 +28,31 @@ public class ExcelGeneratorAction extends ActionSupport {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 
 		// File for download
-		this.fileName = "MyFile.xls";
-		String filePath = "C:\\" + this.fileName;
-		this.fileInputStream = new FileInputStream(new File(filePath));
+		File tempFile = File.createTempFile(
+				this.generateExcelFilePrefix(feePolicy), Constant.EXCEL_SUFFIX);
+		tempFile.deleteOnExit();// Delete when virtual machine terminates
+		// TODO Handle illegal state exception for no payment to show on screen
+		try {
+			ExcelGenerator excelGenerator = new ExcelGenerator(
+					tempFile.getAbsolutePath(), feePolicy);
+			excelGenerator.write();
+		}
+		catch (IllegalStateException e) {
+			this.addActionError(Constant.I18N.ERROR_NO_PAYMENT_APPLIED);
+			return Action.ERROR;
+		}
 
-		ExcelGenerator excelGenerator = new ExcelGenerator(filePath, feePolicy);
-		excelGenerator.write();
+		// Configure for download
+		this.fileInputStream = new FileInputStream(tempFile);
+		this.fileName = tempFile.getName();
 
 		return Action.SUCCESS;
+	}
+
+	private String generateExcelFilePrefix(FeePolicy feePolicy) {
+		return Helper.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE)
+				+ Constant.SPACE + feePolicy.getMonth().getLabel()
+				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
 	public InputStream getFileInputStream() {
