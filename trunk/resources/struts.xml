@@ -31,7 +31,7 @@
 
 
 		<global-results>
-			<result name="login" type="redirect">loginAuth</result>
+			<result name="login" type="redirect">formLoginAuth</result>
 		</global-results>
 
 		<!-- Locale -->
@@ -42,7 +42,7 @@
 			<result name="success" type="tiles">Login</result>
 		</action>
 
-		<action name="loginAuth" method="login"
+		<action name="*LoginAuth" method="{1}"
 			class="com.duke.nurseryschool.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
@@ -54,7 +54,7 @@
 			class="com.duke.nurseryschool.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
-			<result name="LogoutSuccess" type="redirect">loginAuth</result>
+			<result name="LogoutSuccess" type="redirect">formLoginAuth</result>
 		</action>
 
 		<action name="dashboard" method="execute"
