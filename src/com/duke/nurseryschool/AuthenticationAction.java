@@ -46,13 +46,10 @@ public class AuthenticationAction extends CoreAction {
 		super.validate();
 	}
 
-	// @Override
-	// @SkipValidation
-	// public String input() {
-	// return INPUTc String input() {
-	// return INPUT;
-	// };
-	// }
+	@SkipValidation
+	public String form() {
+		return INPUT;
+	}
 
 	public String getUsername() {
 		return this.username;
