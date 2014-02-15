@@ -19,7 +19,7 @@
 								name="tab.label.first" /></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-				
+
 					<div id="firstTab"
 						class="tab-pane fade <%=Helper.getTabCss(1, true)%>">
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
@@ -38,27 +38,25 @@
 										<td><s:property value="courseId" /></td>
 										<td><s:property value="startYear" /></td>
 										<td><s:property value="endYear" /></td>
-										<td>
-										   <s:url id="editUrl"
-										      action="editCourse">
-										      <s:param name="courseId" value="%{courseId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-										   <s:url id="deleteUrl" action="deleteCourse">
-										      <s:param name="courseId" value="%{courseId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-										   <s:url id="addClassUrl" action="autoSetCourseClasses">
-										      <s:param name="courseId" value="%{courseId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-info" href="%{addClassUrl}">Add Class</s:a>
-										</td>
+										<td><s:url id="editUrl" action="editCourse">
+												<s:param name="courseId" value="%{courseId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteCourse">
+												<s:param name="courseId" value="%{courseId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a> <s:url id="addClassUrl" action="autoSetCourseClasses">
+												<s:param name="courseId" value="%{courseId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addClassUrl}">
+												<s:text name="grid.action.addClass" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
 						<s:form action="saveOrUpdateCourse" cssClass="form-horizontal">
@@ -70,12 +68,13 @@
 									<s:push value="course">
 										<s:hidden name="courseId" />
 										<div class="col-md-2">
-											<s:label key="label.course.startYear" cssClass="control-label" />
+											<s:label key="label.course.startYear"
+												cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.course.startYear" name="startYear"
-													cssClass="form-control" type="number"/>
+													cssClass="form-control" type="number" />
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -84,7 +83,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.course.endYear" name="endYear"
-													cssClass="form-control" type="number"/>
+													cssClass="form-control" type="number" />
 											</div>
 										</div>
 									</s:push>
@@ -97,7 +96,7 @@
 							</div>
 						</s:form>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>

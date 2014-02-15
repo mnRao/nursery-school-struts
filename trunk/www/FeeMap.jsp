@@ -35,23 +35,22 @@
 							<tbody>
 								<s:iterator value="feeMaps">
 									<tr class="gradeC">
-										<td><s:property
-												value="feePolicyFee.feePolicy.label" /></td>
+										<td><s:property value="feePolicyFee.feePolicy.label" /></td>
 										<td><s:property value="feePolicyFee.fee.name" /></td>
 										<td><s:property value="amount" /></td>
 										<td><s:url id="editUrl" action="editFeeMap">
-												<s:param name="feeId"
-													value="%{feePolicyFee.fee.feeId}" />
+												<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
 												<s:param name="feePolicyId"
 													value="%{feePolicyFee.feePolicy.feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deleteFeeMap">
-												<s:param name="feeId"
-													value="%{feePolicyFee.fee.feeId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteFeeMap">
+												<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
 												<s:param name="feePolicyId"
 													value="%{feePolicyFee.feePolicy.feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-										</td>
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>
@@ -60,8 +59,7 @@
 
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
-						<s:form action="saveOrUpdateFeeMap"
-							cssClass="form-horizontal">
+						<s:form action="saveOrUpdateFeeMap" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
 									<s:text name="form.legend" />
@@ -74,8 +72,8 @@
 									</s:if>
 									<s:else>
 										<s:set name="isReadOnly" value="true" />
-										<s:hidden name="feeId"/>
-										<s:hidden name="feePolicyId"/>
+										<s:hidden name="feeId" />
+										<s:hidden name="feePolicyId" />
 									</s:else>
 
 									<div class="col-md-2">
@@ -83,10 +81,10 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<s:select list="feeList" listKey="feeId"
-												listValue="label" name="feeId" headerKey="-1"
-												headerValue="%{getText('select.fee')}"
-												value="%{feeId}" disabled="%{isReadOnly}"/>
+											<s:select list="feeList" listKey="feeId" listValue="label"
+												name="feeId" headerKey="-1"
+												headerValue="%{getText('select.fee')}" value="%{feeId}"
+												disabled="%{isReadOnly}" />
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -104,8 +102,7 @@
 
 									<s:push value="feeMap">
 										<div class="col-md-2">
-											<s:label key="label.feeMap.amount"
-												cssClass="control-label" />
+											<s:label key="label.feeMap.amount" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">

@@ -50,17 +50,20 @@
 										<td><s:property value="associatedClass.label" /></td>
 										<td><s:url id="editUrl" action="editStudent">
 												<s:param name="studentId" value="%{studentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deleteStudent">
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteStudent">
 												<s:param name="studentId" value="%{studentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-											<s:url id="addParentUrl" action="autoSetStudentParent">
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a> <s:url id="addParentUrl" action="autoSetStudentParent">
 												<s:param name="studentId" value="%{studentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addParentUrl}">Add parent</s:a>
-
-											<s:a href="#myModal%{studentId}" data-toggle="modal"
-												cssClass="btn btn-sm btn-success">Show parents</s:a> <s:div
-												aria-hidden="true" aria-labelledby="myModalLabel"
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addParentUrl}">
+												<s:text name="grid.action.addParent" />
+											</s:a> <s:a href="#myModal%{studentId}" data-toggle="modal"
+												cssClass="btn btn-sm btn-success">
+												<s:text name="grid.action.showParent" />
+											</s:a> <s:div aria-hidden="true" aria-labelledby="myModalLabel"
 												role="dialog" tabindex="-1" id="myModal%{studentId}"
 												cssClass="modal fade" style="display: none;">
 												<div class="modal-dialog">
@@ -98,12 +101,12 @@
 																						action="editParent">
 																						<s:param name="parentId" value="%{parentId}" />
 																					</s:url> <s:a cssClass="btn btn-sm btn-primary"
-																						href="%{editUrl}">Edit</s:a> <s:url id="deleteUrl"
+																						href="%{editUrl}"><s:text name="grid.action.edit" /></s:a> <s:url id="deleteUrl"
 																						action="deleteParentMapStudent">
 																						<s:param name="studentId" value="%{studentId}" />
 																						<s:param name="parentId" value="%{parentId}" />
 																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
-																						href="%{deleteUrl}">Delete Map</s:a></td>
+																						href="%{deleteUrl}"><s:text name="grid.action.editMapping" /></s:a></td>
 																			</tr>
 																		</s:iterator>
 																	</tbody>

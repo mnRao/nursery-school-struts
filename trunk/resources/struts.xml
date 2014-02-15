@@ -42,12 +42,12 @@
 			<interceptor-ref name="basicStack" />
 			<result name="success" type="tiles">Login</result>
 		</action>
-		
+		<!-- Authentication -->
 		<action name="*LoginAuth" method="{1}"
 			class="com.duke.nurseryschool.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
-			<result name="success" type="tiles">Dashboard</result>
+			<result name="success" type="redirect">Dashboard</result>
 			<result name="error" type="tiles">Login</result>
 			<result name="input" type="tiles">Login</result>
 		</action>
@@ -57,8 +57,8 @@
 
 			<result name="LogoutSuccess" type="redirect">formLoginAuth</result>
 		</action>
-
-		<action name="dashboard" method="execute"
+		<!-- Dashboard -->
+		<action name="Dashboard" method="execute"
 			class="com.duke.nurseryschool.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
 		</action>

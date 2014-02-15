@@ -44,11 +44,13 @@
 										<td><s:property value="phoneNumber" /></td>
 										<td><s:url id="editUrl" action="editParent">
 												<s:param name="parentId" value="%{parentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deleteParent">
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteParent">
 												<s:param name="parentId" value="%{parentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-										</td>
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>
@@ -137,8 +139,8 @@
 											<div class="form-group">
 												<s:select list="parents" listKey="parentId"
 													listValue="label" name="parentId" headerKey="-1"
-													headerValue="%{getText('select.parent')}"
-													value="parentId" disabled="%{isReadOnly}" />
+													headerValue="%{getText('select.parent')}" value="parentId"
+													disabled="%{isReadOnly}" />
 											</div>
 										</div>
 									</s:push>

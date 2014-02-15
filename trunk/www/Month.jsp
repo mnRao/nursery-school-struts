@@ -41,10 +41,10 @@
 										<td><s:property value="year" /></td>
 										<td><s:url id="editUrl" action="editMonth">
 												<s:param name="monthId" value="%{monthId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}"><s:text name="grid.action.edit" /></s:a>
 											<s:url id="deleteUrl" action="deleteMonth">
 												<s:param name="monthId" value="%{monthId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}"><s:text name="grid.action.delete" /></s:a>
 										</td>
 									</tr>
 								</s:iterator>
