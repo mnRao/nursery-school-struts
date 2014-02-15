@@ -7,10 +7,10 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="global" />
-	<constant name="struts.action.extension" value=","/>
+	<constant name="struts.action.extension" value="," />
 	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
-	<package name="default" extends="struts-default" namespace="/">
+	<package name="app-base" abstract="true" extends="struts-default">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
@@ -26,9 +26,10 @@
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
+	</package>
 
-		<default-interceptor-ref name="authStack"></default-interceptor-ref>
-
+	<package name="default" extends="app-base" namespace="/">
+		<default-interceptor-ref name="authStack" />
 
 		<global-results>
 			<result name="login" type="redirect">formLoginAuth</result>
@@ -41,7 +42,7 @@
 			<interceptor-ref name="basicStack" />
 			<result name="success" type="tiles">Login</result>
 		</action>
-
+		
 		<action name="*LoginAuth" method="{1}"
 			class="com.duke.nurseryschool.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
@@ -63,11 +64,16 @@
 		</action>
 	</package>
 
-	<package name="apphibernate" extends="hibernate-default">
-		<result-types>
-			<result-type name="tiles"
-				class="org.apache.struts2.views.tiles.TilesResult" />
-		</result-types>
+	<package name="apphibernate" extends="hibernate-default,default">
+		<interceptors>
+			<interceptor-stack
+				name="hibernateAuthStack-defaultStackHibernateStrutsValidation">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="defaultStackHibernateStrutsValidation" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref
+			name="hibernateAuthStack-defaultStackHibernateStrutsValidation" />
 
 		<!-- Student -->
 		<action name="*Student" method="{1}"
