@@ -153,16 +153,17 @@ public class BusinessLogicSolver {
 			if (isAlternativeFeeMapNull) {
 				FeeMap feeMap = (FeeMap) session.get(FeeMap.class,
 						new FeePolicyFee(feePolicy, fee));
-				amount = (feeMap == null) ? 0 : feeMap.getAmount();
+				amount = (feeMap == null) ? 0 : feeMap.getAmount()
+						.doubleValue();
 			}
 			else {
-				amount = alternativeFeeMap.getAlternativeAmount();
+				amount = alternativeFeeMap.getAlternativeAmount().doubleValue();
 			}
 		}
 		else if (type == FeeType.SELECTED_ONLY) {
 			// Check whether alternative fee exists, if no then 0
 			amount = isAlternativeFeeMapNull ? 0 : alternativeFeeMap
-					.getAlternativeAmount();
+					.getAlternativeAmount().doubleValue();
 		}
 
 		return amount;// FeeType.UNKNOWN

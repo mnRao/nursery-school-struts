@@ -1,5 +1,7 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,8 +13,8 @@ import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
 @Table(name = "alternative_fee_map")
 public class AlternativeFeeMap {
 
-	@Column(name = "alternativeAmount")
-	private double alternativeAmount;
+	@Column(name = "alternativeAmount", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal alternativeAmount;
 
 	@EmbeddedId
 	private PaymentFee paymentFee;
@@ -20,11 +22,11 @@ public class AlternativeFeeMap {
 	public AlternativeFeeMap() {
 	}
 
-	public double getAlternativeAmount() {
+	public BigDecimal getAlternativeAmount() {
 		return this.alternativeAmount;
 	}
 
-	public void setAlternativeAmount(double alternativeAmount) {
+	public void setAlternativeAmount(BigDecimal alternativeAmount) {
 		this.alternativeAmount = alternativeAmount;
 	}
 

@@ -24,7 +24,7 @@
 
 
 		<li><a href="#"> <i class="icon-key"></i>$$$<span
-				class="label label-info pull-right">6</span> <i
+				class="label label-info pull-right">7</span> <i
 				class="arrow icon-angle-left"></i></a>
 			<ul class="sub-menu">
 				<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.MONTH)%>"><a

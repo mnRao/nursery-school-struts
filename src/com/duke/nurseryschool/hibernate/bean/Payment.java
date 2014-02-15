@@ -1,5 +1,6 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,12 +25,12 @@ public class Payment implements BeanLabel {
 	private int absenceCount;
 	@Column(name = "hasBreakfast")
 	private int hasBreakfast;
-	@Column(name = "totalNormalMealFee")
-	private double totalNormalMealFee;
-	@Column(name = "totalBreakfastFee")
-	private double totalBreakfastFee;
-	@Column(name = "totalFee")
-	private double totalFee;
+	@Column(name = "totalNormalMealFee", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal totalNormalMealFee;
+	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal totalBreakfastFee;
+	@Column(name = "totalFee", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal totalFee;
 	@Column(name = "isPaid")
 	private int isPaid;
 	@Column(name = "note")
@@ -63,15 +64,17 @@ public class Payment implements BeanLabel {
 	}
 
 	public int getAbsenceCount() {
-		this.totalNormalMealFee = (this.feePolicy.getAvailableDays() - this.absenceCount)
-				* this.feePolicy.getFeePerNormalMeal();
+		this.totalNormalMealFee = BigDecimal.valueOf((this.feePolicy
+				.getAvailableDays() - this.absenceCount)
+				* this.feePolicy.getFeePerNormalMeal().doubleValue());
 		if (this.hasBreakfast != 0) {
-			this.totalBreakfastFee = this.feePolicy.getTotalBreakfastFee()
+			this.totalBreakfastFee = BigDecimal.valueOf(this.feePolicy
+					.getTotalBreakfastFee().doubleValue()
 					- this.absenceCount
-					* this.feePolicy.getPenaltyFeePerBreakfast();
+					* this.feePolicy.getPenaltyFeePerBreakfast().doubleValue());
 		}
 		else {
-			this.totalBreakfastFee = 0;
+			this.totalBreakfastFee = BigDecimal.valueOf(0);
 		}
 
 		return this.absenceCount;
@@ -89,27 +92,27 @@ public class Payment implements BeanLabel {
 		this.hasBreakfast = hasBreakfast;
 	}
 
-	public double getTotalNormalMealFee() {
+	public BigDecimal getTotalNormalMealFee() {
 		return this.totalNormalMealFee;
 	}
 
-	public void setTotalNormalMealFee(double totalNormalMealFee) {
+	public void setTotalNormalMealFee(BigDecimal totalNormalMealFee) {
 		this.totalNormalMealFee = totalNormalMealFee;
 	}
 
-	public double getTotalBreakfastFee() {
+	public BigDecimal getTotalBreakfastFee() {
 		return this.totalBreakfastFee;
 	}
 
-	public void setTotalBreakfastFee(double totalBreakfastFee) {
+	public void setTotalBreakfastFee(BigDecimal totalBreakfastFee) {
 		this.totalBreakfastFee = totalBreakfastFee;
 	}
 
-	public double getTotalFee() {
+	public BigDecimal getTotalFee() {
 		return this.totalFee;
 	}
 
-	public void setTotalFee(double totalFee) {
+	public void setTotalFee(BigDecimal totalFee) {
 		this.totalFee = totalFee;
 	}
 
