@@ -208,10 +208,11 @@ public class ExcelGenerator {
 		for (Payment payment : this.payments) {
 			this.addNumber(sheet, 0, row, count);
 			this.addLabel(sheet, 1, row, payment.getStudent().getName());
-			// this.addNumber(sheet, 2, row, 11111111);// TODO Basic study fee
 			this.addNumber(sheet, 2, row, payment.getAbsenceCount());
-			this.addNumber(sheet, 3, row, payment.getTotalNormalMealFee());
-			this.addNumber(sheet, 4, row, payment.getTotalBreakfastFee());
+			this.addNumber(sheet, 3, row, payment.getTotalNormalMealFee()
+					.doubleValue());
+			this.addNumber(sheet, 4, row, payment.getTotalBreakfastFee()
+					.doubleValue());
 
 			// Static fees
 			int dynamicCol = CONTENT_STATIC_FEES_START_COL;
@@ -237,8 +238,8 @@ public class ExcelGenerator {
 			}
 
 			// Other remaining contents
-			this.addNumber(sheet, this.otherStartCol, row,
-					payment.getTotalFee());
+			this.addNumber(sheet, this.otherStartCol, row, payment
+					.getTotalFee().doubleValue());
 			this.addLabel(sheet, this.lastColumn, row, payment.getNote());
 
 			count++;

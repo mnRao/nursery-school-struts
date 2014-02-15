@@ -1,5 +1,6 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,12 +23,12 @@ public class FeePolicy implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int feePolicyId;
-	@Column(name = "feePerNormalMeal")
-	private double feePerNormalMeal;
-	@Column(name = "penaltyFeePerBreakfast")
-	private double penaltyFeePerBreakfast;
-	@Column(name = "totalBreakfastFee")
-	private double totalBreakfastFee;
+	@Column(name = "feePerNormalMeal", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal feePerNormalMeal;
+	@Column(name = "penaltyFeePerBreakfast", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal penaltyFeePerBreakfast;
+	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
+	private BigDecimal totalBreakfastFee;
 	@Column(name = "availableDays")
 	private int availableDays;
 
@@ -62,27 +63,27 @@ public class FeePolicy implements BeanLabel {
 		this.feePolicyId = feePolicyId;
 	}
 
-	public double getFeePerNormalMeal() {
+	public BigDecimal getFeePerNormalMeal() {
 		return this.feePerNormalMeal;
 	}
 
-	public void setFeePerNormalMeal(double feePerNormalMeal) {
+	public void setFeePerNormalMeal(BigDecimal feePerNormalMeal) {
 		this.feePerNormalMeal = feePerNormalMeal;
 	}
 
-	public double getPenaltyFeePerBreakfast() {
+	public BigDecimal getPenaltyFeePerBreakfast() {
 		return this.penaltyFeePerBreakfast;
 	}
 
-	public void setPenaltyFeePerBreakfast(double penaltyFeePerBreakfast) {
+	public void setPenaltyFeePerBreakfast(BigDecimal penaltyFeePerBreakfast) {
 		this.penaltyFeePerBreakfast = penaltyFeePerBreakfast;
 	}
 
-	public double getTotalBreakfastFee() {
+	public BigDecimal getTotalBreakfastFee() {
 		return this.totalBreakfastFee;
 	}
 
-	public void setTotalBreakfastFee(double totalBreakfastFee) {
+	public void setTotalBreakfastFee(BigDecimal totalBreakfastFee) {
 		this.totalBreakfastFee = totalBreakfastFee;
 	}
 
