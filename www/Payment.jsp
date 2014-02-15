@@ -48,15 +48,19 @@
 										<%-- 										<td><s:property value="isPaid" /></td> --%>
 										<td><s:url id="editUrl" action="editPayment">
 												<s:param name="paymentId" value="%{paymentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deletePayment">
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deletePayment">
 												<s:param name="paymentId" value="%{paymentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-											<s:url id="addAlternativeFeeChargeMapUrl"
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a> <s:url id="addAlternativeFeeChargeMapUrl"
 												action="autoSetPaymentAlternativeFeeChargeMap">
 												<s:param name="paymentId" value="%{paymentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info"
-												href="%{addAlternativeFeeChargeMapUrl}">Add alternative fee</s:a></td>
+												href="%{addAlternativeFeeChargeMapUrl}">
+												<s:text name="grid.action.addAlternativeFeeMap" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>

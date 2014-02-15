@@ -42,11 +42,13 @@
 										<td><s:property value="feeGroup.label" /></td>
 										<td><s:url id="editUrl" action="editFee">
 												<s:param name="feeId" value="%{feeId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deleteFee">
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteFee">
 												<s:param name="feeId" value="%{feeId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-										</td>
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>

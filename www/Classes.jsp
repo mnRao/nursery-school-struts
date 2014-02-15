@@ -42,18 +42,18 @@
 										<td><s:property value="currentName" /></td>
 										<td><s:url id="editUrl" action="editClasses">
 												<s:param name="classId" value="%{classId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-											<s:url id="deleteUrl" action="deleteClasses">
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteClasses">
 												<s:param name="classId" value="%{classId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-											<s:url id="addFeePolicyUrl" action="autoSetClassFeePolicy">
-												<s:param name="classId" value="%{classId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info"
-												href="%{addFeePolicyUrl}">Add Fee Policy</s:a> <s:url
-												id="addFeeDetailsUrl" action="autoSetClassFeeDetails">
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a> <s:url id="addFeePolicyUrl" action="autoSetClassFeePolicy">
 												<s:param name="classId" value="%{classId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info"
-												href="%{addFeeDetailsUrl}">Add Fee Details</s:a></td>
+												href="%{addFeePolicyUrl}">
+												<s:text name="grid.action.addFeePolicy" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>

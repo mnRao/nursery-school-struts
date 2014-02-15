@@ -52,9 +52,12 @@ public class Classes implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return this.course.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN
-				+ this.code + Constant.PUNCTUATION_MARK.HYPHEN
-				+ this.grade.getOfficialLabel();
+		return this.course.getLabel()
+				+ Constant.PUNCTUATION_MARK.HYPHEN
+				+ this.code
+				+ Constant.PUNCTUATION_MARK.HYPHEN
+				+ ((this.grade != null) ? this.grade.getOfficialLabel() : this
+						.getCurrentName());
 	}
 
 	public String getCurrentName() {

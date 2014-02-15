@@ -50,21 +50,21 @@
 										<td><s:property value="availableDays" /></td>
 										<td><s:url id="editUrl" action="editFeePolicy">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}"><s:text name="grid.action.edit" /></s:a>
 											<s:url id="deleteUrl" action="deleteFeePolicy">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}"><s:text name="grid.action.delete" /></s:a>
 											
 											<s:url id="addFeeMapUrl" action="autoSetFeePolicyFeeMap">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}">Add Fee Map</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}"><s:text name="grid.action.addFeeMap" /></s:a>
 											<s:url id="addPaymentUrl" action="autoSetFeePolicyPayment">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">Add Payment</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}"><s:text name="grid.action.addPayment" /></s:a>
 											<s:url id="excelUrl" action="generateExcel">
 												<s:param name="feePolicyId"
 													value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">Excel</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}"><s:text name="grid.action.excel" /></s:a>
 										</td>
 									</tr>
 								</s:iterator>

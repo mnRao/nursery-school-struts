@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#login_username").focus();
+	$("#loginLoginAuth_username").focus();
 });
 
 function setFocusToLoginTextBox() {

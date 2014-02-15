@@ -44,13 +44,13 @@
 													value="%{paymentFee.fee.feeId}" />
 												<s:param name="paymentId"
 													value="%{paymentFee.payment.paymentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}"><s:text name="grid.action.edit" /></s:a>
 											<s:url id="deleteUrl" action="deleteAlternativeFeeChargeMap">
 												<s:param name="feeId"
 													value="%{paymentFee.fee.feeId}" />
 												<s:param name="paymentId"
 													value="%{paymentFee.payment.paymentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}"><s:text name="grid.action.delete" /></s:a>
 										</td>
 									</tr>
 								</s:iterator>

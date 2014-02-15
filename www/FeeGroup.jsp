@@ -19,7 +19,7 @@
 								name="tab.label.first" /></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-				
+
 					<div id="firstTab"
 						class="tab-pane fade <%=Helper.getTabCss(1, true)%>">
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
@@ -36,23 +36,21 @@
 									<tr class="gradeC">
 										<td><s:property value="feeGroupId" /></td>
 										<td><s:property value="name" /></td>
-										<td>
-										   <s:url id="editUrl"
-										      action="editFeeGroup">
-										      <s:param name="feeGroupId" value="%{feeGroupId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">Edit</s:a>
-										   <s:url id="deleteUrl" action="deleteFeeGroup">
-										      <s:param name="feeGroupId" value="%{feeGroupId}" />
-										   </s:url>
-										   <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">Delete</s:a>
-										</td>
+										<td><s:url id="editUrl" action="editFeeGroup">
+												<s:param name="feeGroupId" value="%{feeGroupId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteFeeGroup">
+												<s:param name="feeGroupId" value="%{feeGroupId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div id="secondTab"
 						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
 						<s:form action="saveOrUpdateFeeGroup" cssClass="form-horizontal">
@@ -82,7 +80,7 @@
 							</div>
 						</s:form>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
