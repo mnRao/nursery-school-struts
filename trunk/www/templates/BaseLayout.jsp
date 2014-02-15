@@ -5,7 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><tiles:insertAttribute name="title" ignore="true" /></title>
+<title><s:set var="title">
+		<tiles:getAsString name="title" ignore="true" />
+	</s:set> <s:text name="%{#title}" /></title>
 <tiles:insertAttribute name="headerResources" />
 </head>
 <body>
