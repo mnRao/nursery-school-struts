@@ -6,7 +6,7 @@
 <div id="side-nav">
 	<ul id="nav">
 		<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.DASHBOARD)%>"><a
-			href="<s:url action="dashboard"/>"><i class="icon-dashboard"></i>
+			href="<s:url action="Dashboard"/>"><i class="icon-dashboard"></i>
 				Dashboard </a></li>
 		<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.COURSE)%>"><a
 			href='<s:url action="listCourse"/>'> <i class="icon-time"></i> <s:text

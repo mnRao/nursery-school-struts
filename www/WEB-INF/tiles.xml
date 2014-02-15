@@ -7,7 +7,7 @@
 
 	<!-- Layouts -->
 	<definition name="MainLayout" template="/templates/MainLayout.jsp">
-		<put-attribute name="title" value="Duke Corp" />
+		<put-attribute name="title" value="global.title" />
 		<put-attribute name="headerResources" value="/templates/headerResources.jsp" />
 		<put-attribute name="header" value="/templates/header.jsp" />
 		<put-attribute name="menu" value="/templates/menu.jsp" />
@@ -17,7 +17,7 @@
 		<put-attribute name="footerResources" value="/templates/footerResources.jsp" />
 	</definition>
 	<definition name="BaseLayout" template="/templates/BaseLayout.jsp">
-		<put-attribute name="title" value="Duke Corp" />
+		<put-attribute name="title" value="global.title" />
 		<put-attribute name="headerResources" value="/templates/headerResources.jsp" />
 		<put-attribute name="body" value="/templates/body.jsp" />
 		<put-attribute name="footerResources" value="/templates/footerResources.jsp" />
@@ -29,62 +29,62 @@
 	</definition>
 
 	<definition name="Dashboard" extends="MainLayout">
-		<put-attribute name="headTitle" value="Dash Board" />
+		<put-attribute name="headTitle" value="headTitle.dashboard" />
 		<put-attribute name="body" value="/pages/Dashboard.jsp" />
 	</definition>
 	
 	<definition name="Student" extends="MainLayout">
-		<put-attribute name="headTitle" value="Student Management" />
+		<put-attribute name="headTitle" value="headTitle.student" />
 		<put-attribute name="body" value="/Student.jsp" />
 	</definition>
 	
 	<definition name="Month" extends="MainLayout">
-		<put-attribute name="headTitle" value="Month Management" />
+		<put-attribute name="headTitle" value="headTitle.month" />
 		<put-attribute name="body" value="/Month.jsp" />
 	</definition>
 	
 	<definition name="Fee" extends="MainLayout">
-		<put-attribute name="headTitle" value="Fee Management" />
+		<put-attribute name="headTitle" value="headTitle.fee" />
 		<put-attribute name="body" value="/Fee.jsp" />
 	</definition>
 	
 	<definition name="Course" extends="MainLayout">
-		<put-attribute name="headTitle" value="Course Management" />
+		<put-attribute name="headTitle" value="headTitle.fee" />
 		<put-attribute name="body" value="/Course.jsp" />
 	</definition>
 	
 	<definition name="Classes" extends="MainLayout">
-		<put-attribute name="headTitle" value="Class Management" />
+		<put-attribute name="headTitle" value="headTitle.class" />
 		<put-attribute name="body" value="/Classes.jsp" />
 	</definition>
 	
 	<definition name="Parent" extends="MainLayout">
-		<put-attribute name="headTitle" value="Parent Management" />
+		<put-attribute name="headTitle" value="headTitle.parent" />
 		<put-attribute name="body" value="/Parent.jsp" />
 	</definition>
 	
 	<definition name="FeePolicy" extends="MainLayout">
-		<put-attribute name="headTitle" value="Fee Policy Management" />
+		<put-attribute name="headTitle" value="headTitle.feePolicy" />
 		<put-attribute name="body" value="/FeePolicy.jsp" />
 	</definition>
 	
 	<definition name="Payment" extends="MainLayout">
-		<put-attribute name="headTitle" value="Payment Management" />
+		<put-attribute name="headTitle" value="headTitle.payment" />
 		<put-attribute name="body" value="/Payment.jsp" />
 	</definition>
 	
 	<definition name="FeeGroup" extends="MainLayout">
-		<put-attribute name="headTitle" value="Fee Group Management" />
+		<put-attribute name="headTitle" value="headTitle.feeGroup" />
 		<put-attribute name="body" value="/FeeGroup.jsp" />
 	</definition>
 	
 	<definition name="FeeMap" extends="MainLayout">
-		<put-attribute name="headTitle" value="Fee Map Management" />
+		<put-attribute name="headTitle" value="headTitle.feeMap" />
 		<put-attribute name="body" value="/FeeMap.jsp" />
 	</definition>
 	
 	<definition name="AlternativeFeeMap" extends="MainLayout">
-		<put-attribute name="headTitle" value="Alternative Fee Map Management" />
+		<put-attribute name="headTitle" value="headTitle.alternativeFeeMap" />
 		<put-attribute name="body" value="/AlternativeFeeMap.jsp" />
 	</definition>
 

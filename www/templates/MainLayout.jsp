@@ -1,11 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title><tiles:insertAttribute name="title" ignore="true" /></title>
+<title><s:set var="title">
+		<tiles:getAsString name="title" ignore="true" />
+	</s:set> <s:text name="%{#title}" /> <%-- <tiles:insertAttribute name="title" ignore="true" /> --%>
+</title>
 <tiles:insertAttribute name="headerResources" />
 </head>
 <body>
@@ -27,7 +31,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h2 class="page-title">
-							<small><tiles:insertAttribute name="headTitle" /></small>
+							<small><s:set var="headTitle">
+									<tiles:getAsString name="headTitle" ignore="true" />
+								</s:set> <s:text name="%{#headTitle}" /> </small>
 						</h2>
 					</div>
 				</div>
