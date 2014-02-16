@@ -13,6 +13,7 @@
 <tiles:insertAttribute name="headerResources" />
 </head>
 <body>
+	<div id="dvLoading"></div>
 	<div class="container">
 		<tiles:insertAttribute name="header" />
 	</div>
