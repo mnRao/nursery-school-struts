@@ -33,6 +33,11 @@
 		<put-attribute name="body" value="/pages/Dashboard.jsp" />
 	</definition>
 	
+	<definition name="Help" extends="MainLayout">
+		<put-attribute name="headTitle" value="headTitle.help" />
+		<put-attribute name="body" value="/pages/Help.jsp" />
+	</definition>
+	
 	<definition name="Student" extends="MainLayout">
 		<put-attribute name="headTitle" value="headTitle.student" />
 		<put-attribute name="body" value="/Student.jsp" />

@@ -21,6 +21,7 @@
 			<interceptor-stack name="authStack">
 				<interceptor-ref name="authentication" />
 				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="timer" />
 			</interceptor-stack>
 			<interceptor-stack name="noLoginStack">
 				<interceptor-ref name="defaultStack" />
@@ -62,12 +63,18 @@
 			class="com.duke.nurseryschool.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
 		</action>
+		<!-- Help -->
+		<action name="Help" method="execute"
+			class="com.duke.nurseryschool.HelpAction">
+			<result name="success" type="tiles">Help</result>
+		</action>
 	</package>
 
 	<package name="apphibernate" extends="hibernate-default,default">
 		<interceptors>
 			<interceptor-stack
 				name="hibernateAuthStack-defaultStackHibernateStrutsValidation">
+				<interceptor-ref name="timer" />
 				<interceptor-ref name="authentication" />
 				<interceptor-ref name="defaultStackHibernateStrutsValidation" />
 			</interceptor-stack>
@@ -110,6 +117,7 @@
 			class="com.duke.nurseryschool.ParentAction">
 			<result name="success" type="tiles">Parent</result>
 			<result name="successRedirect" type="redirect">listParent</result>
+			<result name="input" type="tiles">Parent</result>
 		</action>
 		<!-- Fee Policy -->
 		<action name="*FeePolicy" method="{1}"
