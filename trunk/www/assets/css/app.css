@@ -27,6 +27,18 @@ h2 small, .h2 small {
 	background-color: #C9ED84;
 }
 
+#dvLoading
+{
+   background:url(../app/loader.gif) no-repeat center center;
+   height: 64px;
+   width: 128px;
+   position: fixed;
+   z-index: 1000;
+   left: 50%;
+   top: 50%;
+   margin: -25px 0 0 -25px;
+}
+
 /* Fix top navigation bar */
 /* .top-navbar { */
 /* 	position: fixed; */
