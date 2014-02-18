@@ -65,6 +65,7 @@
 									<s:text name="form.legend" />
 								</legend>
 								<div class="control-group">
+									<s:fielderror />
 									<s:push value="course">
 										<s:hidden name="courseId" />
 										<div class="col-md-2">

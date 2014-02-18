@@ -105,6 +105,7 @@
 			class="com.duke.nurseryschool.CourseAction">
 			<result name="success" type="tiles">Course</result>
 			<result name="successRedirect" type="redirect">listCourse</result>
+			<result name="input" type="tiles">Course</result>
 		</action>
 		<!-- Classes -->
 		<action name="*Classes" method="{1}"

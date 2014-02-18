@@ -1,3 +1,4 @@
+<%@page import="com.opensymphony.xwork2.ActionContext"%>
 <%@page import="com.duke.nurseryschool.helper.Helper"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="row">
@@ -10,8 +11,14 @@
 				</h3>
 			</div>
 			<div class="widget-content">
+				<%-- 				<s:if test="fieldErrors.size > 0"> --%>
+				<%-- 					<s:set name="hasErrors" value="true" /> --%>
+				<%-- 				</s:if> --%>
+				<%-- 				<s:else> --%>
+				<%-- 					<s:set name="hasErrors" value="false" /> --%>
+				<%-- 				</s:else> --%>
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="<%=Helper.getTabCss(1, false)%>"><a
+					<li class="<%=Helper.getTabCss(1, false)  %>"><a
 						data-toggle="tab" href="#firstTab"
 					><s:text name="tab.label.second" /></a></li>
 					<li class="<%=Helper.getTabCss(2, false)%>"><a
@@ -81,7 +88,7 @@
 										<s:set name="isReadOnly" value="true" />
 										<s:hidden name="courseId" />
 									</s:else>
-									
+
 									<s:fielderror />
 									<s:push value="classes">
 										<s:hidden name="classId" />
@@ -95,8 +102,7 @@
 												<s:select list="courseList" listKey="courseId"
 													listValue="label" name="courseId"
 													headerValue="%{getText('select.course')}"
-													value="%{courseId}"
-													disabled="%{isReadOnly}"
+													value="%{courseId}" disabled="%{isReadOnly}"
 												/>
 											</div>
 										</div>

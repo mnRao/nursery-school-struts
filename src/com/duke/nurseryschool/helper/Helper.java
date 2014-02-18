@@ -34,6 +34,14 @@ public class Helper {
 			return Constant.EMPTY_STRING;
 	}
 
+	public static String getTabCss(boolean hasFieldErrors, int tabNumber,
+			boolean isContent) {
+		if (hasFieldErrors)
+			return isContent ? "active in" : "active";
+		else
+			return getTabCss(tabNumber, isContent);
+	}
+
 	/**
 	 * Compute CSS class for given tab (header | content), regarding tab number
 	 */

@@ -19,13 +19,13 @@ import com.opensymphony.xwork2.Preparable;
 public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		Preparable {
 
-	private Classes			classes		= new Classes();
-	private List<Classes>	allClasses	= new ArrayList<Classes>();
-	private ClassesDAO		dao			= new ClassesDAO();
+	private Classes classes = new Classes();
+	private List<Classes> allClasses = new ArrayList<Classes>();
+	private ClassesDAO dao = new ClassesDAO();
 
-	private CourseDAO		courseDAO	= new CourseDAO();
-	private int				courseId;
-	private List<Course>	courseList;
+	private CourseDAO courseDAO = new CourseDAO();
+	private int courseId;
+	private List<Course> courseList;
 
 	@Override
 	public Classes getModel() {
@@ -48,7 +48,6 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		this.addActionMessage(this
 				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
 
-		// return this.list();
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
@@ -56,10 +55,6 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 	@SkipValidation
 	public String list() {
 		return Action.SUCCESS;
-	}
-
-	public String autoSetCourse() {
-		return this.list();
 	}
 
 	@SkipValidation
@@ -80,13 +75,20 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
+	public String autoSetCourse() {
+		return this.list();
+	}
+
 	@Override
 	public void validate() {
 		if (this.courseId <= 0) {
-			this.addFieldError("courseId", "Course Id null");
+			this.addFieldError("courseId",
+					this.getText(Constant.I18N.ERROR_REQUIRED_CLASS_COURSEID));
 		}
 		if (StringUtil.isEmpty(this.classes.getCode())) {
-			this.addFieldError("classes.code", "Class code null");
+			this.addFieldError("classes.code",
+					this.getText(Constant.I18N.ERROR_REQUIRED_CLASS_CODE));
 		}
 
 		super.validate();
@@ -94,7 +96,6 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 
 	@Override
 	public void prepare() throws Exception {
-		// this.populateData();
 	}
 
 	public void prepareList() throws Exception {
@@ -107,7 +108,10 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 
 	public void prepareSaveOrUpdate() throws Exception {
 		this.populateData();
-		// this.validate();
+	}
+
+	public void prepareAutoSetCourse() throws Exception {
+		this.populateData();
 	}
 
 	private void populateData() {
