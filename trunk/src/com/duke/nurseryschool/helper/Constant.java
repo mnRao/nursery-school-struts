@@ -34,6 +34,10 @@ public final class Constant {
 		public static final String ERROR_LOGIN_USERNAME = "error.login.username";
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 
+		public static final String ERROR_CONSTRAINT_COURSE_YEARS = "errors.constraint.course.years";
+		public static final String ERROR_REQUIRED_CLASS_COURSEID = "errors.required.class.courseId";
+		public static final String ERROR_REQUIRED_CLASS_CODE = "errors.required.class.code";
+
 		public static final String SUCCESS_RECORD_CREATE_UPDATE = "success.model.create";
 		public static final String FORM_GENDER_MALE = "form.gender.male";
 		public static final String FORM_GENDER_FEMALE = "form.gender.female";
