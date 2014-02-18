@@ -64,8 +64,7 @@
 			<result name="success" type="tiles">Dashboard</result>
 		</action>
 		<!-- Help -->
-		<action name="Help" method="execute"
-			class="com.duke.nurseryschool.HelpAction">
+		<action name="Help" method="execute" class="com.duke.nurseryschool.HelpAction">
 			<result name="success" type="tiles">Help</result>
 		</action>
 	</package>
@@ -76,7 +75,9 @@
 				name="hibernateAuthStack-defaultStackHibernateStrutsValidation">
 				<interceptor-ref name="timer" />
 				<interceptor-ref name="authentication" />
-				<interceptor-ref name="defaultStackHibernateStrutsValidation" />
+				<interceptor-ref name="hibernateSessionInterceptor" />
+				<!-- <interceptor-ref name="defaultStack" /> -->
+				<interceptor-ref name="paramsPrepareParamsStack" />
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref

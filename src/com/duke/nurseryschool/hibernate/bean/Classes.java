@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,23 +25,23 @@ import com.duke.nurseryschool.helper.Grade;
 public class Classes implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int classId;
+	private int				classId;
 	@NotEmpty
 	@Length(min = 2, max = 20)
 	@Column(name = "code")
-	private String code;
+	private String			code;
 	@ManyToOne
 	@JoinColumn(name = "courseId")
-	private Course course;
+	private Course			course;
 
 	@OneToMany(mappedBy = "associatedClass")
-	private Set<Student> students;
+	private Set<Student>	students;
 
 	@OneToMany(mappedBy = "associatedClass")
-	private Set<FeePolicy> feePolicies;
+	private Set<FeePolicy>	feePolicies;
 
 	// Virtual current grade
-	private Grade grade;
+	private Grade			grade;
 
 	public Classes() {
 
@@ -52,8 +53,8 @@ public class Classes implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return this.course.getLabel()
-				+ Constant.PUNCTUATION_MARK.HYPHEN
+		return ((this.course != null) ? this.course.getLabel()
+				+ Constant.PUNCTUATION_MARK.HYPHEN : "ABC")
 				+ this.code
 				+ Constant.PUNCTUATION_MARK.HYPHEN
 				+ ((this.grade != null) ? this.grade.getOfficialLabel() : this
@@ -61,8 +62,8 @@ public class Classes implements BeanLabel {
 	}
 
 	public String getCurrentName() {
-		this.grade = BusinessLogicSolver.calculateGrade(
-				this.course.getStartYear(), this.course.getEndYear());
+		this.grade = BusinessLogicSolver.calculateGrade(this.getCourse()
+				.getStartYear(), this.getCourse().getEndYear());
 
 		return this.grade.getOfficialLabel();
 	}
@@ -105,6 +106,14 @@ public class Classes implements BeanLabel {
 
 	public void setFeePolicies(Set<FeePolicy> feePolicies) {
 		this.feePolicies = feePolicies;
+	}
+
+	public Grade getGrade() {
+		return this.grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
 	}
 
 }
