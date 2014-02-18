@@ -1,3 +1,4 @@
+<%@page import="com.opensymphony.xwork2.ActionContext"%>
 <%@page import="com.duke.nurseryschool.helper.Helper"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="row">
@@ -11,17 +12,17 @@
 			</div>
 			<div class="widget-content">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="<%=Helper.getTabCss(1, false)%>"><a
+					<li class="<%=Helper.getTabCss(1, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
 						data-toggle="tab" href="#firstTab"><s:text
 								name="tab.label.second" /></a></li>
-					<li class="<%=Helper.getTabCss(2, false)%>"><a
+					<li class="<%=Helper.getTabCss(2, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
 						data-toggle="tab" href="#secondTab"><s:text
 								name="tab.label.first" /></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 
 					<div id="firstTab"
-						class="tab-pane fade <%=Helper.getTabCss(1, true)%>">
+						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
 							id="dynamicTable">
 							<thead>
@@ -59,7 +60,7 @@
 					</div>
 
 					<div id="secondTab"
-						class="tab-pane fade <%=Helper.getTabCss(2, true)%>">
+						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
 						<s:form action="saveOrUpdateAlternativeFeeChargeMap"
 							cssClass="form-horizontal">
 							<fieldset>

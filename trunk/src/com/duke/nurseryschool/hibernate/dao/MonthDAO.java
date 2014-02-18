@@ -8,18 +8,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.CoreDAO;
 import com.duke.nurseryschool.helper.comparator.MonthComparator;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
-public class MonthDAO {
-
-	@SessionTarget
-	Session session;
-
-	@TransactionTarget
-	Transaction transaction;
+public class MonthDAO extends CoreDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Month> getMonths() {

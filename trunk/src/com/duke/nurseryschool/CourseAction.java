@@ -34,8 +34,6 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 						.getParameter("courseId"))));
 
 		this.dao.saveOrUpdateCourse(this.course);
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
 
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -65,7 +63,17 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 
 	@Override
 	public void validate() {
-		if (this.course.getStartYear() != this.course.getEndYear() - 4) {
+		int startYear = this.course.getStartYear();
+		int endYear = this.course.getEndYear();
+		if (startYear <= 0) {
+			this.addFieldError("course.startYear", this
+					.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_STARTYEAR));
+		}
+		if (endYear <= 0) {
+			this.addFieldError("course.endYear",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_ENDYEAR));
+		}
+		if (startYear != endYear - 4) {
 			this.addFieldError("course.startYear",
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_YEARS));
 		}
