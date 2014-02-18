@@ -4,21 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
+import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.ClassComparator;
 import com.duke.nurseryschool.hibernate.bean.Classes;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
-public class ClassesDAO {
-	@SessionTarget
-	Session session;
-
-	@TransactionTarget
-	Transaction transaction;
+public class ClassesDAO extends CoreDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Classes> getClasses() {
