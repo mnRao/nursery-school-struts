@@ -7,10 +7,10 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="global" />
-	<constant name="struts.action.extension" value=","/>
+	<constant name="struts.action.extension" value="," />
 	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
-	<package name="default" extends="struts-default" namespace="/">
+	<package name="app-base" abstract="true" extends="struts-default">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
@@ -21,17 +21,19 @@
 			<interceptor-stack name="authStack">
 				<interceptor-ref name="authentication" />
 				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="timer" />
 			</interceptor-stack>
 			<interceptor-stack name="noLoginStack">
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
+	</package>
 
-		<default-interceptor-ref name="authStack"></default-interceptor-ref>
-
+	<package name="default" extends="app-base" namespace="/">
+		<default-interceptor-ref name="authStack" />
 
 		<global-results>
-			<result name="login" type="redirect">loginAuth</result>
+			<result name="login" type="redirect">formLoginAuth</result>
 		</global-results>
 
 		<!-- Locale -->
@@ -41,12 +43,12 @@
 			<interceptor-ref name="basicStack" />
 			<result name="success" type="tiles">Login</result>
 		</action>
-
-		<action name="loginAuth" method="login"
+		<!-- Authentication -->
+		<action name="*LoginAuth" method="{1}"
 			class="com.duke.nurseryschool.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
-			<result name="success" type="tiles">Dashboard</result>
+			<result name="success" type="redirect">Dashboard</result>
 			<result name="error" type="tiles">Login</result>
 			<result name="input" type="tiles">Login</result>
 		</action>
@@ -54,20 +56,32 @@
 			class="com.duke.nurseryschool.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
-			<result name="LogoutSuccess" type="redirect">loginAuth</result>
+			<result name="LogoutSuccess" type="redirect">formLoginAuth</result>
 		</action>
-
-		<action name="dashboard" method="execute"
+		<!-- Dashboard -->
+		<action name="Dashboard" method="execute"
 			class="com.duke.nurseryschool.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
 		</action>
+		<!-- Help -->
+		<action name="Help" method="execute" class="com.duke.nurseryschool.HelpAction">
+			<result name="success" type="tiles">Help</result>
+		</action>
 	</package>
 
-	<package name="apphibernate" extends="hibernate-default">
-		<result-types>
-			<result-type name="tiles"
-				class="org.apache.struts2.views.tiles.TilesResult" />
-		</result-types>
+	<package name="apphibernate" extends="hibernate-default,default">
+		<interceptors>
+			<interceptor-stack
+				name="hibernateAuthStack-defaultStackHibernateStrutsValidation">
+				<interceptor-ref name="timer" />
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="hibernateSessionInterceptor" />
+				<!-- <interceptor-ref name="defaultStack" /> -->
+				<interceptor-ref name="paramsPrepareParamsStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref
+			name="hibernateAuthStack-defaultStackHibernateStrutsValidation" />
 
 		<!-- Student -->
 		<action name="*Student" method="{1}"
@@ -91,6 +105,7 @@
 			class="com.duke.nurseryschool.CourseAction">
 			<result name="success" type="tiles">Course</result>
 			<result name="successRedirect" type="redirect">listCourse</result>
+			<result name="input" type="tiles">Course</result>
 		</action>
 		<!-- Classes -->
 		<action name="*Classes" method="{1}"
@@ -104,6 +119,7 @@
 			class="com.duke.nurseryschool.ParentAction">
 			<result name="success" type="tiles">Parent</result>
 			<result name="successRedirect" type="redirect">listParent</result>
+			<result name="input" type="tiles">Parent</result>
 		</action>
 		<!-- Fee Policy -->
 		<action name="*FeePolicy" method="{1}"
