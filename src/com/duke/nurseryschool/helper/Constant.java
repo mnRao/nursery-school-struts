@@ -35,6 +35,10 @@ public final class Constant {
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 
 		public static final String ERROR_CONSTRAINT_COURSE_YEARS = "errors.constraint.course.years";
+		public static final String ERROR_CONSTRAINT_COURSE_STARTYEAR = "errors.constraint.course.startYear";
+		public static final String ERROR_CONSTRAINT_COURSE_ENDYEAR = "errors.constraint.course.startYear";
+		public static final String ERROR_CONSTRAINT_MONTH_MONTHNAME = "errors.constraint.month.monthName";
+		public static final String ERROR_CONSTRAINT_MONTH_YEAR = "errors.constraint.month.year";
 		public static final String ERROR_REQUIRED_CLASS_COURSEID = "errors.required.class.courseId";
 		public static final String ERROR_REQUIRED_CLASS_CODE = "errors.required.class.code";
 

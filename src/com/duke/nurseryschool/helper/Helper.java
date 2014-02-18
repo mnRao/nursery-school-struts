@@ -2,6 +2,7 @@ package com.duke.nurseryschool.helper;
 
 import java.util.Calendar;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.DefaultTextProvider;
 import com.opensymphony.xwork2.TextProvider;
@@ -34,18 +35,11 @@ public class Helper {
 			return Constant.EMPTY_STRING;
 	}
 
-	public static String getTabCss(boolean hasFieldErrors, int tabNumber,
-			boolean isContent) {
-		if (hasFieldErrors)
-			return isContent ? "active in" : "active";
-		else
-			return getTabCss(tabNumber, isContent);
-	}
-
 	/**
 	 * Compute CSS class for given tab (header | content), regarding tab number
 	 */
-	public static String getTabCss(int tabNumber, boolean isContent) {
+	public static String getTabCss(int tabNumber, boolean isContent,
+			String resultCode) {
 		String actionName = ActionContext.getContext().getName();
 
 		// Cases for necessary hidden tab
@@ -53,7 +47,8 @@ public class Helper {
 			return "app-hidden";
 
 		boolean isSpecialCase = actionName.contains("edit")
-				|| actionName.contains("autoSet");
+				|| actionName.contains("autoSet")
+				|| resultCode.equalsIgnoreCase(Action.INPUT);
 		String cssClass = calculateTabCss(tabNumber, isSpecialCase, isContent);
 
 		return cssClass;
