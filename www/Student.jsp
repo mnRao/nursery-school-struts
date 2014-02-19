@@ -1,7 +1,7 @@
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
 <%@page import="com.duke.nurseryschool.helper.Helper"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%-- <%@ taglib prefix="sj" uri="/struts-jquery-tags"%> --%>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="widget">
@@ -159,6 +159,7 @@
 								</legend>
 
 								<div class="control-group">
+									<s:fielderror />
 									<div class="col-md-2">
 										<s:label key="label.student.classId" cssClass="control-label" />
 									</div>
@@ -171,7 +172,6 @@
 										</div>
 									</div>
 
-									<s:fielderror />
 									<s:push value="student">
 										<s:hidden name="studentId" />
 										<div class="col-md-2">
@@ -191,10 +191,10 @@
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/>
-<%-- 												<s:textfield key="label.student.dateOfBirth" --%>
-<%-- 													name="dateOfBirth" cssClass="form-control" --%>
-<%-- 												/> --%>
+												<%-- 												<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/> --%>
+												<s:textfield key="label.student.dateOfBirth"
+													name="dateOfBirth" cssClass="form-control"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">

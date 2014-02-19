@@ -8,10 +8,10 @@ import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
 public class CoreDAO {
 	@SessionTarget
-	protected Session		session;
+	protected Session session;
 
 	@TransactionTarget
-	protected Transaction	transaction;
+	protected Transaction transaction;
 
 	public Session getSession() {
 		return this.session;
@@ -21,7 +21,4 @@ public class CoreDAO {
 		return this.transaction;
 	}
 
-	public boolean isSessionNull() {
-		return this.session == null;
-	}
 }
