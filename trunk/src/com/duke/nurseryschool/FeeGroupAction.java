@@ -3,14 +3,19 @@ package com.duke.nurseryschool;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.FeeGroup;
 import com.duke.nurseryschool.hibernate.dao.FeeGroupDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
-public class FeeGroupAction extends CoreAction implements ModelDriven<FeeGroup> {
+public class FeeGroupAction extends CoreAction implements
+		ModelDriven<FeeGroup>, Preparable {
 
 	private static final long serialVersionUID = 2143537118962764732L;
 
@@ -24,19 +29,20 @@ public class FeeGroupAction extends CoreAction implements ModelDriven<FeeGroup> 
 	}
 
 	public String saveOrUpdate() {
-		this.dao.saveOrUpdateFeeGroup(this.feeGroup);
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
+		this.dao.getSession().evict(
+				this.dao.getFeeGroup(Integer.parseInt(this.request
+						.getParameter("feeGroupId"))));
 
-		// Redirect to list action
+		this.dao.saveOrUpdateFeeGroup(this.feeGroup);
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String list() {
-		this.feeGroups = this.dao.getFeeGroups();
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
 	public String delete() {
 		this.dao.deleteFeeGroup(Integer.parseInt(this.request
 				.getParameter("feeGroupId")));
@@ -44,12 +50,41 @@ public class FeeGroupAction extends CoreAction implements ModelDriven<FeeGroup> 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String edit() {
 		this.feeGroup = this.dao.getFeeGroup(Integer.parseInt(this.request
 				.getParameter("feeGroupId")));
-		// Load all
-		this.feeGroups = this.dao.getFeeGroups();
 		return Action.SUCCESS;
+	}
+
+	@Override
+	public void validate() {
+		if (StringUtil.isEmpty(this.feeGroup.getName())) {
+			this.addFieldError("feeGroup.name",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEEGROUP_NAME));
+		}
+
+		super.validate();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+	}
+
+	public void prepareList() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareEdit() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	private void populateData() {
+		this.feeGroups = this.dao.getFeeGroups();
 	}
 
 	public FeeGroup getFeeGroup() {

@@ -26,15 +26,15 @@ import com.opensymphony.xwork2.Preparable;
 public class StudentAction extends CoreAction implements ModelDriven<Student>,
 		Preparable {
 
-	private static final long	serialVersionUID	= -3023527426370035860L;
+	private static final long serialVersionUID = -3023527426370035860L;
 
-	private Student				student				= new Student();
-	private List<Student>		students			= new ArrayList<Student>();
-	private final StudentDAO	dao					= new StudentDAO();
-	private final ClassesDAO	classesDAO			= new ClassesDAO();
+	private Student student = new Student();
+	private List<Student> students = new ArrayList<Student>();
+	private final StudentDAO dao = new StudentDAO();
+	private final ClassesDAO classesDAO = new ClassesDAO();
 
-	private String				classId;
-	private List<Classes>		classList;
+	private String classId;
+	private List<Classes> classList;
 
 	@Override
 	public Student getModel() {
