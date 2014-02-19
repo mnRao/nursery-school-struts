@@ -94,13 +94,14 @@
 			class="com.duke.nurseryschool.StudentAction">
 			<result name="success" type="tiles">Student</result>
 			<result name="successRedirect" type="redirect">listStudent</result>
+			<result name="input" type="tiles">Student</result>
 		</action>
 		<!-- Month -->
 		<action name="*Month" method="{1}"
 			class="com.duke.nurseryschool.MonthAction">
 			<result name="success" type="tiles">Month</result>
 			<result name="successRedirect" type="redirect">listMonth</result>
-			<result name="input" type="tiles">Course</result>
+			<result name="input" type="tiles">Month</result>
 		</action>
 		<!-- Fee -->
 		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.FeeAction">
