@@ -27,14 +27,20 @@
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
+
+		<global-results>
+			<result name="exception" type="tiles">Exception</result>
+			<result name="login" type="redirect">formLoginAuth</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="exception" />
+		</global-exception-mappings>
 	</package>
 
 	<package name="default" extends="app-base" namespace="/">
 		<default-interceptor-ref name="authStack" />
-
-		<global-results>
-			<result name="login" type="redirect">formLoginAuth</result>
-		</global-results>
 
 		<!-- Locale -->
 		<action name="locale" method="execute"
