@@ -14,19 +14,28 @@
 			</div>
 			<div class="widget-content">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="<%=Helper.getTabCss(1, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#firstTab"><s:text
-								name="tab.label.second" /></a></li>
-					<li class="<%=Helper.getTabCss(2, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#secondTab"><s:text
-								name="tab.label.first" /></a></li>
+					<li
+						class="<%=Helper.getTabCss(1, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#firstTab"><s:text
+								name="tab.label.second"
+							/></a></li>
+					<li
+						class="<%=Helper.getTabCss(2, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#secondTab"><s:text
+								name="tab.label.first"
+							/></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 
 					<div id="firstTab"
-						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
+						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					>
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
-							id="dynamicTable">
+							id="dynamicTable"
+						>
 							<thead>
 								<tr>
 									<th><s:text name="label.feePolicy.feePolicyId" /></th>
@@ -51,22 +60,25 @@
 										<td><s:property value="availableDays" /></td>
 										<td><s:url id="editUrl" action="editFeePolicy">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}"><s:text name="grid.action.edit" /></s:a>
-											<s:url id="deleteUrl" action="deleteFeePolicy">
+											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
+												<s:text name="grid.action.edit" />
+											</s:a> <s:url id="deleteUrl" action="deleteFeePolicy">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}"><s:text name="grid.action.delete" /></s:a>
-											
-											<s:url id="addFeeMapUrl" action="autoSetFeePolicyFeeMap">
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a> <s:url id="addFeeMapUrl" action="autoSetFeePolicyFeeMap">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}"><s:text name="grid.action.addFeeMap" /></s:a>
-											<s:url id="addPaymentUrl" action="autoSetFeePolicyPayment">
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}">
+												<s:text name="grid.action.addFeeMap" />
+											</s:a> <s:url id="addPaymentUrl" action="autoSetFeePolicyPayment">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}"><s:text name="grid.action.addPayment" /></s:a>
-											<s:url id="excelUrl" action="generateExcel">
-												<s:param name="feePolicyId"
-													value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}"><s:text name="grid.action.excel" /></s:a>
-										</td>
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">
+												<s:text name="grid.action.addPayment" />
+											</s:a> <s:url id="excelUrl" action="generateExcel">
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
+												<s:text name="grid.action.excel" />
+											</s:a></td>
 									</tr>
 								</s:iterator>
 							</tbody>
@@ -74,7 +86,9 @@
 					</div>
 
 					<div id="secondTab"
-						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
+						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					>
 						<s:form action="saveOrUpdateFeePolicy" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
@@ -92,71 +106,84 @@
 										<s:hidden name="monthId" />
 									</s:else>
 
+									<s:fielderror />
 									<div class="col-md-2">
 										<s:label key="label.feePolicy.classId"
-											cssClass="control-label" />
+											cssClass="control-label"
+										/>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
 											<s:select list="classList" listKey="classId"
-												listValue="label" name="classId" headerKey="-1"
+												listValue="label" name="classId"
 												headerValue="%{getText('select.class')}" value="%{classId}"
-												disabled="%{isReadOnly}" />
+												disabled="%{isReadOnly}"
+											/>
 										</div>
 									</div>
 									<div class="col-md-2">
 										<s:label key="label.feePolicy.monthId"
-											cssClass="control-label" />
+											cssClass="control-label"
+										/>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
 											<s:select list="monthList" listKey="monthId"
-												listValue="label" name="monthId" headerKey="-1"
+												listValue="label" name="monthId"
 												headerValue="%{getText('select.month')}" value="%{monthId}"
-												disabled="%{isReadOnly}" />
+												disabled="%{isReadOnly}"
+											/>
 										</div>
 									</div>
 
 									<s:push value="feePolicy">
-										<s:hidden name="feePolicyId"/>
+										<s:hidden name="feePolicyId" />
 										<div class="col-md-2">
 											<s:label key="label.feePolicy.feePerNormalMeal"
-												cssClass="control-label" />
+												cssClass="control-label"
+											/>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.feePolicy.feePerNormalMeal"
-													name="feePerNormalMeal" cssClass="form-control" />
+													name="feePerNormalMeal" cssClass="form-control"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
 											<s:label key="label.feePolicy.totalBreakfastFee"
-												cssClass="control-label" />
+												cssClass="control-label"
+											/>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.feePolicy.totalBreakfastFee"
-													name="totalBreakfastFee" cssClass="form-control" />
+													name="totalBreakfastFee" cssClass="form-control"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
 											<s:label key="label.feePolicy.penaltyFeePerBreakfast"
-												cssClass="control-label" />
+												cssClass="control-label"
+											/>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.feePolicy.penaltyFeePerBreakfast"
-													name="penaltyFeePerBreakfast" cssClass="form-control" />
+													name="penaltyFeePerBreakfast" cssClass="form-control"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
 											<s:label key="label.feePolicy.availableDays"
-												cssClass="control-label" />
+												cssClass="control-label"
+											/>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.feePolicy.availableDays"
-													name="availableDays" cssClass="form-control" type="number"/>
+													name="availableDays" cssClass="form-control" type="number"
+												/>
 											</div>
 										</div>
 									</s:push>

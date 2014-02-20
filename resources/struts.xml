@@ -135,6 +135,7 @@
 			class="com.duke.nurseryschool.FeePolicyAction">
 			<result name="success" type="tiles">FeePolicy</result>
 			<result name="successRedirect" type="redirect">listFeePolicy</result>
+			<result name="input" type="tiles">FeePolicy</result>
 		</action>
 		<!-- Payment -->
 		<action name="*Payment" method="{1}"
