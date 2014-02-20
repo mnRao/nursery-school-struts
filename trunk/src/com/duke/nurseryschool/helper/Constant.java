@@ -39,6 +39,7 @@ public final class Constant {
 		public static final String ERROR_CONSTRAINT_COURSE_ENDYEAR = "errors.constraint.course.startYear";
 		public static final String ERROR_CONSTRAINT_MONTH_MONTHNAME = "errors.constraint.month.monthName";
 		public static final String ERROR_CONSTRAINT_MONTH_YEAR = "errors.constraint.month.year";
+		public static final String ERROR_CONSTRAINT_FEEMAP_AMOUNT = "errors.constraint.feeMap.amount";
 		public static final String ERROR_REQUIRED_FEE_NAME = "errors.required.fee.name";
 		public static final String ERROR_REQUIRED_FEEGROUP_NAME = "errors.required.feeGroup.name";
 		public static final String ERROR_REQUIRED_CLASS_COURSEID = "errors.required.class.courseId";
