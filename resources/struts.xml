@@ -107,6 +107,7 @@
 		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.FeeAction">
 			<result name="success" type="tiles">Fee</result>
 			<result name="successRedirect" type="redirect">listFee</result>
+			<result name="input" type="tiles">Fee</result>
 		</action>
 		<!-- Course -->
 		<action name="*Course" method="{1}"

@@ -12,19 +12,28 @@
 			</div>
 			<div class="widget-content">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="<%=Helper.getTabCss(1, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#firstTab"><s:text
-								name="tab.label.second" /></a></li>
-					<li class="<%=Helper.getTabCss(2, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#secondTab"><s:text
-								name="tab.label.first" /></a></li>
+					<li
+						class="<%=Helper.getTabCss(1, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#firstTab"><s:text
+								name="tab.label.second"
+							/></a></li>
+					<li
+						class="<%=Helper.getTabCss(2, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#secondTab"><s:text
+								name="tab.label.first"
+							/></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 
 					<div id="firstTab"
-						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
+						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					>
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
-							id="dynamicTable">
+							id="dynamicTable"
+						>
 							<thead>
 								<tr>
 									<th><s:text name="label.fee.feeId" /></th>
@@ -57,13 +66,16 @@
 					</div>
 
 					<div id="secondTab"
-						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
+						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					>
 						<s:form action="saveOrUpdateFee" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
 									<s:text name="form.legend" />
 								</legend>
 								<div class="control-group">
+									<s:fielderror />
 									<s:push value="fee">
 										<!-- Mapping fields -->
 										<s:set var="changingMappingKeyAllowed"><%=Helper.changingMappingKeyAllowed()%></s:set>
@@ -82,9 +94,9 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:select list="feeTypeList" listKey="type" listValue="name"
-													name="feeTypeId" headerKey="-1"
-													headerValue="%{getText('select.feeType')}"
-													value="%{feeTypeId}" />
+													name="feeTypeId" headerValue="%{getText('select.feeType')}"
+													value="%{feeTypeId}"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -95,7 +107,8 @@
 												<s:select list="feeGroupList" listKey="feeGroupId"
 													listValue="label" name="feeGroupId" headerKey="-1"
 													headerValue="%{getText('select.feeGroup')}"
-													value="%{feeGroupId}" disabled="%{isReadOnly}" />
+													value="%{feeGroupId}" disabled="%{isReadOnly}"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -104,7 +117,8 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.fee" name="name"
-													cssClass="form-control" />
+													cssClass="form-control"
+												/>
 											</div>
 										</div>
 									</s:push>
