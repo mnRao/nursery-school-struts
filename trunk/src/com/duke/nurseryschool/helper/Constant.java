@@ -40,8 +40,15 @@ public final class Constant {
 		public static final String ERROR_CONSTRAINT_MONTH_MONTHNAME = "errors.constraint.month.monthName";
 		public static final String ERROR_CONSTRAINT_MONTH_YEAR = "errors.constraint.month.year";
 		public static final String ERROR_CONSTRAINT_FEEMAP_AMOUNT = "errors.constraint.feeMap.amount";
+		public static final String ERROR_CONSTRAINT_FEEPOLICY_FEEPERNORMALMEAL = "errors.constraint.feePolicy.feePerNormalMeal";
+		public static final String ERROR_CONSTRAINT_FEEPOLICY_TOTALBREAKFASTFEE = "errors.constraint.feePolicy.totalBreakfastFee";
+		public static final String ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.constraint.feePolicy.penaltyFeePerBreakfast";
+		public static final String ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS = "errors.constraint.feePolicy.availableDays";
 		public static final String ERROR_REQUIRED_FEE_NAME = "errors.required.fee.name";
 		public static final String ERROR_REQUIRED_FEEGROUP_NAME = "errors.required.feeGroup.name";
+		public static final String ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL = "errors.required.feePolicy.feePerNormalMeal";
+		public static final String ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE = "errors.required.feePolicy.totalBreakfastFee";
+		public static final String ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.required.feePolicy.penaltyFeePerBreakfast";
 		public static final String ERROR_REQUIRED_CLASS_COURSEID = "errors.required.class.courseId";
 		public static final String ERROR_REQUIRED_CLASS_CODE = "errors.required.class.code";
 		public static final String ERROR_REQUIRED_STUDENT_NAME = "errors.required.student.name";

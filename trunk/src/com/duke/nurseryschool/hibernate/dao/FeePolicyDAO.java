@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
@@ -14,12 +15,7 @@ import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
-public class FeePolicyDAO {
-	@SessionTarget
-	Session session;
-
-	@TransactionTarget
-	Transaction transaction;
+public class FeePolicyDAO extends CoreDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<FeePolicy> getFeePolicies() {

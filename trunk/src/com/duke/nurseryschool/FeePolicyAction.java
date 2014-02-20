@@ -1,22 +1,26 @@
 package com.duke.nurseryschool;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
-import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.duke.nurseryschool.hibernate.dao.MonthDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
 public class FeePolicyAction extends CoreAction implements
-		ModelDriven<FeePolicy> {
+		ModelDriven<FeePolicy>, Preparable {
 
 	private static final long serialVersionUID = -9145112354887960316L;
 
@@ -38,60 +42,115 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	public String saveOrUpdate() {
+		this.dao.getSession().evict(
+				this.dao.getFeePolicy(Integer.parseInt(this.request
+						.getParameter("feePolicyId"))));
+
 		Classes associatedClass = this.classesDAO.getClasses(this.classId);
 		Month month = this.monthDAO.getMonth(this.monthId);
 		this.feePolicy.setAssociatedClass(associatedClass);
 		this.feePolicy.setMonth(month);
-		// this.feePolicy.setClassMonth(new ClassMonth(associatedClass, month));
 
 		this.dao.saveOrUpdateFeePolicy(this.feePolicy);
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
-
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String list() {
-		this.populateLists();
-
-		this.feePolicies = this.dao.getFeePolicies();
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
 	public String delete() {
-		// Get params
 		String feePolicyId = this.request.getParameter("feePolicyId");
-
 		this.dao.deleteFeePolicy(Integer.parseInt(feePolicyId));
-		// Redirect to list action
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String edit() {
-		this.populateLists();
-
 		// Get params
 		String feePolicyId = this.request.getParameter("feePolicyId");
 		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(feePolicyId));
 
 		this.classId = this.feePolicy.getAssociatedClass().getClassId();
 		this.monthId = this.feePolicy.getMonth().getMonthId();
-
-		// Load all
-		this.feePolicies = this.dao.getFeePolicies();
 		return Action.SUCCESS;
 	}
 
-	private void populateLists() {
-		// Populate class list
+	/* Auto set classId (implied by getter/setter) */
+	@SkipValidation
+	public String autoSetClass() {
+		return this.list();
+	}
+
+	@Override
+	public void validate() {
+		BigDecimal feePerNormalMeal = this.feePolicy.getFeePerNormalMeal();
+		BigDecimal totalBreakfastFee = this.feePolicy.getTotalBreakfastFee();
+		BigDecimal penaltyFeePerBreakfast = this.feePolicy
+				.getPenaltyFeePerBreakfast();
+		if (feePerNormalMeal == null) {
+			this.addFieldError(
+					"feePolicy.feePerNormalMeal",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL));
+		}
+		if (totalBreakfastFee == null) {
+			this.addFieldError(
+					"feePolicy.totalBreakfastFee",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE));
+		}
+		if (penaltyFeePerBreakfast == null) {
+			this.addFieldError(
+					"feePolicy.penaltyFeePerBreakfast",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST));
+		}
+		if (feePerNormalMeal != null && feePerNormalMeal.doubleValue() < 0) {
+			this.addFieldError(
+					"feePolicy.feePerNormalMeal",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_FEEPERNORMALMEAL));
+		}
+		if (totalBreakfastFee != null && totalBreakfastFee.doubleValue() < 0) {
+			this.addFieldError(
+					"feePolicy.totalBreakfastFee",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_TOTALBREAKFASTFEE));
+		}
+		if (penaltyFeePerBreakfast != null
+				&& penaltyFeePerBreakfast.doubleValue() < 0) {
+			this.addFieldError(
+					"feePolicy.penaltyFeePerBreakfast",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST));
+		}
+		if (this.feePolicy.getAvailableDays() <= 0) {
+			this.addFieldError(
+					"feePolicy",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS));
+		}
+
+		super.validate();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+		this.feePolicies = this.dao.getFeePolicies();
 		this.classList = this.classesDAO.getClasses();
 		this.monthList = this.monthDAO.getMonths();
 	}
 
-	/* Auto set classId (implied by getter/setter) */
-	public String autoSetClass() {
-		return this.list();
+	public void prepareList() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareEdit() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	private void populateData() {
 	}
 
 	public FeePolicy getFeePolicy() {
