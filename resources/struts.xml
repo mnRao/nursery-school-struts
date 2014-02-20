@@ -154,6 +154,7 @@
 			class="com.duke.nurseryschool.FeeMapAction">
 			<result name="success" type="tiles">FeeMap</result>
 			<result name="successRedirect" type="redirect">listFeeMap</result>
+			<result name="input" type="tiles">FeeMap</result>
 		</action>
 		<!-- AlternativeFeeMap -->
 		<action name="*AlternativeFeeChargeMap" method="{1}"
