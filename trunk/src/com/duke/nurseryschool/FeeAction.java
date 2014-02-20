@@ -3,9 +3,12 @@ package com.duke.nurseryschool;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
+import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeGroup;
 import com.duke.nurseryschool.hibernate.bean.Student;
@@ -15,8 +18,10 @@ import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
-public class FeeAction extends CoreAction implements ModelDriven<Fee> {
+public class FeeAction extends CoreAction implements ModelDriven<Fee>,
+		Preparable {
 
 	private static final long serialVersionUID = -559372069321576936L;
 
@@ -37,41 +42,65 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee> {
 	}
 
 	public String saveOrUpdate() {
-		//
+		this.dao.getSession().evict(
+				this.dao.getFee(Integer.parseInt(this.request
+						.getParameter("feeId"))));
+
 		this.fee.setType(FeeType.parse(this.feeTypeId));
 		FeeGroup feeGroup = this.feeGroupDAO.getFeeGroup(this.feeGroupId);
 		this.fee.setFeeGroup(feeGroup);
 
 		this.dao.saveOrUpdateFee(this.fee);
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
 
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String list() {
-		this.populateLists();
-		this.fees = this.dao.getFees();
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
 	public String delete() {
 		this.dao.deleteFee(Integer.parseInt(this.request.getParameter("feeId")));
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String edit() {
 		this.fee = this.dao.getFee(Integer.parseInt(this.request
 				.getParameter("feeId")));
-		this.populateLists();
-		// Load all
-		this.fees = this.dao.getFees();
 		return Action.SUCCESS;
 	}
 
-	private void populateLists() {
+	@Override
+	public void validate() {
+		if (StringUtil.isEmpty(this.fee.getName())) {
+			this.addFieldError("fee.name",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEE_NAME));
+		}
+
+		super.validate();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+	}
+
+	public void prepareList() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareEdit() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	private void populateData() {
+		this.fees = this.dao.getFees();
 		this.feeGroupList = this.feeGroupDAO.getFeeGroups();
 		this.feeTypeList = FeeType.getAll();
 
