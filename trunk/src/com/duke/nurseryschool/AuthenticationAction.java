@@ -1,17 +1,32 @@
 package com.duke.nurseryschool;
 
+import javax.servlet.http.Cookie;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.CookieManager;
 
 public class AuthenticationAction extends CoreAction {
-	private String	username;
-	private String	password;
+	private String username;
+	private String password;
+	private boolean rememberMe;
 
 	public String login() {
 		if ("admin".equals(this.username) && "admin".equals(this.password)) {
-			this.sessionAttributes.put(Constant.SESSION_USER, this.username);
+
+			// If REMEMBER_ME is chosen => store cookies
+			if (this.isRememberMe()) {
+				CookieManager.getInstance().setLoginCookie(this.username);
+			}
+			else {
+				// Set user in session
+				this.sessionAttributes
+						.put(Constant.SESSION_USER, this.username);
+			}
+
 			return SUCCESS;
 		}
 		else {
@@ -24,7 +39,10 @@ public class AuthenticationAction extends CoreAction {
 	public String logout() {
 		System.out.println("Logging out ...");
 
+		// Clear session
 		this.sessionAttributes.clear();
+		// Clear cookie
+		CookieManager.getInstance().deleteLoginCookie();
 
 		return "LogoutSuccess";
 	}
@@ -65,6 +83,14 @@ public class AuthenticationAction extends CoreAction {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isRememberMe() {
+		return this.rememberMe;
+	}
+
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 
 }
