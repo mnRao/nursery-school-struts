@@ -6,9 +6,10 @@
 <div class="widget">
 	<div class="login-content">
 		<div class="widget-content" style="padding-bottom: 0;">
-		
+
 			<s:form namespace="/" action="loginLoginAuth" method="post"
-				cssClass="no-margin">
+				cssClass="no-margin"
+			>
 				<h3 class="form-title">
 					<s:text name="label.login" />
 				</h3>
@@ -19,7 +20,8 @@
 							</span>
 							<s:textfield cssClass="form-control input-lg" name="username"
 								key="label.username" placeholder="%{getText('label.username')}"
-								size="20"></s:textfield>
+								size="20"
+							></s:textfield>
 						</div>
 					</div>
 					<div class="form-group">
@@ -28,7 +30,8 @@
 							</span>
 							<s:password cssClass="form-control input-lg"
 								placeholder="%{getText('label.password')}" name="password"
-								key="label.password" size="20"></s:password>
+								key="label.password" size="20"
+							></s:password>
 						</div>
 					</div>
 				</fieldset>
@@ -37,11 +40,13 @@
 				<div class="form-actions">
 					<label class="checkbox">
 						<div class="checker">
-							<span><input type="checkbox" value="1" name="remember"></span>
+							<span> <s:checkbox name="rememberMe" /> <!-- 							<input type="checkbox" value="1" name="remember"> -->
+							</span>
 						</div> <s:text name="label.rememberMe"></s:text>
 					</label>
 					<s:submit cssClass="btn btn-warning pull-right" key="label.login"
-						align="center">
+						align="center"
+					>
 						<i class="m-icon-swapright m-icon-white"></i>
 					</s:submit>
 				</div>
@@ -54,14 +59,16 @@
 			<s:url id="localeVI" namespace="/" action="locale">
 				<s:param name="request_locale">vi_VN</s:param>
 			</s:url>
-			<div style="text-align: center; margin:5px;">
+			<div style="text-align: center; margin: 5px;">
 				<s:a href="%{localeEN}" style="padding:4px;">
 					<img src="assets/app/English.png" height="24"
-						style="display: inline-block" />
+						style="display: inline-block"
+					/>
 				</s:a>
 				<s:a href="%{localeVI}" style="padding:4px;">
 					<img src="assets/app/Vietnamese.png" height="24"
-						style="display: inline-block" />
+						style="display: inline-block"
+					/>
 				</s:a>
 			</div>
 

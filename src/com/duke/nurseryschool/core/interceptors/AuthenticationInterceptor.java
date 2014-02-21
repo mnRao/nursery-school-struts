@@ -2,7 +2,12 @@ package com.duke.nurseryschool.core.interceptors;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.CookieManager;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -26,20 +31,39 @@ public class AuthenticationInterceptor implements Interceptor {
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
 		System.out.println("Inside Auth Interceptor ... "
 				+ actionInvocation.getAction().toString());
+		// Check user in session
 		Map<String, Object> sessionAttributes = actionInvocation
 				.getInvocationContext().getSession();
-		String user = (String) sessionAttributes.get(Constant.SESSION_USER);
+		String userInSession = (String) sessionAttributes
+				.get(Constant.SESSION_USER);
 
-		if (StringUtil.isEmpty(user)) {
+		// Get user in cookie (if exists)
+		String userInCookie = CookieManager.getInstance().getUserInCookies();
+
+		boolean cookieIsExpired = this.checkIfUserIsExpired(userInCookie);
+		boolean sessionIsExpired = this.checkIfUserIsExpired(userInSession);
+		if (cookieIsExpired && sessionIsExpired) {
 			return Action.LOGIN;
 		}
 		else {
+			// Choose username from b/w session and cookie
+			String userGlobal = cookieIsExpired ? userInSession : userInCookie;
+			// If session is not used then cookie is being used
+			if (sessionIsExpired) {
+				// Set new cookie
+				CookieManager.getInstance().setLoginCookie(userGlobal);
+			}
+			// Invoke action
 			Action action = (Action) actionInvocation.getAction();
 			if (action instanceof UserAware) {
-				((UserAware) action).setUser(user);
+				((UserAware) action).setUser(userGlobal);
 			}
 			return actionInvocation.invoke();
 		}
+	}
+
+	private boolean checkIfUserIsExpired(String user) {
+		return StringUtil.isEmpty(user);
 	}
 
 }
