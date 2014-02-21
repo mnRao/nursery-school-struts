@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.StudentComparator;
@@ -15,21 +17,23 @@ import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
-public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
+public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
+		Preparable {
 
-	private Payment payment = new Payment();
-	private List<Payment> payments = new ArrayList<Payment>();
-	final private PaymentDAO dao = new PaymentDAO();
+	private Payment				payment			= new Payment();
+	private List<Payment>		payments		= new ArrayList<Payment>();
+	final private PaymentDAO	dao				= new PaymentDAO();
 
-	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	final private StudentDAO studentDAO = new StudentDAO();
+	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
+	final private StudentDAO	studentDAO		= new StudentDAO();
 
-	private int feePolicyId;
-	private int studentId;
+	private int					feePolicyId;
+	private int					studentId;
 
-	private List<Student> studentList;
-	private List<FeePolicy> feePolicyList;
+	private List<Student>		studentList;
+	private List<FeePolicy>		feePolicyList;
 
 	@Override
 	public Payment getModel() {
@@ -37,55 +41,87 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 	}
 
 	public String saveOrUpdate() {
+		this.dao.getSession().evict(
+				this.dao.getPayment(Integer.parseInt(this.request
+						.getParameter("paymentId"))));
+
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		Student student = this.studentDAO.getStudent(this.studentId);
 		this.payment.setFeePolicy(feePolicy);
 		this.payment.setStudent(student);
 
 		this.dao.saveOrUpdatePayment(this.payment);
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
-
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String list() {
-		this.populateLists();
-
-		this.payments = this.dao.getPayments();
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
 	public String delete() {
 		this.dao.deletePayment(Integer.parseInt(this.request
 				.getParameter("paymentId")));
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String edit() {
 		this.payment = this.dao.getPayment(Integer.parseInt(this.request
 				.getParameter("paymentId")));
 		this.feePolicyId = this.payment.getFeePolicy().getFeePolicyId();
 		this.studentId = this.payment.getStudent().getStudentId();
 
-		this.populateLists();
-		// Load all
-		this.payments = this.dao.getPayments();
 		return Action.SUCCESS;
 	}
 
-	private void populateLists() {
-		// String feePolicyIdText = this.request.getParameter("feePolicyId");
-		// if (feePolicyIdText != null) {
-		// this.feePolicyId = Integer.parseInt(feePolicyIdText);
-		// }
-		// else {
-		// this.feePolicyId = 0;
-		// }
+	@SkipValidation
+	public String autoSetFeePolicy() {
+		return this.list();
+	}
 
-		// Populate class list
+	@SkipValidation
+	public String generateExcel() {
+		// TODO
+
+		return this.list();
+	}
+
+	@Override
+	public void validate() {
+		if (this.payment.getAbsenceCount() < 0) {
+			this.addFieldError(
+					"payment.absenceCount",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT));
+		}
+
+		super.validate();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+	}
+
+	public void prepareList() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareEdit() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareAutoSetFeePolicy() throws Exception {
+		this.populateData();
+	}
+
+	/* If fee policy is pre-specified, populate student list for that class only */
+	private void populateData() {
+		this.payments = this.dao.getPayments();
 		this.feePolicyList = this.feePolicyDAO.getFeePolicies();
 
 		if (this.feePolicyId != 0) {
@@ -102,16 +138,6 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment> {
 		else {
 			this.studentList = this.studentDAO.getStudents();
 		}
-	}
-
-	public String autoSetFeePolicy() {
-		return this.list();
-	}
-
-	public String generateExcel() {
-		// TODO
-
-		return this.list();
 	}
 
 	public Payment getPayment() {

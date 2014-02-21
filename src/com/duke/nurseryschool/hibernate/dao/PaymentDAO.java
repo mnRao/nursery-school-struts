@@ -6,17 +6,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
-public class PaymentDAO {
-	@SessionTarget
-	Session session;
-
-	@TransactionTarget
-	Transaction transaction;
+public class PaymentDAO extends CoreDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Payment> getPayments() {

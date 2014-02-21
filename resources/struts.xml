@@ -142,6 +142,7 @@
 			class="com.duke.nurseryschool.PaymentAction">
 			<result name="success" type="tiles">Payment</result>
 			<result name="successRedirect" type="redirect">listPayment</result>
+			<result name="input" type="tiles">Payment</result>
 		</action>
 		<!-- FeeGroup -->
 		<action name="*FeeGroup" method="{1}"
@@ -161,8 +162,8 @@
 		<action name="*AlternativeFeeChargeMap" method="{1}"
 			class="com.duke.nurseryschool.AlternativeFeeMapAction">
 			<result name="success" type="tiles">AlternativeFeeMap</result>
-			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap
-			</result>
+			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap</result>
+			<result name="input" type="tiles">AlternativeFeeMap</result>
 		</action>
 		<!-- Excel Generator -->
 		<action name="generateExcel" class="com.duke.nurseryschool.ExcelGeneratorAction">

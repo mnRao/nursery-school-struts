@@ -20,39 +20,47 @@ import com.duke.nurseryschool.helper.Constant;
 public class Payment implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int paymentId;
+	private int						paymentId;
 	@Column(name = "absenceCount")
-	private int absenceCount;
+	private int						absenceCount;
 	@Column(name = "hasBreakfast")
-	private int hasBreakfast;
+	private int						hasBreakfast;
 	@Column(name = "totalNormalMealFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalNormalMealFee;
+	private BigDecimal				totalNormalMealFee;
 	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalBreakfastFee;
+	private BigDecimal				totalBreakfastFee;
 	@Column(name = "totalFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalFee;
+	private BigDecimal				totalFee;
 	@Column(name = "isPaid")
-	private int isPaid;
+	private int						isPaid;
 	@Column(name = "note")
-	private String note;
+	private String					note;
 
 	@ManyToOne
 	@JoinColumn(name = "feePolicyId")
-	private FeePolicy feePolicy;
+	private FeePolicy				feePolicy;
 	@ManyToOne
 	@JoinColumn(name = "studentId")
-	private Student student;
+	private Student					student;
 
 	@OneToMany(mappedBy = "paymentFee.payment")
-	private Set<AlternativeFeeMap> alternativeFeeMaps;
+	private Set<AlternativeFeeMap>	alternativeFeeMaps;
 
 	public Payment() {
 	}
 
 	@Override
 	public String getLabel() {
-		return this.student.getName() + Constant.PUNCTUATION_MARK.HYPHEN
-				+ this.feePolicy.getMonth().getLabel();
+		StringBuilder label = new StringBuilder();
+		if (this.getStudent() != null) {
+			label.append(this.getStudent().getName());
+		}
+		if (this.getFeePolicy() != null) {
+			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(
+					this.getFeePolicy().getMonth().getLabel());
+		}
+
+		return label.toString();
 	}
 
 	public int getPaymentId() {
@@ -64,9 +72,11 @@ public class Payment implements BeanLabel {
 	}
 
 	public int getAbsenceCount() {
-		this.totalNormalMealFee = BigDecimal.valueOf((this.feePolicy
-				.getAvailableDays() - this.absenceCount)
-				* this.feePolicy.getFeePerNormalMeal().doubleValue());
+		if (this.getFeePolicy() != null) {
+			this.totalNormalMealFee = BigDecimal.valueOf((this.feePolicy
+					.getAvailableDays() - this.absenceCount)
+					* this.feePolicy.getFeePerNormalMeal().doubleValue());
+		}
 		if (this.hasBreakfast != 0) {
 			this.totalBreakfastFee = BigDecimal.valueOf(this.feePolicy
 					.getTotalBreakfastFee().doubleValue()
