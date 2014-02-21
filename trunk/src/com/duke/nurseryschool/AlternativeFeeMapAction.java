@@ -1,7 +1,10 @@
 package com.duke.nurseryschool;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
@@ -14,24 +17,25 @@ import com.duke.nurseryschool.hibernate.dao.FeeDAO;
 import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
 public class AlternativeFeeMapAction extends CoreAction implements
-		ModelDriven<AlternativeFeeMap> {
+		ModelDriven<AlternativeFeeMap>, Preparable {
 
-	private static final long serialVersionUID = 9152332966087222436L;
+	private static final long			serialVersionUID	= 9152332966087222436L;
 
-	private AlternativeFeeMap alternativeFeeMap = new AlternativeFeeMap();
-	private List<AlternativeFeeMap> alternativeFeeMaps = new ArrayList<AlternativeFeeMap>();
-	private AlternativeFeeChargeMapDAO dao = new AlternativeFeeChargeMapDAO();
+	private AlternativeFeeMap			alternativeFeeMap	= new AlternativeFeeMap();
+	private List<AlternativeFeeMap>		alternativeFeeMaps	= new ArrayList<AlternativeFeeMap>();
+	private AlternativeFeeChargeMapDAO	dao					= new AlternativeFeeChargeMapDAO();
 
-	private PaymentDAO paymentDAO = new PaymentDAO();
-	private FeeDAO feeDAO = new FeeDAO();
+	private PaymentDAO					paymentDAO			= new PaymentDAO();
+	private FeeDAO						feeDAO				= new FeeDAO();
 
-	private int paymentId;
-	private int feeId;
+	private int							paymentId;
+	private int							feeId;
 
-	private List<Fee> feeList;
-	private List<Payment> paymentList;
+	private List<Fee>					feeList;
+	private List<Payment>				paymentList;
 
 	@Override
 	public AlternativeFeeMap getModel() {
@@ -39,50 +43,79 @@ public class AlternativeFeeMapAction extends CoreAction implements
 	}
 
 	public String saveOrUpdate() {
+		this.dao.getSession().evict(
+				this.dao.getAlternativeFeeMap(Integer.parseInt(this.request
+						.getParameter("paymentId")), Integer
+						.parseInt(this.request.getParameter("feeId"))));
+
 		Payment payment = this.paymentDAO.getPayment(this.paymentId);
 		Fee fee = this.feeDAO.getFee(this.feeId);
 		this.alternativeFeeMap.setPaymentFee(new PaymentFee(payment, fee));
 
 		this.dao.saveOrUpdateAlternativeFeeMap(this.alternativeFeeMap);
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
-
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String list() {
-		this.populateLists();
-
-		this.alternativeFeeMaps = this.dao.getAlternativeFeeMaps();
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
 	public String delete() {
 		this.dao.deleteAlternativeFeeMap(this.paymentId, this.feeId);
-
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String edit() {
-		this.populateLists();
-
 		this.alternativeFeeMap = this.dao.getAlternativeFeeMap(this.paymentId,
 				this.feeId);
-		// Load all
-		this.alternativeFeeMaps = this.dao.getAlternativeFeeMaps();
 		return Action.SUCCESS;
 	}
 
-	private void populateLists() {
-		// Populate class list
-		this.feeList = this.feeDAO.getFees();
-		this.paymentList = this.paymentDAO.getPayments();
+	@SkipValidation
+	public String autoSetPayment() {
+		return Action.SUCCESS;
 	}
 
-	public String autoSetPayment() {
-		return this.list();
+	@Override
+	public void validate() {
+		BigDecimal alternativeAmount = this.alternativeFeeMap
+				.getAlternativeAmount();
+		if (alternativeAmount != null && alternativeAmount.doubleValue() < 0) {
+			this.addFieldError(
+					"alternativeFeeMap.alternativeAmount",
+					this.getText(Constant.I18N.ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT));
+		}
+
+		super.validate();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+	}
+
+	public void prepareList() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareEdit() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareAutoSetPayment() throws Exception {
+		this.populateData();
+	}
+
+	private void populateData() {
+		this.alternativeFeeMaps = this.dao.getAlternativeFeeMaps();
+		this.feeList = this.feeDAO.getFees();
+		this.paymentList = this.paymentDAO.getPayments();
 	}
 
 	public AlternativeFeeMap getAlternativeFeeMap() {

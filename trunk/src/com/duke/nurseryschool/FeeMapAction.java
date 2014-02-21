@@ -23,18 +23,18 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		Preparable {
 
-	private FeeMap feeMap = new FeeMap();
-	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
-	final private FeeMapDAO dao = new FeeMapDAO();
+	private FeeMap				feeMap			= new FeeMap();
+	private List<FeeMap>		feeMaps			= new ArrayList<FeeMap>();
+	final private FeeMapDAO		dao				= new FeeMapDAO();
 
-	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	final private FeeDAO feeDAO = new FeeDAO();
+	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
+	final private FeeDAO		feeDAO			= new FeeDAO();
 
-	private int feePolicyId;
-	private int feeId;
+	private int					feePolicyId;
+	private int					feeId;
 
-	private List<Fee> feeList;
-	private List<FeePolicy> feePolicyList;
+	private List<Fee>			feeList;
+	private List<FeePolicy>		feePolicyList;
 
 	@Override
 	public FeeMap getModel() {
@@ -76,7 +76,7 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 
 	@SkipValidation
 	public String autoSetFeePolicy() {
-		return this.list();
+		return Action.SUCCESS;
 	}
 
 	@Override
@@ -106,6 +106,10 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	}
 
 	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareAutoSetFeePolicy() throws Exception {
 		this.populateData();
 	}
 
