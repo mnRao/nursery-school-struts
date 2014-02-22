@@ -1,7 +1,6 @@
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
 <%@page import="com.duke.nurseryschool.helper.Helper"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%-- <%@ taglib prefix="sj" uri="/struts-jquery-tags"%> --%>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="widget">
@@ -127,7 +126,7 @@
 																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
 																						href="%{deleteUrl}"
 																					>
-																						<s:text name="grid.action.editMapping" />
+																						<s:text name="grid.action.deleteMapping" />
 																					</s:a></td>
 																			</tr>
 																		</s:iterator>
@@ -194,6 +193,7 @@
 												<%-- 												<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/> --%>
 												<s:textfield key="label.student.dateOfBirth"
 													name="dateOfBirth" cssClass="form-control"
+													value="%{getText('format.date',{student.dateOfBirth})}"
 												/>
 											</div>
 										</div>
@@ -226,6 +226,18 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.student.homePhone" name="homePhone"
+													cssClass="form-control"
+												/>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<s:label key="label.student.description"
+												cssClass="control-label"
+											/>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:textarea key="label.student.description" name="description"
 													cssClass="form-control"
 												/>
 											</div>
