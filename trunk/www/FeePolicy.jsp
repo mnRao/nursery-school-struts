@@ -78,7 +78,82 @@
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
 												<s:text name="grid.action.excel" />
-											</s:a></td>
+											</s:a>
+											
+											<!-- 											Show Fee Maps--> <s:a
+												href="#myModal%{feePolicyId}" data-toggle="modal"
+												cssClass="btn btn-sm btn-success"
+											>
+												<s:text name="grid.action.showFeeMap" />
+											</s:a> <s:div aria-hidden="true" aria-labelledby="myModalLabel"
+												role="dialog" tabindex="-1" id="myModal%{feePolicyId}"
+												cssClass="modal fade" style="display: none;"
+											>
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button aria-hidden="true" data-dismiss="modal"
+																class="close" type="button"
+															>x</button>
+															<h4 class="modal-title">
+																<s:text name="modal.title.all.feeMap" />
+															</h4>
+														</div>
+														<div class="modal-body">
+
+															<s:if test="%{feeMaps.isEmpty()}"><s:text name="modal.content.empty"/> </s:if>
+															<s:else>
+																<table class="table table-hover">
+																	<thead>
+																		<tr>
+																			<th><s:text name="label.feeMap.feePolicyId" /></th>
+																			<th><s:text name="label.feeMap.feeId" /></th>
+																			<th><s:text name="label.feeMap.amount" /></th>
+																			<th class="hidden-xs"></th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<s:iterator value="feeMaps">
+																			<tr>
+																				<td><s:property value="feePolicyFee.feePolicy.label" /></td>
+																				<td><s:property value="feePolicyFee.fee.name" /></td>
+																				<td><s:property value="amount" /></td>
+																				<td class="modal-action"><s:url id="editUrl"
+																						action="editFeeMap"
+																					>
+																						<s:param name="feePolicyId" value="%{feePolicyId}" />
+																						<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-primary"
+																						href="%{editUrl}"
+																					>
+																						<s:text name="grid.action.edit" />
+																					</s:a> <s:url id="deleteUrl"
+																						action="deleteFeeMapFeePolicy"
+																					>
+																						<s:param name="feePolicyId" value="%{feePolicyId}" />
+																						<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
+																						href="%{deleteUrl}"
+																					>
+																						<s:text name="grid.action.delete" />
+																					</s:a></td>
+																			</tr>
+																		</s:iterator>
+																	</tbody>
+																</table>
+															</s:else>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal"
+															>Close</button>
+														</div>
+													</div>
+												</div>
+											</s:div>
+											
+											
+											</td>
 									</tr>
 								</s:iterator>
 							</tbody>

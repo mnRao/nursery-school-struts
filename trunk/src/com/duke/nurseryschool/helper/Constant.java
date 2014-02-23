@@ -6,13 +6,16 @@ public final class Constant {
 	public static final String ZERO = "0";
 
 	public static final String SESSION_USER = "USER";
+	// TODO Change to something greater (2 weeks, for ex)
 	public static final int COOKIE_TIME_OUT = 60 * 1;
 
 	public static final String EXCEL_SUFFIX = ".xls";
 
 	public static final class PUNCTUATION_MARK {
-		public static final String BRACKET_OPEN = "[";
-		public static final String BRACKET_CLOSE = "]";
+		public static final String BRACKET_SQUARE_OPEN = "[";
+		public static final String BRACKET_SQUARE_CLOSE = "]";
+		public static final String BRACKET_CURLY_OPEN = "{";
+		public static final String BRACKET_CURLY_CLOSE = "}";
 		public static final String PARENTHESIS_OPEN = "(";
 		public static final String PARENTHESIS_CLOSE = ")";
 		public static final String HYPHEN = "-";

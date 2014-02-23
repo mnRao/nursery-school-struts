@@ -12,19 +12,28 @@
 			</div>
 			<div class="widget-content">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="<%=Helper.getTabCss(1, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#firstTab"><s:text
-								name="tab.label.second" /></a></li>
-					<li class="<%=Helper.getTabCss(2, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#secondTab"><s:text
-								name="tab.label.first" /></a></li>
+					<li
+						class="<%=Helper.getTabCss(1, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#firstTab"><s:text
+								name="tab.label.second"
+							/></a></li>
+					<li
+						class="<%=Helper.getTabCss(2, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#secondTab"><s:text
+								name="tab.label.first"
+							/></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 
 					<div id="firstTab"
-						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
+						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					>
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
-							id="dynamicTable">
+							id="dynamicTable"
+						>
 							<thead>
 								<tr>
 									<th><s:text name="label.parent.parentId" /></th>
@@ -59,7 +68,9 @@
 					</div>
 
 					<div id="secondTab"
-						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext().getActionInvocation().getResultCode())%>">
+						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					>
 						<s:form action="saveOrUpdateParent" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
@@ -83,13 +94,13 @@
 											<s:select list="studentList" listKey="studentId"
 												listValue="label" name="studentId" headerKey="-1"
 												headerValue="%{getText('select.student')}"
-												value="%{studentId}" disabled="%{isReadOnly}" />
+												value="%{studentId}" disabled="%{isReadOnly}"
+											/>
 										</div>
 									</div>
 
 									<s:push value="parent">
 										<s:hidden name="parentId" />
-
 
 										<div class="col-md-2">
 											<s:label key="label.parent.name" cssClass="control-label" />
@@ -97,7 +108,8 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.parent.name" name="name"
-													cssClass="form-control" />
+													cssClass="form-control"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -107,7 +119,8 @@
 											<div class="form-group">
 												<s:select name="gender" headerKey="-1"
 													list="#{0: getText('form.gender.female'), '1': getText('form.gender.male')}"
-													value="gender" />
+													value="gender"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -116,36 +129,41 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.parent.job" name="job"
-													cssClass="form-control" />
+													cssClass="form-control"
+												/>
 											</div>
 										</div>
 										<div class="col-md-2">
 											<s:label key="label.parent.phoneNumber"
-												cssClass="control-label" />
+												cssClass="control-label"
+											/>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<s:textfield key="label.parent.phoneNumber"
-													name="phoneNumber" cssClass="form-control" />
+													name="phoneNumber" cssClass="form-control"
+												/>
 											</div>
 										</div>
 
-										<legend class="section">
-											<s:text name="form.legend.select" />
-										</legend>
-										<div class="col-md-2">
-											<s:label key="label.parent" cssClass="control-label" />
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:select list="parents" listKey="parentId"
-													listValue="label" name="parentId" headerKey="-1"
-													headerValue="%{getText('select.parent')}" value="parentId"
-													disabled="%{isReadOnly}" />
-											</div>
-										</div>
+
 									</s:push>
-
+									
+<!-- 									<legend class="section"> -->
+<%-- 										<s:text name="form.legend.select" /> --%>
+<!-- 									</legend> -->
+<!-- 									<div class="col-md-2"> -->
+<%-- 										<s:label key="label.parent" cssClass="control-label" /> --%>
+<!-- 									</div> -->
+<!-- 									<div class="col-md-4"> -->
+<!-- 										<div class="form-group"> -->
+<%-- 											<s:select list="parents" listKey="parentId" listValue="label" --%>
+<%-- 												name="parentId" headerKey="-1" --%>
+<%-- 												headerValue="%{getText('select.parent')}" value="parentId" --%>
+<%-- 												disabled="%{isReadOnly}" --%>
+<%-- 											/> --%>
+<!-- 										</div> -->
+<!-- 									</div> -->
 
 
 								</div>

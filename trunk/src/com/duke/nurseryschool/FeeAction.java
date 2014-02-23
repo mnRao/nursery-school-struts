@@ -70,6 +70,12 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 	public String edit() {
 		this.fee = this.dao.getFee(Integer.parseInt(this.request
 				.getParameter("feeId")));
+
+		if (this.fee.getFeeGroup() != null)
+			this.feeGroupId = this.fee.getFeeGroup().getFeeGroupId();
+		if (this.fee.getType() != null)
+			this.feeTypeId = this.fee.getType().getType();
+
 		return Action.SUCCESS;
 	}
 
@@ -103,11 +109,6 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 		this.fees = this.dao.getFees();
 		this.feeGroupList = this.feeGroupDAO.getFeeGroups();
 		this.feeTypeList = FeeType.getAll();
-
-		if (this.fee.getFeeGroup() != null)
-			this.feeGroupId = this.fee.getFeeGroup().getFeeGroupId();
-		if (this.fee.getType() != null)
-			this.feeTypeId = this.fee.getType().getType();
 	}
 
 	public Fee getFee() {

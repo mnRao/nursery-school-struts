@@ -54,7 +54,77 @@
 												<s:param name="feeGroupId" value="%{feeGroupId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
 												<s:text name="grid.action.delete" />
-											</s:a></td>
+											</s:a> <!-- 											Show Fees --> <s:a
+												href="#myModal%{feeGroupId}" data-toggle="modal"
+												cssClass="btn btn-sm btn-success"
+											>
+												<s:text name="grid.action.showFee" />
+											</s:a> <s:div aria-hidden="true" aria-labelledby="myModalLabel"
+												role="dialog" tabindex="-1" id="myModal%{feeGroupId}"
+												cssClass="modal fade" style="display: none;"
+											>
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button aria-hidden="true" data-dismiss="modal"
+																class="close" type="button"
+															>x</button>
+															<h4 class="modal-title">
+																<s:text name="modal.title.all.fee" />
+															</h4>
+														</div>
+														<div class="modal-body">
+
+															<s:if test="%{feePolicies.isEmpty()}">
+																<s:text name="modal.content.empty" />
+															</s:if>
+															<s:else>
+																<table class="table table-hover">
+																	<thead>
+																		<tr>
+																			<th><s:text name="label.fee.name" /></th>
+																			<th><s:text name="label.fee.type" /></th>
+																			<th><s:text name="label.fee.feeGroupId" /></th>
+																			<th class="hidden-xs"></th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<s:iterator value="fees">
+																			<tr>
+																				<td><s:property value="name" /></td>
+																				<td><s:property value="type" /></td>
+																				<td><s:property value="feeGroup.label" /></td>
+																				<td class="modal-action"><s:url id="editUrl"
+																						action="editFee"
+																					>
+																						<s:param name="feeId" value="%{feeId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-primary"
+																						href="%{editUrl}"
+																					>
+																						<s:text name="grid.action.edit" />
+																					</s:a> <s:url id="deleteUrl"
+																						action="deleteFeeMapFeeGroup"
+																					>
+																						<s:param name="feeId" value="%{feeId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
+																						href="%{deleteUrl}"
+																					>
+																						<s:text name="grid.action.delete" />
+																					</s:a></td>
+																			</tr>
+																		</s:iterator>
+																	</tbody>
+																</table>
+															</s:else>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal"
+															>Close</button>
+														</div>
+													</div>
+												</div>
+											</s:div></td>
 									</tr>
 								</s:iterator>
 							</tbody>

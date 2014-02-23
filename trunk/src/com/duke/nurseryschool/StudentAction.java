@@ -76,7 +76,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 				Integer.parseInt(this.request.getParameter("studentId")),
 				Integer.parseInt(this.request.getParameter("parentId")));
 
-		return this.list();
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	@SkipValidation

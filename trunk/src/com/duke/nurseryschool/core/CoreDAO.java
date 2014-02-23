@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
-public class CoreDAO {
+public abstract class CoreDAO {
 	@SessionTarget
 	protected Session session;
 

@@ -41,9 +41,9 @@ public class Course implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.startYear
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.startYear
 				+ Constant.PUNCTUATION_MARK.HYPHEN + this.endYear
-				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
+				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 
 	public int getCourseId() {

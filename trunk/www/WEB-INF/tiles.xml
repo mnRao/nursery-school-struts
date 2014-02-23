@@ -58,7 +58,7 @@
 	</definition>
 	
 	<definition name="Course" extends="MainLayout">
-		<put-attribute name="headTitle" value="headTitle.fee" />
+		<put-attribute name="headTitle" value="headTitle.course" />
 		<put-attribute name="body" value="/Course.jsp" />
 	</definition>
 	

@@ -12,6 +12,7 @@ import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Course;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
 import com.duke.nurseryschool.hibernate.dao.CourseDAO;
+import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -23,6 +24,7 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 	private List<Classes> allClasses = new ArrayList<Classes>();
 	private ClassesDAO dao = new ClassesDAO();
 
+	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
 	private CourseDAO courseDAO = new CourseDAO();
 	private int courseId;
 	private List<Course> courseList;
@@ -62,6 +64,13 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		this.dao.deleteClasses(Integer.parseInt(this.request
 				.getParameter("classId")));
 		// Redirect to list action
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String deleteFeePolicyMap() {
+		this.feePolicyDAO.deleteFeePolicy(Integer.parseInt(this.request
+				.getParameter("feePolicyId")));
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

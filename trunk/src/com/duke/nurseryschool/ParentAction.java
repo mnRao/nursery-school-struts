@@ -3,8 +3,11 @@ package com.duke.nurseryschool;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Parent;
@@ -13,13 +16,16 @@ import com.duke.nurseryschool.hibernate.dao.ParentDAO;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
-public class ParentAction extends CoreAction implements ModelDriven<Parent> {
+public class ParentAction extends CoreAction implements ModelDriven<Parent>,
+		Preparable {
 
 	private Parent parent = new Parent();
 	private List<Parent> parents = new ArrayList<Parent>();
 	private ParentDAO dao = new ParentDAO();
 
+	private int parentId;
 	private int studentId;
 	private List<Student> studentList;
 	private StudentDAO studentDAO = new StudentDAO();
@@ -30,6 +36,10 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 	}
 
 	public String saveOrUpdate() {
+		this.dao.getSession().evict(
+				this.dao.getParent(Integer.parseInt(this.request
+						.getParameter("parentId"))));
+
 		// If chosen from drop-down list
 		// if (this.parentId != 0) {
 		// this.parent = this.dao.getParent(this.parentId);
@@ -42,20 +52,15 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 			this.studentDAO.saveOrUpdateStudent(student);
 		}
 
-		this.addActionMessage(this
-				.getText(Constant.I18N.SUCCESS_RECORD_CREATE_UPDATE));
-
-		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String list() {
-		this.populateLists();
-
-		this.parents = this.dao.getParents();
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
 	public String delete() {
 		this.dao.deleteParent(Integer.parseInt(this.request
 				.getParameter("parentId")));
@@ -63,22 +68,51 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
+	@SkipValidation
 	public String edit() {
-		this.populateLists();
-
 		this.parent = this.dao.getParent(Integer.parseInt(this.request
 				.getParameter("parentId")));
-		// Load all
-		this.parents = this.dao.getParents();
 		return Action.SUCCESS;
 	}
 
-	private void populateLists() {
-		this.studentList = this.studentDAO.getStudents();
+	@SkipValidation
+	public String autoSetStudent() {
+		return Action.SUCCESS;
 	}
 
-	public String autoSetStudent() {
-		return this.list();
+	@Override
+	public void validate() {
+		// if (StringUtil.isEmpty(this.parent.getName().trim())) {
+		// this.addFieldError("student.name",
+		// this.getText(Constant.I18N.ERROR_REQUIRED_STUDENT_NAME));
+		// }
+
+		super.validate();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+	}
+
+	public void prepareList() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareEdit() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareAutoSetStudent() throws Exception {
+		this.populateData();
+	}
+
+	private void populateData() {
+		this.parents = this.dao.getParents();
+		this.studentList = this.studentDAO.getStudents();
 	}
 
 	public List<Parent> getParents() {
@@ -113,12 +147,12 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent> {
 		this.studentList = studentList;
 	}
 
-	// public int getParentId() {
-	// return this.parentId;
-	// }
-	//
-	// public void setParentId(int parentId) {
-	// this.parentId = parentId;
-	// }
+	public int getParentId() {
+		return this.parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
 
 }
