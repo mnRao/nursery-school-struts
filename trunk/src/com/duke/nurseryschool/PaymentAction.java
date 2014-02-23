@@ -22,18 +22,18 @@ import com.opensymphony.xwork2.Preparable;
 public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		Preparable {
 
-	private Payment				payment			= new Payment();
-	private List<Payment>		payments		= new ArrayList<Payment>();
-	final private PaymentDAO	dao				= new PaymentDAO();
+	private Payment payment = new Payment();
+	private List<Payment> payments = new ArrayList<Payment>();
+	final private PaymentDAO dao = new PaymentDAO();
 
-	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	final private StudentDAO	studentDAO		= new StudentDAO();
+	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	final private StudentDAO studentDAO = new StudentDAO();
 
-	private int					feePolicyId;
-	private int					studentId;
+	private int feePolicyId;
+	private int studentId;
 
-	private List<Student>		studentList;
-	private List<FeePolicy>		feePolicyList;
+	private List<Student> studentList;
+	private List<FeePolicy> feePolicyList;
 
 	@Override
 	public Payment getModel() {
@@ -61,8 +61,18 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deletePayment(Integer.parseInt(this.request
-				.getParameter("paymentId")));
+		boolean isDeleted = this.dao.deletePayment(Integer
+				.parseInt(this.request.getParameter("paymentId")));
+
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			// Populate data
+			this.populateData();
+
+			return Action.SUCCESS;// Actually Error
+		}
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

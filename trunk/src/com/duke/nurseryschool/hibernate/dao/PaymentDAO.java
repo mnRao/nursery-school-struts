@@ -49,15 +49,24 @@ public class PaymentDAO extends CoreDAO {
 		}
 	}
 
-	public void deletePayment(int paymentId) {
+	public boolean deletePayment(int paymentId) {
 		try {
 			Payment payment = (Payment) this.session.get(Payment.class,
 					paymentId);
+
+			if (payment.getAlternativeFeeMaps().size() > 0) {
+				return false;
+			}
+
 			this.session.delete(payment);
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+
+			return false;
 		}
+
+		return true;
 	}
 }
