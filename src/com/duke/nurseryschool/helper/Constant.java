@@ -37,6 +37,7 @@ public final class Constant {
 	// appropriately
 	public static final class I18N {
 		public static final String ERROR_NO_PAYMENT_APPLIED = "error.no.payment.applied";
+		public static final String ERROR_DELETE_CHILDREN_FIRST = "error.delete.children.first";
 		public static final String ERROR_LOGIN_USERNAME = "error.login.username";
 		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 

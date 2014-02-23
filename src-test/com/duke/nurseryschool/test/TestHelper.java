@@ -67,8 +67,4 @@ public class TestHelper {
 				BusinessLogicSolver.calculateGrade(2015, 2019, 9, 2014));
 	}
 
-	// @Test
-	// public void testStandardMonthCalculation() {
-	// BusinessLogicSolver.getStandardMonthName(0);
-	// }
 }

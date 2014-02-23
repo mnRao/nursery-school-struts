@@ -65,7 +65,13 @@ public class FeePolicyAction extends CoreAction implements
 	@SkipValidation
 	public String delete() {
 		String feePolicyId = this.request.getParameter("feePolicyId");
-		this.dao.deleteFeePolicy(Integer.parseInt(feePolicyId));
+		boolean isDeleted = this.dao.deleteFeePolicy(Integer
+				.parseInt(feePolicyId));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			return Action.SUCCESS;// Actually Error
+		}
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}

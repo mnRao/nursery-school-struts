@@ -51,8 +51,15 @@ public class FeePolicy implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return this.associatedClass.getLabel()
-				+ Constant.PUNCTUATION_MARK.HYPHEN + this.month.getLabel();
+		StringBuilder label = new StringBuilder();
+		if (this.associatedClass != null) {
+			label.append(this.associatedClass.getLabel());
+		}
+		if (this.month != null) {
+			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(
+					this.month.getLabel());
+		}
+		return label.toString();
 	}
 
 	public int getFeePolicyId() {
