@@ -45,9 +45,9 @@ public class Parent implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.name
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.name
 				+ Constant.PUNCTUATION_MARK.HYPHEN + this.job
-				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
+				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 
 	public int getParentId() {

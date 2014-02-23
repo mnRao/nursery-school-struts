@@ -64,11 +64,6 @@
 
 			<result name="LogoutSuccess" type="redirect">formLoginAuth</result>
 		</action>
-		<!-- Dashboard -->
-		<action name="Dashboard" method="execute"
-			class="com.duke.nurseryschool.DashboardAction">
-			<result name="success" type="tiles">Dashboard</result>
-		</action>
 		<!-- Help -->
 		<action name="Help" method="execute" class="com.duke.nurseryschool.HelpAction">
 			<result name="success" type="tiles">Help</result>
@@ -89,6 +84,11 @@
 		<default-interceptor-ref
 			name="hibernateAuthStack-defaultStackHibernateStrutsValidation" />
 
+		<!-- Dashboard -->
+		<action name="Dashboard" method="execute"
+			class="com.duke.nurseryschool.DashboardAction">
+			<result name="success" type="tiles">Dashboard</result>
+		</action>
 		<!-- Student -->
 		<action name="*Student" method="{1}"
 			class="com.duke.nurseryschool.StudentAction">

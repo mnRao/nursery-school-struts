@@ -29,10 +29,10 @@ public class Month {
 	}
 
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.year
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.year
 				+ Constant.PUNCTUATION_MARK.HYPHEN
 				+ BusinessLogicSolver.getStandardMonthName(this.monthName)
-				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE;
+				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 
 	public int getMonthId() {

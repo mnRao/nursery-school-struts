@@ -121,10 +121,10 @@ public class BusinessLogicSolver {
 		endingYear = startingYear + 1;
 
 		StringBuffer academicYear = new StringBuffer();
-		academicYear.append(Constant.PUNCTUATION_MARK.BRACKET_OPEN)
+		academicYear.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN)
 				.append(startingYear).append(Constant.PUNCTUATION_MARK.HYPHEN)
 				.append(endingYear)
-				.append(Constant.PUNCTUATION_MARK.BRACKET_CLOSE);
+				.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE);
 
 		return academicYear.toString();
 	}

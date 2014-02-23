@@ -1,11 +1,12 @@
-h2 small, .h2 small {
-    font-size: 22px;
+h2 small,.h2 small {
+	font-size: 22px;
 }
 
 .dropdown-menu {
 	background-color: #FFFFFF;
 }
-.dropdown-menu li{
+
+.dropdown-menu li {
 	background-color: #FFFFFF;
 }
 
@@ -15,29 +16,37 @@ h2 small, .h2 small {
 }
 
 /* Hide some tabs */
-.app-hidden{
+.app-hidden {
 	visibility: hidden;
 }
 
-.table th{
-	color : black;
+.table th {
+	color: black;
 }
 
-.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th {
 	background-color: #C9ED84;
 }
 
 /* Animated Loading */
-#dvLoading
-{
-   background:url(../app/loader.gif) no-repeat center center;
-   height: 64px;
-   width: 128px;
-   position: fixed;
-   z-index: 1000;
-   left: 50%;
-   top: 50%;
-   margin: -25px 0 0 -25px;
+#dvLoading {
+	background: url(../app/loader.gif) no-repeat center center;
+	height: 64px;
+	width: 128px;
+	position: fixed;
+	z-index: 1000;
+	left: 50%;
+	top: 50%;
+	margin: -25px 0 0 -25px;
+}
+
+/* Modal */
+.modal-dialog {
+	width: 1000px;
+}
+
+.modal-action{
+	display: flex;
 }
 
 /* Fix top navigation bar */

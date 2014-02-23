@@ -22,6 +22,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.StringUtil;
 
 @Entity
 @Table(name = "student")
@@ -77,11 +78,19 @@ public class Student implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_OPEN + this.name
-				+ Constant.PUNCTUATION_MARK.BRACKET_CLOSE
-				+ Constant.PUNCTUATION_MARK.HYPHEN
-				+ this.getAssociatedClass().getCourse().getLabel()
-				+ this.getAssociatedClass().getCode();
+		StringBuilder label = new StringBuilder();
+		if (!StringUtil.isEmpty(this.name)) {
+			label.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN)
+					.append(this.name)
+					.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE);
+		}
+		if (this.getAssociatedClass() != null
+				&& this.getAssociatedClass().getCourse() != null) {
+			label.append(Constant.PUNCTUATION_MARK.HYPHEN)
+					.append(this.getAssociatedClass().getCourse().getLabel())
+					.append(this.getAssociatedClass().getCode());
+		}
+		return label.toString();
 	}
 
 	public String getGenderText() throws InstantiationException,

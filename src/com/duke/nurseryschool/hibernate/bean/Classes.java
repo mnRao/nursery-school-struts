@@ -53,12 +53,28 @@ public class Classes implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return ((this.course != null) ? this.course.getLabel()
-				+ Constant.PUNCTUATION_MARK.HYPHEN : "ABC")
-				+ this.code
-				+ Constant.PUNCTUATION_MARK.HYPHEN
-				+ ((this.grade != null) ? this.grade.getOfficialLabel() : this
-						.getCurrentName());
+		StringBuilder label = new StringBuilder();
+		label.append(Constant.PUNCTUATION_MARK.BRACKET_CURLY_OPEN);
+		if (this.course != null) {
+			label.append(this.course.getLabel()).append(
+					Constant.PUNCTUATION_MARK.HYPHEN);
+		}
+		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN);
+		if (this.grade != null) {
+			label.append(this.grade.getOfficialLabel());
+		}
+		else {
+			label.append(this.getCurrentName());
+		}
+		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_CLOSE);
+
+		label.append(Constant.PUNCTUATION_MARK.HYPHEN);
+		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN);
+		label.append(this.code);
+		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_CLOSE);
+		label.append(Constant.PUNCTUATION_MARK.BRACKET_CURLY_CLOSE);
+
+		return label.toString();
 	}
 
 	public String getCurrentName() {

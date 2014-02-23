@@ -84,12 +84,16 @@
 															<button aria-hidden="true" data-dismiss="modal"
 																class="close" type="button"
 															>x</button>
-															<h4 class="modal-title">All parents</h4>
+															<h4 class="modal-title">
+																<s:text name="modal.title.all.parent" />
+															</h4>
 														</div>
 														<div class="modal-body">
 
 															<%-- 														<s:property value="%{parents.size()}"/> --%>
-															<s:if test="%{parents.isEmpty()}">No data</s:if>
+															<s:if test="%{parents.isEmpty()}">
+																<s:text name="modal.content.empty" />
+															</s:if>
 															<s:else>
 																<table class="table table-hover">
 																	<thead>
@@ -110,7 +114,7 @@
 																				<td><s:property value="job" /></td>
 																				<td><s:property value="genderText" /></td>
 																				<td><s:property value="phoneNumber" /></td>
-																				<td class="hidden-xs"><s:url id="editUrl"
+																				<td class="modal-action"><s:url id="editUrl"
 																						action="editParent"
 																					>
 																						<s:param name="parentId" value="%{parentId}" />
@@ -237,8 +241,8 @@
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textarea key="label.student.description" name="description"
-													cssClass="form-control"
+												<s:textarea key="label.student.description"
+													name="description" cssClass="form-control"
 												/>
 											</div>
 										</div>

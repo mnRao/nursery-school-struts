@@ -9,6 +9,7 @@ import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.FeeGroup;
+import com.duke.nurseryschool.hibernate.dao.FeeDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeGroupDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
@@ -19,6 +20,7 @@ public class FeeGroupAction extends CoreAction implements
 
 	private static final long serialVersionUID = 2143537118962764732L;
 
+	private FeeDAO feeDAO = new FeeDAO();
 	private FeeGroup feeGroup = new FeeGroup();
 	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
 	final private FeeGroupDAO dao = new FeeGroupDAO();
@@ -47,6 +49,13 @@ public class FeeGroupAction extends CoreAction implements
 		this.dao.deleteFeeGroup(Integer.parseInt(this.request
 				.getParameter("feeGroupId")));
 		// Redirect to list action
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String deleteFeeMap() {
+		this.feeDAO.deleteFee(Integer.parseInt(this.request
+				.getParameter("feeId")));
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

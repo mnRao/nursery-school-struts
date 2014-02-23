@@ -13,6 +13,7 @@ import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
+import com.duke.nurseryschool.hibernate.dao.FeeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.duke.nurseryschool.hibernate.dao.MonthDAO;
 import com.opensymphony.xwork2.Action;
@@ -29,6 +30,7 @@ public class FeePolicyAction extends CoreAction implements
 	private FeePolicyDAO dao = new FeePolicyDAO();
 	private ClassesDAO classesDAO = new ClassesDAO();
 	private MonthDAO monthDAO = new MonthDAO();
+	private FeeMapDAO feeMapDAO = new FeeMapDAO();
 
 	private int classId;
 	private int monthId;
@@ -65,6 +67,14 @@ public class FeePolicyAction extends CoreAction implements
 		String feePolicyId = this.request.getParameter("feePolicyId");
 		this.dao.deleteFeePolicy(Integer.parseInt(feePolicyId));
 
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String deleteFeeMap() {
+		this.feeMapDAO.deleteFeeMap(
+				Integer.parseInt(this.request.getParameter("feeId")),
+				Integer.parseInt(this.request.getParameter("feePolicyId")));
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

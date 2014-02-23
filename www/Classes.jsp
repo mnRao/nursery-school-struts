@@ -18,17 +18,24 @@
 				<%-- 					<s:set name="hasErrors" value="false" /> --%>
 				<%-- 				</s:else> --%>
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="<%=Helper.getTabCss(1, false, ActionContext.getContext().getActionInvocation().getResultCode()) %>"><a
-						data-toggle="tab" href="#firstTab"
-					><s:text name="tab.label.second" /></a></li>
-					<li class="<%=Helper.getTabCss(2, false, ActionContext.getContext().getActionInvocation().getResultCode())%>"><a
-						data-toggle="tab" href="#secondTab"
-					><s:text name="tab.label.first" /></a></li>
+					<li
+						class="<%=Helper.getTabCss(1, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#firstTab"><s:text
+								name="tab.label.second"
+							/></a></li>
+					<li
+						class="<%=Helper.getTabCss(2, false, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
+					><a data-toggle="tab" href="#secondTab"><s:text
+								name="tab.label.first"
+							/></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 
 					<div id="firstTab"
-						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext().getActionInvocation().getResultCode())%>"
+						class="tab-pane fade <%=Helper.getTabCss(1, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
 					>
 						<table cellpadding="0" cellspacing="0" border="0" class="display"
 							id="dynamicTable"
@@ -63,7 +70,87 @@
 												href="%{addFeePolicyUrl}"
 											>
 												<s:text name="grid.action.addFeePolicy" />
-											</s:a></td>
+											</s:a> <!-- 											Show Fee Policies --> <s:a
+												href="#myModal%{classId}" data-toggle="modal"
+												cssClass="btn btn-sm btn-success"
+											>
+												<s:text name="grid.action.showFeePolicy" />
+											</s:a> <s:div aria-hidden="true" aria-labelledby="myModalLabel"
+												role="dialog" tabindex="-1" id="myModal%{classId}"
+												cssClass="modal fade" style="display: none;"
+											>
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button aria-hidden="true" data-dismiss="modal"
+																class="close" type="button"
+															>x</button>
+															<h4 class="modal-title">
+																<s:text name="modal.title.all.feePolicy" />
+															</h4>
+														</div>
+														<div class="modal-body">
+
+															<s:if test="%{feePolicies.isEmpty()}"><s:text name="modal.content.empty"/> </s:if>
+															<s:else>
+																<table class="table table-hover">
+																	<thead>
+																		<tr>
+																			<th><s:text name="label.feePolicy.classId" /></th>
+																			<th><s:text name="label.feePolicy.monthId" /></th>
+																			<th><s:text
+																					name="label.feePolicy.feePerNormalMeal"
+																				/></th>
+																			<th><s:text
+																					name="label.feePolicy.totalBreakfastFee"
+																				/></th>
+																			<th><s:text
+																					name="label.feePolicy.penaltyFeePerBreakfast"
+																				/></th>
+																			<th><s:text name="label.feePolicy.availableDays" /></th>
+																			<th class="hidden-xs"></th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<s:iterator value="feePolicies">
+																			<tr>
+																				<td><s:property value="associatedClass.label" /></td>
+																				<td><s:property value="month.label" /></td>
+																				<td><s:property value="feePerNormalMeal" /></td>
+																				<td><s:property value="totalBreakfastFee" /></td>
+																				<td><s:property value="penaltyFeePerBreakfast" /></td>
+																				<td><s:property value="availableDays" /></td>
+																				<td class="modal-action"><s:url id="editUrl"
+																						action="editFeePolicy"
+																					>
+																						<s:param name="feePolicyId" value="%{feePolicyId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-primary"
+																						href="%{editUrl}"
+																					>
+																						<s:text name="grid.action.edit" />
+																					</s:a> <s:url id="deleteUrl"
+																						action="deleteFeePolicyMapClasses"
+																					>
+																						<s:param name="feePolicyId" value="%{feePolicyId}" />
+																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
+																						href="%{deleteUrl}"
+																					>
+																						<s:text name="grid.action.delete" />
+																					</s:a></td>
+																			</tr>
+																		</s:iterator>
+																	</tbody>
+																</table>
+															</s:else>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal"
+															>Close</button>
+														</div>
+													</div>
+												</div>
+											</s:div></td>
 									</tr>
 								</s:iterator>
 							</tbody>
@@ -71,7 +158,8 @@
 					</div>
 
 					<div id="secondTab"
-						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext().getActionInvocation().getResultCode())%>"
+						class="tab-pane fade <%=Helper.getTabCss(2, true, ActionContext.getContext()
+					.getActionInvocation().getResultCode())%>"
 					>
 						<s:form action="saveOrUpdateClasses" cssClass="form-horizontal">
 							<fieldset>

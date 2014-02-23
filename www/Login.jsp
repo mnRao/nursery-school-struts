@@ -40,8 +40,7 @@
 				<div class="form-actions">
 					<label class="checkbox">
 						<div class="checker">
-							<span> <s:checkbox name="rememberMe" /> <!-- 							<input type="checkbox" value="1" name="remember"> -->
-							</span>
+							<span><s:checkbox name="rememberMe" /></span>
 						</div> <s:text name="label.rememberMe"></s:text>
 					</label>
 					<s:submit cssClass="btn btn-warning pull-right" key="label.login"
