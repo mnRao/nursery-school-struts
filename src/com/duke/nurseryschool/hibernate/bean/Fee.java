@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
-import com.duke.nurseryschool.helper.StringUtil;
 
 @Entity
 @Table(name = "fee")

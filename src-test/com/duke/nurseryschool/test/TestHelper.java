@@ -35,8 +35,6 @@ public class TestHelper {
 	 */
 	@Test
 	public void testGradeCalculation() {
-		// TODO TEST ALL YEARS (FOR LOOP)
-
 		// Tests at current time
 		assertEquals(Grade.UNIDENTIFIED,
 				BusinessLogicSolver.calculateGrade(2009, 2013, 2, 2014));

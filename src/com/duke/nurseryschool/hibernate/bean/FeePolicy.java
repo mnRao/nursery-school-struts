@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +14,6 @@ import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
 
 @Entity
 @Table(name = "fee_policy")

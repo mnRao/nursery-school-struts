@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.duke.nurseryschool.core.CoreDAO;
-import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.MonthComparator;
 import com.duke.nurseryschool.hibernate.bean.Month;

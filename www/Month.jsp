@@ -46,6 +46,11 @@
 											<s:url id="deleteUrl" action="deleteMonth">
 												<s:param name="monthId" value="%{monthId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}"><s:text name="grid.action.delete" /></s:a>
+											<s:url id="excelUrl" action="allMonthPoliciesGenerateExcel">
+												<s:param name="monthId" value="%{monthId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
+												<s:text name="grid.action.excel" />
+											</s:a>
 										</td>
 									</tr>
 								</s:iterator>

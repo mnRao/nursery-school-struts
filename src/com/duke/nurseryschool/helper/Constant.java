@@ -36,6 +36,7 @@ public final class Constant {
 	// When modifying key in global.properties => must also modify this class
 	// appropriately
 	public static final class I18N {
+		public static final String ERROR_NO_FEEPOLICY_APPLIED = "error.no.feePolicy.applied";
 		public static final String ERROR_NO_PAYMENT_APPLIED = "error.no.payment.applied";
 		public static final String ERROR_DELETE_CHILDREN_FIRST = "error.delete.children.first";
 		public static final String ERROR_LOGIN_USERNAME = "error.login.username";

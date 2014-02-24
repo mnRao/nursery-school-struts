@@ -2,12 +2,6 @@ package com.duke.nurseryschool;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
@@ -15,7 +9,6 @@ import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
-import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;

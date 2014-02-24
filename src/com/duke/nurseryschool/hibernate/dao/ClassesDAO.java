@@ -2,17 +2,12 @@ package com.duke.nurseryschool.hibernate.dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.ClassComparator;
 import com.duke.nurseryschool.hibernate.bean.Classes;
-import com.duke.nurseryschool.hibernate.bean.FeePolicy;
-import com.duke.nurseryschool.hibernate.bean.Parent;
-import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class ClassesDAO extends CoreDAO {
 
