@@ -1,16 +1,13 @@
 package com.duke.nurseryschool.hibernate.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.PaymentConfig;
 import com.duke.nurseryschool.hibernate.bean.Payment;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
 public class PaymentDAO extends CoreDAO {
 
@@ -40,6 +37,11 @@ public class PaymentDAO extends CoreDAO {
 	}
 
 	public void saveOrUpdatePayment(Payment payment) {
+		// Set total fee before save
+		BigDecimal totalFee = new PaymentConfig(payment, payment.getFeePolicy())
+				.calculateTotalFee();
+		payment.setTotalFee(totalFee);
+
 		try {
 			this.session.saveOrUpdate(payment);
 		}

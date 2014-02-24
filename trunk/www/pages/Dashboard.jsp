@@ -13,6 +13,7 @@
 							<span class="text-top">#</span>
 							<s:property value="classAvailableCount" />
 						</div>
+						<small>in total</small>
 					</div>
 					<div class="stats-footer"></div>
 				</a>
@@ -28,6 +29,7 @@
 							<span class="text-top">#</span>
 							<s:property value="activeStudentsCount" />
 						</div>
+						<small>in total</small>
 					</div>
 					<div class="stats-footer"></div>
 				</a>

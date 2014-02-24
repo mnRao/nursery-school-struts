@@ -83,7 +83,6 @@ public class Helper {
 			textProvider = DefaultTextProvider.class.newInstance();
 		}
 		catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return textProvider.getText(key);

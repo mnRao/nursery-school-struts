@@ -2,7 +2,6 @@ package com.duke.nurseryschool.helper.comparator;
 
 import java.util.Comparator;
 
-import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class StudentComparator implements Comparator<Student> {

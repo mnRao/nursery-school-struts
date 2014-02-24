@@ -1,8 +1,5 @@
 package com.duke.nurseryschool;
 
-import javax.servlet.http.Cookie;
-
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;

@@ -1,9 +1,12 @@
 package com.duke.nurseryschool.hibernate.bean;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
@@ -19,6 +22,9 @@ public class Month {
 	private int monthName;// Avoid using "month" => might be misunderstood
 	@Column(name = "year")
 	private int year;
+
+	@OneToMany(mappedBy = "month")
+	private Set<FeePolicy> feePolicies;
 
 	public Month() {
 	}
@@ -57,6 +63,14 @@ public class Month {
 
 	public void setMonthName(int monthName) {
 		this.monthName = monthName;
+	}
+
+	public Set<FeePolicy> getFeePolicies() {
+		return this.feePolicies;
+	}
+
+	public void setFeePolicies(Set<FeePolicy> feePolicies) {
+		this.feePolicies = feePolicies;
 	}
 
 }

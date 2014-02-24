@@ -3,7 +3,6 @@ package com.duke.nurseryschool.hibernate.bean.embedded;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 

@@ -8,7 +8,6 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.action.extension" value="," />
-	<!-- <constant name="struts.convention.result.path" value="/www/" /> -->
 
 	<package name="app-base" abstract="true" extends="struts-default">
 		<result-types>
@@ -166,14 +165,13 @@
 			<result name="input" type="tiles">AlternativeFeeMap</result>
 		</action>
 		<!-- Excel Generator -->
-		<action name="generateExcel" class="com.duke.nurseryschool.ExcelGeneratorAction">
+		<action name="*GenerateExcel" method="{1}" class="com.duke.nurseryschool.ExcelGeneratorAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
 				<param name="contentType">appliation/vnd.ms-excel</param>
 				<param name="inputName">fileInputStream</param>
 				<param name="bufferSize">1024</param>
 			</result>
-			<result name="error" type="redirect">listFeePolicy</result>
 		</action>
 	</package>
 

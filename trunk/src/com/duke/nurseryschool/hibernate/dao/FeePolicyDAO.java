@@ -1,21 +1,11 @@
 package com.duke.nurseryschool.hibernate.dao;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
-import com.duke.nurseryschool.hibernate.bean.Month;
-import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
 public class FeePolicyDAO extends CoreDAO {
 

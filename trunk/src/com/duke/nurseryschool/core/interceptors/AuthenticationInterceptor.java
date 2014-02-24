@@ -2,10 +2,6 @@ package com.duke.nurseryschool.core.interceptors;
 
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-
-import org.apache.struts2.ServletActionContext;
-
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.CookieManager;
 import com.duke.nurseryschool.helper.StringUtil;
@@ -17,13 +13,11 @@ public class AuthenticationInterceptor implements Interceptor {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		System.out.println("End...");
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		System.out.println("Init...");
 	}
 

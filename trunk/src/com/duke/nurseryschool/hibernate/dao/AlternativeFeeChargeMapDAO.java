@@ -3,18 +3,12 @@ package com.duke.nurseryschool.hibernate.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import com.duke.nurseryschool.core.CoreDAO;
-import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
-import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 
 public class AlternativeFeeChargeMapDAO extends CoreDAO {
 

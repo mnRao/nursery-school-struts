@@ -31,16 +31,13 @@ import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Payment;
-import com.duke.nurseryschool.hibernate.bean.Student;
-import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
-import com.duke.nurseryschool.hibernate.bean.embedded.ClassMonth;
-import com.duke.nurseryschool.hibernate.dao.FeeGroupDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class ExcelGenerator {
 	// Excel's configurations
 	private WritableCellFormat timesBold;
 	private WritableCellFormat times;
-	private String outputFile;
+	private File outputFile;
 
 	private Classes associatedClass;
 	private Month month;
@@ -58,6 +55,7 @@ public class ExcelGenerator {
 
 	private Session session;
 	private Transaction transaction;
+	private MixedDAO mixedDAO = new MixedDAO();
 
 	// Positions for elements
 	private static final int HEADER_TOP_ROW = 0;
@@ -70,7 +68,7 @@ public class ExcelGenerator {
 
 	int TRIVIAL_LAST_COLUMNS_SIZE = 3;
 
-	public ExcelGenerator(String outputFile, FeePolicy feePolicy)
+	public ExcelGenerator(File outputFile, FeePolicy feePolicy)
 			throws IllegalStateException {
 		// Init Hibernate session
 		this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -94,12 +92,11 @@ public class ExcelGenerator {
 		this.calculateDataPositions();
 	}
 
-	public void write() throws IOException, WriteException {
-		File file = new File(this.outputFile);
-		WritableWorkbook workbook = Workbook.createWorkbook(file);
+	public void write(int sheetNumber) throws IOException, WriteException {
+		WritableWorkbook workbook = Workbook.createWorkbook(this.outputFile);
 		// Sheet for current class
 		WritableSheet sheet = workbook.createSheet(
-				this.associatedClass.getCurrentName(), 0);
+				this.associatedClass.getCurrentName(), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
@@ -323,44 +320,12 @@ public class ExcelGenerator {
 					Constant.DATABASE_QUERY.ALL_FEE_GROUPS).list();
 			this.fees = this.session.createQuery(
 					Constant.DATABASE_QUERY.ALL_FEES).list();
-			this.staticFees = this.getFeeByType(FeeType.STATIC);
+			this.staticFees = this.mixedDAO.getFeeByType(this.session,
+					FeeType.STATIC);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<Fee> getFeeByType(FeeType feeType) {
-		String hql = "FROM Fee F WHERE F.type = :typeId";
-		Query query = this.session.createQuery(hql);
-		query.setParameter("typeId", feeType);
-		List<Fee> results = query.list();
-
-		return results;
-	}
-
-	// public Payment getPayment(int studentId, int feePolicyId) {
-	// Student student = (Student) this.session.get(Student.class,
-	// Integer.valueOf(studentId));
-	// FeePolicy feeDetails = (FeePolicy) this.session.get(FeePolicy.class,
-	// Integer.valueOf(feePolicyId));
-	// StudentFeePolicy studentFeeDetails = new StudentFeePolicy(student,
-	// feeDetails);
-	//
-	// Payment payment = null;
-	// try {
-	// payment = (Payment) this.session.get(Payment.class,
-	// studentFeeDetails);
-	// }
-	// catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// if (payment == null) {
-	// throw new IllegalStateException(
-	// "No payment appliced. Please specify one first.");
-	// }
-	//
-	// return payment;
-	// }
 }
