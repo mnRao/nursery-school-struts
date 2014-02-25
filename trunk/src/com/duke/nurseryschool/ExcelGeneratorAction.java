@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
+import jxl.Workbook;
+import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import com.duke.nurseryschool.helper.Constant;
@@ -22,20 +24,22 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ExcelGeneratorAction extends ActionSupport {
 
-	private InputStream fileInputStream;
-	private String fileName;
+	private InputStream		fileInputStream;
+	private String			fileName;
 
-	private MixedDAO mixedDAO = new MixedDAO();
-	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	private int feePolicyId;
-	private MonthDAO monthDAO = new MonthDAO();
-	private int monthId;
+	private MixedDAO		mixedDAO		= new MixedDAO();
+	private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
+	private int				feePolicyId;
+	private MonthDAO		monthDAO		= new MonthDAO();
+	private int				monthId;
 
 	public String singlePolicy() throws Exception {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		File tempFile = this.createTemporaryFile(feePolicy.getMonth()
 				.getLabel());
-		this.writeToExcelFile(feePolicy, tempFile, 0);
+		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
+		this.addContentToExcelFile(feePolicy, workbook, 0);
+		this.closeWorkbook(workbook);
 		// Configure for download
 		this.configureFileForDownload(tempFile);
 
@@ -53,21 +57,31 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 		File tempFile = this.createTemporaryFile(month.getLabel());
 		int sheetNumber = 0;
+		// Initialize work book the very first time
+		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		for (FeePolicy feePolicy : feePolicies) {
-			this.writeToExcelFile(feePolicy, tempFile, sheetNumber);
+			this.addContentToExcelFile(feePolicy, workbook, sheetNumber);
 			sheetNumber++;
 		}
+		this.closeWorkbook(workbook);
 		this.configureFileForDownload(tempFile);
 
 		return Action.SUCCESS;
 	}
 
-	private void writeToExcelFile(FeePolicy feePolicy, File tempFile,
-			int sheetNumber) throws IOException, WriteException, Exception {
+	private void closeWorkbook(WritableWorkbook workbook) throws IOException,
+			WriteException {
+		workbook.write();
+		workbook.close();
+	}
+
+	private void addContentToExcelFile(FeePolicy feePolicy,
+			WritableWorkbook workbook, int sheetNumber) throws IOException,
+			WriteException, Exception {
 		try {
-			ExcelGenerator excelGenerator = new ExcelGenerator(tempFile,
+			ExcelGenerator excelGenerator = new ExcelGenerator(workbook,
 					feePolicy);
-			excelGenerator.write(sheetNumber);
+			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen

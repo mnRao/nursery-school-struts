@@ -1,28 +1,19 @@
 package com.duke.nurseryschool.helper;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import jxl.CellView;
-import jxl.Workbook;
-import jxl.format.Alignment;
-import jxl.format.VerticalAlignment;
-import jxl.write.Label;
-import jxl.write.Number;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.duke.nurseryschool.helper.excel.ExcelManager;
 import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -33,48 +24,44 @@ import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
-public class ExcelGenerator {
-	// Excel's configurations
-	private WritableCellFormat timesBold;
-	private WritableCellFormat times;
-	private File outputFile;
+public class ExcelGenerator extends ExcelManager {
 
-	private Classes associatedClass;
-	private Month month;
-	private List<Payment> payments = new ArrayList<Payment>();
-	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
-	private FeePolicy feePolicy;
+	private Classes				associatedClass;
+	private Month				month;
+	private List<Payment>		payments						= new ArrayList<Payment>();
+	private List<FeeMap>		feeMaps							= new ArrayList<FeeMap>();
+	private FeePolicy			feePolicy;
 
-	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
-	private List<Fee> fees = new ArrayList<Fee>();
-	private List<Fee> staticFees = new ArrayList<Fee>();
+	private List<FeeGroup>		feeGroups						= new ArrayList<FeeGroup>();
+	private List<Fee>			fees							= new ArrayList<Fee>();
+	private List<Fee>			staticFees						= new ArrayList<Fee>();
 
-	private int lastColumn;
+	private int					lastColumn;
 	// private int extraFeeStartCol;
-	private int otherStartCol;
+	private int					otherStartCol;
 
-	private Session session;
-	private Transaction transaction;
-	private MixedDAO mixedDAO = new MixedDAO();
+	private Session				session;
+	private Transaction			transaction;
+	private MixedDAO			mixedDAO						= new MixedDAO();
 
 	// Positions for elements
-	private static final int HEADER_TOP_ROW = 0;
-	private static final int HEADER_TOP_COLUMN = 0;
-	private static final int HEADER_NORMAL_ROW = 1;
-	private static final int HEADER_NORMAL_SPANNED_ROW = 2;
-	private static final int CONTENT_START_ROW = 3;
-	// private static final int CONTENT_DYNAMIC_FEES_START_COL = 6;
-	private static final int CONTENT_STATIC_FEES_START_COL = 5;
+	private static final int	HEADER_TOP_ROW					= 0;
+	private static final int	HEADER_TOP_COLUMN				= 0;
+	private static final int	HEADER_NORMAL_ROW				= 1;
+	private static final int	HEADER_NORMAL_SPANNED_ROW		= 2;
+	private static final int	CONTENT_START_ROW				= 3;
+	private static final int	CONTENT_STATIC_FEES_START_COL	= 5;
 
-	int TRIVIAL_LAST_COLUMNS_SIZE = 3;
+	private static final int	TRIVIAL_LAST_COLUMNS_SIZE		= 3;
 
-	public ExcelGenerator(File outputFile, FeePolicy feePolicy)
+	public ExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy)
 			throws IllegalStateException {
+		super(workbook);// Work book
+
 		// Init Hibernate session
 		this.session = HibernateUtil.getSessionFactory().getCurrentSession();
 		this.transaction = this.session.beginTransaction();
 
-		this.outputFile = outputFile;
 		this.feePolicy = feePolicy;
 		// Assignment for comfortability
 		this.associatedClass = this.feePolicy.getAssociatedClass();
@@ -92,18 +79,14 @@ public class ExcelGenerator {
 		this.calculateDataPositions();
 	}
 
-	public void write(int sheetNumber) throws IOException, WriteException {
-		WritableWorkbook workbook = Workbook.createWorkbook(this.outputFile);
+	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = workbook.createSheet(
+		WritableSheet sheet = this.workbook.createSheet(
 				this.associatedClass.getCurrentName(), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
 		this.createContents(sheet);
-		// Flush and close
-		workbook.write();
-		workbook.close();
 	}
 
 	private void createHeaders(WritableSheet sheet)
@@ -245,44 +228,6 @@ public class ExcelGenerator {
 
 	}
 
-	private void addCaption(WritableSheet sheet, int column, int row,
-			String text) throws RowsExceededException, WriteException {
-		Label label = new Label(column, row, text, this.timesBold);
-		sheet.addCell(label);
-	}
-
-	private void addNumber(WritableSheet sheet, int column, int row,
-			double amount) throws RowsExceededException, WriteException {
-		Number number = new Number(column, row, amount, this.times);
-		sheet.addCell(number);
-	}
-
-	private void addLabel(WritableSheet sheet, int column, int row, String text)
-			throws RowsExceededException, WriteException {
-		Label label = new Label(column, row, text, this.times);
-		sheet.addCell(label);
-	}
-
-	/* Define styles */
-	private void addStyles() throws WriteException {
-		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-		this.times = new WritableCellFormat(times10pt);
-		this.times.setAlignment(Alignment.CENTRE);
-		this.times.setWrap(true);
-
-		WritableFont times10ptBold = new WritableFont(WritableFont.TIMES, 10,
-				WritableFont.BOLD, false);
-		this.timesBold = new WritableCellFormat(times10ptBold);
-		this.timesBold.setAlignment(Alignment.CENTRE);
-		this.timesBold.setVerticalAlignment(VerticalAlignment.CENTRE);
-		this.timesBold.setWrap(true);
-
-		CellView cv = new CellView();
-		cv.setFormat(this.times);
-		cv.setFormat(this.timesBold);
-		cv.setAutosize(true);
-	}
-
 	/* Generate label for top most header */
 	private String generateTopMostHeaderLabel(int month, int year,
 			String className, FeePolicy feePolicy) {
@@ -306,8 +251,7 @@ public class ExcelGenerator {
 
 	/* Positions for some critical elements */
 	private void calculateDataPositions() {
-		this.otherStartCol = CONTENT_STATIC_FEES_START_COL + this.fees.size()
-				- 1;
+		this.otherStartCol = CONTENT_STATIC_FEES_START_COL + this.fees.size();
 		this.lastColumn = this.otherStartCol + this.TRIVIAL_LAST_COLUMNS_SIZE;
 	}
 

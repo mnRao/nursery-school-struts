@@ -142,19 +142,24 @@ public class BusinessLogicSolver {
 	/* Calculate fee amount base on inherent and overriding items */
 	public static double calculateFeeAmount(Session session, Fee fee,
 			FeePolicy feePolicy, Payment payment) {
+		// TODO Refactor this method
 		double amount = 0;
 		FeeType type = fee.getType();
 		AlternativeFeeMap alternativeFeeMap = (AlternativeFeeMap) session.get(
 				AlternativeFeeMap.class, new PaymentFee(payment, fee));
 		boolean isAlternativeFeeMapNull = (alternativeFeeMap == null);
+		boolean isAlternativeAmountNull = true;
+		if (!isAlternativeFeeMapNull) {
+			isAlternativeAmountNull = alternativeFeeMap.getAlternativeAmount() == null;
+		}
 		//
 		if (type == FeeType.ALL_EXCEPT_SELECTED || type == FeeType.STATIC) {
-			// If AlternativeFeeMap null then find in FeeMap
-			if (isAlternativeFeeMapNull) {
-				FeeMap feeMap = (FeeMap) session.get(FeeMap.class,
-						new FeePolicyFee(feePolicy, fee));
-				amount = (feeMap == null) ? 0 : feeMap.getAmount()
-						.doubleValue();
+			// If AlternativeFeeMap null or exists but contains no value then
+			// find in FeeMap
+			// if (isAlternativeFeeMapNull && isAlternativeAmountNull){
+			if (isAlternativeFeeMapNull
+					|| (!isAlternativeFeeMapNull && isAlternativeAmountNull)) {
+				amount = getAmountFromFeeMap(session, fee, feePolicy);
 			}
 			else {
 				amount = alternativeFeeMap.getAlternativeAmount().doubleValue();
@@ -162,11 +167,30 @@ public class BusinessLogicSolver {
 		}
 		else if (type == FeeType.SELECTED_ONLY) {
 			// Check whether alternative fee exists, if no then 0
-			amount = isAlternativeFeeMapNull ? 0 : alternativeFeeMap
-					.getAlternativeAmount().doubleValue();
+			if (isAlternativeFeeMapNull) {
+				amount = 0;
+			}
+			else {
+				if (isAlternativeAmountNull) {
+					amount = getAmountFromFeeMap(session, fee, feePolicy);
+				}
+				else {
+					amount = alternativeFeeMap.getAlternativeAmount()
+							.doubleValue();
+				}
+			}
 		}
 
 		return amount;// FeeType.UNKNOWN
+	}
+
+	private static double getAmountFromFeeMap(Session session, Fee fee,
+			FeePolicy feePolicy) {
+		double amount;
+		FeeMap feeMap = (FeeMap) session.get(FeeMap.class, new FeePolicyFee(
+				feePolicy, fee));
+		amount = (feeMap == null) ? 0 : feeMap.getAmount().doubleValue();
+		return amount;
 	}
 
 	public static HashSet<Fee> sortFeeSet(Set<Fee> set) {
