@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Set;
 
 import jxl.Workbook;
@@ -12,8 +13,9 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.helper.ExcelGenerator;
 import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.excel.PaymentExcelGenerator;
+import com.duke.nurseryschool.helper.excel.StudentHasBreakfastExcelGenerator;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
@@ -33,12 +35,26 @@ public class ExcelGeneratorAction extends ActionSupport {
 	private MonthDAO		monthDAO		= new MonthDAO();
 	private int				monthId;
 
+	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		File tempFile = this.createTemporaryFile(feePolicy.getMonth()
 				.getLabel());
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		this.addContentToExcelFile(feePolicy, workbook, 0);
+		this.closeWorkbook(workbook);
+		// Configure for download
+		this.configureFileForDownload(tempFile);
+
+		return Action.SUCCESS;
+	}
+
+	public String singleBreakfast() throws Exception {
+		Month month = this.monthDAO.getMonth(this.monthId);
+		File tempFile = this.createTemporaryFile(month.getLabel());
+		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
+		this.addContentToExcelFile(workbook, 0, month,
+				this.mixedDAO.getStudentsHavingBreakfast(this.monthId));
 		this.closeWorkbook(workbook);
 		// Configure for download
 		this.configureFileForDownload(tempFile);
@@ -79,8 +95,23 @@ public class ExcelGeneratorAction extends ActionSupport {
 			WritableWorkbook workbook, int sheetNumber) throws IOException,
 			WriteException, Exception {
 		try {
-			ExcelGenerator excelGenerator = new ExcelGenerator(workbook,
-					feePolicy);
+			PaymentExcelGenerator excelGenerator = new PaymentExcelGenerator(
+					workbook, feePolicy);
+			excelGenerator.addContent(sheetNumber);
+		}
+		catch (IllegalStateException e) {
+			// Handle illegal state exception for no payment to show on screen
+			throw new Exception(
+					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+		}
+	}
+
+	private void addContentToExcelFile(WritableWorkbook workbook,
+			int sheetNumber, Month month, List<String> studentNames)
+			throws IOException, WriteException, Exception {
+		try {
+			StudentHasBreakfastExcelGenerator excelGenerator = new StudentHasBreakfastExcelGenerator(
+					workbook, month, studentNames);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {

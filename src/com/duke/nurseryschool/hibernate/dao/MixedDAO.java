@@ -30,6 +30,16 @@ public class MixedDAO extends CoreDAO {
 		return ((BigInteger) result.get(0)).intValue();
 	}
 
+	// SELECT * FROM student s RIGHT JOIN payment p ON p.studentId = s.studentId
+	// RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId WHERE
+	// p.hasBreakfast = 1 AND fp.classId = 4;
+	public List<String> getStudentsHavingBreakfast(int monthId) {
+		String sql = "SELECT s.name FROM student s RIGHT JOIN payment p ON p.studentId = s.studentId RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId WHERE p.hasBreakfast = 1 AND fp.monthId = "
+				+ monthId + ";";
+		Query query = this.session.createSQLQuery(sql);
+		return query.list();
+	}
+
 	public List<Fee> getFees(Session session) {
 		String hql = "FROM Fee";
 		Query query = session.createQuery(hql);

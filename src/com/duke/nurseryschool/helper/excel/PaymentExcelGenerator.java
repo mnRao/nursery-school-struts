@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.helper;
+package com.duke.nurseryschool.helper.excel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,13 @@ import jxl.write.biff.RowsExceededException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.duke.nurseryschool.helper.excel.ExcelManager;
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
+import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.FeeType;
+import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.Constant.DATABASE_QUERY;
+import com.duke.nurseryschool.helper.Constant.I18N;
+import com.duke.nurseryschool.helper.Constant.PUNCTUATION_MARK;
 import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -24,7 +30,7 @@ import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
-public class ExcelGenerator extends ExcelManager {
+public class PaymentExcelGenerator extends ExcelManager {
 
 	private Classes				associatedClass;
 	private Month				month;
@@ -45,16 +51,13 @@ public class ExcelGenerator extends ExcelManager {
 	private MixedDAO			mixedDAO						= new MixedDAO();
 
 	// Positions for elements
-	private static final int	HEADER_TOP_ROW					= 0;
-	private static final int	HEADER_TOP_COLUMN				= 0;
-	private static final int	HEADER_NORMAL_ROW				= 1;
 	private static final int	HEADER_NORMAL_SPANNED_ROW		= 2;
-	private static final int	CONTENT_START_ROW				= 3;
+	protected static final int	CONTENT_START_ROW				= 3;
 	private static final int	CONTENT_STATIC_FEES_START_COL	= 5;
 
 	private static final int	TRIVIAL_LAST_COLUMNS_SIZE		= 3;
 
-	public ExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy)
+	public PaymentExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy)
 			throws IllegalStateException {
 		super(workbook);// Work book
 

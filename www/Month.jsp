@@ -51,6 +51,11 @@
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
 												<s:text name="grid.action.excel" />
 											</s:a>
+											<s:url id="breakfastExcelUrl" action="singleBreakfastGenerateExcel">
+												<s:param name="monthId" value="%{monthId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{breakfastExcelUrl}">
+												<s:text name="grid.action.excel.breakfast" />
+											</s:a>
 										</td>
 									</tr>
 								</s:iterator>
