@@ -2,10 +2,13 @@ package com.duke.nurseryschool.hibernate.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
+import com.duke.nurseryschool.hibernate.bean.Payment;
 
 public class FeePolicyDAO extends CoreDAO {
 
@@ -36,6 +39,14 @@ public class FeePolicyDAO extends CoreDAO {
 	}
 
 	public void saveOrUpdateFeePolicy(FeePolicy feePolicy) {
+		// Set total fee before save
+		Set<Payment> relatedPayments = feePolicy.getPayments();
+		if (relatedPayments != null) {
+			for (Payment payment : relatedPayments) {
+				new PaymentTrigger(this.session, payment).calculateAndSetAll();
+			}
+		}
+
 		try {
 			this.session.saveOrUpdate(feePolicy);
 		}

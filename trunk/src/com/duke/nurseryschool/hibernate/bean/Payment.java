@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.helper.PaymentConfig;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 
 @Entity
 @Table(name = "payment")
@@ -73,21 +73,6 @@ public class Payment implements BeanLabel {
 	}
 
 	public int getAbsenceCount() {
-		if (this.getFeePolicy() != null) {
-			this.totalNormalMealFee = BigDecimal.valueOf((this.feePolicy
-					.getAvailableDays() - this.absenceCount)
-					* this.feePolicy.getFeePerNormalMeal().doubleValue());
-		}
-		if (this.hasBreakfast != 0 && this.feePolicy != null) {
-			this.totalBreakfastFee = BigDecimal.valueOf(this.feePolicy
-					.getTotalBreakfastFee().doubleValue()
-					- this.absenceCount
-					* this.feePolicy.getPenaltyFeePerBreakfast().doubleValue());
-		}
-		else {
-			this.totalBreakfastFee = BigDecimal.valueOf(0);
-		}
-
 		return this.absenceCount;
 	}
 
