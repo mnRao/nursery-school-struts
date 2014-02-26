@@ -56,6 +56,11 @@
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{breakfastExcelUrl}">
 												<s:text name="grid.action.excel.breakfast" />
 											</s:a>
+											<s:url id="selectedOnlyFeeExcelUrl" action="allSelectedOnlyFeeGenerateExcel">
+												<s:param name="monthId" value="%{monthId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{selectedOnlyFeeExcelUrl}">
+												<s:text name="grid.action.excel.selectedOnlyFee" />
+											</s:a>
 										</td>
 									</tr>
 								</s:iterator>
