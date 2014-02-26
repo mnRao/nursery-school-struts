@@ -13,9 +13,12 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.helper.excel.PaymentExcelGenerator;
 import com.duke.nurseryschool.helper.excel.StudentHasBreakfastExcelGenerator;
+import com.duke.nurseryschool.helper.excel.StudentHasSelectedOnlyFeeExcelGenerator;
+import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
@@ -26,22 +29,24 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ExcelGeneratorAction extends ActionSupport {
 
-	private InputStream		fileInputStream;
-	private String			fileName;
+	private InputStream fileInputStream;
+	private String fileName;
 
-	private MixedDAO		mixedDAO		= new MixedDAO();
-	private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	private int				feePolicyId;
-	private MonthDAO		monthDAO		= new MonthDAO();
-	private int				monthId;
+	private MixedDAO mixedDAO = new MixedDAO();
+	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	private int feePolicyId;
+	private MonthDAO monthDAO = new MonthDAO();
+	private int monthId;
 
 	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
-		File tempFile = this.createTemporaryFile(feePolicy.getMonth()
-				.getLabel());
+		File tempFile = this
+				.createTemporaryFile(this
+						.generatePaymentExcelFilePrefix(feePolicy.getMonth()
+								.getLabel()));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
-		this.addContentToExcelFile(feePolicy, workbook, 0);
+		this.addContentToPaymentExcelFile(feePolicy, workbook, 0);
 		this.closeWorkbook(workbook);
 		// Configure for download
 		this.configureFileForDownload(tempFile);
@@ -51,12 +56,33 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 	public String singleBreakfast() throws Exception {
 		Month month = this.monthDAO.getMonth(this.monthId);
-		File tempFile = this.createTemporaryFile(month.getLabel());
+		File tempFile = this.createTemporaryFile(this
+				.generateBreakfastExcelFilePrefix(month.getLabel()));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
-		this.addContentToExcelFile(workbook, 0, month,
+		this.addContentToBreakfastExcelFile(workbook, 0, month,
 				this.mixedDAO.getStudentsHavingBreakfast(this.monthId));
 		this.closeWorkbook(workbook);
 		// Configure for download
+		this.configureFileForDownload(tempFile);
+
+		return Action.SUCCESS;
+	}
+
+	public String allSelectedOnlyFee() throws Exception {
+		Month month = this.monthDAO.getMonth(this.monthId);
+		File tempFile = this.createTemporaryFile(this
+				.generateSelectedOnlyExcelFilePrefix(month.getLabel()));
+		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
+		int sheetNumber = 0;
+		for (Fee fee : this.mixedDAO.getFeeByType(FeeType.SELECTED_ONLY)) {
+			List<String> studentNamesInFee = this.mixedDAO
+					.getStudentsHavingSelectedOnlyFee(this.monthId,
+							fee.getFeeId());
+			this.addContentToSelectedOnlyFeeExcelFile(workbook, sheetNumber,
+					month, fee.getName(), studentNamesInFee);
+			sheetNumber++;
+		}
+		this.closeWorkbook(workbook);
 		this.configureFileForDownload(tempFile);
 
 		return Action.SUCCESS;
@@ -71,12 +97,13 @@ public class ExcelGeneratorAction extends ActionSupport {
 					this.getText(Constant.I18N.ERROR_NO_FEEPOLICY_APPLIED));
 		}
 
-		File tempFile = this.createTemporaryFile(month.getLabel());
+		File tempFile = this.createTemporaryFile(this
+				.generatePaymentExcelFilePrefix(month.getLabel()));
 		int sheetNumber = 0;
 		// Initialize work book the very first time
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		for (FeePolicy feePolicy : feePolicies) {
-			this.addContentToExcelFile(feePolicy, workbook, sheetNumber);
+			this.addContentToPaymentExcelFile(feePolicy, workbook, sheetNumber);
 			sheetNumber++;
 		}
 		this.closeWorkbook(workbook);
@@ -91,7 +118,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		workbook.close();
 	}
 
-	private void addContentToExcelFile(FeePolicy feePolicy,
+	private void addContentToPaymentExcelFile(FeePolicy feePolicy,
 			WritableWorkbook workbook, int sheetNumber) throws IOException,
 			WriteException, Exception {
 		try {
@@ -106,7 +133,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
-	private void addContentToExcelFile(WritableWorkbook workbook,
+	private void addContentToBreakfastExcelFile(WritableWorkbook workbook,
 			int sheetNumber, Month month, List<String> studentNames)
 			throws IOException, WriteException, Exception {
 		try {
@@ -121,11 +148,25 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
-	private File createTemporaryFile(String monthLabel) throws IOException {
+	private void addContentToSelectedOnlyFeeExcelFile(
+			WritableWorkbook workbook, int sheetNumber, Month month,
+			String feeName, List<String> studentNames) throws IOException,
+			WriteException, Exception {
+		try {
+			StudentHasSelectedOnlyFeeExcelGenerator excelGenerator = new StudentHasSelectedOnlyFeeExcelGenerator(
+					workbook, month, feeName, studentNames);
+			excelGenerator.addContent(sheetNumber);
+		}
+		catch (IllegalStateException e) {
+			// Handle illegal state exception for no payment to show on screen
+			throw new Exception(
+					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+		}
+	}
+
+	private File createTemporaryFile(String prefix) throws IOException {
 		// File for download
-		File tempFile = File
-				.createTempFile(this.generateExcelFilePrefix(monthLabel),
-						Constant.EXCEL_SUFFIX);
+		File tempFile = File.createTempFile(prefix, Constant.EXCEL_SUFFIX);
 		tempFile.deleteOnExit();// Delete when virtual machine terminates
 		return tempFile;
 	}
@@ -136,9 +177,25 @@ public class ExcelGeneratorAction extends ActionSupport {
 		this.fileName = tempFile.getName();
 	}
 
-	private String generateExcelFilePrefix(String monthLabel) {
-		return Helper.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE)
+	private String generatePaymentExcelFilePrefix(String monthLabel) {
+		return Helper.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_PAYMENT)
 				+ Constant.SPACE + monthLabel
+				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+	}
+
+	private String generateBreakfastExcelFilePrefix(String monthLabel) {
+		return Helper
+				.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST)
+				+ Constant.SPACE
+				+ monthLabel
+				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+	}
+
+	private String generateSelectedOnlyExcelFilePrefix(String monthLabel) {
+		return Helper
+				.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE)
+				+ Constant.SPACE
+				+ monthLabel
 				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
