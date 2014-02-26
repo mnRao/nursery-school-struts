@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.helper.PaymentConfig;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 
 public class PaymentDAO extends CoreDAO {
@@ -38,9 +38,7 @@ public class PaymentDAO extends CoreDAO {
 
 	public void saveOrUpdatePayment(Payment payment) {
 		// Set total fee before save
-		BigDecimal totalFee = new PaymentConfig(payment, payment.getFeePolicy())
-				.calculateTotalFee();
-		payment.setTotalFee(totalFee);
+		new PaymentTrigger(this.session, payment).calculateAndSetAll();
 
 		try {
 			this.session.saveOrUpdate(payment);
