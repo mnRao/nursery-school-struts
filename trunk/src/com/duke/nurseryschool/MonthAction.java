@@ -69,6 +69,12 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 			this.addFieldError("month.year",
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_MONTH_YEAR));
 		}
+		// Check for uniqueness
+		if (this.dao.hasDuplicates(this.month.getMonthId(),
+				this.month.getMonthName(), this.month.getYear())) {
+			this.addFieldError("month.monthName",
+					this.getText(Constant.I18N.ERROR_DUPLICATION_MONTH));
+		}
 
 		super.validate();
 	}

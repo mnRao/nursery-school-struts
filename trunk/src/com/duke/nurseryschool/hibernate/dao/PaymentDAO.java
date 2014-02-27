@@ -4,9 +4,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
+import com.duke.nurseryschool.hibernate.bean.Course;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 
 public class PaymentDAO extends CoreDAO {
@@ -68,5 +72,24 @@ public class PaymentDAO extends CoreDAO {
 		}
 
 		return true;
+	}
+
+	public boolean hasDuplicates(int keyPaymentId, int studentId,
+			int feePolicyId) {
+		if (keyPaymentId != 0)
+			return false;
+		Criteria criteria = this.session.createCriteria(Payment.class);
+		criteria.add(Restrictions.eq("student.studentId", studentId));
+		criteria.add(Restrictions.eq("feePolicy.feePolicyId", feePolicyId));
+		List<Payment> results = criteria.list();
+		if (results != null && results.size() > 0) {
+			for (Payment result : results) {
+				// If another record with different ID then true
+				if (result.getPaymentId() != keyPaymentId) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

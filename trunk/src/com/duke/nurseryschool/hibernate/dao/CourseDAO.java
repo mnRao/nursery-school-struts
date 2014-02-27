@@ -3,9 +3,13 @@ package com.duke.nurseryschool.hibernate.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Course;
+import com.duke.nurseryschool.hibernate.bean.Month;
 
 public class CourseDAO extends CoreDAO {
 
@@ -53,5 +57,23 @@ public class CourseDAO extends CoreDAO {
 			this.transaction.rollback();
 			e.printStackTrace();
 		}
+	}
+
+	public boolean hasDuplicates(int keyCourseId, int startYear, int endYear) {
+		if (keyCourseId != 0)
+			return false;
+		Criteria criteria = this.session.createCriteria(Course.class);
+		criteria.add(Restrictions.eq("startYear", startYear));
+		criteria.add(Restrictions.eq("endYear", endYear));
+		List<Course> results = criteria.list();
+		if (results != null && results.size() > 0) {
+			for (Course result : results) {
+				// If another record with different ID then true
+				if (result.getCourseId() != keyCourseId) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -25,19 +25,19 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		Preparable {
 
-	private FeeMap				feeMap			= new FeeMap();
-	private List<FeeMap>		feeMaps			= new ArrayList<FeeMap>();
-	final private FeeMapDAO		dao				= new FeeMapDAO();
+	private FeeMap feeMap = new FeeMap();
+	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
+	final private FeeMapDAO dao = new FeeMapDAO();
 
-	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	final private FeeDAO		feeDAO			= new FeeDAO();
-	private MixedDAO			mixedDAO		= new MixedDAO();
+	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	final private FeeDAO feeDAO = new FeeDAO();
+	private MixedDAO mixedDAO = new MixedDAO();
 
-	private int					feePolicyId;
-	private int					feeId;
+	private int feePolicyId;
+	private int feeId;
 
-	private List<Fee>			feeList;
-	private List<FeePolicy>		feePolicyList;
+	private List<Fee> feeList;
+	private List<FeePolicy> feePolicyList;
 
 	@Override
 	public FeeMap getModel() {
@@ -100,9 +100,10 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	@Override
 	public void validate() {
 		BigDecimal amount = this.feeMap.getAmount();
-		// if (amount == null) {
-		// this.addFieldError("feeMap.amount", "sldfjlsdfj");
-		// }
+		if (amount == null) {
+			this.addFieldError("feeMap.amount",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_AMOUNT));
+		}
 		if (amount != null && amount.doubleValue() < 0) {
 			this.addFieldError("feeMap.amount",
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEMAP_AMOUNT));

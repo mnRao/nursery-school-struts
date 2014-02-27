@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.MonthComparator;
@@ -36,6 +39,24 @@ public class MonthDAO extends CoreDAO {
 			e.printStackTrace();
 		}
 		return month;
+	}
+
+	public boolean hasDuplicates(int keyMonthId, int monthName, int year) {
+		if (keyMonthId != 0)
+			return false;
+		Criteria criteria = this.session.createCriteria(Month.class);
+		criteria.add(Restrictions.eq("monthName", monthName));
+		criteria.add(Restrictions.eq("year", year));
+		List<Month> results = criteria.list();
+		if (results != null && results.size() > 0) {
+			for (Month month : results) {
+				// If another record with different ID then true
+				if (month.getMonthId() != keyMonthId) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public void saveOrUpdateMonth(Month month) {

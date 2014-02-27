@@ -54,8 +54,14 @@ public final class Constant {
 		public static final String ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.constraint.feePolicy.penaltyFeePerBreakfast";
 		public static final String ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS = "errors.constraint.feePolicy.availableDays";
 		public static final String ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT = "errors.constraint.payment.absenceCount";
+		public static final String ERROR_DUPLICATION_CLASS = "errors.duplication.class";
+		public static final String ERROR_DUPLICATION_COURSE = "errors.duplication.course";
+		public static final String ERROR_DUPLICATION_FEEPOLICY = "errors.duplication.feePolicy";
+		public static final String ERROR_DUPLICATION_MONTH = "errors.duplication.month";
+		public static final String ERROR_DUPLICATION_PAYMENT = "errors.duplication.payment";
 		public static final String ERROR_REQUIRED_FEE_NAME = "errors.required.fee.name";
 		public static final String ERROR_REQUIRED_FEEGROUP_NAME = "errors.required.feeGroup.name";
+		public static final String ERROR_REQUIRED_FEEMAP_AMOUNT = "errors.required.feeMap.amount";
 		public static final String ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL = "errors.required.feePolicy.feePerNormalMeal";
 		public static final String ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE = "errors.required.feePolicy.totalBreakfastFee";
 		public static final String ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.required.feePolicy.penaltyFeePerBreakfast";
