@@ -63,6 +63,7 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 	public void validate() {
 		int startYear = this.course.getStartYear();
 		int endYear = this.course.getEndYear();
+		int courseId = this.course.getCourseId();
 		if (startYear <= 0) {
 			this.addFieldError("course.startYear", this
 					.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_STARTYEAR));
@@ -74,6 +75,11 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 		if (startYear != endYear - 4) {
 			this.addFieldError("course.startYear",
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_YEARS));
+		}
+		// Check for uniqueness
+		if (this.dao.hasDuplicates(courseId, startYear, endYear)) {
+			this.addFieldError("course.startYear",
+					this.getText(Constant.I18N.ERROR_DUPLICATION_COURSE));
 		}
 
 		super.validate();

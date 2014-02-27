@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
+import com.duke.nurseryschool.hibernate.bean.Course;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 
@@ -77,4 +81,21 @@ public class FeePolicyDAO extends CoreDAO {
 		return true;
 	}
 
+	public boolean hasDuplicates(int keyFeePolicyId, int classId, int monthId) {
+		if (keyFeePolicyId != 0)
+			return false;
+		Criteria criteria = this.session.createCriteria(FeePolicy.class);
+		criteria.add(Restrictions.eq("associatedClass.classId", classId));
+		criteria.add(Restrictions.eq("month.monthId", monthId));
+		List<FeePolicy> results = criteria.list();
+		if (results != null && results.size() > 0) {
+			for (FeePolicy result : results) {
+				// If another record with different ID then true
+				if (result.getFeePolicyId() != keyFeePolicyId) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

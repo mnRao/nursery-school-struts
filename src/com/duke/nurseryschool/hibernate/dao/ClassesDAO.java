@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.ClassComparator;
 import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.Course;
 
 public class ClassesDAO extends CoreDAO {
 
@@ -61,4 +65,21 @@ public class ClassesDAO extends CoreDAO {
 		}
 	}
 
+	public boolean hasDuplicates(int classId, int courseId, String code) {
+		if (classId != 0)
+			return false;
+		Criteria criteria = this.session.createCriteria(Classes.class);
+		criteria.add(Restrictions.eq("course.courseId", courseId));
+		criteria.add(Restrictions.eq("code", code));
+		List<Classes> results = criteria.list();
+		if (results != null && results.size() > 0) {
+			for (Classes result : results) {
+				// If another record with different ID then true
+				if (result.getClassId() != classId) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

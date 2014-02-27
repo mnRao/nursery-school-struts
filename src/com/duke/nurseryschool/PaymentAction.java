@@ -91,19 +91,18 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		return this.list();
 	}
 
-	@SkipValidation
-	public String generateExcel() {
-		// TODO
-
-		return this.list();
-	}
-
 	@Override
 	public void validate() {
 		if (this.payment.getAbsenceCount() < 0) {
 			this.addFieldError(
 					"payment.absenceCount",
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT));
+		}
+		// Check for uniqueness
+		if (this.dao.hasDuplicates(this.payment.getPaymentId(), this.studentId,
+				this.feePolicyId)) {
+			this.addFieldError("payment.studentId",
+					this.getText(Constant.I18N.ERROR_DUPLICATION_PAYMENT));
 		}
 
 		super.validate();

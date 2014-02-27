@@ -99,6 +99,12 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 			this.addFieldError("classes.code",
 					this.getText(Constant.I18N.ERROR_REQUIRED_CLASS_CODE));
 		}
+		// Check for uniqueness
+		if (this.dao.hasDuplicates(this.classes.getClassId(), this.courseId,
+				this.classes.getCode())) {
+			this.addFieldError("classes.code",
+					this.getText(Constant.I18N.ERROR_DUPLICATION_CLASS));
+		}
 
 		super.validate();
 	}
