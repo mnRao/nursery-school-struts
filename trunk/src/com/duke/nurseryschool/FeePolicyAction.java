@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
+import org.hibernate.classic.Session;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.PaymentTrigger;
+import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
+import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.MonthDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
@@ -22,20 +27,21 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long serialVersionUID = -9145112354887960316L;
+	private static final long	serialVersionUID	= -9145112354887960316L;
 
-	private FeePolicy feePolicy = new FeePolicy();
-	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
-	private FeePolicyDAO dao = new FeePolicyDAO();
-	private ClassesDAO classesDAO = new ClassesDAO();
-	private MonthDAO monthDAO = new MonthDAO();
-	private FeeMapDAO feeMapDAO = new FeeMapDAO();
+	private FeePolicy			feePolicy			= new FeePolicy();
+	private List<FeePolicy>		feePolicies			= new ArrayList<FeePolicy>();
+	private FeePolicyDAO		dao					= new FeePolicyDAO();
+	private ClassesDAO			classesDAO			= new ClassesDAO();
+	private MonthDAO			monthDAO			= new MonthDAO();
+	private FeeMapDAO			feeMapDAO			= new FeeMapDAO();
+	private MixedDAO			mixedDAO			= new MixedDAO();
 
-	private int classId;
-	private int monthId;
+	private int					classId;
+	private int					monthId;
 
-	private List<Classes> classList;
-	private List<Month> monthList;
+	private List<Classes>		classList;
+	private List<Month>			monthList;
 
 	@Override
 	public FeePolicy getModel() {
@@ -53,6 +59,26 @@ public class FeePolicyAction extends CoreAction implements
 		this.feePolicy.setMonth(month);
 
 		this.dao.saveOrUpdateFeePolicy(this.feePolicy);
+
+		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(this.request
+				.getParameter("feePolicyId")));
+		// this.dao.getSession().refresh(this.feePolicy);
+		// Load all payments for this fee policy
+		// Session currentSession = HibernateUtil.getSessionFactory()
+		// .openSession();
+		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(
+				this.mixedDAO.getSession(), this.feePolicy.getFeePolicyId());
+		if (relatedPayments != null && relatedPayments.size() > 0) {
+			// Set total fee save
+			if (relatedPayments != null) {
+				for (Payment payment : relatedPayments) {
+					new PaymentTrigger(this.mixedDAO.getSession(), payment,
+							this.feePolicy).calculateAndSetAll();
+				}
+			}
+		}
+		// this.dao.getTransaction().commit();
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

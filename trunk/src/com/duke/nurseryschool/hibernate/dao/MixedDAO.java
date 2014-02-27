@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.hibernate.bean.Fee;
+import com.duke.nurseryschool.hibernate.bean.Payment;
 
 public class MixedDAO extends CoreDAO {
 
@@ -50,6 +51,13 @@ public class MixedDAO extends CoreDAO {
 		String sql = "SELECT DISTINCT s.name from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId where f.type = 2 and fp.monthId = "
 				+ monthId + " and f.feeId = " + feeId + ";";
 		Query query = this.session.createSQLQuery(sql);
+		return query.list();
+	}
+
+	public List<Payment> getPaymentsByFeePolicy(Session session, int feePolicyId) {
+		String hql = "From Payment WHERE feePolicyId=" + feePolicyId;
+		Query query = session.createQuery(hql);
+		// query.setParameter("feePolicyId", Integer.valueOf(feePolicyId));
 		return query.list();
 	}
 

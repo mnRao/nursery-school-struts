@@ -8,13 +8,16 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
+import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.embedded.FeePolicyFee;
 import com.duke.nurseryschool.hibernate.dao.FeeDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -28,6 +31,7 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 
 	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
 	final private FeeDAO		feeDAO			= new FeeDAO();
+	private MixedDAO			mixedDAO		= new MixedDAO();
 
 	private int					feePolicyId;
 	private int					feeId;
@@ -51,6 +55,21 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		this.feeMap.setFeePolicyFee(new FeePolicyFee(feePolicy, fee));
 
 		this.dao.saveOrUpdateFeeMap(this.feeMap);
+
+		this.dao.getSession().flush();
+		// Load all payments for this fee policy
+		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(
+				this.dao.getSession(), this.feePolicyId);
+		if (relatedPayments != null && relatedPayments.size() > 0) {
+			// Set total fee save
+			if (relatedPayments != null) {
+				for (Payment payment : relatedPayments) {
+					new PaymentTrigger(this.dao.getSession(), payment)
+							.calculateAndSetAll();
+				}
+			}
+		}
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
