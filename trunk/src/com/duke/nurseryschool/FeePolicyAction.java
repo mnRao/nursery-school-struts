@@ -27,21 +27,21 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long serialVersionUID = -9145112354887960316L;
+	private static final long	serialVersionUID	= -9145112354887960316L;
 
-	private FeePolicy feePolicy = new FeePolicy();
-	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
-	private FeePolicyDAO dao = new FeePolicyDAO();
-	private ClassesDAO classesDAO = new ClassesDAO();
-	private MonthDAO monthDAO = new MonthDAO();
-	private FeeMapDAO feeMapDAO = new FeeMapDAO();
-	private MixedDAO mixedDAO = new MixedDAO();
+	private FeePolicy			feePolicy			= new FeePolicy();
+	private List<FeePolicy>		feePolicies			= new ArrayList<FeePolicy>();
+	private FeePolicyDAO		dao					= new FeePolicyDAO();
+	private ClassesDAO			classesDAO			= new ClassesDAO();
+	private MonthDAO			monthDAO			= new MonthDAO();
+	private FeeMapDAO			feeMapDAO			= new FeeMapDAO();
+	private MixedDAO			mixedDAO			= new MixedDAO();
 
-	private int classId;
-	private int monthId;
+	private int					classId;
+	private int					monthId;
 
-	private List<Classes> classList;
-	private List<Month> monthList;
+	private List<Classes>		classList;
+	private List<Month>			monthList;
 
 	@Override
 	public FeePolicy getModel() {
@@ -60,6 +60,7 @@ public class FeePolicyAction extends CoreAction implements
 
 		this.dao.saveOrUpdateFeePolicy(this.feePolicy);
 
+		// Update payment instantly
 		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(this.request
 				.getParameter("feePolicyId")));
 		// this.dao.getSession().refresh(this.feePolicy);

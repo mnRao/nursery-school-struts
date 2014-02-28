@@ -14,19 +14,21 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 public class MixedDAO extends CoreDAO {
 
 	// Get count of all classes that are available
-	// SELECT COUNT(classId) FROM class WHERE grade != 0;
+	// SELECT COUNT(classId) FROM class WHERE grade != 4;
+	// NOTICE: 0,1,2,3 ARE INCREMENTING VALUES AS ORDER IN GRADE ENUM. 4 IS FOR
+	// UNIDENTIFIED
 	public int getActiveClassesCount() {
 		Query query = this.session
-				.createSQLQuery("SELECT COUNT(classId) FROM class WHERE grade != 0;");
+				.createSQLQuery("SELECT COUNT(classId) FROM class WHERE grade != 4;");
 		List result = query.list();
 		return ((BigInteger) result.get(0)).intValue();
 	}
 
 	// SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId
-	// = class.classId WHERE class.grade != 0;
+	// = class.classId WHERE class.grade != 4;
 	public int getActiveStudentsCount() {
 		Query query = this.session
-				.createSQLQuery("SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId = class.classId WHERE class.grade != 0;");
+				.createSQLQuery("SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId = class.classId WHERE class.grade != 4;");
 		List result = query.list();
 		return ((BigInteger) result.get(0)).intValue();
 	}

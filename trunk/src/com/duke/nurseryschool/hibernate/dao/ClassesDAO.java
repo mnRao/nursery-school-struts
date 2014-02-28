@@ -8,7 +8,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.duke.nurseryschool.core.CoreDAO;
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.comparator.ClassComparator;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Course;
@@ -44,6 +46,16 @@ public class ClassesDAO extends CoreDAO {
 	}
 
 	public void saveOrUpdateClasses(Classes classes) {
+		// Update grade
+		if (classes.getCourse() != null) {
+			classes.setGrade(BusinessLogicSolver.calculateGrade(classes
+					.getCourse().getStartYear(), classes.getCourse()
+					.getEndYear()));
+		}
+		else {
+			classes.setGrade(Grade.UNIDENTIFIED);
+		}
+
 		try {
 			this.session.saveOrUpdate(classes);
 		}
