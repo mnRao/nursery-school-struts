@@ -82,7 +82,7 @@ public class PaymentTrigger {
 		for (Fee fee : this.allFeesExceptMeal) {
 			double actualAmount = BusinessLogicSolver.calculateFeeAmount(
 					this.session, fee, this.feePolicy, this.payment);
-			totalFee.add(BigDecimal.valueOf(actualAmount));
+			totalFee = totalFee.add(new BigDecimal(actualAmount));
 		}
 
 		return totalFee;

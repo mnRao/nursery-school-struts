@@ -56,6 +56,7 @@ public class FeeMapDAO extends CoreDAO {
 		// TODO
 		// BusinessLogicSolver.recalculateFee(feeMap.getFeePolicyFee()
 		// .getFeePolicy().getFeePolicyId(), this.session);
+
 	}
 
 	public void deleteFeeMap(int feeId, int feePolicyId) {

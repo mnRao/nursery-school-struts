@@ -221,7 +221,7 @@ public class BusinessLogicSolver {
 	//
 	// return feeDetails;
 	// }
-	//
+
 	// public static void recalculateExtraFee(int feeDetailsId, Session session)
 	// {
 	// FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
