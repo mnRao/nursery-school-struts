@@ -24,23 +24,23 @@ import com.duke.nurseryschool.helper.Grade;
 public class Classes implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int classId;
+	private int				classId;
 	@NotEmpty
 	@Length(min = 2, max = 20)
 	@Column(name = "code")
-	private String code;
+	private String			code;
 	@ManyToOne
 	@JoinColumn(name = "courseId")
-	private Course course;
+	private Course			course;
 
 	@OneToMany(mappedBy = "associatedClass")
-	private Set<Student> students;
+	private Set<Student>	students;
 
 	@OneToMany(mappedBy = "associatedClass")
-	private Set<FeePolicy> feePolicies;
+	private Set<FeePolicy>	feePolicies;
 
 	// Virtual current grade
-	private Grade grade;
+	private Grade			grade;
 
 	public Classes() {
 
@@ -77,14 +77,6 @@ public class Classes implements BeanLabel {
 	}
 
 	public String getCurrentName() {
-		if (this.getCourse() != null) {
-			this.grade = BusinessLogicSolver.calculateGrade(this.getCourse()
-					.getStartYear(), this.getCourse().getEndYear());
-		}
-		else {
-			this.grade = Grade.UNIDENTIFIED;
-		}
-
 		return this.grade.getOfficialLabel();
 	}
 

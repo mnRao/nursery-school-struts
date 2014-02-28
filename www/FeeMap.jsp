@@ -133,7 +133,7 @@
 							</fieldset>
 							<div class="form-actions">
 								<div>
-									<s:submit cssClass="btn btn-primary" />
+									<s:submit key="form.submit" cssClass="btn btn-primary" />
 								</div>
 							</div>
 						</s:form>
