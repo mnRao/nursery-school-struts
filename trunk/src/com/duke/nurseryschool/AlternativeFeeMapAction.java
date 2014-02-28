@@ -8,12 +8,14 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
 import com.duke.nurseryschool.hibernate.dao.AlternativeFeeChargeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
@@ -30,6 +32,7 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 	private PaymentDAO					paymentDAO			= new PaymentDAO();
 	private FeeDAO						feeDAO				= new FeeDAO();
+	private MixedDAO					mixedDAO			= new MixedDAO();
 
 	private int							paymentId;
 	private int							feeId;
@@ -53,6 +56,12 @@ public class AlternativeFeeMapAction extends CoreAction implements
 		this.alternativeFeeMap.setPaymentFee(new PaymentFee(payment, fee));
 
 		this.dao.saveOrUpdateAlternativeFeeMap(this.alternativeFeeMap);
+
+		// Auto update payment's total fee
+		this.dao.getSession().flush();
+		new PaymentTrigger(this.dao.getSession(), payment)
+				.calculateAndSetTotalFee();
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
