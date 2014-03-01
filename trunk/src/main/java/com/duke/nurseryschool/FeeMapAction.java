@@ -25,19 +25,19 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		Preparable {
 
-	private FeeMap				feeMap			= new FeeMap();
-	private List<FeeMap>		feeMaps			= new ArrayList<FeeMap>();
-	final private FeeMapDAO		dao				= new FeeMapDAO();
+	private FeeMap feeMap = new FeeMap();
+	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
+	final private FeeMapDAO dao = new FeeMapDAO();
 
-	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	final private FeeDAO		feeDAO			= new FeeDAO();
-	private MixedDAO			mixedDAO		= new MixedDAO();
+	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	final private FeeDAO feeDAO = new FeeDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private int					feePolicyId;
-	private int					feeId;
+	private int feePolicyId;
+	private int feeId;
 
-	private List<Fee>			feeList;
-	private List<FeePolicy>		feePolicyList;
+	private List<Fee> feeList;
+	private List<FeePolicy> feePolicyList;
 
 	@Override
 	public FeeMap getModel() {
@@ -55,20 +55,8 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		this.feeMap.setFeePolicyFee(new FeePolicyFee(feePolicy, fee));
 
 		this.dao.saveOrUpdateFeeMap(this.feeMap);
-
-		this.dao.getSession().flush();
-		// Load all payments for this fee policy
-		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(
-				this.dao.getSession(), this.feePolicyId);
-		if (relatedPayments != null && relatedPayments.size() > 0) {
-			// Set total fee save
-			if (relatedPayments != null) {
-				for (Payment payment : relatedPayments) {
-					new PaymentTrigger(this.dao.getSession(), payment)
-							.calculateAndSetTotalFee();
-				}
-			}
-		}
+		// Recalculate payment
+		this.triggerPaymentRecalculation();
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
@@ -81,6 +69,8 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	@SkipValidation
 	public String delete() {
 		this.dao.deleteFeeMap(this.feeId, this.feePolicyId);
+		// Recalculate payment
+		this.triggerPaymentRecalculation();
 
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -136,6 +126,22 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		this.feeMaps = this.dao.getFeeMaps();
 		this.feeList = this.feeDAO.getFees();
 		this.feePolicyList = this.feePolicyDAO.getFeePolicies();
+	}
+
+	private void triggerPaymentRecalculation() {
+		this.dao.getSession().flush();
+		// Load all payments for this fee policy
+		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(
+				this.dao.getSession(), this.feePolicyId);
+		if (relatedPayments != null && relatedPayments.size() > 0) {
+			// Set total fee save
+			if (relatedPayments != null) {
+				for (Payment payment : relatedPayments) {
+					new PaymentTrigger(this.dao.getSession(), payment)
+							.calculateAndSetTotalFee();
+				}
+			}
+		}
 	}
 
 	public FeeMap getFeeMap() {
