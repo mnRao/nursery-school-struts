@@ -1,0 +1,229 @@
+# Global
+global.title = Mầm non Tuyết Dương [Duke Corp] 
+global.footer.developedBy = Phát triển bởi Duke
+
+format.date = {0,date,dd/MM/yyyy}
+
+# UI
+ui.header.language = Ngôn ngữ
+ui.header.language.english = Anh
+ui.header.language.vietnamese = Việt
+ui.header.currentYear = Năm học hiện tại
+ui.header.help = Trợ giúp
+ui.header.logout = Thoát
+ui.widget.header.student = Học sinh
+
+# Common UI
+form.widget.header = 
+form.legend = Hãy điền thông tin vào biểu mẫu bên dưới 
+form.legend.computed = Tự động tính toán
+form.legend.select = Hoặc chọn dữ liệu đã khởi tạo sẵn
+tab.label.first = Tạo mới | Cập nhật
+tab.label.second = Xem dữ liệu
+form.gender.male = Nam
+form.gender.female = Nữ
+form.trueFalse.true = Đúng
+form.trueFalse.false = Sai
+form.submit = Lưu
+
+grid.action.edit = Sửa
+grid.action.delete = Xóa
+grid.action.deleteMapping = Xóa mối liên hệ
+grid.action.addAlternativeFeeMap = Thêm %{getText('label.alternativeFeeMap')}
+grid.action.addClass = Thêm %{getText('label.classes')}
+grid.action.addFeeMap = Thêm %{getText('label.feeMap')}
+grid.action.addFeePolicy = Thêm %{getText('label.feePolicy')}
+grid.action.addParent = Thêm %{getText('label.parent')}
+grid.action.addPayment = Thêm %{getText('label.payment')}
+grid.action.excel = Excel Thu tiền
+grid.action.excel.breakfast = Excel Ăn sáng
+grid.action.excel.selectedOnlyFee = Excel Môn năng khiếu
+
+grid.action.showParent = Xem %{getText('label.parent')}
+grid.action.showFee = Xem %{getText('label.fee')}
+grid.action.showFeeMap = Xem %{getText('label.feeMap')}
+grid.action.showFeePolicy = Xem %{getText('label.feePolicy')}
+
+modal.title.all.parent = Danh sách %{getText('label.parent')}
+modal.title.all.fee = Danh sách %{getText('label.fee')}
+modal.title.all.feeMap = Danh sách %{getText('label.feeMap')}
+modal.title.all.feePolicy = Danh sách %{getText('label.feePolicy')}
+modal.content.empty = Chưa có dữ liệu
+
+help.title = Quy trình quản lý thông tin
+help.info = Nhập liệu theo thứ tự sau
+
+# Login
+label.username= Tên đăng nhập
+label.password= Mật khẩu
+label.login= Đăng nhập
+label.rememberMe = Ghi nhớ ?
+
+# Pages
+headTitle.dashboard = Trang chủ
+headTitle.alternativeFeeMap = Quản lý phí điều chỉnh cho học sinh
+headTitle.class = Quản lý lớp
+headTitle.course = Quản lý niên khóa
+headTitle.fee = Quản lý phí
+headTitle.feeGroup = Quản lý nhóm phí
+headTitle.feeMap = Quản lý tiền phí
+headTitle.feePolicy = Quản lý chính sách phí
+headTitle.help = Trợ giúp
+headTitle.month = Quản lý tháng
+headTitle.parent = Quản lý phụ huynh
+headTitle.payment = Quản lý thu tiền
+headTitle.student = Quản lý học sinh
+
+dashboard.activeClasses = Số lớp hiện tại
+dashboard.activeStudents = Số học sinh hiện tại
+dashboard.previousMonthIncome = Thu nhập tháng trước
+dashboard.thisMonthIncome = Thu nhập tháng này
+
+# Models
+
+label.classes = Lớp
+label.classes.classesId = ID
+label.classes.code = Mã
+label.classes.currentName = Tên hiện tại
+label.classes.courseId = Niên khóa
+
+label.course = Niên khóa
+label.course.courseId = ID
+label.course.startYear = Năm bắt đầu
+label.course.endYear = Năm kết thúc
+
+label.fee = Phí
+label.fee.feeId = ID
+label.fee.name = Tên
+label.fee.type = Loại
+label.fee.feeGroupId = Nhóm phí
+
+label.feeGroup = Nhóm phí
+label.feeGroup.feeGroupId = ID
+label.feeGroup.name = Tên
+
+label.feeMap = Tiền phí theo lớp
+label.feeMap.feePolicyId = Chính sách phí
+label.feeMap.feeId = Phí
+label.feeMap.amount = Số tiền
+
+label.feePolicy = Chính sách phí
+label.feePolicy.feePolicyId = ID
+label.feePolicy.classId = Lớp
+label.feePolicy.monthId = Tháng
+label.feePolicy.feePerNormalMeal = Phí từng bữa ăn thường
+label.feePolicy.penaltyFeePerBreakfast = Phí giảm trừ do nghỉ mỗi bữa sáng
+label.feePolicy.totalBreakfastFee = Tổng phí ăn sáng (đi học dầy đủ)
+label.feePolicy.availableDays = Tổng số ngày học (đi học đầy đủ)
+
+label.month = Tháng
+label.month.monthId = ID
+label.month.month = Tháng
+label.month.year = Năm
+label.month.label = Tháng
+
+label.parent = Phụ huynh
+label.parent.parentId = ID
+label.parent.name = Tên
+label.parent.gender = Giới tính
+label.parent.job = Nghề nghiệp
+label.parent.phoneNumber = Điện thoại liên lạc
+label.parent.studentId = Học sinh
+
+label.payment = Thu tiền
+label.payment.paymentId = ID
+label.payment.studentId = Học sinh
+label.payment.feePolicyId = Chính sách phí
+label.payment.absenceCount = Số buổi nghỉ
+label.payment.hasBreakfast = Có ăn sáng không
+label.payment.totalNormalMealFee = Tổng tiền ăn thường
+label.payment.totalBreakfastFee = Tổng tiền ăn sáng
+label.payment.totalFee = Tổng
+label.payment.isPaid = Đã trả
+label.payment.note = Ghi chú
+label.student = Học sinh
+label.student.studentId = ID
+label.student.name = Tên
+label.student.dateOfBirth = Ngày sinh
+label.student.gender = Giới tính
+label.student.address = Địa chỉ
+label.student.homePhone = Điện thoại nhà riêng
+label.student.isActive = Được kích hoạt
+label.student.description = Đặc điểm
+label.student.classId = Lớp
+
+label.alternativeFeeMap = Phí điều chỉnh cho học sinh
+label.alternativeFeeMap.paymentId = Thu tiền
+label.alternativeFeeMap.feeId = Phí
+label.alternativeFeeMap.alternativeAmount = Số tiền
+
+select.course = Chọn niên khóa
+select.class = Chọn lớp
+select.fee = Chọn phí
+select.feePolicy = Chọn chính sách phí
+select.feeGroup = Chọn nhóm phí
+select.feeType = Chọn loại phí
+select.month = Chọn tháng
+select.parent = Chọn phụ huynh
+select.payment = Chọn thu tiền
+select.student = Chọn học sinh
+
+
+# Excel
+excel.file.prefix_title = Thu tiền tháng
+excel.file.prefix_title.studentHasBreakfast = Học sinh ăn sáng tháng
+excel.file.prefix_title.studentHasSelectedOnlyFee = Học sinh học năng khiếu
+
+excel.header.top.payment = THU TIỀN
+excel.header.top.month = THÁNG
+excel.header.top.year = NĂM
+excel.header.top.availableDays = NGÀY
+excel.header.top.class = LỚP
+
+# Error
+error.no.feePolicy.applied = Chưa có chính sách phí áp dụng. Hãy tạo chính sách phí phù hợp trước khi thực hiện thao tác này
+error.no.payment.applied = Chưa có bản thu tiền áp dụng. Hãy tạo bản thu tiền phù hợp (cho mỗi lớp) trước khi thực hiện thao tác này
+error.delete.children.first = Không thể xóa
+error.login = Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng nhập lại.
+error.login.username = Tên đăng nhập là bắt buộc
+error.login.password = Mật khẩu là bắt buộc
+
+errors.invalid=${getText(fieldName)} không hợp lệ.
+errors.required=${getText(fieldName)} là bắt buộc.
+errors.number=${getText(fieldName)} phải là dạng số.
+errors.range=${getText(fieldName)} không nằm trong khoảng ${min} và ${max}.
+
+errors.constraint.alternativeFeeMap.alternativeAmount = ${getText('label.alternativeFeeMap.alternativeAmount')} phải lớn hơn hoặc bằng 0
+errors.constraint.course.years = Năm kết thúc phải lớn hơn năm bắt đầu 4 năm
+errors.constraint.course.startYear = Năm bắt đầu phải lớn hơn 0
+errors.constraint.course.endYear = Năm kết thúc phải lớn hơn 0
+errors.constraint.month.monthName = Tháng phải trong khoảng 1-12
+errors.constraint.month.year = Năm phải lớn hơn 0 
+errors.constraint.feeMap.amount = Số tiền phải lớn hơn 0
+errors.constraint.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} phải lớn hơn hoặc bằng 0
+errors.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} phải lớn hơn hoặc bằng 0
+errors.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} phải lớn hơn hoặc bằng 0
+errors.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} phải lớn hơn hoặc bằng 0
+errors.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} phải lớn hơn hoặc bằng 0
+xwork.default.invalid.fieldvalue= Giá trị không hợp lệ cho thuộc tính "{0}"
+errors.duplication.class = Dữ liệu trùng lặp với niên khóa và mã giống hệt đã tồn tại trong hệ thống
+errors.duplication.course = Dữ liệu trùng lặp với năm bắt đầu và năm kết thúc giống hệt đã tồn tại trong hệ thống
+errors.duplication.feePolicy = Dữ liệu trùng lặp với lớp và tháng giống hệt đã tồn tại trong hệ thống
+errors.duplication.month = Dữ liệu trùng lặp với tháng và năm giống hệt đã tồn tại trong hệ thống
+errors.duplication.payment = Dữ liệu trùng lặp với học sinh và chính sách phí giống hệt đã tồn tại trong hệ thống
+errors.required.class.courseId = Niên khóa là bắt buộc
+errors.required.class.code = Mã là bắt buộc
+errors.required.fee.name = Tên là bắt buộc
+errors.required.feeGroup.name = Tên là bắt buộc
+errors.required.feeMap.amount = Số tiền là bắt buộc
+errors.required.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} là bắt buộc
+errors.required.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} là bắt buộc
+errors.required.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} là bắt buộc
+errors.required.student.name = Tên là bắt buộc
+
+
+# Info
+button.back = Quay lại
+success.model.create = Tạo mới / Cập nhật thành công
+table.no.records = Chưa có dữ liệu
+
