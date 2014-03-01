@@ -29,10 +29,27 @@ public class Helper {
 
 	public static String isMenuItemActive(String menuItem) {
 		String currentActionName = getActionName();
-		if (currentActionName.contains(menuItem))
+		if (currentActionName.equalsIgnoreCase(menuItem))
 			return "current";
 		else
 			return Constant.EMPTY_STRING;
+	}
+
+	public static String isSubMenuItemActive() {
+		String currentActionName = getActionName();
+		String opened = "opened";
+		switch (currentActionName) {
+			case Constant.MENU_ITEM.MONTH:
+			case Constant.MENU_ITEM.FEE_POLICY:
+			case Constant.MENU_ITEM.FEE_GROUP:
+			case Constant.MENU_ITEM.FEE:
+			case Constant.MENU_ITEM.FEE_MAP:
+			case Constant.MENU_ITEM.PAYMENT:
+			case Constant.MENU_ITEM.ALTERNATIVE_FEE_MAP:
+				return opened;
+			default:
+				return Constant.EMPTY_STRING;
+		}
 	}
 
 	/**

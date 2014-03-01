@@ -27,7 +27,7 @@
 		<li><a href="#"> <i class="icon-key"></i>$$$<span
 				class="label label-info pull-right">7</span> <i
 				class="arrow icon-angle-left"></i></a>
-			<ul class="sub-menu">
+			<ul class="sub-menu <%=Helper.isSubMenuItemActive() %>">
 				<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.MONTH)%>"><a
 					href='<s:url action="listMonth"/>'> <i class="icon-calendar"></i>
 						<s:text name="label.month.month" /></a></li>
@@ -43,7 +43,7 @@
 					href='<s:url action="listFee"/>'> <i class="icon-book"></i> <s:text
 							name="label.fee" /></a></li>
 				<li
-					class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.EXTRA_FEE_MAP)%>"><a
+					class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.FEE_MAP)%>"><a
 					href='<s:url action="listFeeMap"/>'> <i
 						class="icon-certificate"></i> <s:text name="label.feeMap" /></a></li>
 				<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.PAYMENT)%>"><a
