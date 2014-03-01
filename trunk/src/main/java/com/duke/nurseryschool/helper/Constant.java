@@ -118,18 +118,17 @@ public final class Constant {
 	}
 
 	public static final class MENU_ITEM {
+		public static final String ALTERNATIVE_FEE_MAP = "listAlternativeFeeChargeMap";
+		public static final String COURSE = "listCourse";
+		public static final String CLASS = "listClasses";
 		public static final String DASHBOARD = "Dashboard";
-		public static final String COURSE = "Course";
-		public static final String CLASS = "Class";
-		public static final String STUDENT = "Student";
-		public static final String PARENT = "Parent";
-		public static final String FEE = "Fee";
-		public static final String FEE_GROUP = "FeeGroup";
-		public static final String MONTH = "Month";
-		public static final String FEE_POLICY = "FeePolicy";
-		public static final String FEE_DETAILS = "FeeDetails";
-		public static final String EXTRA_FEE_MAP = "ExtraFeeMap";
-		public static final String ALTERNATIVE_FEE_MAP = "AlternativeFeeMap";
-		public static final String PAYMENT = "Payment";
+		public static final String FEE = "listFee";
+		public static final String FEE_GROUP = "listFeeGroup";
+		public static final String FEE_MAP = "listFeeMap";
+		public static final String FEE_POLICY = "listFeePolicy";
+		public static final String MONTH = "listMonth";
+		public static final String PARENT = "listParent";
+		public static final String PAYMENT = "listPayment";
+		public static final String STUDENT = "listStudent";
 	}
 }
