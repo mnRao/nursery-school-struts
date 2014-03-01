@@ -7,7 +7,8 @@
 	<ul id="nav">
 		<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.DASHBOARD)%>"><a
 			href="<s:url action="Dashboard"/>"><i class="icon-dashboard"></i>
-				Dashboard </a></li>
+				<s:text
+					name="headTitle.dashboard" /> </a></li>
 		<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.COURSE)%>"><a
 			href='<s:url action="listCourse"/>'> <i class="icon-time"></i> <s:text
 					name="label.course" /></a></li>

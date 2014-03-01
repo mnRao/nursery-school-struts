@@ -16,9 +16,9 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 
 	protected static final int CONTENT_START_ROW = 2;
 	protected static final int CONTENT_LAST_COLUMN = 10;
-	private Month month;
-	private List<String> studentNames;
-	private String feeName;
+	private final Month month;
+	private final List<String> studentNames;
+	private final String feeName;
 
 	public StudentHasSelectedOnlyFeeExcelGenerator(WritableWorkbook workbook,
 			Month month, String feeName, List<String> studentNames) {
@@ -43,8 +43,10 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW,
 				this.generateTopMostHeaderLabel());
 
-		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, "Order");
-		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, "Full name");
+		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ORDER));
+		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NAME));
 
 		this.mergeHeaderCells(sheet);
 	}

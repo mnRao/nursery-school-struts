@@ -46,7 +46,7 @@
 			class="com.duke.nurseryschool.core.LocaleAction">
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
-			<result name="success" type="tiles">Login</result>
+			<result name="success" type="redirect">Dashboard</result>
 		</action>
 		<!-- Authentication -->
 		<action name="*LoginAuth" method="{1}"

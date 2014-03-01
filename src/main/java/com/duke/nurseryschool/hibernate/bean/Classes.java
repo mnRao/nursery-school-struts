@@ -76,6 +76,8 @@ public class Classes implements BeanLabel {
 	}
 
 	public String getCurrentName() {
+		if (this.grade == null)
+			this.grade = Grade.UNIDENTIFIED;
 		return this.grade.getOfficialLabel();
 	}
 
