@@ -24,21 +24,21 @@ import com.opensymphony.xwork2.Preparable;
 public class AlternativeFeeMapAction extends CoreAction implements
 		ModelDriven<AlternativeFeeMap>, Preparable {
 
-	private static final long			serialVersionUID	= 9152332966087222436L;
+	private static final long serialVersionUID = 9152332966087222436L;
 
-	private AlternativeFeeMap			alternativeFeeMap	= new AlternativeFeeMap();
-	private List<AlternativeFeeMap>		alternativeFeeMaps	= new ArrayList<AlternativeFeeMap>();
-	private AlternativeFeeChargeMapDAO	dao					= new AlternativeFeeChargeMapDAO();
+	private AlternativeFeeMap alternativeFeeMap = new AlternativeFeeMap();
+	private List<AlternativeFeeMap> alternativeFeeMaps = new ArrayList<AlternativeFeeMap>();
+	private AlternativeFeeChargeMapDAO dao = new AlternativeFeeChargeMapDAO();
 
-	private PaymentDAO					paymentDAO			= new PaymentDAO();
-	private FeeDAO						feeDAO				= new FeeDAO();
-	private MixedDAO					mixedDAO			= new MixedDAO();
+	private final PaymentDAO paymentDAO = new PaymentDAO();
+	private final FeeDAO feeDAO = new FeeDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private int							paymentId;
-	private int							feeId;
+	private int paymentId;
+	private int feeId;
 
-	private List<Fee>					feeList;
-	private List<Payment>				paymentList;
+	private List<Fee> feeList;
+	private List<Payment> paymentList;
 
 	@Override
 	public AlternativeFeeMap getModel() {
@@ -58,9 +58,7 @@ public class AlternativeFeeMapAction extends CoreAction implements
 		this.dao.saveOrUpdateAlternativeFeeMap(this.alternativeFeeMap);
 
 		// Auto update payment's total fee
-		this.dao.getSession().flush();
-		new PaymentTrigger(this.dao.getSession(), payment)
-				.calculateAndSetTotalFee();
+		this.triggerPaymentRecalculation();
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
@@ -73,7 +71,17 @@ public class AlternativeFeeMapAction extends CoreAction implements
 	@SkipValidation
 	public String delete() {
 		this.dao.deleteAlternativeFeeMap(this.paymentId, this.feeId);
+		// Auto update payment's total fee
+		this.triggerPaymentRecalculation();
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	private void triggerPaymentRecalculation() {
+		this.dao.getSession().flush();
+		new PaymentTrigger(this.dao.getSession(),
+				this.paymentDAO.getPayment(this.paymentId))
+				.calculateAndSetTotalFee();
 	}
 
 	@SkipValidation
