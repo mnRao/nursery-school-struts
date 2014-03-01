@@ -14,11 +14,11 @@ import com.duke.nurseryschool.hibernate.bean.Month;
 
 public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 
-	protected static final int	CONTENT_START_ROW	= 2;
-	protected static final int	CONTENT_LAST_COLUMN	= 10;
+	protected static final int CONTENT_START_ROW = 2;
+	protected static final int CONTENT_LAST_COLUMN = 10;
 
-	private List<String>		studentNames;
-	private Month				month;
+	private final List<String> studentNames;
+	private final Month month;
 
 	public StudentHasBreakfastExcelGenerator(WritableWorkbook workbook,
 			Month month, List<String> studentNames) {
@@ -42,8 +42,10 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW,
 				this.generateTopMostHeaderLabel());
 
-		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, "Order");
-		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, "Full name");
+		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ORDER));
+		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NAME));
 
 		this.mergeHeaderCells(sheet);
 	}

@@ -32,30 +32,30 @@ import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class PaymentExcelGenerator extends ExcelManager {
 
-	private Classes				associatedClass;
-	private Month				month;
-	private List<Payment>		payments						= new ArrayList<Payment>();
-	private List<FeeMap>		feeMaps							= new ArrayList<FeeMap>();
-	private FeePolicy			feePolicy;
+	private final Classes associatedClass;
+	private final Month month;
+	private final List<Payment> payments = new ArrayList<Payment>();
+	private final List<FeeMap> feeMaps = new ArrayList<FeeMap>();
+	private final FeePolicy feePolicy;
 
-	private List<FeeGroup>		feeGroups						= new ArrayList<FeeGroup>();
-	private List<Fee>			fees							= new ArrayList<Fee>();
-	private List<Fee>			staticFees						= new ArrayList<Fee>();
+	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
+	private List<Fee> fees = new ArrayList<Fee>();
+	private List<Fee> staticFees = new ArrayList<Fee>();
 
-	private int					lastColumn;
+	private int lastColumn;
 	// private int extraFeeStartCol;
-	private int					otherStartCol;
+	private int otherStartCol;
 
-	private Session				session;
-	private Transaction			transaction;
-	private MixedDAO			mixedDAO						= new MixedDAO();
+	private final Session session;
+	private final Transaction transaction;
+	private final MixedDAO mixedDAO = new MixedDAO();
 
 	// Positions for elements
-	private static final int	HEADER_NORMAL_SPANNED_ROW		= 2;
-	protected static final int	CONTENT_START_ROW				= 3;
-	private static final int	CONTENT_STATIC_FEES_START_COL	= 5;
+	private static final int HEADER_NORMAL_SPANNED_ROW = 2;
+	protected static final int CONTENT_START_ROW = 3;
+	private static final int CONTENT_STATIC_FEES_START_COL = 5;
 
-	private static final int	TRIVIAL_LAST_COLUMNS_SIZE		= 3;
+	private static final int TRIVIAL_LAST_COLUMNS_SIZE = 3;
 
 	public PaymentExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy)
 			throws IllegalStateException {
@@ -99,15 +99,19 @@ public class PaymentExcelGenerator extends ExcelManager {
 						this.month.getYear(), this.associatedClass.getLabel(),
 						this.feePolicy));
 
-		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, "Order");
-		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, "Full name");
+		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ORDER));
+		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NAME));
 
-		this.addCaption(sheet, 2, HEADER_NORMAL_ROW, "Meal");
-		this.addCaption(sheet, 2, HEADER_NORMAL_SPANNED_ROW, "Absence count");
-		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW,
-				"Total normal meal fee");
-		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW,
-				"Total breakfast fee");
+		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_MEAL));
+		this.addCaption(sheet, 2, HEADER_NORMAL_SPANNED_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ABSENCECOUNT));
+		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW, Helper
+				.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE));
+		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW, Helper
+				.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTALBREAKFASTFEE));
 
 		// Static fees
 		int dynamicCol = CONTENT_STATIC_FEES_START_COL;
@@ -132,13 +136,14 @@ public class PaymentExcelGenerator extends ExcelManager {
 		}
 
 		// Others
-		this.addCaption(sheet, this.otherStartCol, HEADER_NORMAL_ROW, "Total");
+		this.addCaption(sheet, this.otherStartCol, HEADER_NORMAL_ROW,
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTAL));
 		this.addCaption(sheet, this.otherStartCol + 1, HEADER_NORMAL_ROW,
-				"Paid Date");
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_PAIDDATE));
 		this.addCaption(sheet, this.otherStartCol + 2, HEADER_NORMAL_ROW,
-				"Signature");
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_SIGNATURE));
 		this.addCaption(sheet, this.otherStartCol + 3, HEADER_NORMAL_ROW,
-				"Note");
+				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NOTE));
 
 		// Merge cells
 		this.mergeHeaderCells(sheet);
