@@ -59,14 +59,23 @@ public final class Constant {
 		public static final String ERROR_DUPLICATION_FEEPOLICY = "errors.duplication.feePolicy";
 		public static final String ERROR_DUPLICATION_MONTH = "errors.duplication.month";
 		public static final String ERROR_DUPLICATION_PAYMENT = "errors.duplication.payment";
+		public static final String ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID = "errors.required.alternativeFeeMap.feeId";
+		public static final String ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID = "errors.required.alternativeFeeMap.paymentId";
 		public static final String ERROR_REQUIRED_FEE_NAME = "errors.required.fee.name";
 		public static final String ERROR_REQUIRED_FEEGROUP_NAME = "errors.required.feeGroup.name";
+		public static final String ERROR_REQUIRED_FEEMAP_FEEID = "errors.required.feeMap.feeId";
+		public static final String ERROR_REQUIRED_FEEMAP_FEEPOLICYID = "errors.required.feeMap.feePolicyId";
 		public static final String ERROR_REQUIRED_FEEMAP_AMOUNT = "errors.required.feeMap.amount";
+		public static final String ERROR_REQUIRED_FEEPOLICY_CLASSID = "errors.required.feePolicy.classId";
+		public static final String ERROR_REQUIRED_FEEPOLICY_MONTHID = "errors.required.feePolicy.monthId";
 		public static final String ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL = "errors.required.feePolicy.feePerNormalMeal";
 		public static final String ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE = "errors.required.feePolicy.totalBreakfastFee";
 		public static final String ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.required.feePolicy.penaltyFeePerBreakfast";
 		public static final String ERROR_REQUIRED_CLASS_COURSEID = "errors.required.class.courseId";
 		public static final String ERROR_REQUIRED_CLASS_CODE = "errors.required.class.code";
+		public static final String ERROR_REQUIRED_PAYMENT_STUDENTID = "errors.required.payment.studentId";
+		public static final String ERROR_REQUIRED_PAYMENT_FEEPOLICYID = "errors.required.payment.feePolicyId";
+		public static final String ERROR_REQUIRED_STUDENT_CLASSID = "errors.required.student.classId";
 		public static final String ERROR_REQUIRED_STUDENT_NAME = "errors.required.student.name";
 
 		public static final String SUCCESS_RECORD_CREATE_UPDATE = "success.model.create";

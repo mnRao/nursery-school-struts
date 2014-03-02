@@ -90,6 +90,14 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	@Override
 	public void validate() {
 		BigDecimal amount = this.feeMap.getAmount();
+		if (this.feeId == 0) {
+			this.addFieldError("feeMap.feeId",
+					this.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_FEEID));
+		}
+		if (this.feePolicyId == 0) {
+			this.addFieldError("feeMap.feePolicyId", this
+					.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_FEEPOLICYID));
+		}
 		if (amount == null) {
 			this.addFieldError("feeMap.amount",
 					this.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_AMOUNT));

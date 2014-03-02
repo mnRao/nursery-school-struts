@@ -26,7 +26,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	private final StudentDAO dao = new StudentDAO();
 	private final ClassesDAO classesDAO = new ClassesDAO();
 
-	private String classId;
+	private int classId;
 	private List<Classes> classList;
 
 	@Override
@@ -40,8 +40,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 						.getParameter("studentId"))));
 
 		// Set class based on ID
-		Classes associatedClass = this.classesDAO.getClasses(Integer
-				.parseInt(this.classId));
+		Classes associatedClass = this.classesDAO.getClasses(this.classId);
 		this.student.setAssociatedClass(associatedClass);
 
 		this.dao.saveOrUpdateStudent(this.student);
@@ -76,14 +75,17 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	public String edit() {
 		this.student = this.dao.getStudent(Integer.parseInt(this.request
 				.getParameter("studentId")));
-		this.classId = String.valueOf(this.student.getAssociatedClass()
-				.getClassId());
+		this.classId = this.student.getAssociatedClass().getClassId();
 
 		return Action.SUCCESS;
 	}
 
 	@Override
 	public void validate() {
+		if (this.classId == 0) {
+			this.addFieldError("student.classId",
+					this.getText(Constant.I18N.ERROR_REQUIRED_STUDENT_CLASSID));
+		}
 		if (StringUtil.isEmpty(this.student.getName().trim())) {
 			this.addFieldError("student.name",
 					this.getText(Constant.I18N.ERROR_REQUIRED_STUDENT_NAME));
@@ -130,11 +132,11 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 		this.students = students;
 	}
 
-	public String getClassId() {
+	public int getClassId() {
 		return this.classId;
 	}
 
-	public void setClassId(String classId) {
+	public void setClassId(int classId) {
 		this.classId = classId;
 	}
 
