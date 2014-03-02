@@ -27,21 +27,21 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long	serialVersionUID	= -9145112354887960316L;
+	private static final long serialVersionUID = -9145112354887960316L;
 
-	private FeePolicy			feePolicy			= new FeePolicy();
-	private List<FeePolicy>		feePolicies			= new ArrayList<FeePolicy>();
-	private FeePolicyDAO		dao					= new FeePolicyDAO();
-	private ClassesDAO			classesDAO			= new ClassesDAO();
-	private MonthDAO			monthDAO			= new MonthDAO();
-	private FeeMapDAO			feeMapDAO			= new FeeMapDAO();
-	private MixedDAO			mixedDAO			= new MixedDAO();
+	private FeePolicy feePolicy = new FeePolicy();
+	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
+	private final FeePolicyDAO dao = new FeePolicyDAO();
+	private final ClassesDAO classesDAO = new ClassesDAO();
+	private final MonthDAO monthDAO = new MonthDAO();
+	private final FeeMapDAO feeMapDAO = new FeeMapDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private int					classId;
-	private int					monthId;
+	private int classId;
+	private int monthId;
 
-	private List<Classes>		classList;
-	private List<Month>			monthList;
+	private List<Classes> classList;
+	private List<Month> monthList;
 
 	@Override
 	public FeePolicy getModel() {
@@ -133,6 +133,14 @@ public class FeePolicyAction extends CoreAction implements
 		BigDecimal totalBreakfastFee = this.feePolicy.getTotalBreakfastFee();
 		BigDecimal penaltyFeePerBreakfast = this.feePolicy
 				.getPenaltyFeePerBreakfast();
+		if (this.classId == 0) {
+			this.addFieldError("feePolicy.classId", this
+					.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_CLASSID));
+		}
+		if (this.monthId == 0) {
+			this.addFieldError("feePolicy.monthId", this
+					.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_MONTHID));
+		}
 		if (feePerNormalMeal == null) {
 			this.addFieldError(
 					"feePolicy.feePerNormalMeal",

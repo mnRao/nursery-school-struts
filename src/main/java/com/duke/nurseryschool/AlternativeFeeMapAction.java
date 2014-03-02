@@ -100,6 +100,16 @@ public class AlternativeFeeMapAction extends CoreAction implements
 	public void validate() {
 		BigDecimal alternativeAmount = this.alternativeFeeMap
 				.getAlternativeAmount();
+		if (this.feeId == 0) {
+			this.addFieldError(
+					"alternativeFeeMap.feeId",
+					this.getText(Constant.I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID));
+		}
+		if (this.paymentId == 0) {
+			this.addFieldError(
+					"alternativeFeeMap.paymentId",
+					this.getText(Constant.I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID));
+		}
 		if (alternativeAmount != null && alternativeAmount.doubleValue() < 0) {
 			this.addFieldError(
 					"alternativeFeeMap.alternativeAmount",
