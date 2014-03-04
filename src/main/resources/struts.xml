@@ -161,14 +161,17 @@
 		<action name="*AlternativeFeeChargeMap" method="{1}"
 			class="com.duke.nurseryschool.AlternativeFeeMapAction">
 			<result name="success" type="tiles">AlternativeFeeMap</result>
-			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap</result>
+			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap
+			</result>
 			<result name="input" type="tiles">AlternativeFeeMap</result>
 		</action>
 		<!-- Excel Generator -->
-		<action name="*GenerateExcel" method="{1}" class="com.duke.nurseryschool.ExcelGeneratorAction">
+		<action name="*GenerateExcel" method="{1}"
+			class="com.duke.nurseryschool.ExcelGeneratorAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
-				<param name="contentType">appliation/vnd.ms-excel</param>
+				<!-- <param name="contentType">appliation/vnd.ms-excel</param> -->
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
 				<param name="inputName">fileInputStream</param>
 				<param name="bufferSize">1024</param>
 			</result>
