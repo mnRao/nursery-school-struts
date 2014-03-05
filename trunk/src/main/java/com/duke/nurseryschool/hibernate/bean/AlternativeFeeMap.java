@@ -11,7 +11,7 @@ import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
 
 @Entity
 @Table(name = "alternative_fee_map")
-public class AlternativeFeeMap {
+public class AlternativeFeeMap implements Cloneable {
 
 	@Column(name = "alternativeAmount", columnDefinition = "Decimal(10,1) default '0.0'")
 	private BigDecimal alternativeAmount;
@@ -20,6 +20,16 @@ public class AlternativeFeeMap {
 	private PaymentFee paymentFee;
 
 	public AlternativeFeeMap() {
+	}
+
+	protected AlternativeFeeMap clone(Payment newPayment)
+			throws CloneNotSupportedException {
+		AlternativeFeeMap newAltFeeMap = (AlternativeFeeMap) this.clone();
+		// Point to new payment
+		newAltFeeMap.setPaymentFee(new PaymentFee(newPayment, this.paymentFee
+				.getFee()));
+
+		return newAltFeeMap;
 	}
 
 	public BigDecimal getAlternativeAmount() {

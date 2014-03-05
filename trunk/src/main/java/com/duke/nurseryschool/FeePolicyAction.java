@@ -2,6 +2,7 @@ package com.duke.nurseryschool;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,16 +11,19 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
+import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Payment;
+import com.duke.nurseryschool.hibernate.dao.AlternativeFeeChargeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.MonthDAO;
+import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -27,23 +31,25 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long	serialVersionUID	= -9145112354887960316L;
+	private static final long serialVersionUID = -9145112354887960316L;
 
-	private FeePolicy			feePolicy			= new FeePolicy();
-	private List<FeePolicy>		feePolicies			= new ArrayList<FeePolicy>();
-	private final FeePolicyDAO	dao					= new FeePolicyDAO();
-	private final ClassesDAO	classesDAO			= new ClassesDAO();
-	private final MonthDAO		monthDAO			= new MonthDAO();
-	private final FeeMapDAO		feeMapDAO			= new FeeMapDAO();
-	private final MixedDAO		mixedDAO			= new MixedDAO();
+	private FeePolicy feePolicy = new FeePolicy();
+	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
+	private final FeePolicyDAO dao = new FeePolicyDAO();
+	private final ClassesDAO classesDAO = new ClassesDAO();
+	private final MonthDAO monthDAO = new MonthDAO();
+	private final FeeMapDAO feeMapDAO = new FeeMapDAO();
+	private final PaymentDAO paymentDAO = new PaymentDAO();
+	private final AlternativeFeeChargeMapDAO altFeeMapDAO = new AlternativeFeeChargeMapDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private int					classId;
-	private int					monthId;
+	private int classId;
+	private int monthId;
 
-	private List<Classes>		classList;
-	private List<Month>			monthList;
+	private List<Classes> classList;
+	private List<Month> monthList;
 
-	private int					feePolicyIdToClone;
+	private int feePolicyIdToClone;
 
 	@Override
 	public FeePolicy getModel() {
@@ -129,6 +135,7 @@ public class FeePolicyAction extends CoreAction implements
 		return this.list();
 	}
 
+	
 	@SkipValidation
 	public String clone() {
 		this.feePolicyIdToClone = Integer.parseInt(this.request
@@ -178,14 +185,36 @@ public class FeePolicyAction extends CoreAction implements
 		// TODO Clone
 		FeePolicy newFeePolicy = feePolicyToClone.clone(newAssociatedClass,
 				newMonth);
-		Set<FeeMap> newFeeMaps = feePolicyToClone.cloneFeeMaps(newFeePolicy);
 
-		// Validate then save
+		Set<Payment> newPayments = feePolicyToClone.clonePayments(newFeePolicy);
+		// Combine alternative fee map sets
+		Set<AlternativeFeeMap> allAlternativeFeeMaps = new HashSet<AlternativeFeeMap>();
+		for (Payment newPayment : newPayments) {
+			allAlternativeFeeMaps.addAll(newPayment.getAlternativeFeeMaps());
+		}
+
+		// Validate then save fee policy
 		this.checkUniqueness();
 		this.dao.saveOrUpdateFeePolicy(newFeePolicy);
 		this.dao.getSession().flush();
+
+		Set<FeeMap> newFeeMaps = feePolicyToClone.cloneFeeMaps(newFeePolicy);
+		// Save new fee maps
 		for (FeeMap newFeeMap : newFeeMaps) {
 			this.feeMapDAO.saveOrUpdateFeeMap(newFeeMap);
+		}
+		this.dao.getSession().flush();
+		// Save payments
+		for (Payment newPayment : newPayments) {
+			// Set null to add later
+			newPayment.setAlternativeFeeMaps(null);
+			this.paymentDAO.saveOrUpdatePayment(newPayment);
+			this.dao.getSession().flush();
+		}
+		this.dao.getSession().flush();
+		// Save alternative fee maps
+		for (AlternativeFeeMap newAltFeeMap : allAlternativeFeeMaps) {
+			this.altFeeMapDAO.saveOrUpdateAlternativeFeeMap(newAltFeeMap);
 		}
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -242,7 +271,7 @@ public class FeePolicyAction extends CoreAction implements
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS));
 		}
 		// Check for uniqueness
-		checkUniqueness();
+		this.checkUniqueness();
 
 		super.validate();
 	}
@@ -326,7 +355,7 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	public int getFeePolicyIdToClone() {
-		return feePolicyIdToClone;
+		return this.feePolicyIdToClone;
 	}
 
 	public void setFeePolicyIdToClone(int feePolicyIdToClone) {
