@@ -15,37 +15,38 @@ import javax.persistence.Table;
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
+import com.duke.nurseryschool.hibernate.bean.embedded.FeePolicyFee;
 
 @Entity
 @Table(name = "payment")
-public class Payment implements BeanLabel {
+public class Payment implements BeanLabel, Cloneable {
 	@Id
 	@GeneratedValue
-	private int paymentId;
+	private int						paymentId;
 	@Column(name = "absenceCount")
-	private int absenceCount;
+	private int						absenceCount;
 	@Column(name = "hasBreakfast")
-	private int hasBreakfast;
+	private int						hasBreakfast;
 	@Column(name = "totalNormalMealFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalNormalMealFee;
+	private BigDecimal				totalNormalMealFee;
 	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalBreakfastFee;
+	private BigDecimal				totalBreakfastFee;
 	@Column(name = "totalFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalFee;
+	private BigDecimal				totalFee;
 	@Column(name = "isPaid")
-	private int isPaid;
+	private int						isPaid;
 	@Column(name = "note")
-	private String note;
+	private String					note;
 
 	@ManyToOne
 	@JoinColumn(name = "feePolicyId")
-	private FeePolicy feePolicy;
+	private FeePolicy				feePolicy;
 	@ManyToOne
 	@JoinColumn(name = "studentId")
-	private Student student;
+	private Student					student;
 
 	@OneToMany(mappedBy = "paymentFee.payment")
-	private Set<AlternativeFeeMap> alternativeFeeMaps;
+	private Set<AlternativeFeeMap>	alternativeFeeMaps;
 
 	public Payment() {
 	}
@@ -62,6 +63,15 @@ public class Payment implements BeanLabel {
 		}
 
 		return label.toString();
+	}
+
+	private Payment clone(FeePolicy newFeePolicy)
+			throws CloneNotSupportedException {
+		Payment newPayment = (Payment) this.clone();
+		// Point new fee policy to same inherent fee
+		newPayment.setFeePolicy(newFeePolicy);
+
+		return newPayment;
 	}
 
 	public int getPaymentId() {

@@ -24,6 +24,7 @@ public final class Constant {
 	public static final class ACTION_RESULT {
 		public static final String	SUCCESS_REDIRECT	= "successRedirect";
 		public static final String	CLONE				= "clone";
+		public static final String	CLONE_ALL			= "cloneAll";
 	}
 
 	public static final class TAG {

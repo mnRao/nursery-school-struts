@@ -12,7 +12,7 @@
 			<div class="widget-content">
 				<div class="panel">
 					<div class="panel-body">
-						<s:form action="performCloneFeePolicy" cssClass="form-horizontal">
+						<s:form action="performCloneAllFeePolicy" cssClass="form-horizontal">
 							<fieldset>
 								<legend class="section">
 									<s:text name="form.legend" />

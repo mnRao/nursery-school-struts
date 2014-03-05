@@ -30,8 +30,8 @@ import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class TestHibernate {
 
-	private SessionFactory sessionFactory;
-	private Session session;
+	private SessionFactory	sessionFactory;
+	private Session			session;
 
 	@Before
 	public void setUp() throws Exception {
@@ -75,10 +75,10 @@ public class TestHibernate {
 		Fee subject1 = new Fee("First Subject");
 		this.session.save(subject1);
 
-		FeePolicy feeDetails1 = new FeePolicy();
-		feeDetails1.setAssociatedClass(class1);
-		feeDetails1.setMonth(month1);
-		this.session.save(feeDetails1);
+		FeePolicy feePolicy2 = new FeePolicy();
+		feePolicy2.setAssociatedClass(class1);
+		feePolicy2.setMonth(month1);
+		this.session.save(feePolicy2);
 
 		this.session.flush();
 
@@ -104,15 +104,15 @@ public class TestHibernate {
 		// Assert embedded
 		List<FeePolicy> feePolicies = this.session.createQuery(
 				Constant.DATABASE_QUERY.ALL_FEE_POLICIES).list();
-		assertEquals(1, feePolicies.size());
+		assertEquals(2, feePolicies.size());
 		assertEquals("Code 1", feePolicies.get(0).getAssociatedClass()
 				.getCode());
 		assertEquals(1991, feePolicies.get(0).getMonth().getYear());
 
-		// Assert subject fee map
-		List<AlternativeFeeMap> subjectFeeMaps = this.session.createQuery(
-				Constant.DATABASE_QUERY.ALL_ALTERNATIVE_FEE_MAPS).list();
-		assertEquals(1, subjectFeeMaps.size());
+		// Assert fee map
+		// List<AlternativeFeeMap> subjectFeeMaps = this.session.createQuery(
+		// Constant.DATABASE_QUERY.ALL_ALTERNATIVE_FEE_MAPS).list();
+		// assertEquals(1, subjectFeeMaps.size());
 	}
 
 	@After
