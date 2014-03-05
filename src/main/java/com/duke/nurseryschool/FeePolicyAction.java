@@ -3,15 +3,15 @@ package com.duke.nurseryschool;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
-import org.hibernate.classic.Session;
 
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
-import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Payment;
@@ -27,21 +27,23 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long serialVersionUID = -9145112354887960316L;
+	private static final long	serialVersionUID	= -9145112354887960316L;
 
-	private FeePolicy feePolicy = new FeePolicy();
-	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
-	private final FeePolicyDAO dao = new FeePolicyDAO();
-	private final ClassesDAO classesDAO = new ClassesDAO();
-	private final MonthDAO monthDAO = new MonthDAO();
-	private final FeeMapDAO feeMapDAO = new FeeMapDAO();
-	private final MixedDAO mixedDAO = new MixedDAO();
+	private FeePolicy			feePolicy			= new FeePolicy();
+	private List<FeePolicy>		feePolicies			= new ArrayList<FeePolicy>();
+	private final FeePolicyDAO	dao					= new FeePolicyDAO();
+	private final ClassesDAO	classesDAO			= new ClassesDAO();
+	private final MonthDAO		monthDAO			= new MonthDAO();
+	private final FeeMapDAO		feeMapDAO			= new FeeMapDAO();
+	private final MixedDAO		mixedDAO			= new MixedDAO();
 
-	private int classId;
-	private int monthId;
+	private int					classId;
+	private int					monthId;
 
-	private List<Classes> classList;
-	private List<Month> monthList;
+	private List<Classes>		classList;
+	private List<Month>			monthList;
+
+	private int					feePolicyIdToClone;
 
 	@Override
 	public FeePolicy getModel() {
@@ -127,6 +129,37 @@ public class FeePolicyAction extends CoreAction implements
 		return this.list();
 	}
 
+	@SkipValidation
+	public String clone() {
+		this.feePolicyIdToClone = Integer.parseInt(this.request
+				.getParameter("feePolicyId"));
+
+		return Constant.ACTION_RESULT.CLONE;
+	}
+
+	@SkipValidation
+	public String performClone() throws CloneNotSupportedException {
+		FeePolicy feePolicyToClone = this.dao.getFeePolicy(Integer
+				.parseInt(this.request.getParameter("feePolicyIdToClone")));
+		Classes newAssociatedClass = this.classesDAO.getClasses(this.classId);
+		Month newMonth = this.monthDAO.getMonth(this.monthId);
+
+		// TODO Clone
+		FeePolicy newFeePolicy = feePolicyToClone.clone(newAssociatedClass,
+				newMonth);
+		Set<FeeMap> newFeeMaps = feePolicyToClone.cloneFeeMaps(newFeePolicy);
+
+		// Validate then save
+		this.checkUniqueness();
+		this.dao.saveOrUpdateFeePolicy(newFeePolicy);
+		this.dao.getSession().flush();
+		for (FeeMap newFeeMap : newFeeMaps) {
+			this.feeMapDAO.saveOrUpdateFeeMap(newFeeMap);
+		}
+
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
 	@Override
 	public void validate() {
 		BigDecimal feePerNormalMeal = this.feePolicy.getFeePerNormalMeal();
@@ -178,13 +211,17 @@ public class FeePolicyAction extends CoreAction implements
 					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS));
 		}
 		// Check for uniqueness
+		checkUniqueness();
+
+		super.validate();
+	}
+
+	private void checkUniqueness() {
 		if (this.dao.hasDuplicates(this.feePolicy.getFeePolicyId(),
 				this.classId, this.monthId)) {
 			this.addFieldError("classId",
 					this.getText(Constant.I18N.ERROR_DUPLICATION_FEEPOLICY));
 		}
-
-		super.validate();
 	}
 
 	@Override
@@ -255,6 +292,14 @@ public class FeePolicyAction extends CoreAction implements
 
 	public void setMonthList(List<Month> monthList) {
 		this.monthList = monthList;
+	}
+
+	public int getFeePolicyIdToClone() {
+		return feePolicyIdToClone;
+	}
+
+	public void setFeePolicyIdToClone(int feePolicyIdToClone) {
+		this.feePolicyIdToClone = feePolicyIdToClone;
 	}
 
 }

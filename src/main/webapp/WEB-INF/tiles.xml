@@ -77,6 +77,11 @@
 		<put-attribute name="body" value="/FeePolicy.jsp" />
 	</definition>
 	
+	<definition name="CloneFeePolicy" extends="MainLayout">
+		<put-attribute name="headTitle" value="headTitle.feePolicy.clone" />
+		<put-attribute name="body" value="/CloneFeePolicy.jsp" />
+	</definition>
+	
 	<definition name="Payment" extends="MainLayout">
 		<put-attribute name="headTitle" value="headTitle.payment" />
 		<put-attribute name="body" value="/Payment.jsp" />
