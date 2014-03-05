@@ -133,6 +133,7 @@
 		<action name="*FeePolicy" method="{1}"
 			class="com.duke.nurseryschool.FeePolicyAction">
 			<result name="clone" type="tiles">CloneFeePolicy</result>
+			<result name="cloneAll" type="tiles">CloneAllFeePolicy</result>
 			<result name="success" type="tiles">FeePolicy</result>
 			<result name="successRedirect" type="redirect">listFeePolicy</result>
 			<result name="input" type="tiles">FeePolicy</result>

@@ -83,6 +83,10 @@
 												<s:param name="feePolicyId" value="%{feePolicyId}"/>
 											</s:url>
 											<s:a cssClass="btn btn-sm btn-warning" href="%{cloneUrl}"><s:text name="grid.action.clone"/></s:a>
+											<s:url id="cloneAllUrl" action="cloneAllFeePolicy">
+												<s:param name="feePolicyId" value="%{feePolicyId}"/>
+											</s:url>
+											<s:a cssClass="btn btn-sm btn-warning" href="%{cloneAllUrl}"><s:text name="grid.action.cloneAll"/></s:a>
 											
 											<!-- 											Show Fee Maps--> <s:a
 												href="#myModal%{feePolicyId}" data-toggle="modal"

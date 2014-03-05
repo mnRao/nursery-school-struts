@@ -138,7 +138,38 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	@SkipValidation
+	public String cloneAll() {
+		this.feePolicyIdToClone = Integer.parseInt(this.request
+				.getParameter("feePolicyId"));
+
+		return Constant.ACTION_RESULT.CLONE_ALL;
+	}
+
+	@SkipValidation
 	public String performClone() throws CloneNotSupportedException {
+		FeePolicy feePolicyToClone = this.dao.getFeePolicy(Integer
+				.parseInt(this.request.getParameter("feePolicyIdToClone")));
+		Classes newAssociatedClass = this.classesDAO.getClasses(this.classId);
+		Month newMonth = this.monthDAO.getMonth(this.monthId);
+
+		// TODO Clone
+		FeePolicy newFeePolicy = feePolicyToClone.clone(newAssociatedClass,
+				newMonth);
+		Set<FeeMap> newFeeMaps = feePolicyToClone.cloneFeeMaps(newFeePolicy);
+
+		// Validate then save
+		this.checkUniqueness();
+		this.dao.saveOrUpdateFeePolicy(newFeePolicy);
+		this.dao.getSession().flush();
+		for (FeeMap newFeeMap : newFeeMaps) {
+			this.feeMapDAO.saveOrUpdateFeeMap(newFeeMap);
+		}
+
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String performCloneAll() throws CloneNotSupportedException {
 		FeePolicy feePolicyToClone = this.dao.getFeePolicy(Integer
 				.parseInt(this.request.getParameter("feePolicyIdToClone")));
 		Classes newAssociatedClass = this.classesDAO.getClasses(this.classId);

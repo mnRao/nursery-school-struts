@@ -89,6 +89,18 @@ public class FeePolicy implements BeanLabel, Cloneable {
 		return newFeeMapsSet;
 	}
 
+	public Set<Payment> clonePayments(FeePolicy newFeePolicy)
+			throws CloneNotSupportedException {
+		List<Payment> newPayments = new ArrayList<Payment>();
+		for (Payment payment : this.payments) {
+			newPayments.add(payment.clone(newFeePolicy));
+		}
+		// Convert list to set
+		Set<Payment> newPaymentsSet = new HashSet<Payment>(newPayments);
+
+		return newPaymentsSet;
+	}
+
 	public int getFeePolicyId() {
 		return this.feePolicyId;
 	}
