@@ -10,7 +10,6 @@ import org.hibernate.criterion.Restrictions;
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
-import com.duke.nurseryschool.hibernate.bean.Course;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 

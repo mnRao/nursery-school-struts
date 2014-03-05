@@ -11,14 +11,24 @@ import com.duke.nurseryschool.hibernate.bean.embedded.FeePolicyFee;
 
 @Entity
 @Table(name = "fee_map")
-public class FeeMap {
+public class FeeMap implements Cloneable {
 	@Column(name = "amount", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal amount;
+	private BigDecimal		amount;
 
 	@EmbeddedId
-	private FeePolicyFee feePolicyFee;
+	private FeePolicyFee	feePolicyFee;
 
 	public FeeMap() {
+	}
+
+	protected FeeMap clone(FeePolicy newFeePolicy)
+			throws CloneNotSupportedException {
+		FeeMap newFeeMap = (FeeMap) this.clone();
+		// Point new fee policy to same inherent fee
+		newFeeMap.setFeePolicyFee(new FeePolicyFee(newFeePolicy, newFeeMap
+				.getFeePolicyFee().getFee()));
+
+		return newFeeMap;
 	}
 
 	public BigDecimal getAmount() {

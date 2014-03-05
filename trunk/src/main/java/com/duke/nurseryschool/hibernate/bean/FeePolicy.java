@@ -1,6 +1,9 @@
 package com.duke.nurseryschool.hibernate.bean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,31 +20,31 @@ import com.duke.nurseryschool.helper.Constant;
 
 @Entity
 @Table(name = "fee_policy")
-public class FeePolicy implements BeanLabel {
+public class FeePolicy implements BeanLabel, Cloneable {
 	@Id
 	@GeneratedValue
-	private int feePolicyId;
+	private int				feePolicyId;
 	@Column(name = "feePerNormalMeal", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal feePerNormalMeal;
+	private BigDecimal		feePerNormalMeal;
 	@Column(name = "penaltyFeePerBreakfast", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal penaltyFeePerBreakfast;
+	private BigDecimal		penaltyFeePerBreakfast;
 	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalBreakfastFee;
+	private BigDecimal		totalBreakfastFee;
 	@Column(name = "availableDays")
-	private int availableDays;
+	private int				availableDays;
 
 	@ManyToOne
 	@JoinColumn(name = "classId")
-	private Classes associatedClass;
+	private Classes			associatedClass;
 	@ManyToOne
 	@JoinColumn(name = "monthId")
-	private Month month;
+	private Month			month;
 
 	@OneToMany(mappedBy = "feePolicy")
-	private Set<Payment> payments;
+	private Set<Payment>	payments;
 
 	@OneToMany(mappedBy = "feePolicyFee.feePolicy")
-	private Set<FeeMap> feeMaps;
+	private Set<FeeMap>		feeMaps;
 
 	public FeePolicy() {
 
@@ -58,6 +61,32 @@ public class FeePolicy implements BeanLabel {
 					this.month.getLabel());
 		}
 		return label.toString();
+	}
+
+	public FeePolicy clone(Classes associatedClass, Month month)
+			throws CloneNotSupportedException {
+		FeePolicy newFeePolicy = (FeePolicy) this.clone();
+		// Set new attributes
+		newFeePolicy.setAssociatedClass(associatedClass);
+		newFeePolicy.setMonth(month);
+		// Reset
+		newFeePolicy.setFeePolicyId(0);
+		newFeePolicy.setPayments(null);
+		newFeePolicy.setFeeMaps(null);
+
+		return newFeePolicy;
+	}
+
+	public Set<FeeMap> cloneFeeMaps(FeePolicy newFeePolicy)
+			throws CloneNotSupportedException {
+		List<FeeMap> newFeeMaps = new ArrayList<FeeMap>();
+		for (FeeMap feeMap : this.feeMaps) {
+			newFeeMaps.add(feeMap.clone(newFeePolicy));
+		}
+		// Convert list to set
+		Set<FeeMap> newFeeMapsSet = new HashSet<FeeMap>(newFeeMaps);
+
+		return newFeeMapsSet;
 	}
 
 	public int getFeePolicyId() {

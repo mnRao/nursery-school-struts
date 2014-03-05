@@ -132,6 +132,7 @@
 		<!-- Fee Policy -->
 		<action name="*FeePolicy" method="{1}"
 			class="com.duke.nurseryschool.FeePolicyAction">
+			<result name="clone" type="tiles">CloneFeePolicy</result>
 			<result name="success" type="tiles">FeePolicy</result>
 			<result name="successRedirect" type="redirect">listFeePolicy</result>
 			<result name="input" type="tiles">FeePolicy</result>
@@ -170,8 +171,7 @@
 			class="com.duke.nurseryschool.ExcelGeneratorAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
-				<!-- <param name="contentType">appliation/vnd.ms-excel</param> -->
-				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="contentType">application/vnd.ms-excel</param>
 				<param name="inputName">fileInputStream</param>
 				<param name="bufferSize">1024</param>
 			</result>
