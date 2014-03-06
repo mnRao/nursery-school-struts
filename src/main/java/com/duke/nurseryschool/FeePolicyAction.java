@@ -31,25 +31,25 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long serialVersionUID = -9145112354887960316L;
+	private static final long					serialVersionUID	= -9145112354887960316L;
 
-	private FeePolicy feePolicy = new FeePolicy();
-	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
-	private final FeePolicyDAO dao = new FeePolicyDAO();
-	private final ClassesDAO classesDAO = new ClassesDAO();
-	private final MonthDAO monthDAO = new MonthDAO();
-	private final FeeMapDAO feeMapDAO = new FeeMapDAO();
-	private final PaymentDAO paymentDAO = new PaymentDAO();
-	private final AlternativeFeeChargeMapDAO altFeeMapDAO = new AlternativeFeeChargeMapDAO();
-	private final MixedDAO mixedDAO = new MixedDAO();
+	private FeePolicy							feePolicy			= new FeePolicy();
+	private List<FeePolicy>						feePolicies			= new ArrayList<FeePolicy>();
+	private final FeePolicyDAO					dao					= new FeePolicyDAO();
+	private final ClassesDAO					classesDAO			= new ClassesDAO();
+	private final MonthDAO						monthDAO			= new MonthDAO();
+	private final FeeMapDAO						feeMapDAO			= new FeeMapDAO();
+	private final PaymentDAO					paymentDAO			= new PaymentDAO();
+	private final AlternativeFeeChargeMapDAO	altFeeMapDAO		= new AlternativeFeeChargeMapDAO();
+	private final MixedDAO						mixedDAO			= new MixedDAO();
 
-	private int classId;
-	private int monthId;
+	private int									classId;
+	private int									monthId;
 
-	private List<Classes> classList;
-	private List<Month> monthList;
+	private List<Classes>						classList;
+	private List<Month>							monthList;
 
-	private int feePolicyIdToClone;
+	private int									feePolicyIdToClone;
 
 	@Override
 	public FeePolicy getModel() {
@@ -135,7 +135,6 @@ public class FeePolicyAction extends CoreAction implements
 		return this.list();
 	}
 
-	
 	@SkipValidation
 	public String clone() {
 		this.feePolicyIdToClone = Integer.parseInt(this.request
@@ -185,16 +184,9 @@ public class FeePolicyAction extends CoreAction implements
 		// TODO Clone
 		FeePolicy newFeePolicy = feePolicyToClone.clone(newAssociatedClass,
 				newMonth);
-
-		Set<Payment> newPayments = feePolicyToClone.clonePayments(newFeePolicy);
-		// Combine alternative fee map sets
-		Set<AlternativeFeeMap> allAlternativeFeeMaps = new HashSet<AlternativeFeeMap>();
-		for (Payment newPayment : newPayments) {
-			allAlternativeFeeMaps.addAll(newPayment.getAlternativeFeeMaps());
-		}
-
-		// Validate then save fee policy
-		this.checkUniqueness();
+		// Validate & save fee policy
+		this.checkUniqueness(newFeePolicy.getFeePolicyId(),
+				newAssociatedClass.getClassId(), newMonth.getMonthId());
 		this.dao.saveOrUpdateFeePolicy(newFeePolicy);
 		this.dao.getSession().flush();
 
@@ -204,6 +196,13 @@ public class FeePolicyAction extends CoreAction implements
 			this.feeMapDAO.saveOrUpdateFeeMap(newFeeMap);
 		}
 		this.dao.getSession().flush();
+
+		Set<Payment> newPayments = feePolicyToClone.clonePayments(newFeePolicy);
+		// Combine alternative fee map sets
+		Set<AlternativeFeeMap> allAlternativeFeeMaps = new HashSet<AlternativeFeeMap>();
+		for (Payment newPayment : newPayments) {
+			allAlternativeFeeMaps.addAll(newPayment.getAlternativeFeeMaps());
+		}
 		// Save payments
 		for (Payment newPayment : newPayments) {
 			// Set null to add later
@@ -212,6 +211,7 @@ public class FeePolicyAction extends CoreAction implements
 			this.dao.getSession().flush();
 		}
 		this.dao.getSession().flush();
+
 		// Save alternative fee maps
 		for (AlternativeFeeMap newAltFeeMap : allAlternativeFeeMaps) {
 			this.altFeeMapDAO.saveOrUpdateAlternativeFeeMap(newAltFeeMap);
@@ -276,12 +276,16 @@ public class FeePolicyAction extends CoreAction implements
 		super.validate();
 	}
 
-	private void checkUniqueness() {
-		if (this.dao.hasDuplicates(this.feePolicy.getFeePolicyId(),
-				this.classId, this.monthId)) {
+	private void checkUniqueness(int feePolicyId, int classId, int monthId) {
+		if (this.dao.hasDuplicates(feePolicyId, this.classId, this.monthId)) {
 			this.addFieldError("classId",
 					this.getText(Constant.I18N.ERROR_DUPLICATION_FEEPOLICY));
 		}
+	}
+
+	private void checkUniqueness() {
+		this.checkUniqueness(this.feePolicy.getFeePolicyId(), this.classId,
+				this.monthId);
 	}
 
 	@Override

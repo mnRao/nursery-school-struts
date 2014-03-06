@@ -26,8 +26,9 @@ public class AlternativeFeeMap implements Cloneable {
 			throws CloneNotSupportedException {
 		AlternativeFeeMap newAltFeeMap = (AlternativeFeeMap) this.clone();
 		// Point to new payment
-		newAltFeeMap.setPaymentFee(new PaymentFee(newPayment, this.paymentFee
-				.getFee()));
+		PaymentFee newPaymentFee = new PaymentFee(newPayment, this.paymentFee
+				.getFee());
+		newAltFeeMap.setPaymentFee(newPaymentFee);
 
 		return newAltFeeMap;
 	}

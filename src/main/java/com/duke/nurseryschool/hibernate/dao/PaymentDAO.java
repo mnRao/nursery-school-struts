@@ -41,10 +41,13 @@ public class PaymentDAO extends CoreDAO {
 	}
 
 	public void saveOrUpdatePayment(Payment payment) {
-		// Set total fee before save
-		new PaymentTrigger(this.session, payment).calculateAndSetAll();
 
 		try {
+			this.session.saveOrUpdate(payment);
+
+			// Set total fee before save again
+			new PaymentTrigger(this.session, payment).calculateAndSetAll();
+
 			this.session.saveOrUpdate(payment);
 		}
 		catch (Exception e) {
