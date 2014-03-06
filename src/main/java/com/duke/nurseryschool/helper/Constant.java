@@ -1,15 +1,18 @@
 package com.duke.nurseryschool.helper;
 
 public final class Constant {
-	public static final String	EMPTY_STRING	= "";
-	public static final String	SPACE			= " ";
-	public static final String	ZERO			= "0";
+	public static final String	EMPTY_STRING			= "";
+	public static final String	SPACE					= " ";
+	public static final String	ZERO					= "0";
 
-	public static final String	SESSION_USER	= "USER";
+	public static final String	SESSION_USER			= "USER";
 	// TODO Change to something greater (2 weeks, for ex)
-	public static final int		COOKIE_TIME_OUT	= 60 * 1;
+	public static final int		COOKIE_TIME_OUT			= 60 * 1;
 
-	public static final String	EXCEL_SUFFIX	= ".xls";
+	public static final String	EXCEL_SUFFIX			= ".xls";
+
+	public static final String	USER_GUIDE_FILE_PATH	= "docs/[Nursery School] User Guide.pdf";
+	public static final String	USER_GUIDE_FILE_NAME	= "[Nursery School] User Guide.pdf";
 
 	public static final class PUNCTUATION_MARK {
 		public static final String	BRACKET_SQUARE_OPEN		= "[";

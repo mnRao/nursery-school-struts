@@ -9,6 +9,10 @@
 			<div class="widget-content">
 				<div class="panel">
 					<div class="panel-body">
+						<div>
+							<s:url id="fileDownload" namespace="/" action="UserGuide"></s:url>
+							<s:a cssClass="btn btn-sm btn-info" href="%{fileDownload}"><s:text name="help.userGuide"/></s:a>
+						</div>
 						<div class="text-center mbot30">
 							<h3 class="time-title">
 								<s:text name="help.title" />
@@ -18,7 +22,8 @@
 							</p>
 						</div>
 						<img alt="SimpleProcess" src="assets/app/SimpleProcess.png"
-							width="100%">
+							width="100%"
+						>
 						<div class="clearfix">&nbsp;</div>
 					</div>
 				</div>
