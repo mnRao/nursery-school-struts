@@ -3,6 +3,7 @@ package com.duke.nurseryschool.hibernate.bean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -92,9 +93,14 @@ public class FeePolicy implements BeanLabel, Cloneable {
 	public Set<Payment> clonePayments(FeePolicy newFeePolicy)
 			throws CloneNotSupportedException {
 		List<Payment> newPayments = new ArrayList<Payment>();
-		for (Payment payment : this.payments) {
-			newPayments.add(payment.clone(newFeePolicy));
+		Iterator<Payment> iterator = this.payments.iterator();
+		while (iterator.hasNext()) {
+			Payment oldPayment = iterator.next();
+			newPayments.add(oldPayment.clone(newFeePolicy));
 		}
+		// for (Payment payment : this.payments) {
+		// newPayments.add(payment.clone(newFeePolicy));
+		// }
 		// Convert list to set
 		Set<Payment> newPaymentsSet = new HashSet<Payment>(newPayments);
 

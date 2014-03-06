@@ -1,6 +1,8 @@
 package com.duke.nurseryschool.hibernate.bean;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,31 +22,31 @@ import com.duke.nurseryschool.helper.Constant;
 public class Payment implements BeanLabel, Cloneable {
 	@Id
 	@GeneratedValue
-	private int paymentId;
+	private int						paymentId;
 	@Column(name = "absenceCount")
-	private int absenceCount;
+	private int						absenceCount;
 	@Column(name = "hasBreakfast")
-	private int hasBreakfast;
+	private int						hasBreakfast;
 	@Column(name = "totalNormalMealFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalNormalMealFee;
+	private BigDecimal				totalNormalMealFee;
 	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalBreakfastFee;
+	private BigDecimal				totalBreakfastFee;
 	@Column(name = "totalFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalFee;
+	private BigDecimal				totalFee;
 	@Column(name = "isPaid")
-	private int isPaid;
+	private int						isPaid;
 	@Column(name = "note")
-	private String note;
+	private String					note;
 
 	@ManyToOne
 	@JoinColumn(name = "feePolicyId")
-	private FeePolicy feePolicy;
+	private FeePolicy				feePolicy;
 	@ManyToOne
 	@JoinColumn(name = "studentId")
-	private Student student;
+	private Student					student;
 
 	@OneToMany(mappedBy = "paymentFee.payment", cascade = javax.persistence.CascadeType.ALL)
-	private Set<AlternativeFeeMap> alternativeFeeMaps;
+	private Set<AlternativeFeeMap>	alternativeFeeMaps;
 
 	public Payment() {
 	}
@@ -66,16 +68,27 @@ public class Payment implements BeanLabel, Cloneable {
 	protected Payment clone(FeePolicy newFeePolicy)
 			throws CloneNotSupportedException {
 		Payment newPayment = (Payment) this.clone();
+		Set<AlternativeFeeMap> oldAltFeeMaps = new HashSet<AlternativeFeeMap>(
+				this.alternativeFeeMaps);
 		// Point new fee policy to same inherent payment
 		newPayment.setPaymentId(0);
 		newPayment.setFeePolicy(newFeePolicy);
+		newPayment.resetAlternativeFeeMap();
 		// Clone all alternative fee maps
-		Set<AlternativeFeeMap> oldAltFeeMaps = this.alternativeFeeMaps;
-		for (AlternativeFeeMap altFeeMap : oldAltFeeMaps) {
-			newPayment.addAlternativeFeeMap(altFeeMap.clone(newPayment));
+		Iterator<AlternativeFeeMap> iterator = oldAltFeeMaps.iterator();
+		while (iterator.hasNext()) {
+			AlternativeFeeMap oldAltFeeMap = iterator.next();
+			newPayment.addAlternativeFeeMap(oldAltFeeMap.clone(newPayment));
 		}
+		// for (AlternativeFeeMap altFeeMap : oldAltFeeMaps) {
+		// newPayment.addAlternativeFeeMap(altFeeMap.clone(newPayment));
+		// }
 
 		return newPayment;
+	}
+
+	public void resetAlternativeFeeMap() {
+		this.alternativeFeeMaps.clear();
 	}
 
 	public void addAlternativeFeeMap(AlternativeFeeMap alternativeFeeMap) {
