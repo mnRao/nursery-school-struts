@@ -20,14 +20,14 @@ import com.opensymphony.xwork2.Preparable;
 public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		Preparable {
 
-	private Classes classes = new Classes();
-	private List<Classes> allClasses = new ArrayList<Classes>();
-	private ClassesDAO dao = new ClassesDAO();
+	private Classes			classes			= new Classes();
+	private List<Classes>	allClasses		= new ArrayList<Classes>();
+	private ClassesDAO		dao				= new ClassesDAO();
 
-	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	private CourseDAO courseDAO = new CourseDAO();
-	private int courseId;
-	private List<Course> courseList;
+	private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
+	private CourseDAO		courseDAO		= new CourseDAO();
+	private int				courseId;
+	private List<Course>	courseList;
 
 	@Override
 	public Classes getModel() {
@@ -99,13 +99,20 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 			this.addFieldError("classes.code",
 					this.getText(Constant.I18N.ERROR_REQUIRED_CLASS_CODE));
 		}
+		else {
+			int codeLength = this.classes.getCode().length();
+			if (codeLength > 20 || codeLength < 2) {
+				this.addFieldError("classes.code", this
+						.getText(Constant.I18N.ERROR_CONSTRAINT_CLASSES_CODE));
+			}
+		}
+
 		// Check for uniqueness
 		if (this.dao.hasDuplicates(this.classes.getClassId(), this.courseId,
 				this.classes.getCode())) {
 			this.addFieldError("classes.code",
 					this.getText(Constant.I18N.ERROR_DUPLICATION_CLASS));
 		}
-
 		super.validate();
 	}
 
