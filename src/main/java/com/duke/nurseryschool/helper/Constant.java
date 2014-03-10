@@ -48,9 +48,10 @@ public final class Constant {
 		public static final String	ERROR_LOGIN_PASSWORD									= "error.login.password";
 
 		public static final String	ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT	= "errors.constraint.alternativeFeeMap.alternativeAmount";
+		public static final String	ERROR_CONSTRAINT_CLASSES_CODE							= "errors.constraint.classes.code";
 		public static final String	ERROR_CONSTRAINT_COURSE_YEARS							= "errors.constraint.course.years";
 		public static final String	ERROR_CONSTRAINT_COURSE_STARTYEAR						= "errors.constraint.course.startYear";
-		public static final String	ERROR_CONSTRAINT_COURSE_ENDYEAR							= "errors.constraint.course.startYear";
+		public static final String	ERROR_CONSTRAINT_COURSE_ENDYEAR							= "errors.constraint.course.endYear";
 		public static final String	ERROR_CONSTRAINT_MONTH_MONTHNAME						= "errors.constraint.month.monthName";
 		public static final String	ERROR_CONSTRAINT_MONTH_YEAR								= "errors.constraint.month.year";
 		public static final String	ERROR_CONSTRAINT_FEEMAP_AMOUNT							= "errors.constraint.feeMap.amount";

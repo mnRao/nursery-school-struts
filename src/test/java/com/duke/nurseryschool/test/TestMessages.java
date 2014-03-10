@@ -38,7 +38,7 @@ public class TestMessages {
 		boolean isSameKeySet = !Collections.disjoint(enKeySet, viKeySet);
 		assertEquals(true, isSameKeySet);
 
-		Set commonKeys = new HashSet(enKeySet);
+		Set<Object> commonKeys = new HashSet<Object>(enKeySet);
 		commonKeys.retainAll(viKeySet);
 		int commonKeysCount = commonKeys.size();
 		// Ensure no different keys

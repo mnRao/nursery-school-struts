@@ -49,7 +49,7 @@
 									<tr class="gradeC">
 										<td><s:property value="parentId" /></td>
 										<td><s:property value="name" /></td>
-										<td><s:property value="gender" /></td>
+										<td><s:property value="genderText" /></td>
 										<td><s:property value="job" /></td>
 										<td><s:property value="phoneNumber" /></td>
 										<td><s:url id="editUrl" action="editParent">

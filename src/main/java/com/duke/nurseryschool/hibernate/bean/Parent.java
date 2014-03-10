@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 
 @Entity
@@ -18,18 +19,18 @@ import com.duke.nurseryschool.helper.Constant;
 public class Parent implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int parentId;
+	private int				parentId;
 	@Column(name = "gender")
-	private int gender;
+	private int				gender;
 	@Column(name = "name")
-	private String name;
+	private String			name;
 	@Column(name = "job")
-	private String job;
+	private String			job;
 	@Column(name = "phoneNumber")
-	private String phoneNumber;
+	private String			phoneNumber;
 
 	@ManyToMany(mappedBy = "parents")
-	private Set<Student> students = new HashSet<Student>();
+	private Set<Student>	students	= new HashSet<Student>();
 
 	public Parent() {
 	}
@@ -46,6 +47,11 @@ public class Parent implements BeanLabel {
 		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.name
 				+ Constant.PUNCTUATION_MARK.HYPHEN + this.job
 				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
+	}
+
+	public String getGenderText() throws InstantiationException,
+			IllegalAccessException {
+		return BusinessLogicSolver.calculateGenderText(this.gender);
 	}
 
 	public int getParentId() {
