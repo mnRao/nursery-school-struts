@@ -97,6 +97,7 @@ public final class Constant {
 		public static final String	EXCEL_HEADER_NORMAL_ORDER								= "excel.header.normal.order";
 		public static final String	EXCEL_HEADER_NORMAL_NAME								= "excel.header.normal.name";
 		public static final String	EXCEL_HEADER_NORMAL_MEAL								= "excel.header.normal.meal";
+		public static final String	EXCEL_HEADER_NORMAL_MONTH								= "excel.header.normal.month";
 		public static final String	EXCEL_HEADER_NORMAL_ABSENCECOUNT						= "excel.header.normal.absenceCount";
 		public static final String	EXCEL_HEADER_NORMAL_NOTE								= "excel.header.normal.note";
 		public static final String	EXCEL_HEADER_NORMAL_PAIDDATE							= "excel.header.normal.paidDate";
@@ -106,6 +107,7 @@ public final class Constant {
 		public static final String	EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE					= "excel.header.normal.totalBreakfastFee";
 
 		public static final String	EXCEL_FILE_PREFIX_TITLE_PAYMENT							= "excel.file.prefix_title";
+		public static final String	EXCEL_FILE_PREFIX_TITLE_STATISTICS						= "excel.file.prefix_title.statistics";
 		public static final String	EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST				= "excel.file.prefix_title.studentHasBreakfast";
 		public static final String	EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE		= "excel.file.prefix_title.studentHasSelectedOnlyFee";
 	}

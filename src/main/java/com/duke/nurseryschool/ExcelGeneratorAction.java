@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,9 @@ import jxl.write.WriteException;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.StatisticsBean;
 import com.duke.nurseryschool.helper.excel.PaymentExcelGenerator;
+import com.duke.nurseryschool.helper.excel.StatisticsExcelGenerator;
 import com.duke.nurseryschool.helper.excel.StudentHasBreakfastExcelGenerator;
 import com.duke.nurseryschool.helper.excel.StudentHasSelectedOnlyFeeExcelGenerator;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -29,14 +32,14 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ExcelGeneratorAction extends ActionSupport {
 
-	private InputStream fileInputStream;
-	private String fileName;
+	private InputStream		fileInputStream;
+	private String			fileName;
 
-	private MixedDAO mixedDAO = new MixedDAO();
-	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	private int feePolicyId;
-	private MonthDAO monthDAO = new MonthDAO();
-	private int monthId;
+	private MixedDAO		mixedDAO		= new MixedDAO();
+	private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
+	private int				feePolicyId;
+	private MonthDAO		monthDAO		= new MonthDAO();
+	private int				monthId;
 
 	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {
@@ -100,12 +103,21 @@ public class ExcelGeneratorAction extends ActionSupport {
 		File tempFile = this.createTemporaryFile(this
 				.generatePaymentExcelFilePrefix(month.getLabel()));
 		int sheetNumber = 0;
+		StatisticsBean statisticsBean = new StatisticsBean(month);
 		// Initialize work book the very first time
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		for (FeePolicy feePolicy : feePolicies) {
-			this.addContentToPaymentExcelFile(feePolicy, workbook, sheetNumber);
+			BigDecimal totalFeeForClass = this.addContentToPaymentExcelFile(
+					feePolicy, workbook, sheetNumber);
+			statisticsBean.addTotalFee(feePolicy.getAssociatedClass(),
+					totalFeeForClass);
 			sheetNumber++;
 		}
+
+		// Last sheet - Statistics
+		this.addStatisticContentToPaymentExcelFile(statisticsBean, workbook,
+				sheetNumber);
+
 		this.closeWorkbook(workbook);
 		this.configureFileForDownload(tempFile);
 
@@ -118,13 +130,28 @@ public class ExcelGeneratorAction extends ActionSupport {
 		workbook.close();
 	}
 
-	private void addContentToPaymentExcelFile(FeePolicy feePolicy,
+	private void addStatisticContentToPaymentExcelFile(
+			StatisticsBean statisticsBean, WritableWorkbook workbook,
+			int sheetNumber) throws Exception {
+		try {
+			StatisticsExcelGenerator excelGenerator = new StatisticsExcelGenerator(
+					workbook, statisticsBean);
+			excelGenerator.addContent(sheetNumber);
+		}
+		catch (IllegalStateException e) {
+			// Handle illegal state exception for no payment to show on screen
+			throw new Exception(
+					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+		}
+	}
+
+	private BigDecimal addContentToPaymentExcelFile(FeePolicy feePolicy,
 			WritableWorkbook workbook, int sheetNumber) throws IOException,
 			WriteException, Exception {
 		try {
 			PaymentExcelGenerator excelGenerator = new PaymentExcelGenerator(
 					workbook, feePolicy);
-			excelGenerator.addContent(sheetNumber);
+			return excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen
