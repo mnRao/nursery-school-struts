@@ -1,6 +1,7 @@
 package com.duke.nurseryschool.helper.excel;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -32,30 +33,33 @@ import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class PaymentExcelGenerator extends ExcelManager {
 
-	private final Classes associatedClass;
-	private final Month month;
-	private final List<Payment> payments = new ArrayList<Payment>();
-	private final List<FeeMap> feeMaps = new ArrayList<FeeMap>();
-	private final FeePolicy feePolicy;
+	private final Classes		associatedClass;
+	private final Month			month;
+	private final List<Payment>	payments						= new ArrayList<Payment>();
+	private final List<FeeMap>	feeMaps							= new ArrayList<FeeMap>();
+	private final FeePolicy		feePolicy;
 
-	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
-	private List<Fee> fees = new ArrayList<Fee>();
-	private List<Fee> staticFees = new ArrayList<Fee>();
+	private List<FeeGroup>		feeGroups						= new ArrayList<FeeGroup>();
+	private List<Fee>			fees							= new ArrayList<Fee>();
+	private List<Fee>			staticFees						= new ArrayList<Fee>();
 
-	private int lastColumn;
+	private int					lastColumn;
 	// private int extraFeeStartCol;
-	private int otherStartCol;
+	private int					otherStartCol;
 
-	private final Session session;
-	private final Transaction transaction;
-	private final MixedDAO mixedDAO = new MixedDAO();
+	private final Session		session;
+	private final Transaction	transaction;
+	private final MixedDAO		mixedDAO						= new MixedDAO();
+
+	private BigDecimal			totalFeeForClass				= new BigDecimal(
+																		0);
 
 	// Positions for elements
-	private static final int HEADER_NORMAL_SPANNED_ROW = 2;
-	protected static final int CONTENT_START_ROW = 3;
-	private static final int CONTENT_STATIC_FEES_START_COL = 5;
+	private static final int	HEADER_NORMAL_SPANNED_ROW		= 2;
+	protected static final int	CONTENT_START_ROW				= 3;
+	private static final int	CONTENT_STATIC_FEES_START_COL	= 5;
 
-	private static final int TRIVIAL_LAST_COLUMNS_SIZE = 3;
+	private static final int	TRIVIAL_LAST_COLUMNS_SIZE		= 3;
 
 	public PaymentExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy)
 			throws IllegalStateException {
@@ -82,7 +86,8 @@ public class PaymentExcelGenerator extends ExcelManager {
 		this.calculateDataPositions();
 	}
 
-	public void addContent(int sheetNumber) throws IOException, WriteException {
+	public BigDecimal addContent(int sheetNumber) throws IOException,
+			WriteException {
 		// Sheet for current class
 		WritableSheet sheet = this.workbook.createSheet(
 				this.associatedClass.getCurrentName(), sheetNumber);
@@ -90,6 +95,8 @@ public class PaymentExcelGenerator extends ExcelManager {
 		this.addStyles();
 		this.createHeaders(sheet);
 		this.createContents(sheet);
+
+		return this.totalFeeForClass;
 	}
 
 	private void createHeaders(WritableSheet sheet)
@@ -229,6 +236,9 @@ public class PaymentExcelGenerator extends ExcelManager {
 			this.addNumber(sheet, this.otherStartCol, row, payment
 					.getTotalFee().doubleValue());
 			this.addLabel(sheet, this.lastColumn, row, payment.getNote());
+
+			this.totalFeeForClass = this.totalFeeForClass.add(payment
+					.getTotalFee());
 
 			count++;
 			row++;
