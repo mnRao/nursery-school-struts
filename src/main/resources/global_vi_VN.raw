@@ -1,229 +1,234 @@
 # Global
-global.title = Mầm non Tuyết Dương [Duke Corp] 
-global.footer.developedBy = Phát triển bởi Duke
+global.title = Máº§m non Tuyáº¿t DÆ°Æ¡ng [Duke Corp] 
+global.footer.developedBy = PhĂ¡t triá»ƒn bá»Ÿi Duke
 
 format.date = {0,date,dd/MM/yyyy}
 
 # UI
-ui.header.language = Ngôn ngữ
+ui.header.language = NgĂ´n ngá»¯
 ui.header.language.english = Anh
-ui.header.language.vietnamese = Việt
-ui.header.currentYear = Năm học hiện tại
-ui.header.help = Trợ giúp
-ui.header.logout = Thoát
-ui.widget.header.student = Học sinh
+ui.header.language.vietnamese = Viá»‡t
+ui.header.currentYear = NÄƒm há»�c hiá»‡n táº¡i
+ui.header.help = Trá»£ giĂºp
+ui.header.logout = ThoĂ¡t
+ui.widget.header.student = Há»�c sinh
 
 # Common UI
 form.widget.header = 
-form.legend = Hãy điền thông tin vào biểu mẫu bên dưới 
-form.legend.computed = Tự động tính toán
-form.legend.select = Hoặc chọn dữ liệu đã khởi tạo sẵn
-tab.label.first = Tạo mới | Cập nhật
-tab.label.second = Xem dữ liệu
+form.legend = HĂ£y Ä‘iá»�n thĂ´ng tin vĂ o biá»ƒu máº«u bĂªn dÆ°á»›i 
+form.legend.computed = Tá»± Ä‘á»™ng tĂ­nh toĂ¡n
+form.legend.select = Hoáº·c chá»�n dá»¯ liá»‡u Ä‘Ă£ khá»Ÿi táº¡o sáºµn
+tab.label.first = Táº¡o má»›i | Cáº­p nháº­t
+tab.label.second = Xem dá»¯ liá»‡u
 form.gender.male = Nam
-form.gender.female = Nữ
-form.trueFalse.true = Đúng
+form.gender.female = Ná»¯
+form.trueFalse.true = Ä�Ăºng
 form.trueFalse.false = Sai
-form.submit = Lưu
+form.submit = LÆ°u
 
-grid.action.edit = Sửa
-grid.action.delete = Xóa
-grid.action.deleteMapping = Xóa mối liên hệ
-grid.action.addAlternativeFeeMap = Thêm %{getText('label.alternativeFeeMap')}
-grid.action.addClass = Thêm %{getText('label.classes')}
-grid.action.addFeeMap = Thêm %{getText('label.feeMap')}
-grid.action.addFeePolicy = Thêm %{getText('label.feePolicy')}
-grid.action.addParent = Thêm %{getText('label.parent')}
-grid.action.addPayment = Thêm %{getText('label.payment')}
-grid.action.excel = Excel Thu tiền
-grid.action.excel.breakfast = Excel Ăn sáng
-grid.action.excel.selectedOnlyFee = Excel Môn năng khiếu
+grid.action.edit = Sá»­a
+grid.action.delete = XĂ³a
+grid.action.deleteMapping = XĂ³a má»‘i liĂªn há»‡
+grid.action.addAlternativeFeeMap = ThĂªm %{getText('label.alternativeFeeMap')}
+grid.action.addClass = ThĂªm %{getText('label.classes')}
+grid.action.addFeeMap = ThĂªm %{getText('label.feeMap')}
+grid.action.addFeePolicy = ThĂªm %{getText('label.feePolicy')}
+grid.action.addParent = ThĂªm %{getText('label.parent')}
+grid.action.addPayment = ThĂªm %{getText('label.payment')}
+grid.action.excel = Excel Thu tiá»�n
+grid.action.excel.breakfast = Excel Ä‚n sĂ¡ng
+grid.action.excel.selectedOnlyFee = Excel MĂ´n nÄƒng khiáº¿u
 
 grid.action.showParent = Xem %{getText('label.parent')}
 grid.action.showFee = Xem %{getText('label.fee')}
 grid.action.showFeeMap = Xem %{getText('label.feeMap')}
 grid.action.showFeePolicy = Xem %{getText('label.feePolicy')}
 
-modal.title.all.parent = Danh sách %{getText('label.parent')}
-modal.title.all.fee = Danh sách %{getText('label.fee')}
-modal.title.all.feeMap = Danh sách %{getText('label.feeMap')}
-modal.title.all.feePolicy = Danh sách %{getText('label.feePolicy')}
-modal.content.empty = Chưa có dữ liệu
+modal.title.all.parent = Danh sĂ¡ch %{getText('label.parent')}
+modal.title.all.fee = Danh sĂ¡ch %{getText('label.fee')}
+modal.title.all.feeMap = Danh sĂ¡ch %{getText('label.feeMap')}
+modal.title.all.feePolicy = Danh sĂ¡ch %{getText('label.feePolicy')}
+modal.content.empty = ChÆ°a cĂ³ dá»¯ liá»‡u
 
-help.title = Quy trình quản lý thông tin
-help.info = Nhập liệu theo thứ tự sau
+help.title = Quy trĂ¬nh quáº£n lĂ½ thĂ´ng tin
+help.info = Nháº­p liá»‡u theo thá»© tá»± sau
 
 # Login
-label.username= Tên đăng nhập
-label.password= Mật khẩu
-label.login= Đăng nhập
-label.rememberMe = Ghi nhớ ?
+label.username= TĂªn Ä‘Äƒng nháº­p
+label.password= Máº­t kháº©u
+label.login= Ä�Äƒng nháº­p
+label.rememberMe = Ghi nhá»› ?
 
 # Pages
-headTitle.dashboard = Trang chủ
-headTitle.alternativeFeeMap = Quản lý phí điều chỉnh cho học sinh
-headTitle.class = Quản lý lớp
-headTitle.course = Quản lý niên khóa
-headTitle.fee = Quản lý phí
-headTitle.feeGroup = Quản lý nhóm phí
-headTitle.feeMap = Quản lý tiền phí
-headTitle.feePolicy = Quản lý chính sách phí
-headTitle.help = Trợ giúp
-headTitle.month = Quản lý tháng
-headTitle.parent = Quản lý phụ huynh
-headTitle.payment = Quản lý thu tiền
-headTitle.student = Quản lý học sinh
+headTitle.dashboard = Trang chá»§
+headTitle.alternativeFeeMap = Quáº£n lĂ½ phĂ­ Ä‘iá»�u chá»‰nh cho há»�c sinh
+headTitle.class = Quáº£n lĂ½ lá»›p
+headTitle.course = Quáº£n lĂ½ niĂªn khĂ³a
+headTitle.fee = Quáº£n lĂ½ phĂ­
+headTitle.feeGroup = Quáº£n lĂ½ nhĂ³m phĂ­
+headTitle.feeMap = Quáº£n lĂ½ tiá»�n phĂ­
+headTitle.feePolicy = Quáº£n lĂ½ chĂ­nh sĂ¡ch phĂ­
+headTitle.help = Trá»£ giĂºp
+headTitle.month = Quáº£n lĂ½ thĂ¡ng
+headTitle.parent = Quáº£n lĂ½ phá»¥ huynh
+headTitle.payment = Quáº£n lĂ½ thu tiá»�n
+headTitle.student = Quáº£n lĂ½ há»�c sinh
 
-dashboard.activeClasses = Số lớp hiện tại
-dashboard.activeStudents = Số học sinh hiện tại
-dashboard.previousMonthIncome = Thu nhập tháng trước
-dashboard.thisMonthIncome = Thu nhập tháng này
+dashboard.activeClasses = Sá»‘ lá»›p hiá»‡n táº¡i
+dashboard.activeStudents = Sá»‘ há»�c sinh hiá»‡n táº¡i
+dashboard.previousMonthIncome = Thu nháº­p thĂ¡ng trÆ°á»›c
+dashboard.thisMonthIncome = Thu nháº­p thĂ¡ng nĂ y
 
 # Models
 
-label.classes = Lớp
+label.classes = Lá»›p
 label.classes.classesId = ID
-label.classes.code = Mã
-label.classes.currentName = Tên hiện tại
-label.classes.courseId = Niên khóa
+label.classes.code = MĂ£
+label.classes.currentName = TĂªn hiá»‡n táº¡i
+label.classes.courseId = NiĂªn khĂ³a
 
-label.course = Niên khóa
+label.course = NiĂªn khĂ³a
 label.course.courseId = ID
-label.course.startYear = Năm bắt đầu
-label.course.endYear = Năm kết thúc
+label.course.startYear = NÄƒm báº¯t Ä‘áº§u
+label.course.endYear = NÄƒm káº¿t thĂºc
 
-label.fee = Phí
+label.fee = PhĂ­
 label.fee.feeId = ID
-label.fee.name = Tên
-label.fee.type = Loại
-label.fee.feeGroupId = Nhóm phí
+label.fee.name = TĂªn
+label.fee.type = Loáº¡i
+label.fee.feeGroupId = NhĂ³m phĂ­
 
-label.feeGroup = Nhóm phí
+label.feeGroup = NhĂ³m phĂ­
 label.feeGroup.feeGroupId = ID
-label.feeGroup.name = Tên
+label.feeGroup.name = TĂªn
 
-label.feeMap = Tiền phí theo lớp
-label.feeMap.feePolicyId = Chính sách phí
-label.feeMap.feeId = Phí
-label.feeMap.amount = Số tiền
+label.feeMap = Tiá»�n phĂ­ theo lá»›p
+label.feeMap.feePolicyId = ChĂ­nh sĂ¡ch phĂ­
+label.feeMap.feeId = PhĂ­
+label.feeMap.amount = Sá»‘ tiá»�n
 
-label.feePolicy = Chính sách phí
+label.feePolicy = ChĂ­nh sĂ¡ch phĂ­
 label.feePolicy.feePolicyId = ID
-label.feePolicy.classId = Lớp
-label.feePolicy.monthId = Tháng
-label.feePolicy.feePerNormalMeal = Phí từng bữa ăn thường
-label.feePolicy.penaltyFeePerBreakfast = Phí giảm trừ do nghỉ mỗi bữa sáng
-label.feePolicy.totalBreakfastFee = Tổng phí ăn sáng (đi học dầy đủ)
-label.feePolicy.availableDays = Tổng số ngày học (đi học đầy đủ)
+label.feePolicy.classId = Lá»›p
+label.feePolicy.monthId = ThĂ¡ng
+label.feePolicy.feePerNormalMeal = PhĂ­ tá»«ng bá»¯a Äƒn thÆ°á»�ng
+label.feePolicy.penaltyFeePerBreakfast = PhĂ­ giáº£m trá»« do nghá»‰ má»—i bá»¯a sĂ¡ng
+label.feePolicy.totalBreakfastFee = Tá»•ng phĂ­ Äƒn sĂ¡ng (Ä‘i há»�c dáº§y Ä‘á»§)
+label.feePolicy.availableDays = Tá»•ng sá»‘ ngĂ y há»�c (Ä‘i há»�c Ä‘áº§y Ä‘á»§)
 
-label.month = Tháng
+label.feeType.static = Tĩnh
+label.feeType.allExceptSelected = Mặc định áp dụng cho tất cả
+label.feeType.selectedOnly = Mặc định chưa áp dụng
+labe.feeType.unknown = Không xác định
+
+label.month = ThĂ¡ng
 label.month.monthId = ID
-label.month.month = Tháng
-label.month.year = Năm
-label.month.label = Tháng
+label.month.month = ThĂ¡ng
+label.month.year = NÄƒm
+label.month.label = ThĂ¡ng
 
-label.parent = Phụ huynh
+label.parent = Phá»¥ huynh
 label.parent.parentId = ID
-label.parent.name = Tên
-label.parent.gender = Giới tính
-label.parent.job = Nghề nghiệp
-label.parent.phoneNumber = Điện thoại liên lạc
-label.parent.studentId = Học sinh
+label.parent.name = TĂªn
+label.parent.gender = Giá»›i tĂ­nh
+label.parent.job = Nghá»� nghiá»‡p
+label.parent.phoneNumber = Ä�iá»‡n thoáº¡i liĂªn láº¡c
+label.parent.studentId = Há»�c sinh
 
-label.payment = Thu tiền
+label.payment = Thu tiá»�n
 label.payment.paymentId = ID
-label.payment.studentId = Học sinh
-label.payment.feePolicyId = Chính sách phí
-label.payment.absenceCount = Số buổi nghỉ
-label.payment.hasBreakfast = Có ăn sáng không
-label.payment.totalNormalMealFee = Tổng tiền ăn thường
-label.payment.totalBreakfastFee = Tổng tiền ăn sáng
-label.payment.totalFee = Tổng
-label.payment.isPaid = Đã trả
-label.payment.note = Ghi chú
-label.student = Học sinh
+label.payment.studentId = Há»�c sinh
+label.payment.feePolicyId = ChĂ­nh sĂ¡ch phĂ­
+label.payment.absenceCount = Sá»‘ buá»•i nghá»‰
+label.payment.hasBreakfast = CĂ³ Äƒn sĂ¡ng khĂ´ng
+label.payment.totalNormalMealFee = Tá»•ng tiá»�n Äƒn thÆ°á»�ng
+label.payment.totalBreakfastFee = Tá»•ng tiá»�n Äƒn sĂ¡ng
+label.payment.totalFee = Tá»•ng
+label.payment.isPaid = Ä�Ă£ tráº£
+label.payment.note = Ghi chĂº
+label.student = Há»�c sinh
 label.student.studentId = ID
-label.student.name = Tên
-label.student.dateOfBirth = Ngày sinh
-label.student.gender = Giới tính
-label.student.address = Địa chỉ
-label.student.homePhone = Điện thoại nhà riêng
-label.student.isActive = Được kích hoạt
-label.student.description = Đặc điểm
-label.student.classId = Lớp
+label.student.name = TĂªn
+label.student.dateOfBirth = NgĂ y sinh
+label.student.gender = Giá»›i tĂ­nh
+label.student.address = Ä�á»‹a chá»‰
+label.student.homePhone = Ä�iá»‡n thoáº¡i nhĂ  riĂªng
+label.student.isActive = Ä�Æ°á»£c kĂ­ch hoáº¡t
+label.student.description = Ä�áº·c Ä‘iá»ƒm
+label.student.classId = Lá»›p
 
-label.alternativeFeeMap = Phí điều chỉnh cho học sinh
-label.alternativeFeeMap.paymentId = Thu tiền
-label.alternativeFeeMap.feeId = Phí
-label.alternativeFeeMap.alternativeAmount = Số tiền
+label.alternativeFeeMap = PhĂ­ Ä‘iá»�u chá»‰nh cho há»�c sinh
+label.alternativeFeeMap.paymentId = Thu tiá»�n
+label.alternativeFeeMap.feeId = PhĂ­
+label.alternativeFeeMap.alternativeAmount = Sá»‘ tiá»�n
 
-select.course = Chọn niên khóa
-select.class = Chọn lớp
-select.fee = Chọn phí
-select.feePolicy = Chọn chính sách phí
-select.feeGroup = Chọn nhóm phí
-select.feeType = Chọn loại phí
-select.month = Chọn tháng
-select.parent = Chọn phụ huynh
-select.payment = Chọn thu tiền
-select.student = Chọn học sinh
+select.course = Chá»�n niĂªn khĂ³a
+select.class = Chá»�n lá»›p
+select.fee = Chá»�n phĂ­
+select.feePolicy = Chá»�n chĂ­nh sĂ¡ch phĂ­
+select.feeGroup = Chá»�n nhĂ³m phĂ­
+select.feeType = Chá»�n loáº¡i phĂ­
+select.month = Chá»�n thĂ¡ng
+select.parent = Chá»�n phá»¥ huynh
+select.payment = Chá»�n thu tiá»�n
+select.student = Chá»�n há»�c sinh
 
 
 # Excel
-excel.file.prefix_title = Thu tiền tháng
-excel.file.prefix_title.studentHasBreakfast = Học sinh ăn sáng tháng
-excel.file.prefix_title.studentHasSelectedOnlyFee = Học sinh học năng khiếu
+excel.file.prefix_title = Thu tiá»�n thĂ¡ng
+excel.file.prefix_title.studentHasBreakfast = Há»�c sinh Äƒn sĂ¡ng thĂ¡ng
+excel.file.prefix_title.studentHasSelectedOnlyFee = Há»�c sinh há»�c nÄƒng khiáº¿u
 
-excel.header.top.payment = THU TIỀN
-excel.header.top.month = THÁNG
-excel.header.top.year = NĂM
-excel.header.top.availableDays = NGÀY
-excel.header.top.class = LỚP
+excel.header.top.payment = THU TIá»€N
+excel.header.top.month = THĂ�NG
+excel.header.top.year = NÄ‚M
+excel.header.top.availableDays = NGĂ€Y
+excel.header.top.class = Lá»�P
 
 # Error
-error.no.feePolicy.applied = Chưa có chính sách phí áp dụng. Hãy tạo chính sách phí phù hợp trước khi thực hiện thao tác này
-error.no.payment.applied = Chưa có bản thu tiền áp dụng. Hãy tạo bản thu tiền phù hợp (cho mỗi lớp) trước khi thực hiện thao tác này
-error.delete.children.first = Không thể xóa
-error.login = Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng nhập lại.
-error.login.username = Tên đăng nhập là bắt buộc
-error.login.password = Mật khẩu là bắt buộc
+error.no.feePolicy.applied = ChÆ°a cĂ³ chĂ­nh sĂ¡ch phĂ­ Ă¡p dá»¥ng. HĂ£y táº¡o chĂ­nh sĂ¡ch phĂ­ phĂ¹ há»£p trÆ°á»›c khi thá»±c hiá»‡n thao tĂ¡c nĂ y
+error.no.payment.applied = ChÆ°a cĂ³ báº£n thu tiá»�n Ă¡p dá»¥ng. HĂ£y táº¡o báº£n thu tiá»�n phĂ¹ há»£p (cho má»—i lá»›p) trÆ°á»›c khi thá»±c hiá»‡n thao tĂ¡c nĂ y
+error.delete.children.first = KhĂ´ng thá»ƒ xĂ³a
+error.login = TĂªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khĂ´ng Ä‘Ăºng. Vui lĂ²ng nháº­p láº¡i.
+error.login.username = TĂªn Ä‘Äƒng nháº­p lĂ  báº¯t buá»™c
+error.login.password = Máº­t kháº©u lĂ  báº¯t buá»™c
 
-errors.invalid=${getText(fieldName)} không hợp lệ.
-errors.required=${getText(fieldName)} là bắt buộc.
-errors.number=${getText(fieldName)} phải là dạng số.
-errors.range=${getText(fieldName)} không nằm trong khoảng ${min} và ${max}.
+errors.invalid=${getText(fieldName)} khĂ´ng há»£p lá»‡.
+errors.required=${getText(fieldName)} lĂ  báº¯t buá»™c.
+errors.number=${getText(fieldName)} pháº£i lĂ  dáº¡ng sá»‘.
+errors.range=${getText(fieldName)} khĂ´ng náº±m trong khoáº£ng ${min} vĂ  ${max}.
 
-errors.constraint.alternativeFeeMap.alternativeAmount = ${getText('label.alternativeFeeMap.alternativeAmount')} phải lớn hơn hoặc bằng 0
-errors.constraint.course.years = Năm kết thúc phải lớn hơn năm bắt đầu 4 năm
-errors.constraint.course.startYear = Năm bắt đầu phải lớn hơn 0
-errors.constraint.course.endYear = Năm kết thúc phải lớn hơn 0
-errors.constraint.month.monthName = Tháng phải trong khoảng 1-12
-errors.constraint.month.year = Năm phải lớn hơn 0 
-errors.constraint.feeMap.amount = Số tiền phải lớn hơn 0
-errors.constraint.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} phải lớn hơn hoặc bằng 0
-errors.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} phải lớn hơn hoặc bằng 0
-errors.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} phải lớn hơn hoặc bằng 0
-errors.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} phải lớn hơn hoặc bằng 0
-errors.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} phải lớn hơn hoặc bằng 0
-xwork.default.invalid.fieldvalue= Giá trị không hợp lệ cho thuộc tính "{0}"
-errors.duplication.class = Dữ liệu trùng lặp với niên khóa và mã giống hệt đã tồn tại trong hệ thống
-errors.duplication.course = Dữ liệu trùng lặp với năm bắt đầu và năm kết thúc giống hệt đã tồn tại trong hệ thống
-errors.duplication.feePolicy = Dữ liệu trùng lặp với lớp và tháng giống hệt đã tồn tại trong hệ thống
-errors.duplication.month = Dữ liệu trùng lặp với tháng và năm giống hệt đã tồn tại trong hệ thống
-errors.duplication.payment = Dữ liệu trùng lặp với học sinh và chính sách phí giống hệt đã tồn tại trong hệ thống
-errors.required.class.courseId = Niên khóa là bắt buộc
-errors.required.class.code = Mã là bắt buộc
-errors.required.fee.name = Tên là bắt buộc
-errors.required.feeGroup.name = Tên là bắt buộc
-errors.required.feeMap.amount = Số tiền là bắt buộc
-errors.required.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} là bắt buộc
-errors.required.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} là bắt buộc
-errors.required.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} là bắt buộc
-errors.required.student.name = Tên là bắt buộc
+errors.constraint.alternativeFeeMap.alternativeAmount = ${getText('label.alternativeFeeMap.alternativeAmount')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
+errors.constraint.course.years = NÄƒm káº¿t thĂºc pháº£i lá»›n hÆ¡n nÄƒm báº¯t Ä‘áº§u 4 nÄƒm
+errors.constraint.course.startYear = NÄƒm báº¯t Ä‘áº§u pháº£i lá»›n hÆ¡n 0
+errors.constraint.course.endYear = NÄƒm káº¿t thĂºc pháº£i lá»›n hÆ¡n 0
+errors.constraint.month.monthName = ThĂ¡ng pháº£i trong khoáº£ng 1-12
+errors.constraint.month.year = NÄƒm pháº£i lá»›n hÆ¡n 0 
+errors.constraint.feeMap.amount = Sá»‘ tiá»�n pháº£i lá»›n hÆ¡n 0
+errors.constraint.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
+errors.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
+errors.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
+errors.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
+errors.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
+xwork.default.invalid.fieldvalue= GiĂ¡ trá»‹ khĂ´ng há»£p lá»‡ cho thuá»™c tĂ­nh "{0}"
+errors.duplication.class = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i niĂªn khĂ³a vĂ  mĂ£ giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
+errors.duplication.course = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i nÄƒm báº¯t Ä‘áº§u vĂ  nÄƒm káº¿t thĂºc giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
+errors.duplication.feePolicy = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i lá»›p vĂ  thĂ¡ng giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
+errors.duplication.month = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i thĂ¡ng vĂ  nÄƒm giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
+errors.duplication.payment = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i há»�c sinh vĂ  chĂ­nh sĂ¡ch phĂ­ giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
+errors.required.class.courseId = NiĂªn khĂ³a lĂ  báº¯t buá»™c
+errors.required.class.code = MĂ£ lĂ  báº¯t buá»™c
+errors.required.fee.name = TĂªn lĂ  báº¯t buá»™c
+errors.required.feeGroup.name = TĂªn lĂ  báº¯t buá»™c
+errors.required.feeMap.amount = Sá»‘ tiá»�n lĂ  báº¯t buá»™c
+errors.required.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} lĂ  báº¯t buá»™c
+errors.required.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} lĂ  báº¯t buá»™c
+errors.required.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} lĂ  báº¯t buá»™c
+errors.required.student.name = TĂªn lĂ  báº¯t buá»™c
 
 
 # Info
-button.back = Quay lại
-success.model.create = Tạo mới / Cập nhật thành công
-table.no.records = Chưa có dữ liệu
+button.back = Quay láº¡i
+success.model.create = Táº¡o má»›i / Cáº­p nháº­t thĂ nh cĂ´ng
+table.no.records = ChÆ°a cĂ³ dá»¯ liá»‡u
 

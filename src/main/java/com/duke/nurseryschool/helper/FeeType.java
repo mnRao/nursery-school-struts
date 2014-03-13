@@ -5,8 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public enum FeeType {
-	STATIC(1, "Static"), ALL_EXCEPT_SELECTED(2, "All except selected"), SELECTED_ONLY(
-			3, "Selected Only"), UNKNOWN(Integer.MIN_VALUE, "Unknown");
+	STATIC(1, Constant.I18N.LABEL_FEETYPE_STATIC), ALL_EXCEPT_SELECTED(2,
+			Constant.I18N.LABEL_FEETYPE_ALLEXCEPTSELECTED), SELECTED_ONLY(3,
+			Constant.I18N.LABEL_FEETYPE_SELECTEDONLY), UNKNOWN(
+			Integer.MIN_VALUE, Constant.I18N.LABEL_FEETYPE_UNKNOWN);
 
 	private int type;
 	private String name;
@@ -21,7 +23,7 @@ public enum FeeType {
 	}
 
 	public String getName() {
-		return this.name;
+		return Helper.getI18N(this.name);
 	}
 
 	/**
