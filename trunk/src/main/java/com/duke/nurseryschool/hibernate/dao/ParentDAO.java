@@ -44,15 +44,19 @@ public class ParentDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteParent(int parentId) {
+	public boolean deleteParent(int parentId) {
 		try {
 			Parent parent = (Parent) this.session.get(Parent.class, parentId);
 			this.session.delete(parent);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 
 }

@@ -19,8 +19,8 @@ import jxl.write.biff.RowsExceededException;
 public class StatisticsExcelGenerator extends ExcelManager {
 
 	private static final String	SHEET_TITLE_STATISTICS	= "STATISTICS";
-	protected static final int	CONTENT_START_ROW		= 2;
-	protected static final int	CONTENT_LAST_COLUMN		= 10;
+	private static final int	CONTENT_START_ROW		= 2;
+	private static final int	CONTENT_LAST_COLUMN		= 10;
 
 	private StatisticsBean		statisticsBean;
 

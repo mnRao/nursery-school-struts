@@ -1,234 +1,234 @@
 # Global
-global.title = Máº§m non Tuyáº¿t DÆ°Æ¡ng [Duke Corp] 
-global.footer.developedBy = PhĂ¡t triá»ƒn bá»Ÿi Duke
+global.title = MÃ¡ÂºÂ§m non TuyÃ¡ÂºÂ¿t DÃ†Â°Ã†Â¡ng [Duke Corp] 
+global.footer.developedBy = PhÄ‚Â¡t triÃ¡Â»Æ’n bÃ¡Â»Å¸i Duke
 
 format.date = {0,date,dd/MM/yyyy}
 
 # UI
-ui.header.language = NgĂ´n ngá»¯
+ui.header.language = NgÄ‚Â´n ngÃ¡Â»Â¯
 ui.header.language.english = Anh
-ui.header.language.vietnamese = Viá»‡t
-ui.header.currentYear = NÄƒm há»�c hiá»‡n táº¡i
-ui.header.help = Trá»£ giĂºp
-ui.header.logout = ThoĂ¡t
-ui.widget.header.student = Há»�c sinh
+ui.header.language.vietnamese = ViÃ¡Â»â€¡t
+ui.header.currentYear = NÃ„Æ’m hÃ¡Â»ï¿½c hiÃ¡Â»â€¡n tÃ¡ÂºÂ¡i
+ui.header.help = TrÃ¡Â»Â£ giÄ‚Âºp
+ui.header.logout = ThoÄ‚Â¡t
+ui.widget.header.student = HÃ¡Â»ï¿½c sinh
 
 # Common UI
 form.widget.header = 
-form.legend = HĂ£y Ä‘iá»�n thĂ´ng tin vĂ o biá»ƒu máº«u bĂªn dÆ°á»›i 
-form.legend.computed = Tá»± Ä‘á»™ng tĂ­nh toĂ¡n
-form.legend.select = Hoáº·c chá»�n dá»¯ liá»‡u Ä‘Ă£ khá»Ÿi táº¡o sáºµn
-tab.label.first = Táº¡o má»›i | Cáº­p nháº­t
-tab.label.second = Xem dá»¯ liá»‡u
+form.legend = HÄ‚Â£y Ã„â€˜iÃ¡Â»ï¿½n thÄ‚Â´ng tin vÄ‚Â o biÃ¡Â»Æ’u mÃ¡ÂºÂ«u bÄ‚Âªn dÃ†Â°Ã¡Â»â€ºi 
+form.legend.computed = TÃ¡Â»Â± Ã„â€˜Ã¡Â»â„¢ng tÄ‚Â­nh toÄ‚Â¡n
+form.legend.select = HoÃ¡ÂºÂ·c chÃ¡Â»ï¿½n dÃ¡Â»Â¯ liÃ¡Â»â€¡u Ã„â€˜Ä‚Â£ khÃ¡Â»Å¸i tÃ¡ÂºÂ¡o sÃ¡ÂºÂµn
+tab.label.first = TÃ¡ÂºÂ¡o mÃ¡Â»â€ºi | CÃ¡ÂºÂ­p nhÃ¡ÂºÂ­t
+tab.label.second = Xem dÃ¡Â»Â¯ liÃ¡Â»â€¡u
 form.gender.male = Nam
-form.gender.female = Ná»¯
-form.trueFalse.true = Ä�Ăºng
+form.gender.female = NÃ¡Â»Â¯
+form.trueFalse.true = Ã„ï¿½Ä‚Âºng
 form.trueFalse.false = Sai
-form.submit = LÆ°u
+form.submit = LÃ†Â°u
 
-grid.action.edit = Sá»­a
-grid.action.delete = XĂ³a
-grid.action.deleteMapping = XĂ³a má»‘i liĂªn há»‡
-grid.action.addAlternativeFeeMap = ThĂªm %{getText('label.alternativeFeeMap')}
-grid.action.addClass = ThĂªm %{getText('label.classes')}
-grid.action.addFeeMap = ThĂªm %{getText('label.feeMap')}
-grid.action.addFeePolicy = ThĂªm %{getText('label.feePolicy')}
-grid.action.addParent = ThĂªm %{getText('label.parent')}
-grid.action.addPayment = ThĂªm %{getText('label.payment')}
-grid.action.excel = Excel Thu tiá»�n
-grid.action.excel.breakfast = Excel Ä‚n sĂ¡ng
-grid.action.excel.selectedOnlyFee = Excel MĂ´n nÄƒng khiáº¿u
+grid.action.edit = SÃ¡Â»Â­a
+grid.action.delete = XÄ‚Â³a
+grid.action.deleteMapping = XÄ‚Â³a mÃ¡Â»â€˜i liÄ‚Âªn hÃ¡Â»â€¡
+grid.action.addAlternativeFeeMap = ThÄ‚Âªm %{getText('label.alternativeFeeMap')}
+grid.action.addClass = ThÄ‚Âªm %{getText('label.classes')}
+grid.action.addFeeMap = ThÄ‚Âªm %{getText('label.feeMap')}
+grid.action.addFeePolicy = ThÄ‚Âªm %{getText('label.feePolicy')}
+grid.action.addParent = ThÄ‚Âªm %{getText('label.parent')}
+grid.action.addPayment = ThÄ‚Âªm %{getText('label.payment')}
+grid.action.excel = Excel Thu tiÃ¡Â»ï¿½n
+grid.action.excel.breakfast = Excel Ã„â€šn sÄ‚Â¡ng
+grid.action.excel.selectedOnlyFee = Excel MÄ‚Â´n nÃ„Æ’ng khiÃ¡ÂºÂ¿u
 
 grid.action.showParent = Xem %{getText('label.parent')}
 grid.action.showFee = Xem %{getText('label.fee')}
 grid.action.showFeeMap = Xem %{getText('label.feeMap')}
 grid.action.showFeePolicy = Xem %{getText('label.feePolicy')}
 
-modal.title.all.parent = Danh sĂ¡ch %{getText('label.parent')}
-modal.title.all.fee = Danh sĂ¡ch %{getText('label.fee')}
-modal.title.all.feeMap = Danh sĂ¡ch %{getText('label.feeMap')}
-modal.title.all.feePolicy = Danh sĂ¡ch %{getText('label.feePolicy')}
-modal.content.empty = ChÆ°a cĂ³ dá»¯ liá»‡u
+modal.title.all.parent = Danh sÄ‚Â¡ch %{getText('label.parent')}
+modal.title.all.fee = Danh sÄ‚Â¡ch %{getText('label.fee')}
+modal.title.all.feeMap = Danh sÄ‚Â¡ch %{getText('label.feeMap')}
+modal.title.all.feePolicy = Danh sÄ‚Â¡ch %{getText('label.feePolicy')}
+modal.content.empty = ChÃ†Â°a cÄ‚Â³ dÃ¡Â»Â¯ liÃ¡Â»â€¡u
 
-help.title = Quy trĂ¬nh quáº£n lĂ½ thĂ´ng tin
-help.info = Nháº­p liá»‡u theo thá»© tá»± sau
+help.title = Quy trÄ‚Â¬nh quÃ¡ÂºÂ£n lÄ‚Â½ thÄ‚Â´ng tin
+help.info = NhÃ¡ÂºÂ­p liÃ¡Â»â€¡u theo thÃ¡Â»Â© tÃ¡Â»Â± sau
 
 # Login
-label.username= TĂªn Ä‘Äƒng nháº­p
-label.password= Máº­t kháº©u
-label.login= Ä�Äƒng nháº­p
-label.rememberMe = Ghi nhá»› ?
+label.username= TÄ‚Âªn Ã„â€˜Ã„Æ’ng nhÃ¡ÂºÂ­p
+label.password= MÃ¡ÂºÂ­t khÃ¡ÂºÂ©u
+label.login= Ã„ï¿½Ã„Æ’ng nhÃ¡ÂºÂ­p
+label.rememberMe = Ghi nhÃ¡Â»â€º ?
 
 # Pages
-headTitle.dashboard = Trang chá»§
-headTitle.alternativeFeeMap = Quáº£n lĂ½ phĂ­ Ä‘iá»�u chá»‰nh cho há»�c sinh
-headTitle.class = Quáº£n lĂ½ lá»›p
-headTitle.course = Quáº£n lĂ½ niĂªn khĂ³a
-headTitle.fee = Quáº£n lĂ½ phĂ­
-headTitle.feeGroup = Quáº£n lĂ½ nhĂ³m phĂ­
-headTitle.feeMap = Quáº£n lĂ½ tiá»�n phĂ­
-headTitle.feePolicy = Quáº£n lĂ½ chĂ­nh sĂ¡ch phĂ­
-headTitle.help = Trá»£ giĂºp
-headTitle.month = Quáº£n lĂ½ thĂ¡ng
-headTitle.parent = Quáº£n lĂ½ phá»¥ huynh
-headTitle.payment = Quáº£n lĂ½ thu tiá»�n
-headTitle.student = Quáº£n lĂ½ há»�c sinh
+headTitle.dashboard = Trang chÃ¡Â»Â§
+headTitle.alternativeFeeMap = QuÃ¡ÂºÂ£n lÄ‚Â½ phÄ‚Â­ Ã„â€˜iÃ¡Â»ï¿½u chÃ¡Â»â€°nh cho hÃ¡Â»ï¿½c sinh
+headTitle.class = QuÃ¡ÂºÂ£n lÄ‚Â½ lÃ¡Â»â€ºp
+headTitle.course = QuÃ¡ÂºÂ£n lÄ‚Â½ niÄ‚Âªn khÄ‚Â³a
+headTitle.fee = QuÃ¡ÂºÂ£n lÄ‚Â½ phÄ‚Â­
+headTitle.feeGroup = QuÃ¡ÂºÂ£n lÄ‚Â½ nhÄ‚Â³m phÄ‚Â­
+headTitle.feeMap = QuÃ¡ÂºÂ£n lÄ‚Â½ tiÃ¡Â»ï¿½n phÄ‚Â­
+headTitle.feePolicy = QuÃ¡ÂºÂ£n lÄ‚Â½ chÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­
+headTitle.help = TrÃ¡Â»Â£ giÄ‚Âºp
+headTitle.month = QuÃ¡ÂºÂ£n lÄ‚Â½ thÄ‚Â¡ng
+headTitle.parent = QuÃ¡ÂºÂ£n lÄ‚Â½ phÃ¡Â»Â¥ huynh
+headTitle.payment = QuÃ¡ÂºÂ£n lÄ‚Â½ thu tiÃ¡Â»ï¿½n
+headTitle.student = QuÃ¡ÂºÂ£n lÄ‚Â½ hÃ¡Â»ï¿½c sinh
 
-dashboard.activeClasses = Sá»‘ lá»›p hiá»‡n táº¡i
-dashboard.activeStudents = Sá»‘ há»�c sinh hiá»‡n táº¡i
-dashboard.previousMonthIncome = Thu nháº­p thĂ¡ng trÆ°á»›c
-dashboard.thisMonthIncome = Thu nháº­p thĂ¡ng nĂ y
+dashboard.activeClasses = SÃ¡Â»â€˜ lÃ¡Â»â€ºp hiÃ¡Â»â€¡n tÃ¡ÂºÂ¡i
+dashboard.activeStudents = SÃ¡Â»â€˜ hÃ¡Â»ï¿½c sinh hiÃ¡Â»â€¡n tÃ¡ÂºÂ¡i
+dashboard.previousMonthIncome = Thu nhÃ¡ÂºÂ­p thÄ‚Â¡ng trÃ†Â°Ã¡Â»â€ºc
+dashboard.thisMonthIncome = Thu nhÃ¡ÂºÂ­p thÄ‚Â¡ng nÄ‚Â y
 
 # Models
 
-label.classes = Lá»›p
+label.classes = LÃ¡Â»â€ºp
 label.classes.classesId = ID
-label.classes.code = MĂ£
-label.classes.currentName = TĂªn hiá»‡n táº¡i
-label.classes.courseId = NiĂªn khĂ³a
+label.classes.code = MÄ‚Â£
+label.classes.currentName = TÄ‚Âªn hiÃ¡Â»â€¡n tÃ¡ÂºÂ¡i
+label.classes.courseId = NiÄ‚Âªn khÄ‚Â³a
 
-label.course = NiĂªn khĂ³a
+label.course = NiÄ‚Âªn khÄ‚Â³a
 label.course.courseId = ID
-label.course.startYear = NÄƒm báº¯t Ä‘áº§u
-label.course.endYear = NÄƒm káº¿t thĂºc
+label.course.startYear = NÃ„Æ’m bÃ¡ÂºÂ¯t Ã„â€˜Ã¡ÂºÂ§u
+label.course.endYear = NÃ„Æ’m kÃ¡ÂºÂ¿t thÄ‚Âºc
 
-label.fee = PhĂ­
+label.fee = PhÄ‚Â­
 label.fee.feeId = ID
-label.fee.name = TĂªn
-label.fee.type = Loáº¡i
-label.fee.feeGroupId = NhĂ³m phĂ­
+label.fee.name = TÄ‚Âªn
+label.fee.type = LoÃ¡ÂºÂ¡i
+label.fee.feeGroupId = NhÄ‚Â³m phÄ‚Â­
 
-label.feeGroup = NhĂ³m phĂ­
+label.feeGroup = NhÄ‚Â³m phÄ‚Â­
 label.feeGroup.feeGroupId = ID
-label.feeGroup.name = TĂªn
+label.feeGroup.name = TÄ‚Âªn
 
-label.feeMap = Tiá»�n phĂ­ theo lá»›p
-label.feeMap.feePolicyId = ChĂ­nh sĂ¡ch phĂ­
-label.feeMap.feeId = PhĂ­
-label.feeMap.amount = Sá»‘ tiá»�n
+label.feeMap = TiÃ¡Â»ï¿½n phÄ‚Â­ theo lÃ¡Â»â€ºp
+label.feeMap.feePolicyId = ChÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­
+label.feeMap.feeId = PhÄ‚Â­
+label.feeMap.amount = SÃ¡Â»â€˜ tiÃ¡Â»ï¿½n
 
-label.feePolicy = ChĂ­nh sĂ¡ch phĂ­
+label.feePolicy = ChÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­
 label.feePolicy.feePolicyId = ID
-label.feePolicy.classId = Lá»›p
-label.feePolicy.monthId = ThĂ¡ng
-label.feePolicy.feePerNormalMeal = PhĂ­ tá»«ng bá»¯a Äƒn thÆ°á»�ng
-label.feePolicy.penaltyFeePerBreakfast = PhĂ­ giáº£m trá»« do nghá»‰ má»—i bá»¯a sĂ¡ng
-label.feePolicy.totalBreakfastFee = Tá»•ng phĂ­ Äƒn sĂ¡ng (Ä‘i há»�c dáº§y Ä‘á»§)
-label.feePolicy.availableDays = Tá»•ng sá»‘ ngĂ y há»�c (Ä‘i há»�c Ä‘áº§y Ä‘á»§)
+label.feePolicy.classId = LÃ¡Â»â€ºp
+label.feePolicy.monthId = ThÄ‚Â¡ng
+label.feePolicy.feePerNormalMeal = PhÄ‚Â­ tÃ¡Â»Â«ng bÃ¡Â»Â¯a Ã„Æ’n thÃ†Â°Ã¡Â»ï¿½ng
+label.feePolicy.penaltyFeePerBreakfast = PhÄ‚Â­ giÃ¡ÂºÂ£m trÃ¡Â»Â« do nghÃ¡Â»â€° mÃ¡Â»â€”i bÃ¡Â»Â¯a sÄ‚Â¡ng
+label.feePolicy.totalBreakfastFee = TÃ¡Â»â€¢ng phÄ‚Â­ Ã„Æ’n sÄ‚Â¡ng (Ã„â€˜i hÃ¡Â»ï¿½c dÃ¡ÂºÂ§y Ã„â€˜Ã¡Â»Â§)
+label.feePolicy.availableDays = TÃ¡Â»â€¢ng sÃ¡Â»â€˜ ngÄ‚Â y hÃ¡Â»ï¿½c (Ã„â€˜i hÃ¡Â»ï¿½c Ã„â€˜Ã¡ÂºÂ§y Ã„â€˜Ã¡Â»Â§)
 
-label.feeType.static = Tĩnh
-label.feeType.allExceptSelected = Mặc định áp dụng cho tất cả
-label.feeType.selectedOnly = Mặc định chưa áp dụng
-labe.feeType.unknown = Không xác định
+label.feeType.static = TÄ©nh
+label.feeType.allExceptSelected = Máº·c Ä‘á»‹nh Ã¡p dá»¥ng cho táº¥t cáº£
+label.feeType.selectedOnly = Máº·c Ä‘á»‹nh chÆ°a Ã¡p dá»¥ng
+labe.feeType.unknown = KhÃ´ng xÃ¡c Ä‘á»‹nh
 
-label.month = ThĂ¡ng
+label.month = ThÄ‚Â¡ng
 label.month.monthId = ID
-label.month.month = ThĂ¡ng
-label.month.year = NÄƒm
-label.month.label = ThĂ¡ng
+label.month.month = ThÄ‚Â¡ng
+label.month.year = NÃ„Æ’m
+label.month.label = ThÄ‚Â¡ng
 
-label.parent = Phá»¥ huynh
+label.parent = PhÃ¡Â»Â¥ huynh
 label.parent.parentId = ID
-label.parent.name = TĂªn
-label.parent.gender = Giá»›i tĂ­nh
-label.parent.job = Nghá»� nghiá»‡p
-label.parent.phoneNumber = Ä�iá»‡n thoáº¡i liĂªn láº¡c
-label.parent.studentId = Há»�c sinh
+label.parent.name = TÄ‚Âªn
+label.parent.gender = GiÃ¡Â»â€ºi tÄ‚Â­nh
+label.parent.job = NghÃ¡Â»ï¿½ nghiÃ¡Â»â€¡p
+label.parent.phoneNumber = Ã„ï¿½iÃ¡Â»â€¡n thoÃ¡ÂºÂ¡i liÄ‚Âªn lÃ¡ÂºÂ¡c
+label.parent.studentId = HÃ¡Â»ï¿½c sinh
 
-label.payment = Thu tiá»�n
+label.payment = Thu tiÃ¡Â»ï¿½n
 label.payment.paymentId = ID
-label.payment.studentId = Há»�c sinh
-label.payment.feePolicyId = ChĂ­nh sĂ¡ch phĂ­
-label.payment.absenceCount = Sá»‘ buá»•i nghá»‰
-label.payment.hasBreakfast = CĂ³ Äƒn sĂ¡ng khĂ´ng
-label.payment.totalNormalMealFee = Tá»•ng tiá»�n Äƒn thÆ°á»�ng
-label.payment.totalBreakfastFee = Tá»•ng tiá»�n Äƒn sĂ¡ng
-label.payment.totalFee = Tá»•ng
-label.payment.isPaid = Ä�Ă£ tráº£
-label.payment.note = Ghi chĂº
-label.student = Há»�c sinh
+label.payment.studentId = HÃ¡Â»ï¿½c sinh
+label.payment.feePolicyId = ChÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­
+label.payment.absenceCount = SÃ¡Â»â€˜ buÃ¡Â»â€¢i nghÃ¡Â»â€°
+label.payment.hasBreakfast = CÄ‚Â³ Ã„Æ’n sÄ‚Â¡ng khÄ‚Â´ng
+label.payment.totalNormalMealFee = TÃ¡Â»â€¢ng tiÃ¡Â»ï¿½n Ã„Æ’n thÃ†Â°Ã¡Â»ï¿½ng
+label.payment.totalBreakfastFee = TÃ¡Â»â€¢ng tiÃ¡Â»ï¿½n Ã„Æ’n sÄ‚Â¡ng
+label.payment.totalFee = TÃ¡Â»â€¢ng
+label.payment.isPaid = Ã„ï¿½Ä‚Â£ trÃ¡ÂºÂ£
+label.payment.note = Ghi chÄ‚Âº
+label.student = HÃ¡Â»ï¿½c sinh
 label.student.studentId = ID
-label.student.name = TĂªn
-label.student.dateOfBirth = NgĂ y sinh
-label.student.gender = Giá»›i tĂ­nh
-label.student.address = Ä�á»‹a chá»‰
-label.student.homePhone = Ä�iá»‡n thoáº¡i nhĂ  riĂªng
-label.student.isActive = Ä�Æ°á»£c kĂ­ch hoáº¡t
-label.student.description = Ä�áº·c Ä‘iá»ƒm
-label.student.classId = Lá»›p
+label.student.name = TÄ‚Âªn
+label.student.dateOfBirth = NgÄ‚Â y sinh
+label.student.gender = GiÃ¡Â»â€ºi tÄ‚Â­nh
+label.student.address = Ã„ï¿½Ã¡Â»â€¹a chÃ¡Â»â€°
+label.student.homePhone = Ã„ï¿½iÃ¡Â»â€¡n thoÃ¡ÂºÂ¡i nhÄ‚Â  riÄ‚Âªng
+label.student.isActive = Ã„ï¿½Ã†Â°Ã¡Â»Â£c kÄ‚Â­ch hoÃ¡ÂºÂ¡t
+label.student.description = Ã„ï¿½Ã¡ÂºÂ·c Ã„â€˜iÃ¡Â»Æ’m
+label.student.classId = LÃ¡Â»â€ºp
 
-label.alternativeFeeMap = PhĂ­ Ä‘iá»�u chá»‰nh cho há»�c sinh
-label.alternativeFeeMap.paymentId = Thu tiá»�n
-label.alternativeFeeMap.feeId = PhĂ­
-label.alternativeFeeMap.alternativeAmount = Sá»‘ tiá»�n
+label.alternativeFeeMap = PhÄ‚Â­ Ã„â€˜iÃ¡Â»ï¿½u chÃ¡Â»â€°nh cho hÃ¡Â»ï¿½c sinh
+label.alternativeFeeMap.paymentId = Thu tiÃ¡Â»ï¿½n
+label.alternativeFeeMap.feeId = PhÄ‚Â­
+label.alternativeFeeMap.alternativeAmount = SÃ¡Â»â€˜ tiÃ¡Â»ï¿½n
 
-select.course = Chá»�n niĂªn khĂ³a
-select.class = Chá»�n lá»›p
-select.fee = Chá»�n phĂ­
-select.feePolicy = Chá»�n chĂ­nh sĂ¡ch phĂ­
-select.feeGroup = Chá»�n nhĂ³m phĂ­
-select.feeType = Chá»�n loáº¡i phĂ­
-select.month = Chá»�n thĂ¡ng
-select.parent = Chá»�n phá»¥ huynh
-select.payment = Chá»�n thu tiá»�n
-select.student = Chá»�n há»�c sinh
+select.course = ChÃ¡Â»ï¿½n niÄ‚Âªn khÄ‚Â³a
+select.class = ChÃ¡Â»ï¿½n lÃ¡Â»â€ºp
+select.fee = ChÃ¡Â»ï¿½n phÄ‚Â­
+select.feePolicy = ChÃ¡Â»ï¿½n chÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­
+select.feeGroup = ChÃ¡Â»ï¿½n nhÄ‚Â³m phÄ‚Â­
+select.feeType = ChÃ¡Â»ï¿½n loÃ¡ÂºÂ¡i phÄ‚Â­
+select.month = ChÃ¡Â»ï¿½n thÄ‚Â¡ng
+select.parent = ChÃ¡Â»ï¿½n phÃ¡Â»Â¥ huynh
+select.payment = ChÃ¡Â»ï¿½n thu tiÃ¡Â»ï¿½n
+select.student = ChÃ¡Â»ï¿½n hÃ¡Â»ï¿½c sinh
 
 
 # Excel
-excel.file.prefix_title = Thu tiá»�n thĂ¡ng
-excel.file.prefix_title.studentHasBreakfast = Há»�c sinh Äƒn sĂ¡ng thĂ¡ng
-excel.file.prefix_title.studentHasSelectedOnlyFee = Há»�c sinh há»�c nÄƒng khiáº¿u
+excel.file.prefix_title = Thu tiÃ¡Â»ï¿½n thÄ‚Â¡ng
+excel.file.prefix_title.studentHasBreakfast = HÃ¡Â»ï¿½c sinh Ã„Æ’n sÄ‚Â¡ng thÄ‚Â¡ng
+excel.file.prefix_title.studentHasSelectedOnlyFee = HÃ¡Â»ï¿½c sinh hÃ¡Â»ï¿½c nÃ„Æ’ng khiÃ¡ÂºÂ¿u
 
-excel.header.top.payment = THU TIá»€N
-excel.header.top.month = THĂ�NG
-excel.header.top.year = NÄ‚M
-excel.header.top.availableDays = NGĂ€Y
-excel.header.top.class = Lá»�P
+excel.header.top.payment = THU TIÃ¡Â»â‚¬N
+excel.header.top.month = THÄ‚ï¿½NG
+excel.header.top.year = NÃ„â€šM
+excel.header.top.availableDays = NGÄ‚â‚¬Y
+excel.header.top.class = LÃ¡Â»ï¿½P
 
 # Error
-error.no.feePolicy.applied = ChÆ°a cĂ³ chĂ­nh sĂ¡ch phĂ­ Ă¡p dá»¥ng. HĂ£y táº¡o chĂ­nh sĂ¡ch phĂ­ phĂ¹ há»£p trÆ°á»›c khi thá»±c hiá»‡n thao tĂ¡c nĂ y
-error.no.payment.applied = ChÆ°a cĂ³ báº£n thu tiá»�n Ă¡p dá»¥ng. HĂ£y táº¡o báº£n thu tiá»�n phĂ¹ há»£p (cho má»—i lá»›p) trÆ°á»›c khi thá»±c hiá»‡n thao tĂ¡c nĂ y
-error.delete.children.first = KhĂ´ng thá»ƒ xĂ³a
-error.login = TĂªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khĂ´ng Ä‘Ăºng. Vui lĂ²ng nháº­p láº¡i.
-error.login.username = TĂªn Ä‘Äƒng nháº­p lĂ  báº¯t buá»™c
-error.login.password = Máº­t kháº©u lĂ  báº¯t buá»™c
+error.no.feePolicy.applied = ChÃ†Â°a cÄ‚Â³ chÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­ Ä‚Â¡p dÃ¡Â»Â¥ng. HÄ‚Â£y tÃ¡ÂºÂ¡o chÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­ phÄ‚Â¹ hÃ¡Â»Â£p trÃ†Â°Ã¡Â»â€ºc khi thÃ¡Â»Â±c hiÃ¡Â»â€¡n thao tÄ‚Â¡c nÄ‚Â y
+error.no.payment.applied = ChÃ†Â°a cÄ‚Â³ bÃ¡ÂºÂ£n thu tiÃ¡Â»ï¿½n Ä‚Â¡p dÃ¡Â»Â¥ng. HÄ‚Â£y tÃ¡ÂºÂ¡o bÃ¡ÂºÂ£n thu tiÃ¡Â»ï¿½n phÄ‚Â¹ hÃ¡Â»Â£p (cho mÃ¡Â»â€”i lÃ¡Â»â€ºp) trÃ†Â°Ã¡Â»â€ºc khi thÃ¡Â»Â±c hiÃ¡Â»â€¡n thao tÄ‚Â¡c nÄ‚Â y
+error.delete.children.first = Không thể xóa khi còn tồn tại các bản ghi liên quan
+error.login = TÄ‚Âªn Ã„â€˜Ã„Æ’ng nhÃ¡ÂºÂ­p hoÃ¡ÂºÂ·c mÃ¡ÂºÂ­t khÃ¡ÂºÂ©u khÄ‚Â´ng Ã„â€˜Ä‚Âºng. Vui lÄ‚Â²ng nhÃ¡ÂºÂ­p lÃ¡ÂºÂ¡i.
+error.login.username = TÄ‚Âªn Ã„â€˜Ã„Æ’ng nhÃ¡ÂºÂ­p lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+error.login.password = MÃ¡ÂºÂ­t khÃ¡ÂºÂ©u lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
 
-errors.invalid=${getText(fieldName)} khĂ´ng há»£p lá»‡.
-errors.required=${getText(fieldName)} lĂ  báº¯t buá»™c.
-errors.number=${getText(fieldName)} pháº£i lĂ  dáº¡ng sá»‘.
-errors.range=${getText(fieldName)} khĂ´ng náº±m trong khoáº£ng ${min} vĂ  ${max}.
+errors.invalid=${getText(fieldName)} khÄ‚Â´ng hÃ¡Â»Â£p lÃ¡Â»â€¡.
+errors.required=${getText(fieldName)} lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c.
+errors.number=${getText(fieldName)} phÃ¡ÂºÂ£i lÄ‚Â  dÃ¡ÂºÂ¡ng sÃ¡Â»â€˜.
+errors.range=${getText(fieldName)} khÄ‚Â´ng nÃ¡ÂºÂ±m trong khoÃ¡ÂºÂ£ng ${min} vÄ‚Â  ${max}.
 
-errors.constraint.alternativeFeeMap.alternativeAmount = ${getText('label.alternativeFeeMap.alternativeAmount')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
-errors.constraint.course.years = NÄƒm káº¿t thĂºc pháº£i lá»›n hÆ¡n nÄƒm báº¯t Ä‘áº§u 4 nÄƒm
-errors.constraint.course.startYear = NÄƒm báº¯t Ä‘áº§u pháº£i lá»›n hÆ¡n 0
-errors.constraint.course.endYear = NÄƒm káº¿t thĂºc pháº£i lá»›n hÆ¡n 0
-errors.constraint.month.monthName = ThĂ¡ng pháº£i trong khoáº£ng 1-12
-errors.constraint.month.year = NÄƒm pháº£i lá»›n hÆ¡n 0 
-errors.constraint.feeMap.amount = Sá»‘ tiá»�n pháº£i lá»›n hÆ¡n 0
-errors.constraint.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
-errors.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
-errors.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
-errors.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
-errors.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} pháº£i lá»›n hÆ¡n hoáº·c báº±ng 0
-xwork.default.invalid.fieldvalue= GiĂ¡ trá»‹ khĂ´ng há»£p lá»‡ cho thuá»™c tĂ­nh "{0}"
-errors.duplication.class = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i niĂªn khĂ³a vĂ  mĂ£ giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
-errors.duplication.course = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i nÄƒm báº¯t Ä‘áº§u vĂ  nÄƒm káº¿t thĂºc giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
-errors.duplication.feePolicy = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i lá»›p vĂ  thĂ¡ng giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
-errors.duplication.month = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i thĂ¡ng vĂ  nÄƒm giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
-errors.duplication.payment = Dá»¯ liá»‡u trĂ¹ng láº·p vá»›i há»�c sinh vĂ  chĂ­nh sĂ¡ch phĂ­ giá»‘ng há»‡t Ä‘Ă£ tá»“n táº¡i trong há»‡ thá»‘ng
-errors.required.class.courseId = NiĂªn khĂ³a lĂ  báº¯t buá»™c
-errors.required.class.code = MĂ£ lĂ  báº¯t buá»™c
-errors.required.fee.name = TĂªn lĂ  báº¯t buá»™c
-errors.required.feeGroup.name = TĂªn lĂ  báº¯t buá»™c
-errors.required.feeMap.amount = Sá»‘ tiá»�n lĂ  báº¯t buá»™c
-errors.required.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} lĂ  báº¯t buá»™c
-errors.required.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} lĂ  báº¯t buá»™c
-errors.required.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} lĂ  báº¯t buá»™c
-errors.required.student.name = TĂªn lĂ  báº¯t buá»™c
+errors.constraint.alternativeFeeMap.alternativeAmount = ${getText('label.alternativeFeeMap.alternativeAmount')} phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n hoÃ¡ÂºÂ·c bÃ¡ÂºÂ±ng 0
+errors.constraint.course.years = NÃ„Æ’m kÃ¡ÂºÂ¿t thÄ‚Âºc phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n nÃ„Æ’m bÃ¡ÂºÂ¯t Ã„â€˜Ã¡ÂºÂ§u 4 nÃ„Æ’m
+errors.constraint.course.startYear = NÃ„Æ’m bÃ¡ÂºÂ¯t Ã„â€˜Ã¡ÂºÂ§u phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n 0
+errors.constraint.course.endYear = NÃ„Æ’m kÃ¡ÂºÂ¿t thÄ‚Âºc phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n 0
+errors.constraint.month.monthName = ThÄ‚Â¡ng phÃ¡ÂºÂ£i trong khoÃ¡ÂºÂ£ng 1-12
+errors.constraint.month.year = NÃ„Æ’m phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n 0 
+errors.constraint.feeMap.amount = SÃ¡Â»â€˜ tiÃ¡Â»ï¿½n phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n 0
+errors.constraint.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n hoÃ¡ÂºÂ·c bÃ¡ÂºÂ±ng 0
+errors.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n hoÃ¡ÂºÂ·c bÃ¡ÂºÂ±ng 0
+errors.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n hoÃ¡ÂºÂ·c bÃ¡ÂºÂ±ng 0
+errors.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n hoÃ¡ÂºÂ·c bÃ¡ÂºÂ±ng 0
+errors.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} phÃ¡ÂºÂ£i lÃ¡Â»â€ºn hÃ†Â¡n hoÃ¡ÂºÂ·c bÃ¡ÂºÂ±ng 0
+xwork.default.invalid.fieldvalue= GiÄ‚Â¡ trÃ¡Â»â€¹ khÄ‚Â´ng hÃ¡Â»Â£p lÃ¡Â»â€¡ cho thuÃ¡Â»â„¢c tÄ‚Â­nh "{0}"
+errors.duplication.class = DÃ¡Â»Â¯ liÃ¡Â»â€¡u trÄ‚Â¹ng lÃ¡ÂºÂ·p vÃ¡Â»â€ºi niÄ‚Âªn khÄ‚Â³a vÄ‚Â  mÄ‚Â£ giÃ¡Â»â€˜ng hÃ¡Â»â€¡t Ã„â€˜Ä‚Â£ tÃ¡Â»â€œn tÃ¡ÂºÂ¡i trong hÃ¡Â»â€¡ thÃ¡Â»â€˜ng
+errors.duplication.course = DÃ¡Â»Â¯ liÃ¡Â»â€¡u trÄ‚Â¹ng lÃ¡ÂºÂ·p vÃ¡Â»â€ºi nÃ„Æ’m bÃ¡ÂºÂ¯t Ã„â€˜Ã¡ÂºÂ§u vÄ‚Â  nÃ„Æ’m kÃ¡ÂºÂ¿t thÄ‚Âºc giÃ¡Â»â€˜ng hÃ¡Â»â€¡t Ã„â€˜Ä‚Â£ tÃ¡Â»â€œn tÃ¡ÂºÂ¡i trong hÃ¡Â»â€¡ thÃ¡Â»â€˜ng
+errors.duplication.feePolicy = DÃ¡Â»Â¯ liÃ¡Â»â€¡u trÄ‚Â¹ng lÃ¡ÂºÂ·p vÃ¡Â»â€ºi lÃ¡Â»â€ºp vÄ‚Â  thÄ‚Â¡ng giÃ¡Â»â€˜ng hÃ¡Â»â€¡t Ã„â€˜Ä‚Â£ tÃ¡Â»â€œn tÃ¡ÂºÂ¡i trong hÃ¡Â»â€¡ thÃ¡Â»â€˜ng
+errors.duplication.month = DÃ¡Â»Â¯ liÃ¡Â»â€¡u trÄ‚Â¹ng lÃ¡ÂºÂ·p vÃ¡Â»â€ºi thÄ‚Â¡ng vÄ‚Â  nÃ„Æ’m giÃ¡Â»â€˜ng hÃ¡Â»â€¡t Ã„â€˜Ä‚Â£ tÃ¡Â»â€œn tÃ¡ÂºÂ¡i trong hÃ¡Â»â€¡ thÃ¡Â»â€˜ng
+errors.duplication.payment = DÃ¡Â»Â¯ liÃ¡Â»â€¡u trÄ‚Â¹ng lÃ¡ÂºÂ·p vÃ¡Â»â€ºi hÃ¡Â»ï¿½c sinh vÄ‚Â  chÄ‚Â­nh sÄ‚Â¡ch phÄ‚Â­ giÃ¡Â»â€˜ng hÃ¡Â»â€¡t Ã„â€˜Ä‚Â£ tÃ¡Â»â€œn tÃ¡ÂºÂ¡i trong hÃ¡Â»â€¡ thÃ¡Â»â€˜ng
+errors.required.class.courseId = NiÄ‚Âªn khÄ‚Â³a lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.class.code = MÄ‚Â£ lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.fee.name = TÄ‚Âªn lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.feeGroup.name = TÄ‚Âªn lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.feeMap.amount = SÃ¡Â»â€˜ tiÃ¡Â»ï¿½n lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
+errors.required.student.name = TÄ‚Âªn lÄ‚Â  bÃ¡ÂºÂ¯t buÃ¡Â»â„¢c
 
 
 # Info
-button.back = Quay láº¡i
-success.model.create = Táº¡o má»›i / Cáº­p nháº­t thĂ nh cĂ´ng
-table.no.records = ChÆ°a cĂ³ dá»¯ liá»‡u
+button.back = Quay lÃ¡ÂºÂ¡i
+success.model.create = TÃ¡ÂºÂ¡o mÃ¡Â»â€ºi / CÃ¡ÂºÂ­p nhÃ¡ÂºÂ­t thÄ‚Â nh cÄ‚Â´ng
+table.no.records = ChÃ†Â°a cÄ‚Â³ dÃ¡Â»Â¯ liÃ¡Â»â€¡u
 

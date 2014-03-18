@@ -22,18 +22,18 @@ import com.opensymphony.xwork2.Preparable;
 public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		Preparable {
 
-	private Payment payment = new Payment();
-	private List<Payment> payments = new ArrayList<Payment>();
-	final private PaymentDAO dao = new PaymentDAO();
+	private Payment				payment			= new Payment();
+	private List<Payment>		payments		= new ArrayList<Payment>();
+	final private PaymentDAO	dao				= new PaymentDAO();
 
-	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	final private StudentDAO studentDAO = new StudentDAO();
+	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
+	final private StudentDAO	studentDAO		= new StudentDAO();
 
-	private int feePolicyId;
-	private int studentId;
+	private int					feePolicyId;
+	private int					studentId;
 
-	private List<Student> studentList;
-	private List<FeePolicy> feePolicyList;
+	private List<Student>		studentList;
+	private List<FeePolicy>		feePolicyList;
 
 	@Override
 	public Payment getModel() {
@@ -144,10 +144,11 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		if (this.feePolicyId != 0) {
 			FeePolicy feePolicy = this.feePolicyDAO
 					.getFeePolicy(this.feePolicyId);
-			if (feePolicy != null)
+			if (feePolicy != null) {
 				this.studentList = new ArrayList<Student>();
-			this.studentList.addAll(feePolicy.getAssociatedClass()
-					.getStudents());
+				this.studentList.addAll(feePolicy.getAssociatedClass()
+						.getStudents());
+			}
 
 			// Sort
 			Collections.sort(this.studentList, new StudentComparator());

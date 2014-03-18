@@ -19,15 +19,15 @@ import com.opensymphony.xwork2.Preparable;
 public class StudentAction extends CoreAction implements ModelDriven<Student>,
 		Preparable {
 
-	private static final long serialVersionUID = -3023527426370035860L;
+	private static final long	serialVersionUID	= -3023527426370035860L;
 
-	private Student student = new Student();
-	private List<Student> students = new ArrayList<Student>();
-	private final StudentDAO dao = new StudentDAO();
-	private final ClassesDAO classesDAO = new ClassesDAO();
+	private Student				student				= new Student();
+	private List<Student>		students			= new ArrayList<Student>();
+	private final StudentDAO	dao					= new StudentDAO();
+	private final ClassesDAO	classesDAO			= new ClassesDAO();
 
-	private int classId;
-	private List<Classes> classList;
+	private int					classId;
+	private List<Classes>		classList;
 
 	@Override
 	public Student getModel() {
@@ -56,8 +56,12 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteStudent(Integer.parseInt(this.request
-				.getParameter("studentId")));
+		boolean isDeleted = this.dao.deleteStudent(Integer
+				.parseInt(this.request.getParameter("studentId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}

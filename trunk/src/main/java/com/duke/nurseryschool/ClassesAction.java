@@ -61,9 +61,12 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteClasses(Integer.parseInt(this.request
-				.getParameter("classId")));
-		// Redirect to list action
+		boolean isDeleted = this.dao.deleteClasses(Integer
+				.parseInt(this.request.getParameter("classId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

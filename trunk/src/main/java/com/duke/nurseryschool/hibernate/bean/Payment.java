@@ -80,9 +80,6 @@ public class Payment implements BeanLabel, Cloneable {
 			AlternativeFeeMap oldAltFeeMap = iterator.next();
 			newPayment.addAlternativeFeeMap(oldAltFeeMap.clone(newPayment));
 		}
-		// for (AlternativeFeeMap altFeeMap : oldAltFeeMaps) {
-		// newPayment.addAlternativeFeeMap(altFeeMap.clone(newPayment));
-		// }
 
 		return newPayment;
 	}

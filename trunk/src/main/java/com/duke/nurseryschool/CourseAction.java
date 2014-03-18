@@ -17,9 +17,9 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 		Preparable {
 
 	// @Valid
-	private Course course = new Course();
-	private List<Course> courses = new ArrayList<Course>();
-	private CourseDAO dao = new CourseDAO();
+	private Course			course	= new Course();
+	private List<Course>	courses	= new ArrayList<Course>();
+	private CourseDAO		dao		= new CourseDAO();
 
 	@Override
 	public Course getModel() {
@@ -44,8 +44,12 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteCourse(Integer.parseInt(this.request
+		boolean isDeleted = this.dao.deleteCourse(Integer.parseInt(this.request
 				.getParameter("courseId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}

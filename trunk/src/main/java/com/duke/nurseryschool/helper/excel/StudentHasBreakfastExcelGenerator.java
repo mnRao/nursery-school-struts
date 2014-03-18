@@ -14,11 +14,11 @@ import com.duke.nurseryschool.hibernate.bean.Month;
 
 public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 
-	protected static final int CONTENT_START_ROW = 2;
-	protected static final int CONTENT_LAST_COLUMN = 10;
+	private static final int	CONTENT_START_ROW	= 2;
+	private static final int	CONTENT_LAST_COLUMN	= 10;
 
-	private final List<String> studentNames;
-	private final Month month;
+	private final List<String>	studentNames;
+	private final Month			month;
 
 	public StudentHasBreakfastExcelGenerator(WritableWorkbook workbook,
 			Month month, List<String> studentNames) {

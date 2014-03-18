@@ -48,15 +48,19 @@ public class CourseDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteCourse(int courseId) {
+	public boolean deleteCourse(int courseId) {
 		try {
 			Course course = (Course) this.session.get(Course.class, courseId);
 			this.session.delete(course);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 
 	public boolean hasDuplicates(int keyCourseId, int startYear, int endYear) {
