@@ -18,14 +18,14 @@ import com.opensymphony.xwork2.Preparable;
 public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 		Preparable {
 
-	private Parent parent = new Parent();
-	private List<Parent> parents = new ArrayList<Parent>();
-	private ParentDAO dao = new ParentDAO();
+	private Parent			parent		= new Parent();
+	private List<Parent>	parents		= new ArrayList<Parent>();
+	private ParentDAO		dao			= new ParentDAO();
 
-	private int parentId;
-	private int studentId;
-	private List<Student> studentList;
-	private StudentDAO studentDAO = new StudentDAO();
+	private int				parentId;
+	private int				studentId;
+	private List<Student>	studentList;
+	private StudentDAO		studentDAO	= new StudentDAO();
 
 	@Override
 	public Parent getModel() {
@@ -59,8 +59,12 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteParent(Integer.parseInt(this.request
+		boolean isDeleted = this.dao.deleteParent(Integer.parseInt(this.request
 				.getParameter("parentId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}

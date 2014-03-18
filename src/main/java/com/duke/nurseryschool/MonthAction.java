@@ -16,11 +16,11 @@ import com.opensymphony.xwork2.Preparable;
 public class MonthAction extends CoreAction implements ModelDriven<Month>,
 		Preparable {
 
-	private static final long serialVersionUID = -6627850634722739973L;
+	private static final long	serialVersionUID	= -6627850634722739973L;
 
-	private Month month = new Month();
-	private List<Month> months = new ArrayList<Month>();
-	private final MonthDAO dao = new MonthDAO();
+	private Month				month				= new Month();
+	private List<Month>			months				= new ArrayList<Month>();
+	private final MonthDAO		dao					= new MonthDAO();
 
 	@Override
 	public Month getModel() {
@@ -45,8 +45,12 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteMonth(Integer.parseInt(this.request
+		boolean isDeleted = this.dao.deleteMonth(Integer.parseInt(this.request
 				.getParameter("monthId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}

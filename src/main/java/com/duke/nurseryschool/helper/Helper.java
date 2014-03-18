@@ -101,6 +101,7 @@ public class Helper {
 		}
 		catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
+			return Constant.EMPTY_STRING;
 		}
 		return textProvider.getText(key);
 	}

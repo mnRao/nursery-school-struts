@@ -44,15 +44,19 @@ public class FeeGroupDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteFeeGroup(int feeGroupId) {
+	public boolean deleteFeeGroup(int feeGroupId) {
 		try {
 			FeeGroup feeGroup = (FeeGroup) this.session.get(FeeGroup.class,
 					feeGroupId);
 			this.session.delete(feeGroup);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 }

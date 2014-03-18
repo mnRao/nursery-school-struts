@@ -14,6 +14,7 @@ import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.comparator.ClassComparator;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Course;
+import com.opensymphony.xwork2.ActionContext;
 
 public class ClassesDAO extends CoreDAO {
 
@@ -65,16 +66,20 @@ public class ClassesDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteClasses(int classesId) {
+	public boolean deleteClasses(int classesId) {
 		try {
 			Classes classes = (Classes) this.session.get(Classes.class,
 					classesId);
 			this.session.delete(classes);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 
 	public boolean hasDuplicates(int classId, int courseId, String code) {

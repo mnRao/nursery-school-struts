@@ -51,16 +51,20 @@ public class StudentDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteStudent(int studentId) {
+	public boolean deleteStudent(int studentId) {
 		try {
 			Student student = (Student) this.session.get(Student.class,
 					studentId);
 			this.session.delete(student);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 
 	public void deleteParentMap(int studentId, int parentId) {

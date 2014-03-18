@@ -20,18 +20,18 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 		Preparable {
 
-	private static final long serialVersionUID = -559372069321576936L;
+	private static final long	serialVersionUID	= -559372069321576936L;
 
-	private Fee fee = new Fee();
-	private List<Fee> fees = new ArrayList<Fee>();
-	final private FeeDAO dao = new FeeDAO();
+	private Fee					fee					= new Fee();
+	private List<Fee>			fees				= new ArrayList<Fee>();
+	final private FeeDAO		dao					= new FeeDAO();
 
-	private int feeGroupId;
-	private List<FeeGroup> feeGroupList;
-	final private FeeGroupDAO feeGroupDAO = new FeeGroupDAO();
+	private int					feeGroupId;
+	private List<FeeGroup>		feeGroupList;
+	final private FeeGroupDAO	feeGroupDAO			= new FeeGroupDAO();
 
-	private int feeTypeId;
-	private List<FeeType> feeTypeList;
+	private int					feeTypeId;
+	private List<FeeType>		feeTypeList;
 
 	@Override
 	public Fee getModel() {
@@ -59,7 +59,12 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteFee(Integer.parseInt(this.request.getParameter("feeId")));
+		boolean isDeleted = this.dao.deleteFee(Integer.parseInt(this.request
+				.getParameter("feeId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 

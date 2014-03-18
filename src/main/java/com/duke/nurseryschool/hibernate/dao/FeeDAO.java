@@ -43,14 +43,18 @@ public class FeeDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteFee(int feeId) {
+	public boolean deleteFee(int feeId) {
 		try {
 			Fee fee = (Fee) this.session.get(Fee.class, feeId);
 			this.session.delete(fee);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 }

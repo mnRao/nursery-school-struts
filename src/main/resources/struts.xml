@@ -19,10 +19,16 @@
 				class="com.duke.nurseryschool.core.interceptors.AuthenticationInterceptor" />
 			<interceptor-stack name="authStack">
 				<interceptor-ref name="authentication" />
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
 				<interceptor-ref name="defaultStack" />
 				<interceptor-ref name="timer" />
 			</interceptor-stack>
 			<interceptor-stack name="noLoginStack">
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
@@ -67,7 +73,8 @@
 		<action name="Help" method="execute" class="com.duke.nurseryschool.HelpAction">
 			<result name="success" type="tiles">Help</result>
 		</action>
-		<action name="UserGuide" method="userGuideDownload" class="com.duke.nurseryschool.HelpAction">
+		<action name="UserGuide" method="userGuideDownload"
+			class="com.duke.nurseryschool.HelpAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
 				<param name="contentType">application/pdf</param>
@@ -84,6 +91,9 @@
 				<interceptor-ref name="timer" />
 				<interceptor-ref name="authentication" />
 				<interceptor-ref name="hibernateSessionInterceptor" />
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
 				<!-- <interceptor-ref name="defaultStack" /> -->
 				<interceptor-ref name="paramsPrepareParamsStack" />
 			</interceptor-stack>

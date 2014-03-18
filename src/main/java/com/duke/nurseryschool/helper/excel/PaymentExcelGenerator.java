@@ -56,7 +56,7 @@ public class PaymentExcelGenerator extends ExcelManager {
 
 	// Positions for elements
 	private static final int	HEADER_NORMAL_SPANNED_ROW		= 2;
-	protected static final int	CONTENT_START_ROW				= 3;
+	private static final int	CONTENT_START_ROW				= 3;
 	private static final int	CONTENT_STATIC_FEES_START_COL	= 5;
 
 	private static final int	TRIVIAL_LAST_COLUMNS_SIZE		= 3;
@@ -276,7 +276,7 @@ public class PaymentExcelGenerator extends ExcelManager {
 	/**
 	 * FeeGroup and Fee do not depend on FeePolicy
 	 */
-	public void getStaticData() {
+	private void getStaticData() {
 		try {
 			this.feeGroups = this.session.createQuery(
 					Constant.DATABASE_QUERY.ALL_FEE_GROUPS).list();

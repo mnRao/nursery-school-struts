@@ -69,14 +69,18 @@ public class MonthDAO extends CoreDAO {
 		}
 	}
 
-	public void deleteMonth(int monthId) {
+	public boolean deleteMonth(int monthId) {
 		try {
 			Month month = (Month) this.session.get(Month.class, monthId);
 			this.session.delete(month);
+			this.session.flush();
 		}
 		catch (Exception e) {
 			this.transaction.rollback();
 			e.printStackTrace();
+			return false;
 		}
+
+		return true;
 	}
 }

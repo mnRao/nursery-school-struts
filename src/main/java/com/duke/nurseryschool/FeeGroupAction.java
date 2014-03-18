@@ -18,12 +18,12 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeGroupAction extends CoreAction implements
 		ModelDriven<FeeGroup>, Preparable {
 
-	private static final long serialVersionUID = 2143537118962764732L;
+	private static final long	serialVersionUID	= 2143537118962764732L;
 
-	private FeeDAO feeDAO = new FeeDAO();
-	private FeeGroup feeGroup = new FeeGroup();
-	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
-	final private FeeGroupDAO dao = new FeeGroupDAO();
+	private FeeDAO				feeDAO				= new FeeDAO();
+	private FeeGroup			feeGroup			= new FeeGroup();
+	private List<FeeGroup>		feeGroups			= new ArrayList<FeeGroup>();
+	final private FeeGroupDAO	dao					= new FeeGroupDAO();
 
 	@Override
 	public FeeGroup getModel() {
@@ -46,8 +46,12 @@ public class FeeGroupAction extends CoreAction implements
 
 	@SkipValidation
 	public String delete() {
-		this.dao.deleteFeeGroup(Integer.parseInt(this.request
-				.getParameter("feeGroupId")));
+		boolean isDeleted = this.dao.deleteFeeGroup(Integer
+				.parseInt(this.request.getParameter("feeGroupId")));
+		if (!isDeleted) {
+			this.addActionError(this
+					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
