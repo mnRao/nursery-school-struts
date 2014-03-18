@@ -1,6 +1,5 @@
 package com.duke.nurseryschool.hibernate.bean;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,18 +15,16 @@ import com.duke.nurseryschool.helper.BusinessLogicSolver;
 
 @Entity
 @Table(name = "fee_group")
-public class FeeGroup implements Serializable, BeanLabel {
-
-	private static final long serialVersionUID = -8857522620553175945L;
+public class FeeGroup implements BeanLabel {
 
 	@Id
 	@GeneratedValue
-	private int feeGroupId;
+	private int			feeGroupId;
 	@Column(name = "name")
-	private String name;
+	private String		name;
 
 	@OneToMany(mappedBy = "feeGroup")
-	private Set<Fee> fees;
+	private Set<Fee>	fees;
 
 	public FeeGroup() {
 	}

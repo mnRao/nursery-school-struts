@@ -23,7 +23,7 @@
 
 
 <#if (actionErrors?? && actionErrors?size > 0)>
-	<div class="alert alert-block alert-danger fade in">
+	<div id="actionError" class="alert alert-block alert-danger fade in">
 		<button type="button" class="close close-sm" data-dismiss="alert">
 			<i class="icon-remove"></i>
 		</button>

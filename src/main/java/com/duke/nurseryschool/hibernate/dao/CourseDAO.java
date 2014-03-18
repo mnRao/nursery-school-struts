@@ -9,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Course;
-import com.duke.nurseryschool.hibernate.bean.Month;
 
 public class CourseDAO extends CoreDAO {
 
@@ -63,6 +62,7 @@ public class CourseDAO extends CoreDAO {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean hasDuplicates(int keyCourseId, int startYear, int endYear) {
 		if (keyCourseId != 0)
 			return false;

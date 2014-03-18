@@ -13,8 +13,6 @@ import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.comparator.ClassComparator;
 import com.duke.nurseryschool.hibernate.bean.Classes;
-import com.duke.nurseryschool.hibernate.bean.Course;
-import com.opensymphony.xwork2.ActionContext;
 
 public class ClassesDAO extends CoreDAO {
 
@@ -82,6 +80,7 @@ public class ClassesDAO extends CoreDAO {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean hasDuplicates(int classId, int courseId, String code) {
 		if (classId != 0)
 			return false;

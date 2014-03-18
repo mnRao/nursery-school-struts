@@ -5,10 +5,12 @@ import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class DashboardAction extends AuthenticationRequiredAction {
 
-	private MixedDAO mixedDAO = new MixedDAO();
+	private static final long	serialVersionUID	= -6457541389956060209L;
 
-	private int classAvailableCount;
-	private int activeStudentsCount;
+	private MixedDAO			mixedDAO			= new MixedDAO();
+
+	private int					classAvailableCount;
+	private int					activeStudentsCount;
 
 	@Override
 	public String execute() throws Exception {

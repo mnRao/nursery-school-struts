@@ -9,6 +9,7 @@ import com.duke.nurseryschool.hibernate.bean.Fee;
 
 public class FeeDAO extends CoreDAO {
 
+	@SuppressWarnings("unchecked")
 	public List<Fee> getFees() {
 		List<Fee> fees = new ArrayList<Fee>();
 		try {

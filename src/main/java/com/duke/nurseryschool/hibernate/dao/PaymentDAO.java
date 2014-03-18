@@ -1,6 +1,5 @@
 package com.duke.nurseryschool.hibernate.dao;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
-import com.duke.nurseryschool.hibernate.bean.Course;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 
 public class PaymentDAO extends CoreDAO {
@@ -77,6 +75,7 @@ public class PaymentDAO extends CoreDAO {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean hasDuplicates(int keyPaymentId, int studentId,
 			int feePolicyId) {
 		if (keyPaymentId != 0)

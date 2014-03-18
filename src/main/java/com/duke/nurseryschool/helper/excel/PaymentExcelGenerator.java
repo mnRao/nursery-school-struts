@@ -18,9 +18,6 @@ import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.Helper;
-import com.duke.nurseryschool.helper.Constant.DATABASE_QUERY;
-import com.duke.nurseryschool.helper.Constant.I18N;
-import com.duke.nurseryschool.helper.Constant.PUNCTUATION_MARK;
 import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -44,7 +41,6 @@ public class PaymentExcelGenerator extends ExcelManager {
 	private List<Fee>			staticFees						= new ArrayList<Fee>();
 
 	private int					lastColumn;
-	// private int extraFeeStartCol;
 	private int					otherStartCol;
 
 	private final Session		session;
@@ -270,12 +266,13 @@ public class PaymentExcelGenerator extends ExcelManager {
 	/* Positions for some critical elements */
 	private void calculateDataPositions() {
 		this.otherStartCol = CONTENT_STATIC_FEES_START_COL + this.fees.size();
-		this.lastColumn = this.otherStartCol + this.TRIVIAL_LAST_COLUMNS_SIZE;
+		this.lastColumn = this.otherStartCol + TRIVIAL_LAST_COLUMNS_SIZE;
 	}
 
 	/**
 	 * FeeGroup and Fee do not depend on FeePolicy
 	 */
+	@SuppressWarnings("unchecked")
 	private void getStaticData() {
 		try {
 			this.feeGroups = this.session.createQuery(

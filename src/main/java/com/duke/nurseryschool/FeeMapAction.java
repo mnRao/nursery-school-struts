@@ -25,19 +25,21 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		Preparable {
 
-	private FeeMap feeMap = new FeeMap();
-	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
-	final private FeeMapDAO dao = new FeeMapDAO();
+	private static final long	serialVersionUID	= 4032871480596984037L;
 
-	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	final private FeeDAO feeDAO = new FeeDAO();
-	private final MixedDAO mixedDAO = new MixedDAO();
+	private FeeMap				feeMap				= new FeeMap();
+	private List<FeeMap>		feeMaps				= new ArrayList<FeeMap>();
+	final private FeeMapDAO		dao					= new FeeMapDAO();
 
-	private int feePolicyId;
-	private int feeId;
+	final private FeePolicyDAO	feePolicyDAO		= new FeePolicyDAO();
+	final private FeeDAO		feeDAO				= new FeeDAO();
+	private final MixedDAO		mixedDAO			= new MixedDAO();
 
-	private List<Fee> feeList;
-	private List<FeePolicy> feePolicyList;
+	private int					feePolicyId;
+	private int					feeId;
+
+	private List<Fee>			feeList;
+	private List<FeePolicy>		feePolicyList;
 
 	@Override
 	public FeeMap getModel() {

@@ -41,6 +41,7 @@ public class MonthDAO extends CoreDAO {
 		return month;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean hasDuplicates(int keyMonthId, int monthName, int year) {
 		if (keyMonthId != 0)
 			return false;

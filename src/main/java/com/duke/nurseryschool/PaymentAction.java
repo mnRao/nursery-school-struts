@@ -21,13 +21,14 @@ import com.opensymphony.xwork2.Preparable;
 
 public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		Preparable {
+	private static final long	serialVersionUID	= 8722338141340223665L;
 
-	private Payment				payment			= new Payment();
-	private List<Payment>		payments		= new ArrayList<Payment>();
-	final private PaymentDAO	dao				= new PaymentDAO();
+	private Payment				payment				= new Payment();
+	private List<Payment>		payments			= new ArrayList<Payment>();
+	final private PaymentDAO	dao					= new PaymentDAO();
 
-	final private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	final private StudentDAO	studentDAO		= new StudentDAO();
+	final private FeePolicyDAO	feePolicyDAO		= new FeePolicyDAO();
+	final private StudentDAO	studentDAO			= new StudentDAO();
 
 	private int					feePolicyId;
 	private int					studentId;
