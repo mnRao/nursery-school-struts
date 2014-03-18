@@ -3,9 +3,10 @@ package com.duke.nurseryschool.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+@SuppressWarnings("deprecation")
 public class HibernateUtil {
 
-	private static SessionFactory sessionFactory;
+	private static SessionFactory	sessionFactory;
 
 	static {
 		try {

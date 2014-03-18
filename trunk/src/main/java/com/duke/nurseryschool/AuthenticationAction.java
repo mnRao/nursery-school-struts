@@ -7,9 +7,11 @@ import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.CookieManager;
 
 public class AuthenticationAction extends CoreAction {
-	private String username;
-	private String password;
-	private boolean rememberMe;
+	private static final long	serialVersionUID	= 6568139548908176831L;
+
+	private String				username;
+	private String				password;
+	private boolean				rememberMe;
 
 	public String login() {
 		if ("admin".equals(this.username) && "admin".equals(this.password)) {

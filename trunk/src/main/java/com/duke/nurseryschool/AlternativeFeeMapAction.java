@@ -15,7 +15,6 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
 import com.duke.nurseryschool.hibernate.dao.AlternativeFeeChargeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeDAO;
-import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
@@ -24,21 +23,20 @@ import com.opensymphony.xwork2.Preparable;
 public class AlternativeFeeMapAction extends CoreAction implements
 		ModelDriven<AlternativeFeeMap>, Preparable {
 
-	private static final long serialVersionUID = 9152332966087222436L;
+	private static final long			serialVersionUID	= 9152332966087222436L;
 
-	private AlternativeFeeMap alternativeFeeMap = new AlternativeFeeMap();
-	private List<AlternativeFeeMap> alternativeFeeMaps = new ArrayList<AlternativeFeeMap>();
-	private AlternativeFeeChargeMapDAO dao = new AlternativeFeeChargeMapDAO();
+	private AlternativeFeeMap			alternativeFeeMap	= new AlternativeFeeMap();
+	private List<AlternativeFeeMap>		alternativeFeeMaps	= new ArrayList<AlternativeFeeMap>();
+	private AlternativeFeeChargeMapDAO	dao					= new AlternativeFeeChargeMapDAO();
 
-	private final PaymentDAO paymentDAO = new PaymentDAO();
-	private final FeeDAO feeDAO = new FeeDAO();
-	private final MixedDAO mixedDAO = new MixedDAO();
+	private final PaymentDAO			paymentDAO			= new PaymentDAO();
+	private final FeeDAO				feeDAO				= new FeeDAO();
 
-	private int paymentId;
-	private int feeId;
+	private int							paymentId;
+	private int							feeId;
 
-	private List<Fee> feeList;
-	private List<Payment> paymentList;
+	private List<Fee>					feeList;
+	private List<Payment>				paymentList;
 
 	@Override
 	public AlternativeFeeMap getModel() {

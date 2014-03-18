@@ -18,14 +18,16 @@ import com.opensymphony.xwork2.Preparable;
 public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 		Preparable {
 
-	private Parent			parent		= new Parent();
-	private List<Parent>	parents		= new ArrayList<Parent>();
-	private ParentDAO		dao			= new ParentDAO();
+	private static final long	serialVersionUID	= 8974142884447954547L;
 
-	private int				parentId;
-	private int				studentId;
-	private List<Student>	studentList;
-	private StudentDAO		studentDAO	= new StudentDAO();
+	private Parent				parent				= new Parent();
+	private List<Parent>		parents				= new ArrayList<Parent>();
+	private ParentDAO			dao					= new ParentDAO();
+
+	private int					parentId;
+	private int					studentId;
+	private List<Student>		studentList;
+	private StudentDAO			studentDAO			= new StudentDAO();
 
 	@Override
 	public Parent getModel() {

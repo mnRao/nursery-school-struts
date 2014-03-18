@@ -32,14 +32,16 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ExcelGeneratorAction extends ActionSupport {
 
-	private InputStream		fileInputStream;
-	private String			fileName;
+	private static final long	serialVersionUID	= 1322893944355304755L;
 
-	private MixedDAO		mixedDAO		= new MixedDAO();
-	private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	private int				feePolicyId;
-	private MonthDAO		monthDAO		= new MonthDAO();
-	private int				monthId;
+	private InputStream			fileInputStream;
+	private String				fileName;
+
+	private MixedDAO			mixedDAO			= new MixedDAO();
+	private FeePolicyDAO		feePolicyDAO		= new FeePolicyDAO();
+	private int					feePolicyId;
+	private MonthDAO			monthDAO			= new MonthDAO();
+	private int					monthId;
 
 	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {

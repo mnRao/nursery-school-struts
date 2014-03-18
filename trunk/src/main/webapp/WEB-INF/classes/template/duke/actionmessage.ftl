@@ -21,7 +21,7 @@
  */
 -->
 <#if (actionMessages?? && actionMessages?size > 0 && !parameters.isEmptyList)>
-	<div class="alert alert-info fade in">
+	<div id="actionMessage" class="alert alert-info fade in">
 		<button type="button" class="close close-sm" data-dismiss="alert">
 			<i class="icon-remove"></i>
 		</button>

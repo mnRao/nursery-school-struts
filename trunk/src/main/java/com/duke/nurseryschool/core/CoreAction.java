@@ -13,6 +13,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class CoreAction extends ActionSupport implements SessionAware {
+	private static final long				serialVersionUID	= -1857836323217571L;
+
 	protected final Logger					logger				= Logger.getLogger(this
 																		.getClass());
 	protected HttpServletRequest			request				= (HttpServletRequest) ActionContext
@@ -23,6 +25,6 @@ public class CoreAction extends ActionSupport implements SessionAware {
 
 	@Override
 	public void setSession(Map<String, Object> sessionAttributes) {
-		this.sessionAttributes = (SessionMap) sessionAttributes;
+		this.sessionAttributes = (SessionMap<String, Object>) sessionAttributes;
 	}
 }

@@ -28,6 +28,7 @@ import com.duke.nurseryschool.hibernate.bean.Parent;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 
+@SuppressWarnings("deprecation")
 public class TestHibernate {
 
 	private SessionFactory	sessionFactory;
@@ -89,6 +90,7 @@ public class TestHibernate {
 		this.session.getTransaction().commit();
 
 		// Assert
+		@SuppressWarnings("unchecked")
 		List<Student> students = this.session.createQuery(
 				Constant.DATABASE_QUERY.ALL_STUDENTS).list();
 		assertEquals(1, students.size());
@@ -102,6 +104,7 @@ public class TestHibernate {
 		assertEquals(1, students.get(0).getParents().size());
 
 		// Assert embedded
+		@SuppressWarnings("unchecked")
 		List<FeePolicy> feePolicies = this.session.createQuery(
 				Constant.DATABASE_QUERY.ALL_FEE_POLICIES).list();
 		assertEquals(2, feePolicies.size());

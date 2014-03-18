@@ -80,6 +80,7 @@ public class FeePolicyDAO extends CoreDAO {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean hasDuplicates(int keyFeePolicyId, int classId, int monthId) {
 		if (keyFeePolicyId != 0)
 			return false;

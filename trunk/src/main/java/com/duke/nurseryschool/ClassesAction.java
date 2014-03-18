@@ -20,14 +20,16 @@ import com.opensymphony.xwork2.Preparable;
 public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		Preparable {
 
-	private Classes			classes			= new Classes();
-	private List<Classes>	allClasses		= new ArrayList<Classes>();
-	private ClassesDAO		dao				= new ClassesDAO();
+	private static final long	serialVersionUID	= 8744171277878043481L;
 
-	private FeePolicyDAO	feePolicyDAO	= new FeePolicyDAO();
-	private CourseDAO		courseDAO		= new CourseDAO();
-	private int				courseId;
-	private List<Course>	courseList;
+	private Classes				classes				= new Classes();
+	private List<Classes>		allClasses			= new ArrayList<Classes>();
+	private ClassesDAO			dao					= new ClassesDAO();
+
+	private FeePolicyDAO		feePolicyDAO		= new FeePolicyDAO();
+	private CourseDAO			courseDAO			= new CourseDAO();
+	private int					courseId;
+	private List<Course>		courseList;
 
 	@Override
 	public Classes getModel() {
