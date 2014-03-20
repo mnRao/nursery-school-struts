@@ -2,6 +2,8 @@ package com.duke.nurseryschool.core.interceptors;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.CookieManager;
 import com.duke.nurseryschool.helper.StringUtil;
@@ -15,18 +17,19 @@ public class AuthenticationInterceptor implements Interceptor {
 
 	@Override
 	public void destroy() {
-		System.out.println("End...");
+		Logger.getLogger(this.getClass()).info("End authentication ...");
 	}
 
 	@Override
 	public void init() {
-		System.out.println("Init...");
+		Logger.getLogger(this.getClass()).info("Init authentication ...");
 	}
 
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
-		System.out.println("Inside Auth Interceptor ... "
-				+ actionInvocation.getAction().toString());
+		Logger.getLogger(this.getClass()).info(
+				"Inside authentication interceptor ... "
+						+ actionInvocation.getAction().toString());
 		// Check user in session
 		Map<String, Object> sessionAttributes = actionInvocation
 				.getInvocationContext().getSession();

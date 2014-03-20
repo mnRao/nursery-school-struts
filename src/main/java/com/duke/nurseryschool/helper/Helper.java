@@ -17,7 +17,7 @@ public class Helper {
 	 * Check whether mapping key is allowed to be modified
 	 */
 	public static boolean changingMappingKeyAllowed() {
-		if (getActionName().contains("edit"))
+		if (getActionName().contains(Constant.TAG.ACTION_PREFIX_EDIT))
 			return false;
 		else
 			return true;
@@ -30,14 +30,14 @@ public class Helper {
 	public static String isMenuItemActive(String menuItem) {
 		String currentActionName = getActionName();
 		if (currentActionName.equalsIgnoreCase(menuItem))
-			return "current";
+			return Constant.UI.CURRENT;
 		else
 			return Constant.EMPTY_STRING;
 	}
 
 	public static String isSubMenuItemActive() {
 		String currentActionName = getActionName();
-		String opened = "opened";
+		String opened = Constant.UI.OPENED;
 		switch (currentActionName) {
 			case Constant.MENU_ITEM.MONTH:
 			case Constant.MENU_ITEM.FEE_POLICY:
@@ -61,10 +61,11 @@ public class Helper {
 
 		// Cases for necessary hidden tab
 		if (isInvisible(tabNumber, actionName))
-			return "app-hidden";
+			return Constant.UI.APP_HIDDEN;
 
-		boolean isSpecialCase = actionName.contains("edit")
-				|| actionName.contains("autoSet")
+		boolean isSpecialCase = actionName
+				.contains(Constant.TAG.ACTION_PREFIX_EDIT)
+				|| actionName.contains(Constant.TAG.ACTION_PREFIX_AUTOSET)
 				|| resultCode.equalsIgnoreCase(Action.INPUT);
 		String cssClass = calculateTabCss(tabNumber, isSpecialCase, isContent);
 
@@ -76,7 +77,7 @@ public class Helper {
 		String cssClass = Constant.EMPTY_STRING;
 		if ((isSpecialCase && tabNumber == 2)
 				|| (!isSpecialCase && tabNumber == 1)) {
-			cssClass = isContent ? "active in" : "active";
+			cssClass = isContent ? Constant.UI.ACTIVE_IN : Constant.UI.ACTIVE;
 		}
 
 		return cssClass;
@@ -87,8 +88,8 @@ public class Helper {
 	 */
 	private static boolean isInvisible(int tabNumber, String actionName) {
 		if (tabNumber == 2 && actionName.contains("Parent")
-				&& !actionName.contains("autoSet")
-				&& !actionName.contains("edit"))
+				&& !actionName.contains(Constant.TAG.ACTION_PREFIX_AUTOSET)
+				&& !actionName.contains(Constant.TAG.ACTION_PREFIX_EDIT))
 			return true;
 		else
 			return false;

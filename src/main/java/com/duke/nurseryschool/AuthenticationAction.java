@@ -14,7 +14,8 @@ public class AuthenticationAction extends CoreAction {
 	private boolean				rememberMe;
 
 	public String login() {
-		if ("admin".equals(this.username) && "admin".equals(this.password)) {
+		if (Constant.ROOT_USERNAME.equals(this.username)
+				&& Constant.ROOT_PASSWORD.equals(this.password)) {
 
 			// If REMEMBER_ME is chosen => store cookies
 			if (this.isRememberMe()) {
@@ -29,21 +30,21 @@ public class AuthenticationAction extends CoreAction {
 			return SUCCESS;
 		}
 		else {
-			this.addActionError(this.getText("error.login"));
+			this.addActionError(this.getText(Constant.I18N.ERROR_LOGIN));
 			return ERROR;
 		}
 	}
 
 	@SkipValidation
 	public String logout() {
-		System.out.println("Logging out ...");
+		this.logger.info("Logging out ...");
 
 		// Clear session
 		this.sessionAttributes.clear();
 		// Clear cookie
 		CookieManager.getInstance().deleteLoginCookie();
 
-		return "LogoutSuccess";
+		return Constant.ACTION_RESULT.LOGOUT_SUCCESS;
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class AuthenticationAction extends CoreAction {
 			this.addFieldError(Constant.TAG.LOGIN_PASSWORD,
 					this.getText(Constant.I18N.ERROR_LOGIN_PASSWORD));
 		}
-		this.logger.info("Info Validating");
+		this.logger.info("Authenticating ...");
 
 		super.validate();
 	}

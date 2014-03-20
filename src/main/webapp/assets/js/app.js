@@ -11,13 +11,15 @@ $(document).ready(function() {
 });
 
 function hideActionMessagesAndErrors() {
-	var timeOut = 2000;
+	var timeOut = 3000;
 	window.setTimeout(function() {
-		$("#actionError").slideUp(500);
-		$("#actionError").css("visibility", "hidden"); // $("#actionError").removeClass("in");
-		$("#actionMessage").slideUp(500);
-		$("#actionMessage").css("visibility", "hidden");// $("#actionMessage").removeClass("in");
+		$("#actionError").fadeOut(3000);
+		$("#actionMessage").fadeOut(3000);
 	}, timeOut);
+	window.setTimeout(function() {
+		$("#actionError").css("visibility", "hidden"); // $("#actionError").removeClass("in");
+		$("#actionMessage").css("visibility", "hidden");// $("#actionMessage").removeClass("in");
+	}, 8000);
 }
 
 function setFocusToLoginTextBox() {
