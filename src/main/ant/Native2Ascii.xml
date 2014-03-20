@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="nursery-school-native2ascii" default="native2ascii">
+
+	<target name="native2ascii">
+		<native2ascii encoding="UTF-8" src="../../../src/main/resources" dest="../../../target/generated-sources" includes="**/global_vi_VN.raw" ext=".properties" />
+		<move file="../../../target/generated-sources/global_vi_VN.properties" todir="../../../src/main/resources" />
+	</target>
+
+</project>
