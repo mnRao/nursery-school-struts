@@ -1,156 +1,173 @@
 package com.duke.nurseryschool.helper;
 
 public final class Constant {
-	public static final String EMPTY_STRING = "";
-	public static final String SPACE = " ";
-	public static final String ZERO = "0";
+	public static final String	EMPTY_STRING			= "";
+	public static final String	SPACE					= " ";
+	public static final String	ZERO					= "0";
 
-	public static final String SESSION_USER = "USER";
+	public static final String	SESSION_USER			= "USER";
 	// TODO Change to something greater (2 weeks, for ex)
-	public static final int COOKIE_TIME_OUT = 60 * 1;
+	public static final int		COOKIE_TIME_OUT			= 60 * 1;
 
-	public static final String EXCEL_SUFFIX = ".xls";
+	public static final String	EXCEL_SUFFIX			= ".xls";
 
-	public static final String USER_GUIDE_FILE_PATH = "docs/[Nursery School] User Guide.pdf";
-	public static final String USER_GUIDE_FILE_NAME = "[Nursery School] User Guide.pdf";
+	public static final String	USER_GUIDE_FILE_PATH	= "docs/[Nursery School] User Guide.pdf";
+	public static final String	USER_GUIDE_FILE_NAME	= "[Nursery School] User Guide.pdf";
+
+	public static final String	ROOT_USERNAME			= "admin";
+	public static final String	ROOT_PASSWORD			= "admin";
 
 	public static final class PUNCTUATION_MARK {
-		public static final String BRACKET_SQUARE_OPEN = "[";
-		public static final String BRACKET_SQUARE_CLOSE = "]";
-		public static final String BRACKET_CURLY_OPEN = "{";
-		public static final String BRACKET_CURLY_CLOSE = "}";
-		public static final String PARENTHESIS_OPEN = "(";
-		public static final String PARENTHESIS_CLOSE = ")";
-		public static final String HYPHEN = "-";
+		public static final String	BRACKET_SQUARE_OPEN		= "[";
+		public static final String	BRACKET_SQUARE_CLOSE	= "]";
+		public static final String	BRACKET_CURLY_OPEN		= "{";
+		public static final String	BRACKET_CURLY_CLOSE		= "}";
+		public static final String	PARENTHESIS_OPEN		= "(";
+		public static final String	PARENTHESIS_CLOSE		= ")";
+		public static final String	HYPHEN					= "-";
 	}
 
 	public static final class ACTION_RESULT {
-		public static final String SUCCESS_REDIRECT = "successRedirect";
-		public static final String CLONE = "clone";
-		public static final String CLONE_ALL = "cloneAll";
+		public static final String	SUCCESS_REDIRECT	= "successRedirect";
+		public static final String	CLONE				= "clone";
+		public static final String	CLONE_ALL			= "cloneAll";
+		public static final String	LOGOUT_SUCCESS		= "LogoutSuccess";
+	}
+
+	public static final class UI {
+		public static final String	CURRENT		= "current";
+		public static final String	OPENED		= "opened";
+		public static final String	ACTIVE_IN	= "active in";
+		public static final String	ACTIVE		= "active";
+		public static final String	APP_HIDDEN	= "app-hidden";
 	}
 
 	public static final class TAG {
-		public static final String LOGIN_USERNAME = "username";
-		public static final String LOGIN_PASSWORD = "password";
-		public static final String LOGIN_REMEMBER_ME = "rememberMe";
-		public static final String COOKIE_USERNAME = "userName";
+		public static final String	LOGIN_USERNAME			= "username";
+		public static final String	LOGIN_PASSWORD			= "password";
+		public static final String	LOGIN_REMEMBER_ME		= "rememberMe";
+		public static final String	COOKIE_USERNAME			= "userName";
+
+		public static final String	ACTION_PREFIX_EDIT		= "edit";
+		public static final String	ACTION_PREFIX_AUTOSET	= "autoSet";
 	}
 
 	// TODO
 	// When modifying key in global.properties => must also modify this class
 	// appropriately
 	public static final class I18N {
-		public static final String LABEL_FEETYPE_STATIC = "label.feeType.static";
-		public static final String LABEL_FEETYPE_ALLEXCEPTSELECTED = "label.feeType.allExceptSelected";
-		public static final String LABEL_FEETYPE_SELECTEDONLY = "label.feeType.selectedOnly";
-		public static final String LABEL_FEETYPE_UNKNOWN = "label.feeType.unknown";
+		public static final String	LABEL_FEETYPE_STATIC									= "label.feeType.static";
+		public static final String	LABEL_FEETYPE_ALLEXCEPTSELECTED							= "label.feeType.allExceptSelected";
+		public static final String	LABEL_FEETYPE_SELECTEDONLY								= "label.feeType.selectedOnly";
+		public static final String	LABEL_FEETYPE_UNKNOWN									= "label.feeType.unknown";
 
-		public static final String ERROR_NO_FEEPOLICY_APPLIED = "error.no.feePolicy.applied";
-		public static final String ERROR_NO_PAYMENT_APPLIED = "error.no.payment.applied";
-		public static final String ERROR_DELETE_CHILDREN_FIRST = "error.delete.children.first";
-		public static final String ERROR_LOGIN_USERNAME = "error.login.username";
-		public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
+		public static final String	ERROR_NO_FEEPOLICY_APPLIED								= "error.no.feePolicy.applied";
+		public static final String	ERROR_NO_PAYMENT_APPLIED								= "error.no.payment.applied";
+		public static final String	ERROR_DELETE_CHILDREN_FIRST								= "error.delete.children.first";
+		public static final String	ERROR_LOGIN												= "error.login";
+		public static final String	ERROR_LOGIN_USERNAME									= "error.login.username";
+		public static final String	ERROR_LOGIN_PASSWORD									= "error.login.password";
 
-		public static final String ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT = "errors.constraint.alternativeFeeMap.alternativeAmount";
-		public static final String ERROR_CONSTRAINT_CLASSES_CODE = "errors.constraint.classes.code";
-		public static final String ERROR_CONSTRAINT_COURSE_YEARS = "errors.constraint.course.years";
-		public static final String ERROR_CONSTRAINT_COURSE_STARTYEAR = "errors.constraint.course.startYear";
-		public static final String ERROR_CONSTRAINT_COURSE_ENDYEAR = "errors.constraint.course.endYear";
-		public static final String ERROR_CONSTRAINT_MONTH_MONTHNAME = "errors.constraint.month.monthName";
-		public static final String ERROR_CONSTRAINT_MONTH_YEAR = "errors.constraint.month.year";
-		public static final String ERROR_CONSTRAINT_FEEMAP_AMOUNT = "errors.constraint.feeMap.amount";
-		public static final String ERROR_CONSTRAINT_FEEPOLICY_FEEPERNORMALMEAL = "errors.constraint.feePolicy.feePerNormalMeal";
-		public static final String ERROR_CONSTRAINT_FEEPOLICY_TOTALBREAKFASTFEE = "errors.constraint.feePolicy.totalBreakfastFee";
-		public static final String ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.constraint.feePolicy.penaltyFeePerBreakfast";
-		public static final String ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS = "errors.constraint.feePolicy.availableDays";
-		public static final String ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT = "errors.constraint.payment.absenceCount";
-		public static final String ERROR_DUPLICATION_CLASS = "errors.duplication.class";
-		public static final String ERROR_DUPLICATION_COURSE = "errors.duplication.course";
-		public static final String ERROR_DUPLICATION_FEEPOLICY = "errors.duplication.feePolicy";
-		public static final String ERROR_DUPLICATION_MONTH = "errors.duplication.month";
-		public static final String ERROR_DUPLICATION_PAYMENT = "errors.duplication.payment";
-		public static final String ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID = "errors.required.alternativeFeeMap.feeId";
-		public static final String ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID = "errors.required.alternativeFeeMap.paymentId";
-		public static final String ERROR_REQUIRED_FEE_NAME = "errors.required.fee.name";
-		public static final String ERROR_REQUIRED_FEEGROUP_NAME = "errors.required.feeGroup.name";
-		public static final String ERROR_REQUIRED_FEEMAP_FEEID = "errors.required.feeMap.feeId";
-		public static final String ERROR_REQUIRED_FEEMAP_FEEPOLICYID = "errors.required.feeMap.feePolicyId";
-		public static final String ERROR_REQUIRED_FEEMAP_AMOUNT = "errors.required.feeMap.amount";
-		public static final String ERROR_REQUIRED_FEEPOLICY_CLASSID = "errors.required.feePolicy.classId";
-		public static final String ERROR_REQUIRED_FEEPOLICY_MONTHID = "errors.required.feePolicy.monthId";
-		public static final String ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL = "errors.required.feePolicy.feePerNormalMeal";
-		public static final String ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE = "errors.required.feePolicy.totalBreakfastFee";
-		public static final String ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST = "errors.required.feePolicy.penaltyFeePerBreakfast";
-		public static final String ERROR_REQUIRED_CLASS_COURSEID = "errors.required.class.courseId";
-		public static final String ERROR_REQUIRED_CLASS_CODE = "errors.required.class.code";
-		public static final String ERROR_REQUIRED_PAYMENT_STUDENTID = "errors.required.payment.studentId";
-		public static final String ERROR_REQUIRED_PAYMENT_FEEPOLICYID = "errors.required.payment.feePolicyId";
-		public static final String ERROR_REQUIRED_STUDENT_CLASSID = "errors.required.student.classId";
-		public static final String ERROR_REQUIRED_STUDENT_NAME = "errors.required.student.name";
+		public static final String	ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT	= "errors.constraint.alternativeFeeMap.alternativeAmount";
+		public static final String	ERROR_CONSTRAINT_CLASSES_CODE							= "errors.constraint.classes.code";
+		public static final String	ERROR_CONSTRAINT_COURSE_YEARS							= "errors.constraint.course.years";
+		public static final String	ERROR_CONSTRAINT_COURSE_STARTYEAR						= "errors.constraint.course.startYear";
+		public static final String	ERROR_CONSTRAINT_COURSE_ENDYEAR							= "errors.constraint.course.endYear";
+		public static final String	ERROR_CONSTRAINT_MONTH_MONTHNAME						= "errors.constraint.month.monthName";
+		public static final String	ERROR_CONSTRAINT_MONTH_YEAR								= "errors.constraint.month.year";
+		public static final String	ERROR_CONSTRAINT_FEEMAP_AMOUNT							= "errors.constraint.feeMap.amount";
+		public static final String	ERROR_CONSTRAINT_FEEPOLICY_FEEPERNORMALMEAL				= "errors.constraint.feePolicy.feePerNormalMeal";
+		public static final String	ERROR_CONSTRAINT_FEEPOLICY_TOTALBREAKFASTFEE			= "errors.constraint.feePolicy.totalBreakfastFee";
+		public static final String	ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST		= "errors.constraint.feePolicy.penaltyFeePerBreakfast";
+		public static final String	ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS				= "errors.constraint.feePolicy.availableDays";
+		public static final String	ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT					= "errors.constraint.payment.absenceCount";
+		public static final String	ERROR_DUPLICATION_CLASS									= "errors.duplication.class";
+		public static final String	ERROR_DUPLICATION_COURSE								= "errors.duplication.course";
+		public static final String	ERROR_DUPLICATION_FEEPOLICY								= "errors.duplication.feePolicy";
+		public static final String	ERROR_DUPLICATION_MONTH									= "errors.duplication.month";
+		public static final String	ERROR_DUPLICATION_PAYMENT								= "errors.duplication.payment";
+		public static final String	ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID					= "errors.required.alternativeFeeMap.feeId";
+		public static final String	ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID				= "errors.required.alternativeFeeMap.paymentId";
+		public static final String	ERROR_REQUIRED_FEE_NAME									= "errors.required.fee.name";
+		public static final String	ERROR_REQUIRED_FEEGROUP_NAME							= "errors.required.feeGroup.name";
+		public static final String	ERROR_REQUIRED_FEEMAP_FEEID								= "errors.required.feeMap.feeId";
+		public static final String	ERROR_REQUIRED_FEEMAP_FEEPOLICYID						= "errors.required.feeMap.feePolicyId";
+		public static final String	ERROR_REQUIRED_FEEMAP_AMOUNT							= "errors.required.feeMap.amount";
+		public static final String	ERROR_REQUIRED_FEEPOLICY_CLASSID						= "errors.required.feePolicy.classId";
+		public static final String	ERROR_REQUIRED_FEEPOLICY_MONTHID						= "errors.required.feePolicy.monthId";
+		public static final String	ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL				= "errors.required.feePolicy.feePerNormalMeal";
+		public static final String	ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE				= "errors.required.feePolicy.totalBreakfastFee";
+		public static final String	ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST			= "errors.required.feePolicy.penaltyFeePerBreakfast";
+		public static final String	ERROR_REQUIRED_CLASS_COURSEID							= "errors.required.class.courseId";
+		public static final String	ERROR_REQUIRED_CLASS_CODE								= "errors.required.class.code";
+		public static final String	ERROR_REQUIRED_PAYMENT_STUDENTID						= "errors.required.payment.studentId";
+		public static final String	ERROR_REQUIRED_PAYMENT_FEEPOLICYID						= "errors.required.payment.feePolicyId";
+		public static final String	ERROR_REQUIRED_STUDENT_CLASSID							= "errors.required.student.classId";
+		public static final String	ERROR_REQUIRED_STUDENT_NAME								= "errors.required.student.name";
 
-		public static final String SUCCESS_RECORD_CREATE_UPDATE = "success.model.create";
-		public static final String FORM_GENDER_MALE = "form.gender.male";
-		public static final String FORM_GENDER_FEMALE = "form.gender.female";
+		public static final String	SUCCESS_RECORD_CREATE_UPDATE							= "success.model.create";
+		public static final String	FORM_GENDER_MALE										= "form.gender.male";
+		public static final String	FORM_GENDER_FEMALE										= "form.gender.female";
 
-		public static final String EXCEL_HEADER_PAYMENT = "excel.header.top.payment";
-		public static final String EXCEL_HEADER_MONTH = "excel.header.top.month";
-		public static final String EXCEL_HEADER_YEAR = "excel.header.top.year";
-		public static final String EXCEL_HEADER_CLASS = "excel.header.top.class";
-		public static final String EXCEL_HEADER_DAYS = "excel.header.top.availableDays";
+		public static final String	EXCEL_HEADER_PAYMENT									= "excel.header.top.payment";
+		public static final String	EXCEL_HEADER_MONTH										= "excel.header.top.month";
+		public static final String	EXCEL_HEADER_YEAR										= "excel.header.top.year";
+		public static final String	EXCEL_HEADER_CLASS										= "excel.header.top.class";
+		public static final String	EXCEL_HEADER_DAYS										= "excel.header.top.availableDays";
 
-		public static final String EXCEL_HEADER_NORMAL_ORDER = "excel.header.normal.order";
-		public static final String EXCEL_HEADER_NORMAL_NAME = "excel.header.normal.name";
-		public static final String EXCEL_HEADER_NORMAL_MEAL = "excel.header.normal.meal";
-		public static final String EXCEL_HEADER_NORMAL_MONTH = "excel.header.normal.month";
-		public static final String EXCEL_HEADER_NORMAL_ABSENCECOUNT = "excel.header.normal.absenceCount";
-		public static final String EXCEL_HEADER_NORMAL_NOTE = "excel.header.normal.note";
-		public static final String EXCEL_HEADER_NORMAL_PAIDDATE = "excel.header.normal.paidDate";
-		public static final String EXCEL_HEADER_NORMAL_SIGNATURE = "excel.header.normal.signature";
-		public static final String EXCEL_HEADER_NORMAL_TOTAL = "excel.header.normal.total";
-		public static final String EXCEL_HEADER_NORMAL_TOTALBREAKFASTFEE = "excel.header.normal.totalNormalMealFee";
-		public static final String EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE = "excel.header.normal.totalBreakfastFee";
+		public static final String	EXCEL_HEADER_NORMAL_ORDER								= "excel.header.normal.order";
+		public static final String	EXCEL_HEADER_NORMAL_NAME								= "excel.header.normal.name";
+		public static final String	EXCEL_HEADER_NORMAL_MEAL								= "excel.header.normal.meal";
+		public static final String	EXCEL_HEADER_NORMAL_MONTH								= "excel.header.normal.month";
+		public static final String	EXCEL_HEADER_NORMAL_ABSENCECOUNT						= "excel.header.normal.absenceCount";
+		public static final String	EXCEL_HEADER_NORMAL_NOTE								= "excel.header.normal.note";
+		public static final String	EXCEL_HEADER_NORMAL_PAIDDATE							= "excel.header.normal.paidDate";
+		public static final String	EXCEL_HEADER_NORMAL_SIGNATURE							= "excel.header.normal.signature";
+		public static final String	EXCEL_HEADER_NORMAL_TOTAL								= "excel.header.normal.total";
+		public static final String	EXCEL_HEADER_NORMAL_TOTALBREAKFASTFEE					= "excel.header.normal.totalNormalMealFee";
+		public static final String	EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE					= "excel.header.normal.totalBreakfastFee";
 
-		public static final String EXCEL_FILE_PREFIX_TITLE_PAYMENT = "excel.file.prefix_title";
-		public static final String EXCEL_FILE_PREFIX_TITLE_STATISTICS = "excel.file.prefix_title.statistics";
-		public static final String EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST = "excel.file.prefix_title.studentHasBreakfast";
-		public static final String EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE = "excel.file.prefix_title.studentHasSelectedOnlyFee";
+		public static final String	EXCEL_FILE_PREFIX_TITLE_PAYMENT							= "excel.file.prefix_title";
+		public static final String	EXCEL_FILE_PREFIX_TITLE_STATISTICS						= "excel.file.prefix_title.statistics";
+		public static final String	EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST				= "excel.file.prefix_title.studentHasBreakfast";
+		public static final String	EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE		= "excel.file.prefix_title.studentHasSelectedOnlyFee";
+		public static final String	EXCEL_SHEET_TITLE_STATISTICS							= "excel.sheet.title.statistics";
 	}
 
 	public static final class DATABASE_QUERY {
-		public static final String ALL_CLASSES = "from Classes";
-		public static final String ALL_COURSES = "from Course";
-		public static final String ALL_FEE_GROUPS = "from FeeGroup";
-		public static final String ALL_FEE_MAPS = "from FeeMap";
-		public static final String ALL_FEE_POLICIES = "from FeePolicy";
-		public static final String ALL_MONTHS = "from Month";
-		public static final String ALL_PARENTS = "from Parent";
-		public static final String ALL_PAYMENTS = "from Payment";
-		public static final String ALL_STUDENTS = "from Student";
-		public static final String ALL_FEES = "from Fee";
-		public static final String ALL_ALTERNATIVE_FEE_MAPS = "from AlternativeFeeMap";
+		public static final String	ALL_CLASSES					= "from Classes";
+		public static final String	ALL_COURSES					= "from Course";
+		public static final String	ALL_FEE_GROUPS				= "from FeeGroup";
+		public static final String	ALL_FEE_MAPS				= "from FeeMap";
+		public static final String	ALL_FEE_POLICIES			= "from FeePolicy";
+		public static final String	ALL_MONTHS					= "from Month";
+		public static final String	ALL_PARENTS					= "from Parent";
+		public static final String	ALL_PAYMENTS				= "from Payment";
+		public static final String	ALL_STUDENTS				= "from Student";
+		public static final String	ALL_FEES					= "from Fee";
+		public static final String	ALL_ALTERNATIVE_FEE_MAPS	= "from AlternativeFeeMap";
 	}
 
 	public static final class BUSINESS_LOGIC {
-		public static final int YEAR_STARTING_MONTH = 9;
-		public static final int YEAR_ENDING_MONTH = 5;
+		public static final int	YEAR_STARTING_MONTH	= 9;
+		public static final int	YEAR_ENDING_MONTH	= 5;
 
-		public static final int FEMALE = 0;
-		public static final int MALE = 1;
+		public static final int	FEMALE				= 0;
+		public static final int	MALE				= 1;
 	}
 
 	public static final class MENU_ITEM {
-		public static final String ALTERNATIVE_FEE_MAP = "listAlternativeFeeChargeMap";
-		public static final String COURSE = "listCourse";
-		public static final String CLASS = "listClasses";
-		public static final String DASHBOARD = "Dashboard";
-		public static final String FEE = "listFee";
-		public static final String FEE_GROUP = "listFeeGroup";
-		public static final String FEE_MAP = "listFeeMap";
-		public static final String FEE_POLICY = "listFeePolicy";
-		public static final String MONTH = "listMonth";
-		public static final String PARENT = "listParent";
-		public static final String PAYMENT = "listPayment";
-		public static final String STUDENT = "listStudent";
+		public static final String	ALTERNATIVE_FEE_MAP	= "listAlternativeFeeChargeMap";
+		public static final String	COURSE				= "listCourse";
+		public static final String	CLASS				= "listClasses";
+		public static final String	DASHBOARD			= "Dashboard";
+		public static final String	FEE					= "listFee";
+		public static final String	FEE_GROUP			= "listFeeGroup";
+		public static final String	FEE_MAP				= "listFeeMap";
+		public static final String	FEE_POLICY			= "listFeePolicy";
+		public static final String	MONTH				= "listMonth";
+		public static final String	PARENT				= "listParent";
+		public static final String	PAYMENT				= "listPayment";
+		public static final String	STUDENT				= "listStudent";
 	}
 }

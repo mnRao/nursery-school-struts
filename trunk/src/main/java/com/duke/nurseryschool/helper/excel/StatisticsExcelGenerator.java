@@ -18,9 +18,8 @@ import jxl.write.biff.RowsExceededException;
 
 public class StatisticsExcelGenerator extends ExcelManager {
 
-	private static final String	SHEET_TITLE_STATISTICS	= "STATISTICS";
-	private static final int	CONTENT_START_ROW		= 2;
-	private static final int	CONTENT_LAST_COLUMN		= 10;
+	private static final int	CONTENT_START_ROW	= 2;
+	private static final int	CONTENT_LAST_COLUMN	= 10;
 
 	private StatisticsBean		statisticsBean;
 
@@ -32,7 +31,8 @@ public class StatisticsExcelGenerator extends ExcelManager {
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = this.workbook.createSheet(SHEET_TITLE_STATISTICS,
+		WritableSheet sheet = this.workbook.createSheet(
+				Helper.getI18N(Constant.I18N.EXCEL_SHEET_TITLE_STATISTICS),
 				sheetNumber);
 		// Write contents
 		this.addStyles();

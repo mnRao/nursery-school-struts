@@ -200,46 +200,4 @@ public class BusinessLogicSolver {
 		return sortedSet;
 	}
 
-	// public static void recalculateExtraStudyFee(int feeDetailsId,
-	// Session session) {
-	// FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
-	// Integer.valueOf(feeDetailsId));
-	// feeDetails = recalculateExtraStudyFee(feeDetails, session);
-	// session.saveOrUpdate(feeDetails);
-	// }
-	//
-	// private static FeeDetails recalculateExtraStudyFee(FeeDetails feeDetails,
-	// Session session) {
-	// // Calculate total study fee for all subjects
-	// Set<AlternativeFeeMap> allSubjectFeeMaps =
-	// feeDetails.getSubjectFeeMaps();
-	// double totalStudyFee = 0;
-	// for (AlternativeFeeMap cSubjectFeeMap : allSubjectFeeMaps) {
-	// totalStudyFee += cSubjectFeeMap.getAmount();
-	// }
-	// feeDetails.setTotalExtraStudyFee(totalStudyFee);
-	//
-	// return feeDetails;
-	// }
-
-	// public static void recalculateExtraFee(int feeDetailsId, Session session)
-	// {
-	// FeeDetails feeDetails = (FeeDetails) session.get(FeeDetails.class,
-	// Integer.valueOf(feeDetailsId));
-	// feeDetails = recalculateExtraFee(feeDetails, session);
-	// session.saveOrUpdate(feeDetails);
-	// }
-	//
-	// private static FeeDetails recalculateExtraFee(FeeDetails feeDetails,
-	// Session session) {
-	// // Calculate total study fee for all subjects
-	// Set<FeeMap> allExtraFeeMaps = feeDetails.getExtraFeeMaps();
-	// double totalExtraFee = 0;
-	// for (FeeMap cExtraFeeMap : allExtraFeeMaps) {
-	// totalExtraFee += cExtraFeeMap.getAmount();
-	// }
-	// feeDetails.setTotalExtraFee(totalExtraFee);
-	//
-	// return feeDetails;
-	// }
 }
