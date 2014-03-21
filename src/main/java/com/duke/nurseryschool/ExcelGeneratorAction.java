@@ -13,6 +13,7 @@ import jxl.Workbook;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.Helper;
@@ -32,16 +33,16 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ExcelGeneratorAction extends ActionSupport {
 
-	private static final long	serialVersionUID	= 1322893944355304755L;
+	private static final long serialVersionUID = 1322893944355304755L;
 
-	private InputStream			fileInputStream;
-	private String				fileName;
+	private InputStream fileInputStream;
+	private String fileName;
 
-	private MixedDAO			mixedDAO			= new MixedDAO();
-	private FeePolicyDAO		feePolicyDAO		= new FeePolicyDAO();
-	private int					feePolicyId;
-	private MonthDAO			monthDAO			= new MonthDAO();
-	private int					monthId;
+	private final MixedDAO mixedDAO = new MixedDAO();
+	private final FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	private int feePolicyId;
+	private final MonthDAO monthDAO = new MonthDAO();
+	private int monthId;
 
 	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {
@@ -98,8 +99,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		Set<FeePolicy> feePolicies = month.getFeePolicies();
 		// If no class setup for this month then fail
 		if (feePolicies.size() == 0) {
-			throw new Exception(
-					this.getText(Constant.I18N.ERROR_NO_FEEPOLICY_APPLIED));
+			throw new Exception(this.getText(I18N.ERROR_NO_FEEPOLICY_APPLIED));
 		}
 
 		File tempFile = this.createTemporaryFile(this
@@ -142,8 +142,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen
-			throw new Exception(
-					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+			throw new Exception(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
 		}
 	}
 
@@ -157,8 +156,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen
-			throw new Exception(
-					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+			throw new Exception(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
 		}
 	}
 
@@ -172,8 +170,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen
-			throw new Exception(
-					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+			throw new Exception(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
 		}
 	}
 
@@ -188,8 +185,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen
-			throw new Exception(
-					this.getText(Constant.I18N.ERROR_NO_PAYMENT_APPLIED));
+			throw new Exception(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
 		}
 	}
 
@@ -207,22 +203,20 @@ public class ExcelGeneratorAction extends ActionSupport {
 	}
 
 	private String generatePaymentExcelFilePrefix(String monthLabel) {
-		return Helper.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_PAYMENT)
-				+ Constant.SPACE + monthLabel
-				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+		return Helper.getI18N(I18N.EXCEL_HEADER_TOP_PAYMENT) + Constant.SPACE
+				+ monthLabel + Constant.PUNCTUATION_MARK.HYPHEN
+				+ System.currentTimeMillis();
 	}
 
 	private String generateBreakfastExcelFilePrefix(String monthLabel) {
-		return Helper
-				.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST)
-				+ Constant.SPACE
-				+ monthLabel
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST)
+				+ Constant.SPACE + monthLabel
 				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
 	private String generateSelectedOnlyExcelFilePrefix(String monthLabel) {
 		return Helper
-				.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE)
+				.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE)
 				+ Constant.SPACE
 				+ monthLabel
 				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.FeeGroup;
@@ -18,12 +19,12 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeGroupAction extends CoreAction implements
 		ModelDriven<FeeGroup>, Preparable {
 
-	private static final long	serialVersionUID	= 2143537118962764732L;
+	private static final long serialVersionUID = 2143537118962764732L;
 
-	private FeeDAO				feeDAO				= new FeeDAO();
-	private FeeGroup			feeGroup			= new FeeGroup();
-	private List<FeeGroup>		feeGroups			= new ArrayList<FeeGroup>();
-	final private FeeGroupDAO	dao					= new FeeGroupDAO();
+	private FeeDAO feeDAO = new FeeDAO();
+	private FeeGroup feeGroup = new FeeGroup();
+	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
+	final private FeeGroupDAO dao = new FeeGroupDAO();
 
 	@Override
 	public FeeGroup getModel() {
@@ -49,8 +50,7 @@ public class FeeGroupAction extends CoreAction implements
 		boolean isDeleted = this.dao.deleteFeeGroup(Integer
 				.parseInt(this.request.getParameter("feeGroupId")));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -74,7 +74,7 @@ public class FeeGroupAction extends CoreAction implements
 	public void validate() {
 		if (StringUtil.isEmpty(this.feeGroup.getName())) {
 			this.addFieldError("feeGroup.name",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEEGROUP_NAME));
+					this.getText(I18N.ERROR_REQUIRED_FEEGROUP_NAME));
 		}
 
 		super.validate();

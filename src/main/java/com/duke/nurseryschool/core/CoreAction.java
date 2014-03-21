@@ -13,15 +13,13 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class CoreAction extends ActionSupport implements SessionAware {
-	private static final long				serialVersionUID	= -1857836323217571L;
+	private static final long serialVersionUID = -1857836323217571L;
 
-	protected final Logger					logger				= Logger.getLogger(this
-																		.getClass());
-	protected HttpServletRequest			request				= (HttpServletRequest) ActionContext
-																		.getContext()
-																		.get(ServletActionContext.HTTP_REQUEST);
+	protected final Logger logger = Logger.getLogger(this.getClass());
+	protected HttpServletRequest request = (HttpServletRequest) ActionContext
+			.getContext().get(ServletActionContext.HTTP_REQUEST);
 
-	protected SessionMap<String, Object>	sessionAttributes	= null;
+	protected SessionMap<String, Object> sessionAttributes = null;
 
 	@Override
 	public void setSession(Map<String, Object> sessionAttributes) {

@@ -13,10 +13,10 @@ import com.duke.nurseryschool.hibernate.bean.embedded.FeePolicyFee;
 @Table(name = "fee_map")
 public class FeeMap implements Cloneable {
 	@Column(name = "amount", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal		amount;
+	private BigDecimal amount;
 
 	@EmbeddedId
-	private FeePolicyFee	feePolicyFee;
+	private FeePolicyFee feePolicyFee;
 
 	public FeeMap() {
 	}

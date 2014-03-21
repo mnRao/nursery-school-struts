@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.StudentComparator;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
@@ -21,20 +22,20 @@ import com.opensymphony.xwork2.Preparable;
 
 public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		Preparable {
-	private static final long	serialVersionUID	= 8722338141340223665L;
+	private static final long serialVersionUID = 8722338141340223665L;
 
-	private Payment				payment				= new Payment();
-	private List<Payment>		payments			= new ArrayList<Payment>();
-	final private PaymentDAO	dao					= new PaymentDAO();
+	private Payment payment = new Payment();
+	private List<Payment> payments = new ArrayList<Payment>();
+	final private PaymentDAO dao = new PaymentDAO();
 
-	final private FeePolicyDAO	feePolicyDAO		= new FeePolicyDAO();
-	final private StudentDAO	studentDAO			= new StudentDAO();
+	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	final private StudentDAO studentDAO = new StudentDAO();
 
-	private int					feePolicyId;
-	private int					studentId;
+	private int feePolicyId;
+	private int studentId;
 
-	private List<Student>		studentList;
-	private List<FeePolicy>		feePolicyList;
+	private List<Student> studentList;
+	private List<FeePolicy> feePolicyList;
 
 	@Override
 	public Payment getModel() {
@@ -66,8 +67,7 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 				.parseInt(this.request.getParameter("paymentId")));
 
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
 			this.populateData();
 
@@ -95,23 +95,22 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 	@Override
 	public void validate() {
 		if (this.studentId == 0) {
-			this.addFieldError("payment.studentId", this
-					.getText(Constant.I18N.ERROR_REQUIRED_PAYMENT_STUDENTID));
+			this.addFieldError("payment.studentId",
+					this.getText(I18N.ERROR_REQUIRED_PAYMENT_STUDENTID));
 		}
 		if (this.feePolicyId == 0) {
-			this.addFieldError("payment.feePolicyId", this
-					.getText(Constant.I18N.ERROR_REQUIRED_PAYMENT_FEEPOLICYID));
+			this.addFieldError("payment.feePolicyId",
+					this.getText(I18N.ERROR_REQUIRED_PAYMENT_FEEPOLICYID));
 		}
 		if (this.payment.getAbsenceCount() < 0) {
-			this.addFieldError(
-					"payment.absenceCount",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT));
+			this.addFieldError("payment.absenceCount",
+					this.getText(I18N.ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT));
 		}
 		// Check for uniqueness
 		if (this.dao.hasDuplicates(this.payment.getPaymentId(), this.studentId,
 				this.feePolicyId)) {
 			this.addFieldError("payment.studentId",
-					this.getText(Constant.I18N.ERROR_DUPLICATION_PAYMENT));
+					this.getText(I18N.ERROR_DUPLICATION_PAYMENT));
 		}
 
 		super.validate();

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.dao.MonthDAO;
@@ -16,11 +17,11 @@ import com.opensymphony.xwork2.Preparable;
 public class MonthAction extends CoreAction implements ModelDriven<Month>,
 		Preparable {
 
-	private static final long	serialVersionUID	= -6627850634722739973L;
+	private static final long serialVersionUID = -6627850634722739973L;
 
-	private Month				month				= new Month();
-	private List<Month>			months				= new ArrayList<Month>();
-	private final MonthDAO		dao					= new MonthDAO();
+	private Month month = new Month();
+	private List<Month> months = new ArrayList<Month>();
+	private final MonthDAO dao = new MonthDAO();
 
 	@Override
 	public Month getModel() {
@@ -48,8 +49,7 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 		boolean isDeleted = this.dao.deleteMonth(Integer.parseInt(this.request
 				.getParameter("monthId")));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -66,18 +66,18 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 	@Override
 	public void validate() {
 		if (this.month.getMonthName() > 12 || this.month.getMonthName() < 1) {
-			this.addFieldError("month.monthName", this
-					.getText(Constant.I18N.ERROR_CONSTRAINT_MONTH_MONTHNAME));
+			this.addFieldError("month.monthName",
+					this.getText(I18N.ERROR_CONSTRAINT_MONTH_MONTHNAME));
 		}
 		if (this.month.getYear() <= 0) {
 			this.addFieldError("month.year",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_MONTH_YEAR));
+					this.getText(I18N.ERROR_CONSTRAINT_MONTH_YEAR));
 		}
 		// Check for uniqueness
 		if (this.dao.hasDuplicates(this.month.getMonthId(),
 				this.month.getMonthName(), this.month.getYear())) {
 			this.addFieldError("month.monthName",
-					this.getText(Constant.I18N.ERROR_DUPLICATION_MONTH));
+					this.getText(I18N.ERROR_DUPLICATION_MONTH));
 		}
 
 		super.validate();

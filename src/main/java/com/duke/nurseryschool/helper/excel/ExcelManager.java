@@ -14,16 +14,16 @@ import jxl.write.biff.RowsExceededException;
 
 public abstract class ExcelManager {
 
-	protected static final String	SHEET_TITLE_ALL		= "ALL";
+	protected static final String SHEET_TITLE_ALL = "ALL";
 
-	protected static final int		HEADER_TOP_ROW		= 0;
-	protected static final int		HEADER_TOP_COLUMN	= 0;
-	protected static final int		HEADER_NORMAL_ROW	= 1;
+	protected static final int HEADER_TOP_ROW = 0;
+	protected static final int HEADER_TOP_COLUMN = 0;
+	protected static final int HEADER_NORMAL_ROW = 1;
 
 	// Excel's configurations
-	protected WritableCellFormat	timesBold;
-	protected WritableCellFormat	times;
-	protected WritableWorkbook		workbook;
+	protected WritableCellFormat timesBold;
+	protected WritableCellFormat times;
+	protected WritableWorkbook workbook;
 
 	public ExcelManager(WritableWorkbook workbook) {
 		this.workbook = workbook;

@@ -6,22 +6,23 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.helper.Helper;
-import com.duke.nurseryschool.helper.StatisticsBean;
-import com.duke.nurseryschool.hibernate.bean.Classes;
-
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import com.duke.nurseryschool.generated.I18N;
+import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.StatisticsBean;
+import com.duke.nurseryschool.hibernate.bean.Classes;
+
 public class StatisticsExcelGenerator extends ExcelManager {
 
-	private static final int	CONTENT_START_ROW	= 2;
-	private static final int	CONTENT_LAST_COLUMN	= 10;
+	private static final int CONTENT_START_ROW = 2;
+	private static final int CONTENT_LAST_COLUMN = 10;
 
-	private StatisticsBean		statisticsBean;
+	private final StatisticsBean statisticsBean;
 
 	public StatisticsExcelGenerator(WritableWorkbook workbook,
 			StatisticsBean statisticsBean) {
@@ -32,8 +33,7 @@ public class StatisticsExcelGenerator extends ExcelManager {
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
 		WritableSheet sheet = this.workbook.createSheet(
-				Helper.getI18N(Constant.I18N.EXCEL_SHEET_TITLE_STATISTICS),
-				sheetNumber);
+				Helper.getI18N(I18N.EXCEL_SHEET_TITLE_STATISTICS), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
@@ -46,11 +46,11 @@ public class StatisticsExcelGenerator extends ExcelManager {
 				this.generateTopMostHeaderLabel());
 
 		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ORDER));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_MONTH));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_MONTH));
 		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTAL));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
 
 		this.mergeHeaderCells(sheet);
 	}
@@ -72,16 +72,14 @@ public class StatisticsExcelGenerator extends ExcelManager {
 				.entrySet();
 		for (Entry<Classes, BigDecimal> entry : entrySet) {
 			this.addNumber(sheet, 0, row, count);
-			this.addLabel(sheet, 1, row,
-					((Classes) entry.getKey()).getCurrentName());
-			this.addNumber(sheet, 2, row,
-					((BigDecimal) entry.getValue()).doubleValue());
+			this.addLabel(sheet, 1, row, entry.getKey().getCurrentName());
+			this.addNumber(sheet, 2, row, entry.getValue().doubleValue());
 			count++;
 			row++;
 		}
 
 		this.addLabel(sheet, 1, row + 1,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTAL));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
 		this.addNumber(sheet, 2, row + 1, this.statisticsBean
 				.getTotalFeeForSchool().doubleValue());
 	}
@@ -89,14 +87,13 @@ public class StatisticsExcelGenerator extends ExcelManager {
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
 		headerTop
-				.append(Helper
-						.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_STATISTICS))
+				.append(Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STATISTICS))
 				.append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_MONTH))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
 				.append(Constant.SPACE)
 				.append(this.statisticsBean.getMonth().getMonthName())
 				.append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_YEAR))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
 				.append(Constant.SPACE)
 				.append(this.statisticsBean.getMonth().getYear())
 				.append(Constant.SPACE);

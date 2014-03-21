@@ -8,6 +8,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.hibernate.bean.Month;
@@ -44,9 +45,9 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 				this.generateTopMostHeaderLabel());
 
 		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ORDER));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NAME));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
 
 		this.mergeHeaderCells(sheet);
 	}
@@ -74,12 +75,12 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 		StringBuffer headerTop = new StringBuffer();
 		headerTop
 				.append(Helper
-						.getI18N(Constant.I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE))
+						.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE))
 				.append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_MONTH))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
 				.append(Constant.SPACE).append(this.month.getMonthName())
 				.append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_YEAR))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
 				.append(Constant.SPACE).append(this.month.getYear())
 				.append(Constant.SPACE);
 		return headerTop.toString();

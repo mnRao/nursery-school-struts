@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
@@ -19,15 +20,15 @@ import com.opensymphony.xwork2.Preparable;
 public class StudentAction extends CoreAction implements ModelDriven<Student>,
 		Preparable {
 
-	private static final long	serialVersionUID	= -3023527426370035860L;
+	private static final long serialVersionUID = -3023527426370035860L;
 
-	private Student				student				= new Student();
-	private List<Student>		students			= new ArrayList<Student>();
-	private final StudentDAO	dao					= new StudentDAO();
-	private final ClassesDAO	classesDAO			= new ClassesDAO();
+	private Student student = new Student();
+	private List<Student> students = new ArrayList<Student>();
+	private final StudentDAO dao = new StudentDAO();
+	private final ClassesDAO classesDAO = new ClassesDAO();
 
-	private int					classId;
-	private List<Classes>		classList;
+	private int classId;
+	private List<Classes> classList;
 
 	@Override
 	public Student getModel() {
@@ -59,8 +60,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 		boolean isDeleted = this.dao.deleteStudent(Integer
 				.parseInt(this.request.getParameter("studentId")));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -88,11 +88,11 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	public void validate() {
 		if (this.classId == 0) {
 			this.addFieldError("student.classId",
-					this.getText(Constant.I18N.ERROR_REQUIRED_STUDENT_CLASSID));
+					this.getText(I18N.ERROR_REQUIRED_STUDENT_CLASSID));
 		}
 		if (StringUtil.isEmpty(this.student.getName().trim())) {
 			this.addFieldError("student.name",
-					this.getText(Constant.I18N.ERROR_REQUIRED_STUDENT_NAME));
+					this.getText(I18N.ERROR_REQUIRED_STUDENT_NAME));
 		}
 
 		super.validate();

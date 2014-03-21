@@ -9,9 +9,9 @@ import com.duke.nurseryschool.hibernate.bean.Month;
 
 public class StatisticsBean {
 
-	private Month						month;
-	private Map<Classes, BigDecimal>	totalFeeForClasses	= new HashMap<Classes, BigDecimal>();
-	private BigDecimal					totalFeeForSchool	= new BigDecimal(0);
+	private Month month;
+	private Map<Classes, BigDecimal> totalFeeForClasses = new HashMap<Classes, BigDecimal>();
+	private BigDecimal totalFeeForSchool = new BigDecimal(0);
 
 	public StatisticsBean(Month month) {
 		this.month = month;

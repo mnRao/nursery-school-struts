@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.hibernate.Session;
 
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.comparator.FeeComparator;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -85,12 +86,10 @@ public class BusinessLogicSolver {
 		String genderText = Constant.EMPTY_STRING;
 		switch (gender) {
 			case Constant.BUSINESS_LOGIC.FEMALE:
-				genderText = textProvider
-						.getText(Constant.I18N.FORM_GENDER_FEMALE);
+				genderText = textProvider.getText(I18N.FORM_GENDER_FEMALE);
 				break;
 			case Constant.BUSINESS_LOGIC.MALE:
-				genderText = textProvider
-						.getText(Constant.I18N.FORM_GENDER_MALE);
+				genderText = textProvider.getText(I18N.FORM_GENDER_MALE);
 				break;
 		}
 
