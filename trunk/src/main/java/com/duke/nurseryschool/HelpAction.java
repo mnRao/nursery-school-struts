@@ -11,10 +11,10 @@ import com.duke.nurseryschool.helper.Constant;
 
 public class HelpAction extends AuthenticationRequiredAction {
 
-	private static final long	serialVersionUID	= 8096333986346450810L;
+	private static final long serialVersionUID = 8096333986346450810L;
 
-	private InputStream			fileInputStream;
-	private String				fileName;
+	private InputStream fileInputStream;
+	private String fileName;
 
 	@Override
 	public String execute() throws Exception {

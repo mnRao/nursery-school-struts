@@ -31,8 +31,8 @@ import com.duke.nurseryschool.hibernate.bean.Student;
 @SuppressWarnings("deprecation")
 public class TestHibernate {
 
-	private SessionFactory	sessionFactory;
-	private Session			session;
+	private SessionFactory sessionFactory;
+	private Session session;
 
 	@Before
 	public void setUp() throws Exception {

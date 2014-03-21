@@ -6,7 +6,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 @SuppressWarnings("deprecation")
 public class HibernateUtil {
 
-	private static SessionFactory	sessionFactory;
+	private static SessionFactory sessionFactory;
 
 	static {
 		try {

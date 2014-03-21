@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
@@ -23,20 +24,20 @@ import com.opensymphony.xwork2.Preparable;
 public class AlternativeFeeMapAction extends CoreAction implements
 		ModelDriven<AlternativeFeeMap>, Preparable {
 
-	private static final long			serialVersionUID	= 9152332966087222436L;
+	private static final long serialVersionUID = 9152332966087222436L;
 
-	private AlternativeFeeMap			alternativeFeeMap	= new AlternativeFeeMap();
-	private List<AlternativeFeeMap>		alternativeFeeMaps	= new ArrayList<AlternativeFeeMap>();
-	private AlternativeFeeChargeMapDAO	dao					= new AlternativeFeeChargeMapDAO();
+	private AlternativeFeeMap alternativeFeeMap = new AlternativeFeeMap();
+	private List<AlternativeFeeMap> alternativeFeeMaps = new ArrayList<AlternativeFeeMap>();
+	private AlternativeFeeChargeMapDAO dao = new AlternativeFeeChargeMapDAO();
 
-	private final PaymentDAO			paymentDAO			= new PaymentDAO();
-	private final FeeDAO				feeDAO				= new FeeDAO();
+	private final PaymentDAO paymentDAO = new PaymentDAO();
+	private final FeeDAO feeDAO = new FeeDAO();
 
-	private int							paymentId;
-	private int							feeId;
+	private int paymentId;
+	private int feeId;
 
-	private List<Fee>					feeList;
-	private List<Payment>				paymentList;
+	private List<Fee> feeList;
+	private List<Payment> paymentList;
 
 	@Override
 	public AlternativeFeeMap getModel() {
@@ -99,19 +100,17 @@ public class AlternativeFeeMapAction extends CoreAction implements
 		BigDecimal alternativeAmount = this.alternativeFeeMap
 				.getAlternativeAmount();
 		if (this.feeId == 0) {
-			this.addFieldError(
-					"alternativeFeeMap.feeId",
-					this.getText(Constant.I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID));
+			this.addFieldError("alternativeFeeMap.feeId",
+					this.getText(I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID));
 		}
 		if (this.paymentId == 0) {
-			this.addFieldError(
-					"alternativeFeeMap.paymentId",
-					this.getText(Constant.I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID));
+			this.addFieldError("alternativeFeeMap.paymentId", this
+					.getText(I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID));
 		}
 		if (alternativeAmount != null && alternativeAmount.doubleValue() < 0) {
 			this.addFieldError(
 					"alternativeFeeMap.alternativeAmount",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT));
+					this.getText(I18N.ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT));
 		}
 
 		super.validate();

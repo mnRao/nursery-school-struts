@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.StringUtil;
@@ -20,18 +21,18 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 		Preparable {
 
-	private static final long	serialVersionUID	= -559372069321576936L;
+	private static final long serialVersionUID = -559372069321576936L;
 
-	private Fee					fee					= new Fee();
-	private List<Fee>			fees				= new ArrayList<Fee>();
-	final private FeeDAO		dao					= new FeeDAO();
+	private Fee fee = new Fee();
+	private List<Fee> fees = new ArrayList<Fee>();
+	final private FeeDAO dao = new FeeDAO();
 
-	private int					feeGroupId;
-	private List<FeeGroup>		feeGroupList;
-	final private FeeGroupDAO	feeGroupDAO			= new FeeGroupDAO();
+	private int feeGroupId;
+	private List<FeeGroup> feeGroupList;
+	final private FeeGroupDAO feeGroupDAO = new FeeGroupDAO();
 
-	private int					feeTypeId;
-	private List<FeeType>		feeTypeList;
+	private int feeTypeId;
+	private List<FeeType> feeTypeList;
 
 	@Override
 	public Fee getModel() {
@@ -62,8 +63,7 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 		boolean isDeleted = this.dao.deleteFee(Integer.parseInt(this.request
 				.getParameter("feeId")));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 		}
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
@@ -85,7 +85,7 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 	public void validate() {
 		if (StringUtil.isEmpty(this.fee.getName())) {
 			this.addFieldError("fee.name",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEE_NAME));
+					this.getText(I18N.ERROR_REQUIRED_FEE_NAME));
 		}
 
 		super.validate();

@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
@@ -31,25 +32,25 @@ import com.opensymphony.xwork2.Preparable;
 public class FeePolicyAction extends CoreAction implements
 		ModelDriven<FeePolicy>, Preparable {
 
-	private static final long					serialVersionUID	= -9145112354887960316L;
+	private static final long serialVersionUID = -9145112354887960316L;
 
-	private FeePolicy							feePolicy			= new FeePolicy();
-	private List<FeePolicy>						feePolicies			= new ArrayList<FeePolicy>();
-	private final FeePolicyDAO					dao					= new FeePolicyDAO();
-	private final ClassesDAO					classesDAO			= new ClassesDAO();
-	private final MonthDAO						monthDAO			= new MonthDAO();
-	private final FeeMapDAO						feeMapDAO			= new FeeMapDAO();
-	private final PaymentDAO					paymentDAO			= new PaymentDAO();
-	private final AlternativeFeeChargeMapDAO	altFeeMapDAO		= new AlternativeFeeChargeMapDAO();
-	private final MixedDAO						mixedDAO			= new MixedDAO();
+	private FeePolicy feePolicy = new FeePolicy();
+	private List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
+	private final FeePolicyDAO dao = new FeePolicyDAO();
+	private final ClassesDAO classesDAO = new ClassesDAO();
+	private final MonthDAO monthDAO = new MonthDAO();
+	private final FeeMapDAO feeMapDAO = new FeeMapDAO();
+	private final PaymentDAO paymentDAO = new PaymentDAO();
+	private final AlternativeFeeChargeMapDAO altFeeMapDAO = new AlternativeFeeChargeMapDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private int									classId;
-	private int									monthId;
+	private int classId;
+	private int monthId;
 
-	private List<Classes>						classList;
-	private List<Month>							monthList;
+	private List<Classes> classList;
+	private List<Month> monthList;
 
-	private int									feePolicyIdToClone;
+	private int feePolicyIdToClone;
 
 	@Override
 	public FeePolicy getModel() {
@@ -102,8 +103,7 @@ public class FeePolicyAction extends CoreAction implements
 		boolean isDeleted = this.dao.deleteFeePolicy(Integer
 				.parseInt(feePolicyId));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			return Action.SUCCESS;// Actually Error
 		}
 
@@ -227,48 +227,43 @@ public class FeePolicyAction extends CoreAction implements
 		BigDecimal penaltyFeePerBreakfast = this.feePolicy
 				.getPenaltyFeePerBreakfast();
 		if (this.classId == 0) {
-			this.addFieldError("feePolicy.classId", this
-					.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_CLASSID));
+			this.addFieldError("feePolicy.classId",
+					this.getText(I18N.ERROR_REQUIRED_FEEPOLICY_CLASSID));
 		}
 		if (this.monthId == 0) {
-			this.addFieldError("feePolicy.monthId", this
-					.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_MONTHID));
+			this.addFieldError("feePolicy.monthId",
+					this.getText(I18N.ERROR_REQUIRED_FEEPOLICY_MONTHID));
 		}
 		if (feePerNormalMeal == null) {
-			this.addFieldError(
-					"feePolicy.feePerNormalMeal",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL));
+			this.addFieldError("feePolicy.feePerNormalMeal", this
+					.getText(I18N.ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL));
 		}
 		if (totalBreakfastFee == null) {
-			this.addFieldError(
-					"feePolicy.totalBreakfastFee",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE));
+			this.addFieldError("feePolicy.totalBreakfastFee", this
+					.getText(I18N.ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE));
 		}
 		if (penaltyFeePerBreakfast == null) {
 			this.addFieldError(
 					"feePolicy.penaltyFeePerBreakfast",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST));
+					this.getText(I18N.ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST));
 		}
 		if (feePerNormalMeal != null && feePerNormalMeal.doubleValue() < 0) {
-			this.addFieldError(
-					"feePolicy.feePerNormalMeal",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_FEEPERNORMALMEAL));
+			this.addFieldError("feePolicy.feePerNormalMeal", this
+					.getText(I18N.ERROR_CONSTRAINT_FEEPOLICY_FEEPERNORMALMEAL));
 		}
 		if (totalBreakfastFee != null && totalBreakfastFee.doubleValue() < 0) {
-			this.addFieldError(
-					"feePolicy.totalBreakfastFee",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_TOTALBREAKFASTFEE));
+			this.addFieldError("feePolicy.totalBreakfastFee", this
+					.getText(I18N.ERROR_CONSTRAINT_FEEPOLICY_TOTALBREAKFASTFEE));
 		}
 		if (penaltyFeePerBreakfast != null
 				&& penaltyFeePerBreakfast.doubleValue() < 0) {
 			this.addFieldError(
 					"feePolicy.penaltyFeePerBreakfast",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST));
+					this.getText(I18N.ERROR_CONSTRAINT_FEEPOLICY_PENALTYFEEPERBREAKFAST));
 		}
 		if (this.feePolicy.getAvailableDays() <= 0) {
-			this.addFieldError(
-					"feePolicy",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS));
+			this.addFieldError("feePolicy",
+					this.getText(I18N.ERROR_CONSTRAINT_FEEPOLICY_AVAILABLEDAYS));
 		}
 		// Check for uniqueness
 		this.checkUniqueness();
@@ -279,7 +274,7 @@ public class FeePolicyAction extends CoreAction implements
 	private void checkUniqueness(int feePolicyId, int classId, int monthId) {
 		if (this.dao.hasDuplicates(feePolicyId, this.classId, this.monthId)) {
 			this.addFieldError("classId",
-					this.getText(Constant.I18N.ERROR_DUPLICATION_FEEPOLICY));
+					this.getText(I18N.ERROR_DUPLICATION_FEEPOLICY));
 		}
 	}
 

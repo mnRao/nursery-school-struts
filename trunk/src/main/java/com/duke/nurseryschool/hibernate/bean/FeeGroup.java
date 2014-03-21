@@ -19,12 +19,12 @@ public class FeeGroup implements BeanLabel {
 
 	@Id
 	@GeneratedValue
-	private int			feeGroupId;
+	private int feeGroupId;
 	@Column(name = "name")
-	private String		name;
+	private String name;
 
 	@OneToMany(mappedBy = "feeGroup")
-	private Set<Fee>	fees;
+	private Set<Fee> fees;
 
 	public FeeGroup() {
 	}

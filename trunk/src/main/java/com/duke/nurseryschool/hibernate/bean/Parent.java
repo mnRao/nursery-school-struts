@@ -19,18 +19,18 @@ import com.duke.nurseryschool.helper.Constant;
 public class Parent implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int				parentId;
+	private int parentId;
 	@Column(name = "gender")
-	private int				gender;
+	private int gender;
 	@Column(name = "name")
-	private String			name;
+	private String name;
 	@Column(name = "job")
-	private String			job;
+	private String job;
 	@Column(name = "phoneNumber")
-	private String			phoneNumber;
+	private String phoneNumber;
 
 	@ManyToMany(mappedBy = "parents")
-	private Set<Student>	students	= new HashSet<Student>();
+	private Set<Student> students = new HashSet<Student>();
 
 	public Parent() {
 	}

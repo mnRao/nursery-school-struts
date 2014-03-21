@@ -3,15 +3,16 @@ package com.duke.nurseryschool;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.CookieManager;
 
 public class AuthenticationAction extends CoreAction {
-	private static final long	serialVersionUID	= 6568139548908176831L;
+	private static final long serialVersionUID = 6568139548908176831L;
 
-	private String				username;
-	private String				password;
-	private boolean				rememberMe;
+	private String username;
+	private String password;
+	private boolean rememberMe;
 
 	public String login() {
 		if (Constant.ROOT_USERNAME.equals(this.username)
@@ -30,7 +31,7 @@ public class AuthenticationAction extends CoreAction {
 			return SUCCESS;
 		}
 		else {
-			this.addActionError(this.getText(Constant.I18N.ERROR_LOGIN));
+			this.addActionError(this.getText(I18N.ERROR_LOGIN));
 			return ERROR;
 		}
 	}
@@ -52,12 +53,12 @@ public class AuthenticationAction extends CoreAction {
 		if (this.username == null
 				|| this.username.trim().equals(Constant.EMPTY_STRING)) {
 			this.addFieldError(Constant.TAG.LOGIN_USERNAME,
-					this.getText(Constant.I18N.ERROR_LOGIN_USERNAME));
+					this.getText(I18N.ERROR_LOGIN_USERNAME));
 		}
 		if (this.password == null
 				|| this.password.trim().equals(Constant.EMPTY_STRING)) {
 			this.addFieldError(Constant.TAG.LOGIN_PASSWORD,
-					this.getText(Constant.I18N.ERROR_LOGIN_PASSWORD));
+					this.getText(I18N.ERROR_LOGIN_PASSWORD));
 		}
 		this.logger.info("Authenticating ...");
 

@@ -13,15 +13,15 @@ import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class PaymentTrigger {
 	// Params
-	private Payment		payment;
-	private FeePolicy	feePolicy;
+	private Payment payment;
+	private FeePolicy feePolicy;
 
 	// Auto-finding
-	private List<Fee>	allFeesExceptMeal;
+	private List<Fee> allFeesExceptMeal;
 
-	private MixedDAO	mixedDAO	= new MixedDAO();
-	private Session		session;
-	private Transaction	transaction;
+	private MixedDAO mixedDAO = new MixedDAO();
+	private Session session;
+	private Transaction transaction;
 
 	public PaymentTrigger(Session session, Payment payment, FeePolicy feePolicy) {
 		this.session = session;

@@ -14,7 +14,7 @@ import com.duke.nurseryschool.PropertyLoader;
 
 public class GenerateMessages {
 	private static final String PACKAGE = "com.duke.nurseryschool.generated";
-	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/Messages.java";
+	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/I18N.java";
 
 	public static void main(String[] args) {
 		System.out.println("Writing message class ...");
@@ -33,7 +33,7 @@ public class GenerateMessages {
 			output.write("package " + PACKAGE + ";");
 			output.newLine();
 			output.newLine();
-			output.write("public class Messages{");
+			output.write("public class I18N {");
 			output.newLine();
 			output.newLine();
 

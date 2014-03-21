@@ -22,9 +22,9 @@ import com.duke.nurseryschool.hibernate.bean.Student;
 
 @SuppressWarnings("deprecation")
 public class SessionFactoryRule implements MethodRule {
-	private SessionFactory	sessionFactory;
-	private Transaction		transaction;
-	private Session			session;
+	private SessionFactory sessionFactory;
+	private Transaction transaction;
+	private Session session;
 
 	@Override
 	public Statement apply(final Statement statement, FrameworkMethod method,

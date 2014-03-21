@@ -14,6 +14,7 @@ import jxl.write.biff.RowsExceededException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
@@ -30,32 +31,31 @@ import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class PaymentExcelGenerator extends ExcelManager {
 
-	private final Classes		associatedClass;
-	private final Month			month;
-	private final List<Payment>	payments						= new ArrayList<Payment>();
-	private final List<FeeMap>	feeMaps							= new ArrayList<FeeMap>();
-	private final FeePolicy		feePolicy;
+	private final Classes associatedClass;
+	private final Month month;
+	private final List<Payment> payments = new ArrayList<Payment>();
+	private final List<FeeMap> feeMaps = new ArrayList<FeeMap>();
+	private final FeePolicy feePolicy;
 
-	private List<FeeGroup>		feeGroups						= new ArrayList<FeeGroup>();
-	private List<Fee>			fees							= new ArrayList<Fee>();
-	private List<Fee>			staticFees						= new ArrayList<Fee>();
+	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
+	private List<Fee> fees = new ArrayList<Fee>();
+	private List<Fee> staticFees = new ArrayList<Fee>();
 
-	private int					lastColumn;
-	private int					otherStartCol;
+	private int lastColumn;
+	private int otherStartCol;
 
-	private final Session		session;
-	private final Transaction	transaction;
-	private final MixedDAO		mixedDAO						= new MixedDAO();
+	private final Session session;
+	private final Transaction transaction;
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private BigDecimal			totalFeeForClass				= new BigDecimal(
-																		0);
+	private BigDecimal totalFeeForClass = new BigDecimal(0);
 
 	// Positions for elements
-	private static final int	HEADER_NORMAL_SPANNED_ROW		= 2;
-	private static final int	CONTENT_START_ROW				= 3;
-	private static final int	CONTENT_STATIC_FEES_START_COL	= 5;
+	private static final int HEADER_NORMAL_SPANNED_ROW = 2;
+	private static final int CONTENT_START_ROW = 3;
+	private static final int CONTENT_STATIC_FEES_START_COL = 5;
 
-	private static final int	TRIVIAL_LAST_COLUMNS_SIZE		= 3;
+	private static final int TRIVIAL_LAST_COLUMNS_SIZE = 3;
 
 	public PaymentExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy)
 			throws IllegalStateException {
@@ -103,18 +103,18 @@ public class PaymentExcelGenerator extends ExcelManager {
 						this.feePolicy));
 
 		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ORDER));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NAME));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
 
 		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_MEAL));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_MEAL));
 		this.addCaption(sheet, 2, HEADER_NORMAL_SPANNED_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_ABSENCECOUNT));
-		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW, Helper
-				.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE));
-		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW, Helper
-				.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTALBREAKFASTFEE));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ABSENCECOUNT));
+		this.addCaption(sheet, 3, HEADER_NORMAL_SPANNED_ROW,
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE));
+		this.addCaption(sheet, 4, HEADER_NORMAL_SPANNED_ROW,
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTALBREAKFASTFEE));
 
 		// Static fees
 		int dynamicCol = CONTENT_STATIC_FEES_START_COL;
@@ -140,13 +140,13 @@ public class PaymentExcelGenerator extends ExcelManager {
 
 		// Others
 		this.addCaption(sheet, this.otherStartCol, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_TOTAL));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
 		this.addCaption(sheet, this.otherStartCol + 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_PAIDDATE));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_PAIDDATE));
 		this.addCaption(sheet, this.otherStartCol + 2, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_SIGNATURE));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_SIGNATURE));
 		this.addCaption(sheet, this.otherStartCol + 3, HEADER_NORMAL_ROW,
-				Helper.getI18N(Constant.I18N.EXCEL_HEADER_NORMAL_NOTE));
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NOTE));
 
 		// Merge cells
 		this.mergeHeaderCells(sheet);
@@ -246,18 +246,18 @@ public class PaymentExcelGenerator extends ExcelManager {
 	private String generateTopMostHeaderLabel(int month, int year,
 			String className, FeePolicy feePolicy) {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_PAYMENT))
+		headerTop.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_PAYMENT))
 				.append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_MONTH))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
 				.append(Constant.SPACE).append(month).append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_YEAR))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
 				.append(Constant.SPACE).append(year).append(Constant.SPACE)
 				.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN)
 				.append(feePolicy.getAvailableDays()).append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_DAYS))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_AVAILABLEDAYS))
 				.append(Constant.PUNCTUATION_MARK.PARENTHESIS_CLOSE)
 				.append(Constant.SPACE)
-				.append(Helper.getI18N(Constant.I18N.EXCEL_HEADER_CLASS))
+				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_CLASS))
 				.append(Constant.SPACE).append(className);
 
 		return headerTop.toString();

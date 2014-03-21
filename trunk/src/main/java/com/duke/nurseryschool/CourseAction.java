@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Course;
 import com.duke.nurseryschool.hibernate.dao.CourseDAO;
@@ -16,11 +17,11 @@ import com.opensymphony.xwork2.Preparable;
 public class CourseAction extends CoreAction implements ModelDriven<Course>,
 		Preparable {
 
-	private static final long	serialVersionUID	= 3695720869043076543L;
+	private static final long serialVersionUID = 3695720869043076543L;
 
-	private Course				course				= new Course();
-	private List<Course>		courses				= new ArrayList<Course>();
-	private CourseDAO			dao					= new CourseDAO();
+	private Course course = new Course();
+	private List<Course> courses = new ArrayList<Course>();
+	private CourseDAO dao = new CourseDAO();
 
 	@Override
 	public Course getModel() {
@@ -48,8 +49,7 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 		boolean isDeleted = this.dao.deleteCourse(Integer.parseInt(this.request
 				.getParameter("courseId")));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -70,21 +70,21 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 		int endYear = this.course.getEndYear();
 		int courseId = this.course.getCourseId();
 		if (startYear <= 0) {
-			this.addFieldError("course.startYear", this
-					.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_STARTYEAR));
+			this.addFieldError("course.startYear",
+					this.getText(I18N.ERROR_CONSTRAINT_COURSE_STARTYEAR));
 		}
 		if (endYear <= 0) {
 			this.addFieldError("course.endYear",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_ENDYEAR));
+					this.getText(I18N.ERROR_CONSTRAINT_COURSE_ENDYEAR));
 		}
 		if (startYear != endYear - 4) {
 			this.addFieldError("course.startYear",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_COURSE_YEARS));
+					this.getText(I18N.ERROR_CONSTRAINT_COURSE_YEARS));
 		}
 		// Check for uniqueness
 		if (this.dao.hasDuplicates(courseId, startYear, endYear)) {
 			this.addFieldError("course.startYear",
-					this.getText(Constant.I18N.ERROR_DUPLICATION_COURSE));
+					this.getText(I18N.ERROR_DUPLICATION_COURSE));
 		}
 
 		super.validate();

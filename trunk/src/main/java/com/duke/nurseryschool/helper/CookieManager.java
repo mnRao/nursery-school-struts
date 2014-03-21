@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 public class CookieManager {
-	private static CookieManager	instance	= null;
+	private static CookieManager instance = null;
 
 	public static CookieManager getInstance() {
 		if (instance == null) {

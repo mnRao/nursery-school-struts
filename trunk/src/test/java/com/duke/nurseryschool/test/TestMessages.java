@@ -1,6 +1,6 @@
 package com.duke.nurseryschool.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,8 +13,8 @@ import org.junit.Test;
 import com.duke.nurseryschool.PropertyLoader;
 
 public class TestMessages {
-	Properties	globalENProperties;
-	Properties	globalVIProperties;
+	Properties globalENProperties;
+	Properties globalVIProperties;
 
 	@Before
 	public void setUp() throws Exception {

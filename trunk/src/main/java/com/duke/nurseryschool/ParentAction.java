@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Parent;
 import com.duke.nurseryschool.hibernate.bean.Student;
@@ -18,16 +19,16 @@ import com.opensymphony.xwork2.Preparable;
 public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 		Preparable {
 
-	private static final long	serialVersionUID	= 8974142884447954547L;
+	private static final long serialVersionUID = 8974142884447954547L;
 
-	private Parent				parent				= new Parent();
-	private List<Parent>		parents				= new ArrayList<Parent>();
-	private ParentDAO			dao					= new ParentDAO();
+	private Parent parent = new Parent();
+	private List<Parent> parents = new ArrayList<Parent>();
+	private ParentDAO dao = new ParentDAO();
 
-	private int					parentId;
-	private int					studentId;
-	private List<Student>		studentList;
-	private StudentDAO			studentDAO			= new StudentDAO();
+	private int parentId;
+	private int studentId;
+	private List<Student> studentList;
+	private StudentDAO studentDAO = new StudentDAO();
 
 	@Override
 	public Parent getModel() {
@@ -64,8 +65,7 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 		boolean isDeleted = this.dao.deleteParent(Integer.parseInt(this.request
 				.getParameter("parentId")));
 		if (!isDeleted) {
-			this.addActionError(this
-					.getText(Constant.I18N.ERROR_DELETE_CHILDREN_FIRST));
+			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -87,7 +87,7 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 	public void validate() {
 		// if (StringUtil.isEmpty(this.parent.getName().trim())) {
 		// this.addFieldError("student.name",
-		// this.getText(Constant.I18N.ERROR_REQUIRED_STUDENT_NAME));
+		// this.getText(I18N.ERROR_REQUIRED_STUDENT_NAME));
 		// }
 
 		super.validate();

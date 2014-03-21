@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -25,21 +26,21 @@ import com.opensymphony.xwork2.Preparable;
 public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		Preparable {
 
-	private static final long	serialVersionUID	= 4032871480596984037L;
+	private static final long serialVersionUID = 4032871480596984037L;
 
-	private FeeMap				feeMap				= new FeeMap();
-	private List<FeeMap>		feeMaps				= new ArrayList<FeeMap>();
-	final private FeeMapDAO		dao					= new FeeMapDAO();
+	private FeeMap feeMap = new FeeMap();
+	private List<FeeMap> feeMaps = new ArrayList<FeeMap>();
+	final private FeeMapDAO dao = new FeeMapDAO();
 
-	final private FeePolicyDAO	feePolicyDAO		= new FeePolicyDAO();
-	final private FeeDAO		feeDAO				= new FeeDAO();
-	private final MixedDAO		mixedDAO			= new MixedDAO();
+	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	final private FeeDAO feeDAO = new FeeDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
-	private int					feePolicyId;
-	private int					feeId;
+	private int feePolicyId;
+	private int feeId;
 
-	private List<Fee>			feeList;
-	private List<FeePolicy>		feePolicyList;
+	private List<Fee> feeList;
+	private List<FeePolicy> feePolicyList;
 
 	@Override
 	public FeeMap getModel() {
@@ -94,19 +95,19 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		BigDecimal amount = this.feeMap.getAmount();
 		if (this.feeId == 0) {
 			this.addFieldError("feeMap.feeId",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_FEEID));
+					this.getText(I18N.ERROR_REQUIRED_FEEMAP_FEEID));
 		}
 		if (this.feePolicyId == 0) {
-			this.addFieldError("feeMap.feePolicyId", this
-					.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_FEEPOLICYID));
+			this.addFieldError("feeMap.feePolicyId",
+					this.getText(I18N.ERROR_REQUIRED_FEEMAP_FEEPOLICYID));
 		}
 		if (amount == null) {
 			this.addFieldError("feeMap.amount",
-					this.getText(Constant.I18N.ERROR_REQUIRED_FEEMAP_AMOUNT));
+					this.getText(I18N.ERROR_REQUIRED_FEEMAP_AMOUNT));
 		}
 		if (amount != null && amount.doubleValue() < 0) {
 			this.addFieldError("feeMap.amount",
-					this.getText(Constant.I18N.ERROR_CONSTRAINT_FEEMAP_AMOUNT));
+					this.getText(I18N.ERROR_CONSTRAINT_FEEMAP_AMOUNT));
 		}
 
 		super.validate();
