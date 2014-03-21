@@ -1,11 +1,11 @@
-package com.duke.nurseryschool.helper;
+package com.duke.nurseryschool;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyLoader {
-	private Properties	globalProperties	= new Properties();
+	private final Properties globalProperties = new Properties();
 
 	public PropertyLoader(String filePath) {
 		this.loadProperties(filePath);
@@ -15,7 +15,7 @@ public class PropertyLoader {
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(filePath);
 		try {
-			globalProperties.load(in);
+			this.globalProperties.load(in);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -23,7 +23,7 @@ public class PropertyLoader {
 	}
 
 	public Properties getGlobalProperties() {
-		return globalProperties;
+		return this.globalProperties;
 	}
 
 }

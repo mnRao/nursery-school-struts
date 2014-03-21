@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="add" default="run" basedir=".">
+	<!-- All directories are relative to current ant file -->
+	<target name="clean">
+		<delete dir="../../../build" />
+	</target>
+
+	<target name="prepare" depends="clean">
+		<mkdir dir="../../../src" />
+		<mkdir dir="../../../build" />
+	</target>
+
+	<target name="compile" depends="prepare">
+		<!-- Copy property file to build folder => avoid NullPointerException (PropertyLoader reads relative path) -->
+		<copy file="../../../src/main/resources/global.properties" todir="../../../build/"/>
+		<!-- Srcdir needs not be leaves as 'name' in '<include>' could provide more details -->
+		<javac srcdir="../../../src/main/java/com/duke/nurseryschool" destdir="../../../build" debug="on" optimize="on">
+			<include name="**/helper/GenerateMessages.java" />
+			<include name="**/PropertyLoader.java" />
+		</javac>
+	</target>
+
+	<target name="run" depends="compile">
+		<java fork="true" failonerror="yes" classname="com.duke.nurseryschool.helper.GenerateMessages" classpath="../../../build">
+			<arg line="" />
+		</java>
+		<delete dir="../../../build" />
+	</target>
+
+</project>
