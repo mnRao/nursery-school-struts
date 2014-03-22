@@ -30,8 +30,8 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = this.workbook.createSheet(SHEET_TITLE_ALL,
-				sheetNumber);
+		WritableSheet sheet = this.workbook.createSheet(
+				Helper.getI18N(I18N.EXCEL_SHEET_TITLE_ALL), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
@@ -72,16 +72,12 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop
-				.append(Helper
-						.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST))
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
-				.append(Constant.SPACE).append(this.month.getMonthName())
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
-				.append(Constant.SPACE).append(this.month.getYear())
-				.append(Constant.SPACE);
+		headerTop.append(Helper.getI18N(
+				I18N.EXCEL_HEADER_TOP_STUDENTHASBREAKFAST,
+				new String[] {
+						Integer.toString(this.month.getMonthName()),
+						Integer.toString(this.month.getYear())
+				}));
 		return headerTop.toString();
 	}
 }

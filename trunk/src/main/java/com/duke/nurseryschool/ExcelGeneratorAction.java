@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Set;
 
@@ -47,10 +49,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
-		File tempFile = this
-				.createTemporaryFile(this
-						.generatePaymentExcelFilePrefix(feePolicy.getMonth()
-								.getLabel()));
+		File tempFile = this.createTemporaryFile(this
+				.generatePaymentExcelFilePrefix(this
+						.generateMonthLabel(feePolicy.getMonth())));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		this.addContentToPaymentExcelFile(feePolicy, workbook, 0);
 		this.closeWorkbook(workbook);
@@ -63,7 +64,8 @@ public class ExcelGeneratorAction extends ActionSupport {
 	public String singleBreakfast() throws Exception {
 		Month month = this.monthDAO.getMonth(this.monthId);
 		File tempFile = this.createTemporaryFile(this
-				.generateBreakfastExcelFilePrefix(month.getLabel()));
+				.generateBreakfastExcelFilePrefix(this
+						.generateMonthLabel(month)));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		this.addContentToBreakfastExcelFile(workbook, 0, month,
 				this.mixedDAO.getStudentsHavingBreakfast(this.monthId));
@@ -77,7 +79,8 @@ public class ExcelGeneratorAction extends ActionSupport {
 	public String allSelectedOnlyFee() throws Exception {
 		Month month = this.monthDAO.getMonth(this.monthId);
 		File tempFile = this.createTemporaryFile(this
-				.generateSelectedOnlyExcelFilePrefix(month.getLabel()));
+				.generateSelectedOnlyExcelFilePrefix(this
+						.generateMonthLabel(month)));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		int sheetNumber = 0;
 		for (Fee fee : this.mixedDAO.getFeeByType(FeeType.SELECTED_ONLY)) {
@@ -102,8 +105,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 			throw new Exception(this.getText(I18N.ERROR_NO_FEEPOLICY_APPLIED));
 		}
 
-		File tempFile = this.createTemporaryFile(this
-				.generatePaymentExcelFilePrefix(month.getLabel()));
+		File tempFile = this
+				.createTemporaryFile(this.generatePaymentExcelFilePrefix(this
+						.generateMonthLabel(month)));
 		int sheetNumber = 0;
 		StatisticsBean statisticsBean = new StatisticsBean(month);
 		// Initialize work book the very first time
@@ -197,13 +201,14 @@ public class ExcelGeneratorAction extends ActionSupport {
 	}
 
 	private void configureFileForDownload(File tempFile)
-			throws FileNotFoundException {
+			throws FileNotFoundException, UnsupportedEncodingException {
 		this.fileInputStream = new FileInputStream(tempFile);
-		this.fileName = tempFile.getName();
+		// Encode file name in UTF-8
+		this.fileName = URLEncoder.encode(tempFile.getName(), "UTF-8");
 	}
 
 	private String generatePaymentExcelFilePrefix(String monthLabel) {
-		return Helper.getI18N(I18N.EXCEL_HEADER_TOP_PAYMENT) + Constant.SPACE
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE) + Constant.SPACE
 				+ monthLabel + Constant.PUNCTUATION_MARK.HYPHEN
 				+ System.currentTimeMillis();
 	}
@@ -220,6 +225,11 @@ public class ExcelGeneratorAction extends ActionSupport {
 				+ Constant.SPACE
 				+ monthLabel
 				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+	}
+
+	private String generateMonthLabel(Month month) {
+		return month.getYear() + Constant.PUNCTUATION_MARK.HYPHEN
+				+ month.getMonthName();
 	}
 
 	public InputStream getFileInputStream() {

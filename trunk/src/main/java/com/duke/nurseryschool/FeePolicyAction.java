@@ -135,6 +135,7 @@ public class FeePolicyAction extends CoreAction implements
 		return this.list();
 	}
 
+	@Override
 	@SkipValidation
 	public String clone() {
 		this.feePolicyIdToClone = Integer.parseInt(this.request
@@ -228,24 +229,36 @@ public class FeePolicyAction extends CoreAction implements
 				.getPenaltyFeePerBreakfast();
 		if (this.classId == 0) {
 			this.addFieldError("feePolicy.classId",
-					this.getText(I18N.ERROR_REQUIRED_FEEPOLICY_CLASSID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEPOLICY_CLASSID)
+					}));
 		}
 		if (this.monthId == 0) {
 			this.addFieldError("feePolicy.monthId",
-					this.getText(I18N.ERROR_REQUIRED_FEEPOLICY_MONTHID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEPOLICY_MONTHID)
+					}));
 		}
 		if (feePerNormalMeal == null) {
-			this.addFieldError("feePolicy.feePerNormalMeal", this
-					.getText(I18N.ERROR_REQUIRED_FEEPOLICY_FEEPERNORMALMEAL));
+			this.addFieldError("feePolicy.feePerNormalMeal",
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEPOLICY_FEEPERNORMALMEAL)
+					}));
 		}
 		if (totalBreakfastFee == null) {
-			this.addFieldError("feePolicy.totalBreakfastFee", this
-					.getText(I18N.ERROR_REQUIRED_FEEPOLICY_TOTALBREAKFASTFEE));
+			this.addFieldError("feePolicy.totalBreakfastFee",
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEPOLICY_TOTALBREAKFASTFEE)
+					}));
 		}
 		if (penaltyFeePerBreakfast == null) {
 			this.addFieldError(
 					"feePolicy.penaltyFeePerBreakfast",
-					this.getText(I18N.ERROR_REQUIRED_FEEPOLICY_PENALTYFEEPERBREAKFAST));
+					this.getText(
+							I18N.ERROR_REQUIRED,
+							new String[] {
+								this.getText(I18N.LABEL_FEEPOLICY_PENALTYFEEPERBREAKFAST)
+							}));
 		}
 		if (feePerNormalMeal != null && feePerNormalMeal.doubleValue() < 0) {
 			this.addFieldError("feePolicy.feePerNormalMeal", this

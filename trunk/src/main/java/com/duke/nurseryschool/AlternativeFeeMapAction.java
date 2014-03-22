@@ -101,11 +101,15 @@ public class AlternativeFeeMapAction extends CoreAction implements
 				.getAlternativeAmount();
 		if (this.feeId == 0) {
 			this.addFieldError("alternativeFeeMap.feeId",
-					this.getText(I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_FEEID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_FEEID)
+					}));
 		}
 		if (this.paymentId == 0) {
-			this.addFieldError("alternativeFeeMap.paymentId", this
-					.getText(I18N.ERROR_REQUIRED_ALTERNATIVEFEEMAP_PAYMENTID));
+			this.addFieldError("alternativeFeeMap.paymentId",
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_PAYMENTID)
+					}));
 		}
 		if (alternativeAmount != null && alternativeAmount.doubleValue() < 0) {
 			this.addFieldError(

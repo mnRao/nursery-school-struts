@@ -86,17 +86,14 @@ public class StatisticsExcelGenerator extends ExcelManager {
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop
-				.append(Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STATISTICS))
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
-				.append(Constant.SPACE)
-				.append(this.statisticsBean.getMonth().getMonthName())
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
-				.append(Constant.SPACE)
-				.append(this.statisticsBean.getMonth().getYear())
-				.append(Constant.SPACE);
+		headerTop.append(Helper.getI18N(
+				I18N.EXCEL_HEADER_TOP_STATISTICS,
+				new String[] {
+						Integer.toString(this.statisticsBean.getMonth()
+								.getMonthName()),
+						Integer.toString(this.statisticsBean.getMonth()
+								.getYear()),
+				}));
 		return headerTop.toString();
 	}
 }

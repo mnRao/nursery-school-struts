@@ -14,8 +14,6 @@ import jxl.write.biff.RowsExceededException;
 
 public abstract class ExcelManager {
 
-	protected static final String SHEET_TITLE_ALL = "ALL";
-
 	protected static final int HEADER_TOP_ROW = 0;
 	protected static final int HEADER_TOP_COLUMN = 0;
 	protected static final int HEADER_NORMAL_ROW = 1;

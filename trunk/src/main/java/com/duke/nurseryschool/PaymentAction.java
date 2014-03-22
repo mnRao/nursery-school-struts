@@ -96,11 +96,15 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 	public void validate() {
 		if (this.studentId == 0) {
 			this.addFieldError("payment.studentId",
-					this.getText(I18N.ERROR_REQUIRED_PAYMENT_STUDENTID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_PAYMENT_STUDENTID)
+					}));
 		}
 		if (this.feePolicyId == 0) {
 			this.addFieldError("payment.feePolicyId",
-					this.getText(I18N.ERROR_REQUIRED_PAYMENT_FEEPOLICYID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_PAYMENT_FEEPOLICYID)
+					}));
 		}
 		if (this.payment.getAbsenceCount() < 0) {
 			this.addFieldError("payment.absenceCount",

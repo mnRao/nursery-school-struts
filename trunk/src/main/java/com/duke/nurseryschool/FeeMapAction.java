@@ -95,15 +95,21 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		BigDecimal amount = this.feeMap.getAmount();
 		if (this.feeId == 0) {
 			this.addFieldError("feeMap.feeId",
-					this.getText(I18N.ERROR_REQUIRED_FEEMAP_FEEID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEMAP_FEEID)
+					}));
 		}
 		if (this.feePolicyId == 0) {
 			this.addFieldError("feeMap.feePolicyId",
-					this.getText(I18N.ERROR_REQUIRED_FEEMAP_FEEPOLICYID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEMAP_FEEPOLICYID)
+					}));
 		}
 		if (amount == null) {
 			this.addFieldError("feeMap.amount",
-					this.getText(I18N.ERROR_REQUIRED_FEEMAP_AMOUNT));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEMAP_AMOUNT)
+					}));
 		}
 		if (amount != null && amount.doubleValue() < 0) {
 			this.addFieldError("feeMap.amount",

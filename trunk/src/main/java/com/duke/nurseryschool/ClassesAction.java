@@ -25,10 +25,10 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 
 	private Classes classes = new Classes();
 	private List<Classes> allClasses = new ArrayList<Classes>();
-	private ClassesDAO dao = new ClassesDAO();
+	private final ClassesDAO dao = new ClassesDAO();
 
-	private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
-	private CourseDAO courseDAO = new CourseDAO();
+	private final FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
+	private final CourseDAO courseDAO = new CourseDAO();
 	private int courseId;
 	private List<Course> courseList;
 
@@ -97,11 +97,15 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 	public void validate() {
 		if (this.courseId <= 0) {
 			this.addFieldError("courseId",
-					this.getText(I18N.ERROR_REQUIRED_CLASS_COURSEID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_CLASSES_COURSEID)
+					}));
 		}
 		if (StringUtil.isEmpty(this.classes.getCode())) {
 			this.addFieldError("classes.code",
-					this.getText(I18N.ERROR_REQUIRED_CLASS_CODE));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_CLASSES_CODE)
+					}));
 		}
 		else {
 			int codeLength = this.classes.getCode().length();

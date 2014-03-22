@@ -246,19 +246,12 @@ public class PaymentExcelGenerator extends ExcelManager {
 	private String generateTopMostHeaderLabel(int month, int year,
 			String className, FeePolicy feePolicy) {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_PAYMENT))
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
-				.append(Constant.SPACE).append(month).append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
-				.append(Constant.SPACE).append(year).append(Constant.SPACE)
-				.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN)
-				.append(feePolicy.getAvailableDays()).append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_AVAILABLEDAYS))
-				.append(Constant.PUNCTUATION_MARK.PARENTHESIS_CLOSE)
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_CLASS))
-				.append(Constant.SPACE).append(className);
+		headerTop.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_PAYMENT,
+				new String[] {
+						Integer.toString(month), Integer.toString(year),
+						Integer.toString(feePolicy.getAvailableDays()),
+						className
+				}));
 
 		return headerTop.toString();
 	}

@@ -88,11 +88,15 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	public void validate() {
 		if (this.classId == 0) {
 			this.addFieldError("student.classId",
-					this.getText(I18N.ERROR_REQUIRED_STUDENT_CLASSID));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_STUDENT_CLASSID)
+					}));
 		}
 		if (StringUtil.isEmpty(this.student.getName().trim())) {
 			this.addFieldError("student.name",
-					this.getText(I18N.ERROR_REQUIRED_STUDENT_NAME));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_STUDENT_NAME)
+					}));
 		}
 
 		super.validate();

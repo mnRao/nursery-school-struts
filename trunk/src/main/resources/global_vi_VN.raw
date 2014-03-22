@@ -150,6 +150,7 @@ label.payment.totalBreakfastFee = Tổng tiền ăn sáng
 label.payment.totalFee = Tổng
 label.payment.isPaid = Đã trả
 label.payment.note = Ghi chú
+
 label.student = Học sinh
 label.student.studentId = ID
 label.student.name = Tên
@@ -177,7 +178,6 @@ select.parent = Chọn phụ huynh
 select.payment = Chọn thu tiền
 select.student = Chọn học sinh
 
-
 # Excel
 excel.file.prefix_title = THU TIỀN THÁNG
 excel.file.prefix_title.statistics = TỔNG TIỀN THU
@@ -185,12 +185,12 @@ excel.file.prefix_title.studentHasBreakfast = HỌC SINH ĂN SÁNG
 excel.file.prefix_title.studentHasSelectedOnlyFee = HỌC SINH HỌC NĂNG KHIẾU
 
 excel.sheet.title.statistics = Thống kê
+excel.sheet.title.all = Cả trường
 
-excel.header.top.payment = THU TIỀN
-excel.header.top.month = THÁNG
-excel.header.top.year = NĂM
-excel.header.top.availableDays = NGÀY
-excel.header.top.class = LỚP
+excel.header.top.payment = THU TIỀN THÁNG {0}-{1} ({2} NGÀY) - LỚP {3}
+excel.header.top.statistics = TỔNG TIỀN THU THÁNG {0}-{1}
+excel.header.top.studentHasBreakfast = HỌC SINH ĂN SÁNG THÁNG {0}-{1}
+excel.header.top.studentHasSelectedOnlyFee = HỌC SINH HỌC NĂNG KHIẾU THÁNG {0}-{1}
 
 excel.header.normal.order = STT
 excel.header.normal.name = Tên
@@ -212,49 +212,26 @@ error.login = Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng nh
 error.login.username = Tên đăng nhập là bắt buộc
 error.login.password = Mật khẩu là bắt buộc
 
-error.invalid=${getText(fieldName)} không hợp lệ.
-error.required=${getText(fieldName)} là bắt buộc.
-error.number=${getText(fieldName)} phải là dạng số.
-error.range=${getText(fieldName)} không nằm trong khoảng ${min} và ${max}.
-
 error.constraint.alternativeFeeMap.alternativeAmount = ${getText('label.alternativeFeeMap.alternativeAmount')} phải lớn hơn hoặc bằng 0
 error.constraint.classes.code = ${getText('label.classes.code')} phải trong khoảng 2 - 20 kí tự
-error.constraint.course.years = Năm kết thúc phải lớn hơn năm bắt đầu 4 năm
-error.constraint.course.startYear = Năm bắt đầu phải lớn hơn 0
-error.constraint.course.endYear = Năm kết thúc phải lớn hơn 0
-error.constraint.month.monthName = Tháng phải trong khoảng 1-12
-error.constraint.month.year = Năm phải lớn hơn 0 
-error.constraint.feeMap.amount = Số tiền phải lớn hơn 0
+error.constraint.course.years = ${getText('label.course.endYear')} phải lớn hơn ${getText('label.course.startYear')} 4 năm
+error.constraint.course.startYear = ${getText('label.course.startYear')} phải lớn hơn 0
+error.constraint.course.endYear = ${getText('label.course.endYear')} phải lớn hơn 0
+error.constraint.month.monthName = ${getText('label.month.monthName')} phải trong khoảng 1-12
+error.constraint.month.year = ${getText('label.month.year')} phải lớn hơn 0 
+error.constraint.feeMap.amount = ${getText('label.feeMap.amount')} phải lớn hơn 0
 error.constraint.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} phải lớn hơn hoặc bằng 0
 error.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} phải lớn hơn hoặc bằng 0
 error.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} phải lớn hơn hoặc bằng 0
 error.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} phải lớn hơn hoặc bằng 0
 error.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} phải lớn hơn hoặc bằng 0
-xwork.default.invalid.fieldvalue= Giá trị không hợp lệ cho thuộc tính "{0}"
+xwork.default.invalid.fieldvalue = Giá trị không hợp lệ cho thuộc tính "{0}"
 error.duplication.class = Dữ liệu trùng lặp với niên khóa và mã giống hệt đã tồn tại trong hệ thống
 error.duplication.course = Dữ liệu trùng lặp với năm bắt đầu và năm kết thúc giống hệt đã tồn tại trong hệ thống
 error.duplication.feePolicy = Dữ liệu trùng lặp với lớp và tháng giống hệt đã tồn tại trong hệ thống
 error.duplication.month = Dữ liệu trùng lặp với tháng và năm giống hệt đã tồn tại trong hệ thống
 error.duplication.payment = Dữ liệu trùng lặp với học sinh và chính sách phí giống hệt đã tồn tại trong hệ thống
-error.required.alternativeFeeMap.feeId = ${getText('label.alternativeFeeMap.feeId')} is required
-error.required.alternativeFeeMap.paymentId = ${getText('label.alternativeFeeMap.paymentId')} is required
-error.required.class.courseId = Niên khóa là bắt buộc
-error.required.class.code = Mã là bắt buộc
-error.required.fee.name = Tên là bắt buộc
-error.required.feeGroup.name = Tên là bắt buộc
-error.required.feeMap.feeId = ${getText('label.feeMap.feeId')} is required
-error.required.feeMap.feePolicyId = ${getText('label.feeMap.feePolicyId')} is required
-error.required.feeMap.amount = Số tiền là bắt buộc
-error.required.feePolicy.classId = ${getText('label.feePolicy.classId')} is required
-error.required.feePolicy.monthId = ${getText('label.feePolicy.monthId')} is required
-error.required.feePolicy.feePerNormalMeal = ${getText('label.feePolicy.feePerNormalMeal')} là bắt buộc
-error.required.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalBreakfastFee')} là bắt buộc
-error.required.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} là bắt buộc
-error.required.payment.studentId = ${getText('label.payment.studentId')} is required
-error.required.payment.feePolicyId = ${getText('label.payment.feePolicyId')} is required
-error.required.student.classId = ${getText('label.class')} is required
-error.required.student.name = Tên là bắt buộc
-
+error.required = {0} là bắt buộc
 
 # Info
 button.back = Quay lại
