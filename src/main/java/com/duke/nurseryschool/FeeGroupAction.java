@@ -21,7 +21,7 @@ public class FeeGroupAction extends CoreAction implements
 
 	private static final long serialVersionUID = 2143537118962764732L;
 
-	private FeeDAO feeDAO = new FeeDAO();
+	private final FeeDAO feeDAO = new FeeDAO();
 	private FeeGroup feeGroup = new FeeGroup();
 	private List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
 	final private FeeGroupDAO dao = new FeeGroupDAO();
@@ -74,7 +74,9 @@ public class FeeGroupAction extends CoreAction implements
 	public void validate() {
 		if (StringUtil.isEmpty(this.feeGroup.getName())) {
 			this.addFieldError("feeGroup.name",
-					this.getText(I18N.ERROR_REQUIRED_FEEGROUP_NAME));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEEGROUP_NAME)
+					}));
 		}
 
 		super.validate();

@@ -85,7 +85,9 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 	public void validate() {
 		if (StringUtil.isEmpty(this.fee.getName())) {
 			this.addFieldError("fee.name",
-					this.getText(I18N.ERROR_REQUIRED_FEE_NAME));
+					this.getText(I18N.ERROR_REQUIRED, new String[] {
+						this.getText(I18N.LABEL_FEE_NAME)
+					}));
 		}
 
 		super.validate();

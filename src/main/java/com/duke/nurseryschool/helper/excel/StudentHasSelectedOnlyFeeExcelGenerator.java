@@ -73,16 +73,12 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop
-				.append(Helper
-						.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE))
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_MONTH))
-				.append(Constant.SPACE).append(this.month.getMonthName())
-				.append(Constant.SPACE)
-				.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_YEAR))
-				.append(Constant.SPACE).append(this.month.getYear())
-				.append(Constant.SPACE);
+		headerTop.append(Helper.getI18N(
+				I18N.EXCEL_HEADER_TOP_STUDENTHASSELECTEDONLYFEE,
+				new String[] {
+						Integer.toString(this.month.getMonthName()),
+						Integer.toString(this.month.getYear())
+				}));
 		return headerTop.toString();
 	}
 

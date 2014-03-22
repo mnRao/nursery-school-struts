@@ -1,6 +1,7 @@
 package com.duke.nurseryschool.helper;
 
 import java.util.Calendar;
+import java.util.List;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -105,5 +106,17 @@ public class Helper {
 			return Constant.EMPTY_STRING;
 		}
 		return textProvider.getText(key);
+	}
+
+	public static String getI18N(String key, String[] args) {
+		TextProvider textProvider = null;
+		try {
+			textProvider = DefaultTextProvider.class.newInstance();
+		}
+		catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+			return Constant.EMPTY_STRING;
+		}
+		return textProvider.getText(key, args);
 	}
 }

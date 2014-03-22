@@ -21,7 +21,7 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 
 	private Course course = new Course();
 	private List<Course> courses = new ArrayList<Course>();
-	private CourseDAO dao = new CourseDAO();
+	private final CourseDAO dao = new CourseDAO();
 
 	@Override
 	public Course getModel() {

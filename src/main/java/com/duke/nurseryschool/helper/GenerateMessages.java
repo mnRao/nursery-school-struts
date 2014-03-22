@@ -13,8 +13,11 @@ import java.util.TreeSet;
 import com.duke.nurseryschool.PropertyLoader;
 
 public class GenerateMessages {
+	private static final String CLASS_NAME = "I18N";
+	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/"
+			+ CLASS_NAME + ".java";
 	private static final String PACKAGE = "com.duke.nurseryschool.generated";
-	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/I18N.java";
+	private static final String PROPERTY_FILE_PATH = "global.properties";
 
 	public static void main(String[] args) {
 		System.out.println("Writing message class ...");
@@ -33,7 +36,7 @@ public class GenerateMessages {
 			output.write("package " + PACKAGE + ";");
 			output.newLine();
 			output.newLine();
-			output.write("public class I18N {");
+			output.write("public class " + CLASS_NAME + " {");
 			output.newLine();
 			output.newLine();
 
@@ -54,8 +57,7 @@ public class GenerateMessages {
 	}
 
 	private static List<String> sortKeys() {
-		PropertyLoader enPropertyLoader = new PropertyLoader(
-				"global.properties");
+		PropertyLoader enPropertyLoader = new PropertyLoader(PROPERTY_FILE_PATH);
 		Properties globalENProperties = enPropertyLoader.getGlobalProperties();
 		Set<Object> enKeySet = globalENProperties.keySet();
 		// Sort
@@ -64,6 +66,9 @@ public class GenerateMessages {
 		return sortedEnKeySet;
 	}
 
+	/**
+	 * Transform key into appropriate format for constant
+	 */
 	private static String transformKey(String key) {
 		String transformedKey = key.trim().toUpperCase();
 		transformedKey = transformedKey.replace(".", "_");
