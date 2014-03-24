@@ -58,9 +58,9 @@ public class FeePolicyAction extends CoreAction implements
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getFeePolicy(Integer.parseInt(this.request
-						.getParameter("feePolicyId"))));
+		int feePolicyIdParam = Integer.parseInt(this.request
+				.getParameter("feePolicyId"));
+		this.dao.getSession().evict(this.dao.getFeePolicy(feePolicyIdParam));
 
 		Classes associatedClass = this.classesDAO.getClasses(this.classId);
 		Month month = this.monthDAO.getMonth(this.monthId);
@@ -69,25 +69,24 @@ public class FeePolicyAction extends CoreAction implements
 
 		this.dao.saveOrUpdateFeePolicy(this.feePolicy);
 
-		// Update payment instantly
-		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(this.request
-				.getParameter("feePolicyId")));
-		// this.dao.getSession().refresh(this.feePolicy);
-		// Load all payments for this fee policy
-		// Session currentSession = HibernateUtil.getSessionFactory()
-		// .openSession();
-		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(
-				this.mixedDAO.getSession(), this.feePolicy.getFeePolicyId());
-		if (relatedPayments != null && relatedPayments.size() > 0) {
-			// Set total fee save
-			if (relatedPayments != null) {
-				for (Payment payment : relatedPayments) {
-					new PaymentTrigger(this.mixedDAO.getSession(), payment,
-							this.feePolicy).calculateAndSetAll();
+		// If is update action
+		if (feePolicyIdParam != 0) {
+			// Update payment instantly
+			this.feePolicy = this.dao.getFeePolicy(feePolicyIdParam);
+			// Load all payments for this fee policy
+			List<Payment> relatedPayments = this.mixedDAO
+					.getPaymentsByFeePolicy(this.mixedDAO.getSession(),
+							this.feePolicy.getFeePolicyId());
+			if (relatedPayments != null && relatedPayments.size() > 0) {
+				// Set total fee save
+				if (relatedPayments != null) {
+					for (Payment payment : relatedPayments) {
+						new PaymentTrigger(this.mixedDAO.getSession(), payment,
+								this.feePolicy).calculateAndSetAll();
+					}
 				}
 			}
 		}
-		// this.dao.getTransaction().commit();
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
