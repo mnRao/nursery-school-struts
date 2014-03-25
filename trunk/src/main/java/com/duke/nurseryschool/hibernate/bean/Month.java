@@ -9,12 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "month")
-public class Month {
+public class Month implements BeanLabel {
 	@Id
 	@GeneratedValue
 	private int monthId;
@@ -34,11 +36,17 @@ public class Month {
 		this.year = year;
 	}
 
+	@Override
 	public String getLabel() {
 		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.year
 				+ Constant.PUNCTUATION_MARK.HYPHEN
 				+ BusinessLogicSolver.getStandardMonthName(this.monthName)
 				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
+	}
+
+	@Override
+	public String getTooltip() {
+		return this.getLabel();
 	}
 
 	public int getMonthId() {

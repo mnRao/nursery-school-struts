@@ -49,6 +49,11 @@ public class Parent implements BeanLabel {
 				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 
+	@Override
+	public String getTooltip() {
+		return this.getLabel();
+	}
+
 	public String getGenderText() throws InstantiationException,
 			IllegalAccessException {
 		return BusinessLogicSolver.calculateGenderText(this.gender);

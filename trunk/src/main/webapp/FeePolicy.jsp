@@ -52,7 +52,7 @@
 								<s:iterator value="feePolicies">
 									<tr class="gradeC">
 										<td><s:property value="feePolicyId" /></td>
-										<td><s:property value="associatedClass.label" /></td>
+										<td class="topDir" original-title="<s:property value="associatedClass.tooltip" />"><s:property value="associatedClass.label" /></td>
 										<td><s:property value="month.label" /></td>
 										<td><s:property value="feePerNormalMeal" /></td>
 										<td><s:property value="totalBreakfastFee" /></td>

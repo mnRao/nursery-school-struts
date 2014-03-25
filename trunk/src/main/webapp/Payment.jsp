@@ -49,8 +49,8 @@
 							<tbody>
 								<s:iterator value="payments">
 									<tr class="gradeC">
-										<td><s:property value="student.name" /></td>
-										<td><s:property value="feePolicy.label" /></td>
+										<td class="topDir" original-title="<s:property value="student.tooltip" />"><s:property value="student.name" /></td>
+										<td class="topDir" original-title="<s:property value="feePolicy.tooltip" />"><s:property value="feePolicy.label" /></td>
 										<td><s:property value="absenceCount" /></td>
 										<td><s:property value="totalNormalMealFee" /></td>
 										<td><s:property value="totalBreakfastFee" /></td>

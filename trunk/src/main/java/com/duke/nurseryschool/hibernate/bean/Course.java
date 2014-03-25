@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "course")
@@ -41,6 +43,16 @@ public class Course implements BeanLabel {
 		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.startYear
 				+ Constant.PUNCTUATION_MARK.HYPHEN + this.endYear
 				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
+	}
+
+	@Override
+	public String getTooltip() {
+		return Helper.getI18N(
+				I18N.TOOLTIP_COURSE,
+				new String[] {
+						Integer.toString(this.startYear),
+						Integer.toString(this.endYear)
+				});
 	}
 
 	public int getCourseId() {

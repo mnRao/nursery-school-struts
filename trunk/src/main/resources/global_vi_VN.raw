@@ -72,6 +72,8 @@ headTitle.fee = Quản lý phí
 headTitle.feeGroup = Quản lý nhóm phí
 headTitle.feeMap = Quản lý tiền phí
 headTitle.feePolicy = Quản lý chính sách phí
+headTitle.feePolicy.clone = Sao chép chính sách phí
+headTitle.feePolicy.cloneAll = Sao chép chính sách phí và các dữ liệu liên quan
 headTitle.help = Trợ giúp
 headTitle.month = Quản lý tháng
 headTitle.parent = Quản lý phụ huynh
@@ -177,6 +179,16 @@ select.month = Chọn tháng
 select.parent = Chọn phụ huynh
 select.payment = Chọn thu tiền
 select.student = Chọn học sinh
+
+# Tooltips
+tooltip.class = Niên khóa: {0} <br/> Tên hiện tại: {1} <br/> Mã: {2} 
+tooltip.course = Năm bắt đầu: {0} <br/> Năm kết thúc: {1}
+tooltip.fee = Nhóm phí: {0} <br/> Tên: {1}
+tooltip.feeGroup = Tên: {0}
+tooltip.feePolicy = Lớp: {0} <br/> Tháng: {1}
+tooltip.parent = Tên: {0} <br/> Nghề nghiệp: {1} 
+tooltip.payment = Học sinh: {0} <br/> Tháng: {1}
+tooltip.student = Tên: {0}
 
 # Excel
 excel.file.prefix_title = THU TIỀN THÁNG

@@ -15,8 +15,10 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
+import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "class")
@@ -73,6 +75,13 @@ public class Classes implements BeanLabel {
 		label.append(Constant.PUNCTUATION_MARK.BRACKET_CURLY_CLOSE);
 
 		return label.toString();
+	}
+
+	@Override
+	public String getTooltip() {
+		return Helper.getI18N(I18N.TOOLTIP_CLASS, new String[] {
+				this.course.getLabel(), this.getCurrentName(), this.getCode()
+		});
 	}
 
 	public String getCurrentName() {

@@ -18,6 +18,10 @@
 <script src="assets/sparkline/jquery.customSelect.min.js"></script>
 <script src="assets/sparkline/sparkline-chart.js"></script>
 <!-- <script src="assets/sparkline/easy-pie-chart.js"></script> -->
+
+<!-- Tooltips -->
+<script src="assets/js/jquery.tipsy.js"></script>
+
 <!-- Dynamic Table -->
 <script type="text/javascript" language="javascript"
 	src="assets/js/jquery.dataTables.js"

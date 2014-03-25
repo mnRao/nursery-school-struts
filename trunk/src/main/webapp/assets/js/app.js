@@ -10,6 +10,13 @@ $(document).ready(function() {
 
 });
 
+//===== Tooltip =====//
+
+$('.leftDir').tipsy({fade: true, gravity: 'e', html:true});
+$('.rightDir').tipsy({fade: true, gravity: 'w', html:true});
+$('.topDir').tipsy({fade: true, gravity: 's', html:true});
+$('.botDir').tipsy({fade: true, gravity: 'n', html:true});
+
 function hideActionMessagesAndErrors() {
 	var timeOut = 3000;
 	window.setTimeout(function() {
@@ -25,3 +32,4 @@ function hideActionMessagesAndErrors() {
 function setFocusToLoginTextBox() {
 	document.getElementById("login_username").focus();
 }
+
