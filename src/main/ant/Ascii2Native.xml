@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="nursery-school-ascii2native" default="ascii2native">
-
+	<property name="src.dir" location="../../../src" />
+	<property name="target.dir" location="../../../target" />
+	
 	<target name="ascii2native">
-		<native2ascii reverse="true" encoding="UTF-8" src="../../../src/main/resources" dest="../../../target/generated-sources" includes="**/global_vi_VN.properties" ext=".raw" />
-		<move file="../../../target/generated-sources/global_vi_VN.raw" todir="../../../src/main/resources" />
+		<native2ascii reverse="true" encoding="UTF-8" src="${src.dir}/main/resources" dest="${target.dir}/generated-sources" includes="**/global_vi_VN.properties" ext=".raw" />
+		<move file="${target.dir}/generated-sources/global_vi_VN.raw" todir="${src.dir}/main/resources" />
 	</target>
 
 </project>
