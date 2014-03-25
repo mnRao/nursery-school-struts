@@ -17,8 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.helper.StringUtil;
 
 @Entity
@@ -88,6 +90,13 @@ public class Student implements BeanLabel {
 					.append(this.getAssociatedClass().getCode());
 		}
 		return label.toString();
+	}
+
+	@Override
+	public String getTooltip() {
+		return Helper.getI18N(I18N.TOOLTIP_STUDENT, new String[] {
+			this.name
+		});
 	}
 
 	public String getGenderText() throws InstantiationException,

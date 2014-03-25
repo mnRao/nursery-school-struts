@@ -71,7 +71,7 @@
 										<s:hidden name="courseId" />
 										<div class="col-md-2">
 											<s:label key="label.course.startYear"
-												cssClass="control-label" />
+												cssClass="control-label"/>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">

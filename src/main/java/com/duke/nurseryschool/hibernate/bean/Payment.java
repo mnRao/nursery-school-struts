@@ -15,7 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "payment")
@@ -63,6 +65,14 @@ public class Payment implements BeanLabel, Cloneable {
 		}
 
 		return label.toString();
+	}
+
+	@Override
+	public String getTooltip() {
+		return Helper.getI18N(I18N.TOOLTIP_PAYMENT, new String[] {
+				this.getStudent().getName(),
+				this.getFeePolicy().getMonth().getLabel()
+		});
 	}
 
 	protected Payment clone(FeePolicy newFeePolicy)

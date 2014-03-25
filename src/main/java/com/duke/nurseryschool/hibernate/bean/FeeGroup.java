@@ -11,7 +11,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
+import com.duke.nurseryschool.helper.Helper;
 
 @Entity
 @Table(name = "fee_group")
@@ -32,6 +34,13 @@ public class FeeGroup implements BeanLabel {
 	@Override
 	public String getLabel() {
 		return this.name;
+	}
+
+	@Override
+	public String getTooltip() {
+		return Helper.getI18N(I18N.TOOLTIP_FEEGROUP, new String[] {
+			this.name
+		});
 	}
 
 	public Set<Fee> getFees() {

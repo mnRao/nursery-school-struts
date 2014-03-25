@@ -92,6 +92,8 @@ public class I18N {
 	public static final String HEADTITLE_FEEGROUP = "headTitle.feeGroup";
 	public static final String HEADTITLE_FEEMAP = "headTitle.feeMap";
 	public static final String HEADTITLE_FEEPOLICY = "headTitle.feePolicy";
+	public static final String HEADTITLE_FEEPOLICY_CLONE = "headTitle.feePolicy.clone";
+	public static final String HEADTITLE_FEEPOLICY_CLONEALL = "headTitle.feePolicy.cloneAll";
 	public static final String HEADTITLE_HELP = "headTitle.help";
 	public static final String HEADTITLE_MONTH = "headTitle.month";
 	public static final String HEADTITLE_PARENT = "headTitle.parent";
@@ -193,6 +195,14 @@ public class I18N {
 	public static final String TAB_LABEL_FIRST = "tab.label.first";
 	public static final String TAB_LABEL_SECOND = "tab.label.second";
 	public static final String TABLE_NO_RECORDS = "table.no.records";
+	public static final String TOOLTIP_CLASS = "tooltip.class";
+	public static final String TOOLTIP_COURSE = "tooltip.course";
+	public static final String TOOLTIP_FEE = "tooltip.fee";
+	public static final String TOOLTIP_FEEGROUP = "tooltip.feeGroup";
+	public static final String TOOLTIP_FEEPOLICY = "tooltip.feePolicy";
+	public static final String TOOLTIP_PARENT = "tooltip.parent";
+	public static final String TOOLTIP_PAYMENT = "tooltip.payment";
+	public static final String TOOLTIP_STUDENT = "tooltip.student";
 	public static final String UI_HEADER_CURRENTYEAR = "ui.header.currentYear";
 	public static final String UI_HEADER_HELP = "ui.header.help";
 	public static final String UI_HEADER_LANGUAGE = "ui.header.language";
