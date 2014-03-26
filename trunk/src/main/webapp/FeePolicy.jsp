@@ -52,14 +52,14 @@
 								<s:iterator value="feePolicies">
 									<tr class="gradeC">
 										<td><s:property value="feePolicyId" /></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="associatedClass.tooltip" />"
 										><s:url id="classUrl" action="editClasses">
 												<s:param name="classId" value="%{associatedClass.classId}" />
 											</s:url> <s:a href="%{classUrl}">
 												<s:property value="associatedClass.label" />
 											</s:a></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="month.tooltip"/>"
 										><s:url id="monthUrl" action="editMonth">
 												<s:param name="monthId" value="%{month.monthId}" />

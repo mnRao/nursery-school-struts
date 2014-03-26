@@ -48,7 +48,7 @@
 									<tr class="gradeC">
 										<td><s:property value="classId" /></td>
 										<td><s:property value="code" /></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="course.tooltip"/>"
 										><s:url id="courseUrl" action="editCourse">
 												<s:param name="courseId" value="%{course.courseId}" />

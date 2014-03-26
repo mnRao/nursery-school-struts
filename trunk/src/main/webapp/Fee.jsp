@@ -49,7 +49,7 @@
 										<td><s:property value="feeId" /></td>
 										<td><s:property value="name" /></td>
 										<td><s:property value="type.name" /></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="feeGroup.tooltip" />"
 										><s:url id="feeGroupUrl" action="editFeeGroup">
 												<s:param name="feeGroupId" value="%{feeGroup.feeGroupId}" />

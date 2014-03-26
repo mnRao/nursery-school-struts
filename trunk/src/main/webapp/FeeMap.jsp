@@ -45,7 +45,7 @@
 							<tbody>
 								<s:iterator value="feeMaps">
 									<tr class="gradeC">
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="feePolicyFee.feePolicy.tooltip" />"
 										><s:url id="feePolicyUrl" action="editFeePolicy">
 												<s:param name="feePolicyId"
@@ -54,7 +54,7 @@
 											</s:url> <s:a href="%{feePolicyUrl}">
 												<s:property value="feePolicyFee.feePolicy.label" />
 											</s:a></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="feePolicyFee.fee.tooltip" />"
 										><s:url id="feeUrl" action="editFee">
 												<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />

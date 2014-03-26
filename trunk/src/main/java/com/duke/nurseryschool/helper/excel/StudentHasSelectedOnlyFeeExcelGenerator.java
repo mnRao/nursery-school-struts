@@ -15,8 +15,8 @@ import com.duke.nurseryschool.hibernate.bean.Month;
 
 public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 
-	protected static final int CONTENT_START_ROW = 2;
-	protected static final int CONTENT_LAST_COLUMN = 10;
+	private static final int CONTENT_START_ROW = 2;
+	private static final int CONTENT_LAST_COLUMN = 10;
 	private final Month month;
 	private final List<String> studentNames;
 	private final String feeName;

@@ -57,7 +57,7 @@
 										<td><s:property value="address" /></td>
 										<td><s:property value="homePhone" /></td>
 										<td><s:property value="isActive" /></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="associatedClass.tooltip" />"
 										><s:url id="classUrl" action="editClasses">
 												<s:param name="classId" value="%{associatedClass.classId}" />
