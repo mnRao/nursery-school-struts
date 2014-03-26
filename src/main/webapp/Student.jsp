@@ -57,7 +57,13 @@
 										<td><s:property value="address" /></td>
 										<td><s:property value="homePhone" /></td>
 										<td><s:property value="isActive" /></td>
-										<td class="topDir" original-title="<s:property value="associatedClass.tooltip" />"><s:property value="associatedClass.label" /></td>
+										<td class="topDir"
+											original-title="<s:property value="associatedClass.tooltip" />"
+										><s:url id="classUrl" action="editClasses">
+												<s:param name="classId" value="%{associatedClass.classId}" />
+											</s:url> <s:a href="%{classUrl}">
+												<s:property value="associatedClass.label" />
+											</s:a></td>
 										<td><s:url id="editUrl" action="editStudent">
 												<s:param name="studentId" value="%{studentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">

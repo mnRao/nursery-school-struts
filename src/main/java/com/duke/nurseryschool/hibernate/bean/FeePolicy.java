@@ -26,28 +26,28 @@ import com.duke.nurseryschool.helper.Helper;
 public class FeePolicy implements BeanLabel, Cloneable {
 	@Id
 	@GeneratedValue
-	private int feePolicyId;
+	private int				feePolicyId;
 	@Column(name = "feePerNormalMeal", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal feePerNormalMeal;
+	private BigDecimal		feePerNormalMeal;
 	@Column(name = "penaltyFeePerBreakfast", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal penaltyFeePerBreakfast;
+	private BigDecimal		penaltyFeePerBreakfast;
 	@Column(name = "totalBreakfastFee", columnDefinition = "Decimal(10,1) default '0.0'")
-	private BigDecimal totalBreakfastFee;
+	private BigDecimal		totalBreakfastFee;
 	@Column(name = "availableDays")
-	private int availableDays;
+	private int				availableDays;
 
 	@ManyToOne
 	@JoinColumn(name = "classId")
-	private Classes associatedClass;
+	private Classes			associatedClass;
 	@ManyToOne
 	@JoinColumn(name = "monthId")
-	private Month month;
+	private Month			month;
 
 	@OneToMany(mappedBy = "feePolicy")
-	private Set<Payment> payments;
+	private Set<Payment>	payments;
 
 	@OneToMany(mappedBy = "feePolicyFee.feePolicy")
-	private Set<FeeMap> feeMaps;
+	private Set<FeeMap>		feeMaps;
 
 	public FeePolicy() {
 
@@ -68,9 +68,12 @@ public class FeePolicy implements BeanLabel, Cloneable {
 
 	@Override
 	public String getTooltip() {
-		return Helper.getI18N(I18N.TOOLTIP_FEEPOLICY, new String[] {
-				this.associatedClass.getTooltip(), this.month.getLabel()
-		});
+		return Helper.getI18N(I18N.TOOLTIP_FEEPOLICY,
+				new String[] {
+						this.associatedClass.getCourse().getLabel(),
+						this.associatedClass.getCurrentName(),
+						this.associatedClass.getCode(), this.month.getLabel()
+				});
 	}
 
 	public FeePolicy clone(Classes associatedClass, Month month)

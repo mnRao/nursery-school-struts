@@ -185,10 +185,11 @@ tooltip.class = Niên khóa: {0} <br/> Tên hiện tại: {1} <br/> Mã: {2}
 tooltip.course = Năm bắt đầu: {0} <br/> Năm kết thúc: {1}
 tooltip.fee = Nhóm phí: {0} <br/> Tên: {1}
 tooltip.feeGroup = Tên: {0}
-tooltip.feePolicy = Lớp: {0} <br/> Tháng: {1}
+tooltip.feePolicy = Lớp: <br/>- Niên khóa: {0} <br/>- Tên hiện tại: {1} <br/>- Mã: {2} <br/> Tháng: {3}
 tooltip.parent = Tên: {0} <br/> Nghề nghiệp: {1} 
 tooltip.payment = Học sinh: {0} <br/> Tháng: {1}
 tooltip.student = Tên: {0}
+tooltip.month = Tháng: {0} <br/> Năm: {1}
 
 # Excel
 excel.file.prefix_title = THU TIỀN THÁNG
