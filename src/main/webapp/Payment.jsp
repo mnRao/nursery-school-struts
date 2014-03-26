@@ -49,14 +49,14 @@
 							<tbody>
 								<s:iterator value="payments">
 									<tr class="gradeC">
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="student.tooltip" />"
 										><s:url id="studentUrl" action="editStudent">
 												<s:param name="studentId" value="%{student.studentId}" />
 											</s:url> <s:a href="%{studentUrl}">
 												<s:property value="student.name" />
 											</s:a></td>
-										<td class="topDir"
+										<td class="rightDir"
 											original-title="<s:property value="feePolicy.tooltip" />"
 										>
 										
