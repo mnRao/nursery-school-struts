@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duke.nurseryschool.core.BeanLabel;
+import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Helper;
@@ -19,14 +20,15 @@ import com.duke.nurseryschool.helper.Helper;
 public class Month implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int monthId;
+	private int				monthId;
 	@Column(name = "month")
-	private int monthName;// Avoid using "month" => might be misunderstood
+	private int				monthName;		// Avoid using "month" => might be
+											// misunderstood
 	@Column(name = "year")
-	private int year;
+	private int				year;
 
 	@OneToMany(mappedBy = "month")
-	private Set<FeePolicy> feePolicies;
+	private Set<FeePolicy>	feePolicies;
 
 	public Month() {
 	}
@@ -46,7 +48,9 @@ public class Month implements BeanLabel {
 
 	@Override
 	public String getTooltip() {
-		return this.getLabel();
+		return Helper.getI18N(I18N.TOOLTIP_MONTH, new String[] {
+				Integer.toString(this.monthName), Integer.toString(this.year)
+		});
 	}
 
 	public int getMonthId() {

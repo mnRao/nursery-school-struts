@@ -52,8 +52,20 @@
 								<s:iterator value="feePolicies">
 									<tr class="gradeC">
 										<td><s:property value="feePolicyId" /></td>
-										<td class="topDir" original-title="<s:property value="associatedClass.tooltip" />"><s:property value="associatedClass.label" /></td>
-										<td><s:property value="month.label" /></td>
+										<td class="topDir"
+											original-title="<s:property value="associatedClass.tooltip" />"
+										><s:url id="classUrl" action="editClasses">
+												<s:param name="classId" value="%{associatedClass.classId}" />
+											</s:url> <s:a href="%{classUrl}">
+												<s:property value="associatedClass.label" />
+											</s:a></td>
+										<td class="topDir"
+											original-title="<s:property value="month.tooltip"/>"
+										><s:url id="monthUrl" action="editMonth">
+												<s:param name="monthId" value="%{month.monthId}" />
+											</s:url> <s:a href="%{monthUrl}">
+												<s:property value="month.label" />
+											</s:a></td>
 										<td><s:property value="feePerNormalMeal" /></td>
 										<td><s:property value="totalBreakfastFee" /></td>
 										<td><s:property value="penaltyFeePerBreakfast" /></td>
@@ -78,17 +90,15 @@
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
 												<s:text name="grid.action.excel" />
-											</s:a>
-											<s:url id="cloneUrl" action="cloneFeePolicy">
-												<s:param name="feePolicyId" value="%{feePolicyId}"/>
-											</s:url>
-											<s:a cssClass="btn btn-sm btn-warning" href="%{cloneUrl}"><s:text name="grid.action.clone"/></s:a>
-											<s:url id="cloneAllUrl" action="cloneAllFeePolicy">
-												<s:param name="feePolicyId" value="%{feePolicyId}"/>
-											</s:url>
-											<s:a cssClass="btn btn-sm btn-warning" href="%{cloneAllUrl}"><s:text name="grid.action.cloneAll"/></s:a>
-											
-											<!-- 											Show Fee Maps--> <s:a
+											</s:a> <s:url id="cloneUrl" action="cloneFeePolicy">
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{cloneUrl}">
+												<s:text name="grid.action.clone" />
+											</s:a> <s:url id="cloneAllUrl" action="cloneAllFeePolicy">
+												<s:param name="feePolicyId" value="%{feePolicyId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{cloneAllUrl}">
+												<s:text name="grid.action.cloneAll" />
+											</s:a> <!-- 											Show Fee Maps--> <s:a
 												href="#myModal%{feePolicyId}" data-toggle="modal"
 												cssClass="btn btn-sm btn-success"
 											>
@@ -109,7 +119,9 @@
 														</div>
 														<div class="modal-body">
 
-															<s:if test="%{feeMaps.isEmpty()}"><s:text name="modal.content.empty"/> </s:if>
+															<s:if test="%{feeMaps.isEmpty()}">
+																<s:text name="modal.content.empty" />
+															</s:if>
 															<s:else>
 																<table class="table table-hover">
 																	<thead>
@@ -123,14 +135,18 @@
 																	<tbody>
 																		<s:iterator value="feeMaps">
 																			<tr>
-																				<td><s:property value="feePolicyFee.feePolicy.label" /></td>
+																				<td><s:property
+																						value="feePolicyFee.feePolicy.label"
+																					/></td>
 																				<td><s:property value="feePolicyFee.fee.name" /></td>
 																				<td><s:property value="amount" /></td>
 																				<td class="modal-action"><s:url id="editUrl"
 																						action="editFeeMap"
 																					>
 																						<s:param name="feePolicyId" value="%{feePolicyId}" />
-																						<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
+																						<s:param name="feeId"
+																							value="%{feePolicyFee.fee.feeId}"
+																						/>
 																					</s:url> <s:a cssClass="btn btn-sm btn-primary"
 																						href="%{editUrl}"
 																					>
@@ -139,7 +155,9 @@
 																						action="deleteFeeMapFeePolicy"
 																					>
 																						<s:param name="feePolicyId" value="%{feePolicyId}" />
-																						<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
+																						<s:param name="feeId"
+																							value="%{feePolicyFee.fee.feeId}"
+																						/>
 																					</s:url> <s:a cssClass="btn btn-sm btn-warning"
 																						href="%{deleteUrl}"
 																					>
@@ -158,10 +176,7 @@
 														</div>
 													</div>
 												</div>
-											</s:div>
-											
-											
-											</td>
+											</s:div></td>
 									</tr>
 								</s:iterator>
 							</tbody>

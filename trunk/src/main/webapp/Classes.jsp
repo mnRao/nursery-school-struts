@@ -11,12 +11,6 @@
 				</h3>
 			</div>
 			<div class="widget-content">
-				<%-- 				<s:if test="fieldErrors.size > 0"> --%>
-				<%-- 					<s:set name="hasErrors" value="true" /> --%>
-				<%-- 				</s:if> --%>
-				<%-- 				<s:else> --%>
-				<%-- 					<s:set name="hasErrors" value="false" /> --%>
-				<%-- 				</s:else> --%>
 				<ul class="nav nav-tabs" id="myTab">
 					<li
 						class="<%=Helper.getTabCss(1, false, ActionContext.getContext()
@@ -54,7 +48,13 @@
 									<tr class="gradeC">
 										<td><s:property value="classId" /></td>
 										<td><s:property value="code" /></td>
-										<td class="topDir" original-title="<s:property value="course.tooltip"/>"><s:property value="course.label" /></td>
+										<td class="topDir"
+											original-title="<s:property value="course.tooltip"/>"
+										><s:url id="courseUrl" action="editCourse">
+												<s:param name="courseId" value="%{course.courseId}" />
+											</s:url> <s:a href="%{courseUrl}">
+												<s:property value="course.label" />
+											</s:a></td>
 										<td><s:property value="currentName" /></td>
 										<td><s:url id="editUrl" action="editClasses">
 												<s:param name="classId" value="%{classId}" />
@@ -91,7 +91,9 @@
 														</div>
 														<div class="modal-body">
 
-															<s:if test="%{feePolicies.isEmpty()}"><s:text name="modal.content.empty"/> </s:if>
+															<s:if test="%{feePolicies.isEmpty()}">
+																<s:text name="modal.content.empty" />
+															</s:if>
 															<s:else>
 																<table class="table table-hover">
 																	<thead>

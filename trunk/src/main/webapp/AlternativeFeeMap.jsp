@@ -47,8 +47,22 @@
 							<tbody>
 								<s:iterator value="alternativeFeeMaps">
 									<tr class="gradeC">
-										<td class="topDir" original-title="<s:property value="paymentFee.payment.tooltip" />"><s:property value="paymentFee.payment.label" /></td>
-										<td class="topDir" original-title="<s:property value="paymentFee.fee.tooltip" />"><s:property value="paymentFee.fee.name" /></td>
+										<td class="topDir"
+											original-title="<s:property value="paymentFee.payment.tooltip" />"
+										><s:url id="paymentUrl" action="editPayment">
+												<s:param name="paymentId"
+													value="%{paymentFee.payment.paymentId}"
+												/>
+											</s:url> <s:a href="%{paymentUrl}">
+												<s:property value="paymentFee.payment.label" />
+											</s:a></td>
+										<td class="topDir"
+											original-title="<s:property value="paymentFee.fee.tooltip" />"
+										><s:url id="feeUrl" action="editFee">
+												<s:param name="feeId" value="%{paymentFee.fee.feeId}" />
+											</s:url> <s:a href="%{feeUrl}">
+												<s:property value="paymentFee.fee.name" />
+											</s:a></td>
 										<td><s:property value="alternativeAmount" /></td>
 										<td><s:url id="editUrl"
 												action="editAlternativeFeeChargeMap"

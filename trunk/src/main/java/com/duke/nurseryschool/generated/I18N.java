@@ -200,6 +200,7 @@ public class I18N {
 	public static final String TOOLTIP_FEE = "tooltip.fee";
 	public static final String TOOLTIP_FEEGROUP = "tooltip.feeGroup";
 	public static final String TOOLTIP_FEEPOLICY = "tooltip.feePolicy";
+	public static final String TOOLTIP_MONTH = "tooltip.month";
 	public static final String TOOLTIP_PARENT = "tooltip.parent";
 	public static final String TOOLTIP_PAYMENT = "tooltip.payment";
 	public static final String TOOLTIP_STUDENT = "tooltip.student";

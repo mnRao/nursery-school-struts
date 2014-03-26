@@ -36,7 +36,7 @@
 						>
 							<thead>
 								<tr>
-									<th><s:text name="label.fee.feeId"/></th>
+									<th><s:text name="label.fee.feeId" /></th>
 									<th><s:text name="label.fee.name" /></th>
 									<th><s:text name="label.fee.type" /></th>
 									<th><s:text name="label.fee.feeGroupId" /></th>
@@ -46,10 +46,16 @@
 							<tbody>
 								<s:iterator value="fees">
 									<tr class="gradeC">
-										<td><s:property value="feeId"/></td>
+										<td><s:property value="feeId" /></td>
 										<td><s:property value="name" /></td>
 										<td><s:property value="type.name" /></td>
-										<td class="topDir" original-title="<s:property value="feeGroup.tooltip" />"><s:property value="feeGroup.label" /></td>
+										<td class="topDir"
+											original-title="<s:property value="feeGroup.tooltip" />"
+										><s:url id="feeGroupUrl" action="editFeeGroup">
+												<s:param name="feeGroupId" value="%{feeGroup.feeGroupId}" />
+											</s:url> <s:a href="%{feeGroupUrl}">
+												<s:property value="feeGroup.label" />
+											</s:a></td>
 										<td><s:url id="editUrl" action="editFee">
 												<s:param name="feeId" value="%{feeId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-primary" href="%{editUrl}">
