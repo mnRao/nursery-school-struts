@@ -28,7 +28,7 @@
 								<tr>
 									<th><s:text name="label.month.monthId" /></th>
 									<th><s:text name="label.month.label" /></th>
-									<th><s:text name="label.month.month" /></th>
+									<th><s:text name="label.month.monthName" /></th>
 									<th><s:text name="label.month.year" /></th>
 									<th></th>
 								</tr>
@@ -79,11 +79,11 @@
 									<s:push value="month">
 										<s:hidden name="monthId" />
 										<div class="col-md-2">
-											<s:label key="label.month.month" cssClass="control-label" />
+											<s:label key="label.month.monthName" cssClass="control-label" />
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<s:textfield key="label.month.month" name="monthName"
+												<s:textfield key="label.month.monthName" name="monthName"
 													cssClass="form-control" type="number" />
 											</div>
 										</div>

@@ -30,7 +30,7 @@
 			<ul class="sub-menu <%=Helper.isSubMenuItemActive() %>">
 				<li class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.MONTH)%>"><a
 					href='<s:url action="listMonth"/>'> <i class="icon-calendar"></i>
-						<s:text name="label.month.month" /></a></li>
+						<s:text name="label.month" /></a></li>
 				<li
 					class="<%=Helper.isMenuItemActive(Constant.MENU_ITEM.FEE_POLICY)%>"><a
 					href='<s:url action="listFeePolicy"/>'> <i class="icon-book"></i>
