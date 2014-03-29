@@ -52,7 +52,7 @@
 									<tr class="gradeC">
 										<td><s:property value="studentId" /></td>
 										<td><s:property value="name" /></td>
-										<td><s:property value="dateOfBirth" /></td>
+										<td><s:date name="dateOfBirth" format="dd/MM/yyyy" /></td>
 										<td><s:property value="genderText" /></td>
 										<td><s:property value="address" /></td>
 										<td><s:property value="homePhone" /></td>

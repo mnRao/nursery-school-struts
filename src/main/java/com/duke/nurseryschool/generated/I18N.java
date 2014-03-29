@@ -20,6 +20,7 @@ public class I18N {
 	public static final String ERROR_CONSTRAINT_MONTH_MONTHNAME = "error.constraint.month.monthName";
 	public static final String ERROR_CONSTRAINT_MONTH_YEAR = "error.constraint.month.year";
 	public static final String ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT = "error.constraint.payment.absenceCount";
+	public static final String ERROR_CONSTRAINT_STUDENT_DATEOFBIRTH = "error.constraint.student.dateOfBirth";
 	public static final String ERROR_DELETE_CHILDREN_FIRST = "error.delete.children.first";
 	public static final String ERROR_DUPLICATION_CLASS = "error.duplication.class";
 	public static final String ERROR_DUPLICATION_COURSE = "error.duplication.course";
@@ -142,8 +143,8 @@ public class I18N {
 	public static final String LABEL_LOGIN = "label.login";
 	public static final String LABEL_MONTH = "label.month";
 	public static final String LABEL_MONTH_LABEL = "label.month.label";
-	public static final String LABEL_MONTH_MONTH = "label.month.month";
 	public static final String LABEL_MONTH_MONTHID = "label.month.monthId";
+	public static final String LABEL_MONTH_MONTHNAME = "label.month.monthName";
 	public static final String LABEL_MONTH_YEAR = "label.month.year";
 	public static final String LABEL_PARENT = "label.parent";
 	public static final String LABEL_PARENT_GENDER = "label.parent.gender";

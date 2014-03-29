@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Student;
@@ -97,6 +98,12 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 					this.getText(I18N.ERROR_REQUIRED, new String[] {
 						this.getText(I18N.LABEL_STUDENT_NAME)
 					}));
+		}
+		if (this.student.getDateOfBirth() != null
+				&& (this.student.getDateOfBirth().getYear() + 1900) >= Helper
+						.calculateCurrentYear()) {
+			this.addFieldError("student.dateOfBirth",
+					this.getText(I18N.ERROR_CONSTRAINT_STUDENT_DATEOFBIRTH));
 		}
 
 		super.validate();

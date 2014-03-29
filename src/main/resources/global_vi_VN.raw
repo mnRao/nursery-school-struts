@@ -129,7 +129,7 @@ label.feeType.unknown = Không xác định
 
 label.month = Tháng
 label.month.monthId = ID
-label.month.month = Tháng
+label.month.monthName = Tháng
 label.month.year = Năm
 label.month.label = Tháng
 
@@ -238,6 +238,7 @@ error.constraint.feePolicy.totalBreakfastFee = ${getText('label.feePolicy.totalB
 error.constraint.feePolicy.penaltyFeePerBreakfast = ${getText('label.feePolicy.penaltyFeePerBreakfast')} phải lớn hơn hoặc bằng 0
 error.constraint.feePolicy.availableDays = ${getText('label.feePolicy.availableDays')} phải lớn hơn hoặc bằng 0
 error.constraint.payment.absenceCount = ${getText('label.payment.absenceCount')} phải lớn hơn hoặc bằng 0
+error.constraint.student.dateOfBirth = ${getText('label.student.dateOfBirth')} phải nhỏ hơn năm hiện tại
 xwork.default.invalid.fieldvalue = Giá trị không hợp lệ cho thuộc tính "{0}"
 error.duplication.class = Dữ liệu trùng lặp với niên khóa và mã giống hệt đã tồn tại trong hệ thống
 error.duplication.course = Dữ liệu trùng lặp với năm bắt đầu và năm kết thúc giống hệt đã tồn tại trong hệ thống
