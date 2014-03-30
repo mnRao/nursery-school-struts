@@ -23,8 +23,8 @@ tab.label.first = Tạo mới | Cập nhật
 tab.label.second = Xem dữ liệu
 form.gender.male = Nam
 form.gender.female = Nữ
-form.trueFalse.true = Đúng
-form.trueFalse.false = Sai
+form.trueFalse.true = Có (Đúng)
+form.trueFalse.false = Không (Sai)
 form.submit = Lưu
 
 grid.action.clone = Sao chép

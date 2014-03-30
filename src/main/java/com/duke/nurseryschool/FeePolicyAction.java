@@ -103,6 +103,9 @@ public class FeePolicyAction extends CoreAction implements
 				.parseInt(feePolicyId));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
+			// Populate data
+			this.populateData();
+
 			return Action.SUCCESS;// Actually Error
 		}
 

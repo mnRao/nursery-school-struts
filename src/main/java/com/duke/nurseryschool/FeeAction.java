@@ -64,6 +64,10 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 				.getParameter("feeId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
+			// Populate data
+			this.populateData();
+
+			return Action.SUCCESS;// Actually Error
 		}
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
