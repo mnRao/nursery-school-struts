@@ -51,6 +51,10 @@ public class FeeGroupAction extends CoreAction implements
 				.parseInt(this.request.getParameter("feeGroupId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
+			// Populate data
+			this.populateData();
+
+			return Action.SUCCESS;// Actually Error
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;

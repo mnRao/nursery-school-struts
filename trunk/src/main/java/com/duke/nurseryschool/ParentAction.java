@@ -23,12 +23,12 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 
 	private Parent parent = new Parent();
 	private List<Parent> parents = new ArrayList<Parent>();
-	private ParentDAO dao = new ParentDAO();
+	private final ParentDAO dao = new ParentDAO();
 
 	private int parentId;
 	private int studentId;
 	private List<Student> studentList;
-	private StudentDAO studentDAO = new StudentDAO();
+	private final StudentDAO studentDAO = new StudentDAO();
 
 	@Override
 	public Parent getModel() {
@@ -66,6 +66,10 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 				.getParameter("parentId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
+			// Populate data
+			this.populateData();
+
+			return Action.SUCCESS;// Actually Error
 		}
 		// Redirect to list action
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;

@@ -92,7 +92,7 @@
 																		<s:iterator value="fees">
 																			<tr>
 																				<td><s:property value="name" /></td>
-																				<td><s:property value="type" /></td>
+																				<td><s:property value="type.name" /></td>
 																				<td><s:property value="feeGroup.label" /></td>
 																				<td class="modal-action"><s:url id="editUrl"
 																						action="editFee"

@@ -132,8 +132,10 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 	private void closeWorkbook(WritableWorkbook workbook) throws IOException,
 			WriteException {
-		workbook.write();
-		workbook.close();
+		if (workbook != null) {
+			workbook.write();
+			workbook.close();
+		}
 	}
 
 	private void addStatisticContentToPaymentExcelFile(
