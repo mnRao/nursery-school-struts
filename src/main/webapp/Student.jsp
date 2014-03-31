@@ -205,7 +205,7 @@
 													name="dateOfBirth"
 													cssClass="form-control parsley-validated"
 													value="%{getText('format.date',{student.dateOfBirth})}"
-													data-type="dateIso" placeholder="<%= Helper.getDateFormatPlaceHolder() %>"
+													data-type="dateIso" placeholder="%{getText('global.format.date')}"
 												/>
 											</div>
 										</div>

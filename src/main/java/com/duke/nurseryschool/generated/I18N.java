@@ -66,6 +66,7 @@ public class I18N {
 	public static final String FORM_WIDGET_HEADER = "form.widget.header";
 	public static final String FORMAT_DATE = "format.date";
 	public static final String GLOBAL_FOOTER_DEVELOPEDBY = "global.footer.developedBy";
+	public static final String GLOBAL_FORMAT_DATE = "global.format.date";
 	public static final String GLOBAL_TITLE = "global.title";
 	public static final String GRID_ACTION_ADDALTERNATIVEFEEMAP = "grid.action.addAlternativeFeeMap";
 	public static final String GRID_ACTION_ADDCLASS = "grid.action.addClass";
