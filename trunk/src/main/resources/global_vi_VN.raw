@@ -3,6 +3,7 @@ global.title = Mầm non Tuyết Dương [Duke Corp]
 global.footer.developedBy = Phát triển bởi Duke
 
 format.date = {0,date,dd/MM/yyyy}
+global.format.date = dd/MM/yyyy
 
 # UI
 ui.header.language = Ngôn ngữ
