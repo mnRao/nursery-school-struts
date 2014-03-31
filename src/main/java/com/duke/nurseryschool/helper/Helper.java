@@ -119,4 +119,8 @@ public class Helper {
 		}
 		return textProvider.getText(key, args);
 	}
+
+	public static String getDateFormatPlaceHolder() {
+		return "dd-MM-YYYY";
+	}
 }

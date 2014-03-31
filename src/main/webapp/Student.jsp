@@ -200,10 +200,12 @@
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<%-- 												<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/> --%>
+												<%-- 																								<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/> --%>
 												<s:textfield key="label.student.dateOfBirth"
-													name="dateOfBirth" cssClass="form-control"
+													name="dateOfBirth"
+													cssClass="form-control parsley-validated"
 													value="%{getText('format.date',{student.dateOfBirth})}"
+													data-type="dateIso" placeholder="<%= Helper.getDateFormatPlaceHolder() %>"
 												/>
 											</div>
 										</div>
