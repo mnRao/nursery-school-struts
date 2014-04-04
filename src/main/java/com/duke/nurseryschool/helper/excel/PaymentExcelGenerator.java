@@ -124,7 +124,7 @@ public class PaymentExcelGenerator extends ExcelManager {
 			dynamicCol++;
 		}
 
-		// Dyamic fees
+		// Dynamic fees
 		// int dynamicCol = CONTENT_DYNAMIC_FEES_START_COL;
 		int feeCount = 0;
 		for (FeeGroup feeGroup : this.feeGroups) {
