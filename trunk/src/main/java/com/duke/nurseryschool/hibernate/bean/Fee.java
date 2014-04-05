@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,7 +29,7 @@ public class Fee implements BeanLabel {
 	@Column(name = "type")
 	private FeeType type;
 
-	@OneToMany(mappedBy = "feePolicyFee.fee")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "feePolicyFee.fee")
 	private Set<FeeMap> feeMaps;
 
 	@OneToMany(mappedBy = "paymentFee.fee")

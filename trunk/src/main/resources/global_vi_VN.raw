@@ -123,7 +123,6 @@ label.feePolicy.penaltyFeePerBreakfast = Phí giảm trừ do nghỉ mỗi bữa
 label.feePolicy.totalBreakfastFee = Tổng phí ăn sáng (đi học dầy đủ)
 label.feePolicy.availableDays = Tổng số ngày học (đi học đầy đủ)
 
-label.feeType.static = Tĩnh
 label.feeType.allExceptSelected = Mặc định áp dụng cho tất cả
 label.feeType.selectedOnly = Mặc định chưa áp dụng
 label.feeType.unknown = Không xác định

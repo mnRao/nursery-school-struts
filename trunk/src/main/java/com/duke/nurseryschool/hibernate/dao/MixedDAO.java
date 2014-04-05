@@ -13,7 +13,9 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 
 public class MixedDAO extends CoreDAO {
 
-	// Get count of all classes that are available
+	/**
+	 * Get count of all classes that are available
+	 */
 	// SELECT COUNT(classId) FROM class WHERE grade != 4;
 	// NOTICE: 0,1,2,3 ARE INCREMENTING VALUES AS ORDER IN GRADE ENUM. 4 IS FOR
 	// UNIDENTIFIED
@@ -72,6 +74,15 @@ public class MixedDAO extends CoreDAO {
 	public List<Fee> getFees(Session session) {
 		String hql = "FROM Fee";
 		Query query = session.createQuery(hql);
+		List<Fee> results = query.list();
+
+		return results;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Fee> getFeeWithNoGroup(Session session) {
+		String sql = "SELECT * FROM fee WHERE feeGroupId IS NULL";
+		Query query = session.createSQLQuery(sql).addEntity(Fee.class);
 		List<Fee> results = query.list();
 
 		return results;

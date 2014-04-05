@@ -2,6 +2,7 @@ package com.duke.nurseryschool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
@@ -9,11 +10,16 @@ import com.duke.nurseryschool.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeGroup;
+import com.duke.nurseryschool.hibernate.bean.FeeMap;
+import com.duke.nurseryschool.hibernate.bean.FeePolicy;
+import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.dao.FeeDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeGroupDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -29,7 +35,8 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 
 	private int feeGroupId;
 	private List<FeeGroup> feeGroupList;
-	final private FeeGroupDAO feeGroupDAO = new FeeGroupDAO();
+	private final FeeGroupDAO feeGroupDAO = new FeeGroupDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
 	private int feeTypeId;
 	private List<FeeType> feeTypeList;
@@ -40,15 +47,40 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getFee(Integer.parseInt(this.request
-						.getParameter("feeId"))));
+		int feeIdParam = Integer.parseInt(this.request.getParameter("feeId"));
+		Fee oldFee = this.dao.getFee(feeIdParam);
+		Set<FeeMap> oldFeeMaps = oldFee.getFeeMaps();
+		this.dao.getSession().evict(oldFee);
 
 		this.fee.setType(FeeType.parse(this.feeTypeId));
 		FeeGroup feeGroup = this.feeGroupDAO.getFeeGroup(this.feeGroupId);
 		this.fee.setFeeGroup(feeGroup);
 
 		this.dao.saveOrUpdateFee(this.fee);
+
+		// If is update action
+		if (feeIdParam != 0) {
+			// Update payment instantly
+			// this.fee = oldFee;
+
+			for (FeeMap feeMap : oldFeeMaps) {
+				FeePolicy feePolicy = feeMap.getFeePolicyFee().getFeePolicy();
+
+				// Load all payments for this fee policy
+				List<Payment> relatedPayments = this.mixedDAO
+						.getPaymentsByFeePolicy(this.mixedDAO.getSession(),
+								feePolicy.getFeePolicyId());
+				if (relatedPayments != null && relatedPayments.size() > 0) {
+					// Set total fee save
+					if (relatedPayments != null) {
+						for (Payment payment : relatedPayments) {
+							new PaymentTrigger(this.mixedDAO.getSession(),
+									payment, feePolicy).calculateAndSetAll();
+						}
+					}
+				}
+			}
+		}
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}

@@ -272,8 +272,9 @@ public class PaymentExcelGenerator extends ExcelManager {
 					Constant.DATABASE_QUERY.ALL_FEE_GROUPS).list();
 			this.fees = this.session.createQuery(
 					Constant.DATABASE_QUERY.ALL_FEES).list();
-			this.staticFees = this.mixedDAO.getFeeByType(this.session,
-					FeeType.STATIC);
+			// this.staticFees = this.mixedDAO.getFeeByType(this.session,
+			// FeeType.STATIC);
+			this.staticFees = this.mixedDAO.getFeeWithNoGroup(this.session);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

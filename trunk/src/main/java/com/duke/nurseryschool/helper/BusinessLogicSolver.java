@@ -152,7 +152,7 @@ public class BusinessLogicSolver {
 			isAlternativeAmountNull = alternativeFeeMap.getAlternativeAmount() == null;
 		}
 		//
-		if (type == FeeType.ALL_EXCEPT_SELECTED || type == FeeType.STATIC) {
+		if (type == FeeType.ALL_EXCEPT_SELECTED) {
 			// If AlternativeFeeMap null or exists but contains no value then
 			// find in FeeMap
 			// if (isAlternativeFeeMapNull && isAlternativeAmountNull){
