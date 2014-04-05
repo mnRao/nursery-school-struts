@@ -139,7 +139,6 @@ public class I18N {
 	public static final String LABEL_FEEPOLICY_TOTALBREAKFASTFEE = "label.feePolicy.totalBreakfastFee";
 	public static final String LABEL_FEETYPE_ALLEXCEPTSELECTED = "label.feeType.allExceptSelected";
 	public static final String LABEL_FEETYPE_SELECTEDONLY = "label.feeType.selectedOnly";
-	public static final String LABEL_FEETYPE_STATIC = "label.feeType.static";
 	public static final String LABEL_FEETYPE_UNKNOWN = "label.feeType.unknown";
 	public static final String LABEL_LOGIN = "label.login";
 	public static final String LABEL_MONTH = "label.month";
