@@ -66,9 +66,9 @@
 											</s:url> <s:a href="%{monthUrl}">
 												<s:property value="month.label" />
 											</s:a></td>
-										<td><s:property value="feePerNormalMeal" /></td>
-										<td><s:property value="totalBreakfastFee" /></td>
-										<td><s:property value="penaltyFeePerBreakfast" /></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{feePerNormalMeal})" /></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{totalBreakfastFee})" /></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{penaltyFeePerBreakfast})" /></td>
 										<td><s:property value="availableDays" /></td>
 										<td><s:url id="editUrl" action="editFeePolicy">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />

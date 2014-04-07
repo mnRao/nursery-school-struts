@@ -18,6 +18,8 @@ public abstract class ExcelManager {
 	protected static final int HEADER_TOP_COLUMN = 0;
 	protected static final int HEADER_NORMAL_ROW = 1;
 
+	protected static final int OBMITING_ZEROS = 3;
+
 	// Excel's configurations
 	protected WritableCellFormat timesBold;
 	protected WritableCellFormat times;
@@ -37,6 +39,18 @@ public abstract class ExcelManager {
 			double amount) throws RowsExceededException, WriteException {
 		Number number = new Number(column, row, amount, this.times);
 		sheet.addCell(number);
+	}
+
+	/**
+	 * Add number and obmiting zeros beforehand
+	 */
+	protected void addNumber(WritableSheet sheet, int column, int row,
+			double amount, int numberOfOmitingZeros)
+			throws RowsExceededException, WriteException {
+		for (int i = 0; i < numberOfOmitingZeros; i++) {
+			amount = amount / 10;
+		}
+		this.addNumber(sheet, column, row, amount);
 	}
 
 	protected void addLabel(WritableSheet sheet, int column, int row,

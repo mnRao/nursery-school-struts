@@ -69,9 +69,9 @@
 											</s:a>
 										</td>
 										<td><s:property value="absenceCount" /></td>
-										<td><s:property value="totalNormalMealFee" /></td>
-										<td><s:property value="totalBreakfastFee" /></td>
-										<td><s:property value="totalFee" /></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{totalNormalMealFee})"/></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{totalBreakfastFee})" /></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{totalFee})"/></td>
 										<%-- 										<td><s:property value="isPaid" /></td> --%>
 										<td><s:url id="editUrl" action="editPayment">
 												<s:param name="paymentId" value="%{paymentId}" />
