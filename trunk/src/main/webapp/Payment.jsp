@@ -117,6 +117,14 @@
 											<s:hidden name="studentId" />
 											<s:hidden name="feePolicyId" />
 										</s:else>
+										<!-- Check whether fee policy key could be edited -->
+										<s:set var="changingFeePolicyKeyAllowed"><%=Helper.changingFeePolicyAllowed()%></s:set>
+										<s:if test="%{#changingFeePolicyKeyAllowed}">
+											<s:set name="isFeePolicyReadOnly" value="false" />
+										</s:if>
+										<s:else>
+											<s:set name="isFeePolicyReadOnly" value="true" />
+										</s:else>
 
 										<s:fielderror />
 										<div class="col-md-2">
@@ -143,7 +151,7 @@
 												<s:select list="feePolicyList" listKey="feePolicyId"
 													listValue="label" name="feePolicyId"
 													headerValue="%{getText('select.feePolicy')}"
-													value="%{feePolicyId}" disabled="%{isReadOnly}"
+													value="%{feePolicyId}" disabled="%{isFeePolicyReadOnly}"
 												/>
 											</div>
 										</div>
