@@ -24,6 +24,16 @@ public class Helper {
 			return true;
 	}
 
+	/**
+	 * Check whether fee policy key could be edited
+	 */
+	public static boolean changingFeePolicyAllowed() {
+		if (getActionName().equals("autoSetFeePolicyPayment"))
+			return false;
+		else
+			return changingMappingKeyAllowed();
+	}
+
 	private static String getActionName() {
 		return ActionContext.getContext().getName();
 	}
