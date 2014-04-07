@@ -49,7 +49,10 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 	public String saveOrUpdate() {
 		int feeIdParam = Integer.parseInt(this.request.getParameter("feeId"));
 		Fee oldFee = this.dao.getFee(feeIdParam);
-		Set<FeeMap> oldFeeMaps = oldFee.getFeeMaps();
+		Set<FeeMap> oldFeeMaps = null;
+		if (oldFee != null) {
+			oldFeeMaps = oldFee.getFeeMaps();
+		}
 		this.dao.getSession().evict(oldFee);
 
 		this.fee.setType(FeeType.parse(this.feeTypeId));

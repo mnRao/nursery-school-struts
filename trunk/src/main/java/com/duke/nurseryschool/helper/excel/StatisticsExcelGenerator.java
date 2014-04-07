@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.omg.CORBA.OMGVMCID;
+
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -73,7 +75,8 @@ public class StatisticsExcelGenerator extends ExcelManager {
 		for (Entry<Classes, BigDecimal> entry : entrySet) {
 			this.addNumber(sheet, 0, row, count);
 			this.addLabel(sheet, 1, row, entry.getKey().getCurrentName());
-			this.addNumber(sheet, 2, row, entry.getValue().doubleValue());
+			this.addNumber(sheet, 2, row, entry.getValue().doubleValue(),
+					OBMITING_ZEROS);
 			count++;
 			row++;
 		}
@@ -81,7 +84,7 @@ public class StatisticsExcelGenerator extends ExcelManager {
 		this.addLabel(sheet, 1, row + 1,
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
 		this.addNumber(sheet, 2, row + 1, this.statisticsBean
-				.getTotalFeeForSchool().doubleValue());
+				.getTotalFeeForSchool().doubleValue(), OBMITING_ZEROS);
 	}
 
 	private String generateTopMostHeaderLabel() {

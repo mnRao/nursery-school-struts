@@ -201,9 +201,9 @@ public class PaymentExcelGenerator extends ExcelManager {
 			this.addLabel(sheet, 1, row, payment.getStudent().getName());
 			this.addNumber(sheet, 2, row, payment.getAbsenceCount());
 			this.addNumber(sheet, 3, row, payment.getTotalNormalMealFee()
-					.doubleValue());
+					.doubleValue(), OBMITING_ZEROS);
 			this.addNumber(sheet, 4, row, payment.getTotalBreakfastFee()
-					.doubleValue());
+					.doubleValue(), OBMITING_ZEROS);
 
 			// Static fees
 			int dynamicCol = CONTENT_STATIC_FEES_START_COL;
@@ -211,7 +211,8 @@ public class PaymentExcelGenerator extends ExcelManager {
 				double calculatedAmount = BusinessLogicSolver
 						.calculateFeeAmount(this.session, staticFee,
 								this.feePolicy, payment);
-				this.addNumber(sheet, dynamicCol, row, calculatedAmount);
+				this.addNumber(sheet, dynamicCol, row, calculatedAmount,
+						OBMITING_ZEROS);
 				dynamicCol++;
 			}
 			// Dynamic fees
@@ -223,14 +224,15 @@ public class PaymentExcelGenerator extends ExcelManager {
 					double calculatedAmount = BusinessLogicSolver
 							.calculateFeeAmount(this.session, fee,
 									this.feePolicy, payment);
-					this.addNumber(sheet, dynamicCol, row, calculatedAmount);
+					this.addNumber(sheet, dynamicCol, row, calculatedAmount,
+							OBMITING_ZEROS);
 					dynamicCol++;
 				}
 			}
 
 			// Other remaining contents
 			this.addNumber(sheet, this.otherStartCol, row, payment
-					.getTotalFee().doubleValue());
+					.getTotalFee().doubleValue(), OBMITING_ZEROS);
 			this.addLabel(sheet, this.lastColumn, row, payment.getNote());
 
 			this.totalFeeForClass = this.totalFeeForClass.add(payment

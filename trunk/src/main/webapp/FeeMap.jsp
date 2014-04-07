@@ -61,7 +61,7 @@
 											</s:url> <s:a href="%{feeUrl}">
 												<s:property value="feePolicyFee.fee.name" />
 											</s:a></td>
-										<td><s:property value="amount" /></td>
+										<td><s:property value="getText('{0,number,#,##0.##}',{amount})" /></td>
 										<td><s:url id="editUrl" action="editFeeMap">
 												<s:param name="feeId" value="%{feePolicyFee.fee.feeId}" />
 												<s:param name="feePolicyId"
