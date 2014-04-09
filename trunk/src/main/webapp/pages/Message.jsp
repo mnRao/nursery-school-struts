@@ -18,36 +18,20 @@
 	<div class="widget-404" style="margin-top: 50px;">
 		<div class="row">
 			<div class="col-md-5">
-				<h1 class="text-align-center">000</h1>
+				<h1 class="text-align-center">999</h1>
 			</div>
 			<div class="col-md-7">
 				<div class="description">
-					<p><s:text name="error.label.guidance.system"/></p>
+					<p><s:text name="error.label.guidance.user" /></p>
 					<h2>
-						<small><s:text name="error.label.exceptionName"/></small>
+						<small><s:text name="error.label.cause"/></small>
 					</h2>
-					<s:property value="exception" />
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<!-- 		This is to make sure the description is centered -->
-		<div class="col-md-2"></div>
-		<div class="col-md-8" style="">
-			<div class="widget">
-				<div class="description">
-					<h2>
-						<small><s:text name="error.label.exceptionDetails"/></small>
-					</h2>
-					<pre>
-						<s:property value="exceptionStack" />
-						</pre>
-					<div class="doc-buttons">
-						<a class="btn btn-s-md btn-primary btn-rounded"
+					
+					<s:actionerror />
+					<s:actionmessage />
+					<a class="btn btn-s-md btn-primary btn-rounded"
 							onclick="history.back()"
 						><s:text name="error.button.back"/></a>
-					</div>
 				</div>
 			</div>
 		</div>

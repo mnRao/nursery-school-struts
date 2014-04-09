@@ -28,6 +28,10 @@
 		<put-attribute name="body" value="/pages/Exception.jsp" />
 	</definition>
 	
+	<definition name="Message" extends="BaseLayout">
+		<put-attribute name="body" value="/pages/Message.jsp" />
+	</definition>
+	
 	<definition name="Login" extends="BaseLayout">
 		<put-attribute name="body" value="/Login.jsp" />
 	</definition>

@@ -15,6 +15,13 @@ ui.header.logout = Thoát
 ui.widget.header.student = Học sinh
 
 # Common UI
+error.button.back = Quay lại
+error.label.cause = Nguyên nhân:
+error.label.exceptionName = Lỗi:
+error.label.exceptionDetails = Chi tiết:
+error.label.guidance.system = Hệ thống đang gặp sự cố. Hãy liên hệ trợ giúp kĩ thuật với thông tin sau:
+error.label.guidance.user = Có vấn đề xảy ra ở hành động vừa rồi của bạn. Hãy xem thêm thông tin dưới đây:
+
 form.widget.header = 
 form.legend = Hãy điền thông tin vào biểu mẫu bên dưới 
 form.legend.clone = Sao chép từ

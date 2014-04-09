@@ -54,6 +54,10 @@ public class ExcelGeneratorAction extends ActionSupport {
 						.generateMonthLabel(feePolicy.getMonth())));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		this.addContentToPaymentExcelFile(feePolicy, workbook, 0);
+
+		if (this.hasActionErrors())
+			return Constant.ACTION_RESULT.MESSAGE;
+
 		this.closeWorkbook(workbook);
 		// Configure for download
 		this.configureFileForDownload(tempFile);
@@ -115,6 +119,10 @@ public class ExcelGeneratorAction extends ActionSupport {
 		for (FeePolicy feePolicy : feePolicies) {
 			BigDecimal totalFeeForClass = this.addContentToPaymentExcelFile(
 					feePolicy, workbook, sheetNumber);
+
+			if (this.hasActionErrors())
+				return Constant.ACTION_RESULT.MESSAGE;
+
 			statisticsBean.addTotalFee(feePolicy.getAssociatedClass(),
 					totalFeeForClass);
 			sheetNumber++;
@@ -162,7 +170,8 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 		catch (IllegalStateException e) {
 			// Handle illegal state exception for no payment to show on screen
-			throw new Exception(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
+			this.addActionError(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
+			return BigDecimal.valueOf(0);
 		}
 	}
 
