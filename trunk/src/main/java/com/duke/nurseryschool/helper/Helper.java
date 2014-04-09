@@ -40,7 +40,7 @@ public class Helper {
 
 	public static String isMenuItemActive(String menuItem) {
 		String currentActionName = getActionName();
-		if (currentActionName.equalsIgnoreCase(menuItem))
+		if (currentActionName.endsWith(menuItem))
 			return Constant.UI.CURRENT;
 		else
 			return Constant.EMPTY_STRING;
@@ -49,18 +49,19 @@ public class Helper {
 	public static String isSubMenuItemActive() {
 		String currentActionName = getActionName();
 		String opened = Constant.UI.OPENED;
-		switch (currentActionName) {
-			case Constant.MENU_ITEM.MONTH:
-			case Constant.MENU_ITEM.FEE_POLICY:
-			case Constant.MENU_ITEM.FEE_GROUP:
-			case Constant.MENU_ITEM.FEE:
-			case Constant.MENU_ITEM.FEE_MAP:
-			case Constant.MENU_ITEM.PAYMENT:
-			case Constant.MENU_ITEM.ALTERNATIVE_FEE_MAP:
+
+		String[] menuItems = {
+				Constant.MENU_ITEM.MONTH, Constant.MENU_ITEM.FEE_POLICY,
+				Constant.MENU_ITEM.FEE_GROUP, Constant.MENU_ITEM.FEE,
+				Constant.MENU_ITEM.FEE_MAP, Constant.MENU_ITEM.PAYMENT,
+				Constant.MENU_ITEM.ALTERNATIVE_FEE_MAP,
+		};
+		for (String item : menuItems) {
+			if (currentActionName.endsWith(item)) {
 				return opened;
-			default:
-				return Constant.EMPTY_STRING;
+			}
 		}
+		return Constant.EMPTY_STRING;
 	}
 
 	/**
