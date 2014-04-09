@@ -7,6 +7,7 @@ public class I18N {
 	public static final String DASHBOARD_ACTIVESTUDENTS = "dashboard.activeStudents";
 	public static final String DASHBOARD_PREVIOUSMONTHINCOME = "dashboard.previousMonthIncome";
 	public static final String DASHBOARD_THISMONTHINCOME = "dashboard.thisMonthIncome";
+	public static final String ERROR_BUTTON_BACK = "error.button.back";
 	public static final String ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT = "error.constraint.alternativeFeeMap.alternativeAmount";
 	public static final String ERROR_CONSTRAINT_CLASSES_CODE = "error.constraint.classes.code";
 	public static final String ERROR_CONSTRAINT_COURSE_ENDYEAR = "error.constraint.course.endYear";
@@ -27,6 +28,11 @@ public class I18N {
 	public static final String ERROR_DUPLICATION_FEEPOLICY = "error.duplication.feePolicy";
 	public static final String ERROR_DUPLICATION_MONTH = "error.duplication.month";
 	public static final String ERROR_DUPLICATION_PAYMENT = "error.duplication.payment";
+	public static final String ERROR_LABEL_CAUSE = "error.label.cause";
+	public static final String ERROR_LABEL_EXCEPTIONDETAILS = "error.label.exceptionDetails";
+	public static final String ERROR_LABEL_EXCEPTIONNAME = "error.label.exceptionName";
+	public static final String ERROR_LABEL_GUIDANCE_SYSTEM = "error.label.guidance.system";
+	public static final String ERROR_LABEL_GUIDANCE_USER = "error.label.guidance.user";
 	public static final String ERROR_LOGIN = "error.login";
 	public static final String ERROR_LOGIN_PASSWORD = "error.login.password";
 	public static final String ERROR_LOGIN_USERNAME = "error.login.username";

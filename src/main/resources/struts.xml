@@ -36,6 +36,7 @@
 		<global-results>
 			<result name="exception" type="tiles">Exception</result>
 			<result name="login" type="redirect">formLoginAuth</result>
+			<result name="message" type="tiles">Message</result>
 		</global-results>
 
 		<global-exception-mappings>

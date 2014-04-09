@@ -32,6 +32,7 @@ public final class Constant {
 		public static final String CLONE = "clone";
 		public static final String CLONE_ALL = "cloneAll";
 		public static final String LOGOUT_SUCCESS = "LogoutSuccess";
+		public static final String MESSAGE = "message";
 	}
 
 	public static final class UI {
