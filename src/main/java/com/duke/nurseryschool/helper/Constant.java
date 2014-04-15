@@ -6,8 +6,8 @@ public final class Constant {
 	public static final String ZERO = "0";
 
 	public static final String SESSION_USER = "USER";
-	// TODO Change to something greater (2 weeks, for ex)
-	public static final int COOKIE_TIME_OUT = 60 * 1;
+	// Timeout = 14 days
+	public static final int COOKIE_TIME_OUT = 14 * 24 * 60 * 60;
 
 	public static final String EXCEL_SUFFIX = ".xls";
 
@@ -33,6 +33,7 @@ public final class Constant {
 		public static final String CLONE_ALL = "cloneAll";
 		public static final String LOGOUT_SUCCESS = "LogoutSuccess";
 		public static final String MESSAGE = "message";
+		public static final String BATCH_EDIT = "batch";
 	}
 
 	public static final class UI {

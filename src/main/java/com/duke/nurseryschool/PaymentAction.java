@@ -14,6 +14,7 @@ import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 import com.opensymphony.xwork2.Action;
@@ -30,12 +31,14 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 
 	final private FeePolicyDAO feePolicyDAO = new FeePolicyDAO();
 	final private StudentDAO studentDAO = new StudentDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
 	private int feePolicyId;
 	private int studentId;
 
 	private List<Student> studentList;
 	private List<FeePolicy> feePolicyList;
+	private List<Payment> paymentList;
 
 	@Override
 	public Payment getModel() {
@@ -53,6 +56,20 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		this.payment.setStudent(student);
 
 		this.dao.saveOrUpdatePayment(this.payment);
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String batchSaveOrUpdate() {
+		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
+		for (Payment payment : this.paymentList) {
+			this.dao.getSession().evict(
+					this.dao.getPayment(payment.getPaymentId()));
+
+			payment.setFeePolicy(feePolicy);
+			this.dao.saveOrUpdatePayment(payment);
+		}
+
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
@@ -90,6 +107,32 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 	@SkipValidation
 	public String autoSetFeePolicy() {
 		return this.list();
+	}
+
+	/**
+	 * Batch create payments for all students related to a fee policy
+	 */
+	@SkipValidation
+	public String autoBatchSetFeePolicy() {
+		this.populateStudentList();
+
+		this.paymentList = new ArrayList<Payment>();
+		// For each student, check whether already created Payment
+		// If not yet then create
+		for (Student student : this.studentList) {
+			Payment payment = this.mixedDAO
+					.getPaymentByStudentIdAndFeePolicyId(
+							student.getStudentId(), this.feePolicyId);
+			if (payment == null) {
+				payment = new Payment();
+				payment.setStudent(student);
+				payment.setFeePolicy(this.feePolicyDAO
+						.getFeePolicy(this.feePolicyId));
+			}
+			this.paymentList.add(payment);
+		}
+
+		return Constant.ACTION_RESULT.BATCH_EDIT;
 	}
 
 	@Override
@@ -136,7 +179,15 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		this.populateData();
 	}
 
+	public void prepareBatchSaveOrUpdate() throws Exception {
+		this.populateData();
+	}
+
 	public void prepareAutoSetFeePolicy() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareBatchAutoSetFeePolicy() throws Exception {
 		this.populateData();
 	}
 
@@ -145,6 +196,10 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		this.payments = this.dao.getPayments();
 		this.feePolicyList = this.feePolicyDAO.getFeePolicies();
 
+		this.populateStudentList();
+	}
+
+	private void populateStudentList() {
 		if (this.feePolicyId != 0) {
 			FeePolicy feePolicy = this.feePolicyDAO
 					.getFeePolicy(this.feePolicyId);
@@ -208,6 +263,14 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 
 	public void setFeePolicyList(List<FeePolicy> feePolicyList) {
 		this.feePolicyList = feePolicyList;
+	}
+
+	public List<Payment> getPaymentList() {
+		return this.paymentList;
+	}
+
+	public void setPaymentList(List<Payment> paymentList) {
+		this.paymentList = paymentList;
 	}
 
 }

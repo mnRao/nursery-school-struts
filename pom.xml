@@ -43,6 +43,13 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<!-- Plugin -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-config-browser-plugin</artifactId>
+			<version>2.3.15.3</version>
+		</dependency>
+
 		<!-- ORM -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

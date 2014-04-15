@@ -96,6 +96,11 @@
 		<put-attribute name="body" value="/Payment.jsp" />
 	</definition>
 	
+	<definition name="BatchPayment" extends="MainLayout">
+		<put-attribute name="headTitle" value="headTitle.payment" />
+		<put-attribute name="body" value="/BatchPayment.jsp" />
+	</definition>
+	
 	<definition name="FeeGroup" extends="MainLayout">
 		<put-attribute name="headTitle" value="headTitle.feeGroup" />
 		<put-attribute name="body" value="/FeeGroup.jsp" />

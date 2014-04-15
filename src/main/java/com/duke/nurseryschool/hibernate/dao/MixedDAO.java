@@ -4,12 +4,14 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.Payment;
+import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class MixedDAO extends CoreDAO {
 
@@ -118,4 +120,22 @@ public class MixedDAO extends CoreDAO {
 		return results;
 	}
 
+	@SuppressWarnings("unchecked")
+	public Payment getPaymentByStudentIdAndFeePolicyId(int studentId,
+			int feePolicyId) {
+		// String sql =
+		// "SELECT * FROM payment P LEFT JOIN student S ON P.studentId = S.studentId WHERE P.studentId = :studentId AND P.feePolicyId = :feePolicyId";
+		String sql = "SELECT * FROM payment P WHERE P.studentId = :studentId AND P.feePolicyId = :feePolicyId";
+		SQLQuery query = this.session.createSQLQuery(sql);
+		query.addEntity(Payment.class);
+		// query.addEntity(Student.class);
+		query.setParameter("studentId", studentId);
+		query.setParameter("feePolicyId", feePolicyId);
+		List<Payment> results = query.list();
+
+		if (results.isEmpty())
+			return null;
+
+		return results.get(0);
+	}
 }

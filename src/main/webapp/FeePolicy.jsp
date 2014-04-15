@@ -82,10 +82,10 @@
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}">
 												<s:text name="grid.action.addFeeMap" />
-											</s:a> <s:url id="addPaymentUrl" action="autoSetFeePolicyPayment">
+											</s:a> <s:url id="addPaymentUrl" action="autoBatchSetFeePolicyPayment">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">
-												<s:text name="grid.action.addPayment" />
+												<s:text name="grid.action.managePayment" />
 											</s:a> <s:url id="excelUrl" action="singlePolicyGenerateExcel">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
