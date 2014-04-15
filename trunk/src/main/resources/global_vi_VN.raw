@@ -24,6 +24,7 @@ error.label.guidance.user = Có vấn đề xảy ra ở hành động vừa r�
 
 form.widget.header = 
 form.legend = Hãy điền thông tin vào biểu mẫu bên dưới 
+form.legend.batchEdit.payment = Hãy điền các phiếu thu tiền cho chính sách phí {0} (lớp {0} tháng {1})
 form.legend.clone = Sao chép từ
 form.legend.computed = Tự động tính toán
 form.legend.select = Hoặc chọn dữ liệu đã khởi tạo sẵn
@@ -45,7 +46,7 @@ grid.action.addClass = Thêm %{getText('label.classes')}
 grid.action.addFeeMap = Thêm %{getText('label.feeMap')}
 grid.action.addFeePolicy = Thêm %{getText('label.feePolicy')}
 grid.action.addParent = Thêm %{getText('label.parent')}
-grid.action.addPayment = Thêm %{getText('label.payment')}
+grid.action.managePayment = Quản lý %{getText('label.payment')}
 grid.action.excel = Excel Thu tiền
 grid.action.excel.breakfast = Excel Ăn sáng
 grid.action.excel.selectedOnlyFee = Excel Môn năng khiếu

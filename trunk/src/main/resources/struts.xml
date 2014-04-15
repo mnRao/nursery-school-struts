@@ -5,7 +5,7 @@
 
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
-	<constant name="struts.devMode" value="false" />
+	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.action.extension" value="," />
 
@@ -160,6 +160,7 @@
 		<!-- Payment -->
 		<action name="*Payment" method="{1}"
 			class="com.duke.nurseryschool.PaymentAction">
+			<result name="batch" type="tiles">BatchPayment</result>
 			<result name="success" type="tiles">Payment</result>
 			<result name="successRedirect" type="redirect">listPayment</result>
 			<result name="input" type="tiles">Payment</result>
