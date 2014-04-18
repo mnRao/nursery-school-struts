@@ -74,6 +74,9 @@ public final class Constant {
 
 		public static final int FEMALE = 0;
 		public static final int MALE = 1;
+
+		public static final int HAS_BREAKFAST = 1;
+		public static final int NO_BREAKFAST = 0;
 	}
 
 	public static final class MENU_ITEM {

@@ -48,6 +48,19 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
 
+		// Add days in month
+		int startColumn = 2;
+		int totalDaysInMonth = Helper.calculateTotalDaysInMonth(
+				this.month.getYear(), this.month.getMonthName());
+		for (int i = 1; i <= totalDaysInMonth; i++, startColumn++) {
+			this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
+					Integer.toString(i));
+		}
+
+		// Total breakfast absence count
+		this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
+				Helper.getI18N(I18N.LABEL_PAYMENT_ABSENCECOUNT));
+
 		this.mergeHeaderCells(sheet);
 	}
 

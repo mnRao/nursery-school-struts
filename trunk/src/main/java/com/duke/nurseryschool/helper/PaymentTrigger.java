@@ -13,15 +13,15 @@ import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class PaymentTrigger {
 	// Params
-	private Payment payment;
-	private FeePolicy feePolicy;
+	private final Payment payment;
+	private final FeePolicy feePolicy;
 
 	// Auto-finding
-	private List<Fee> allFeesExceptMeal;
+	private final List<Fee> allFeesExceptMeal;
 
-	private MixedDAO mixedDAO = new MixedDAO();
-	private Session session;
-	private Transaction transaction;
+	private final MixedDAO mixedDAO = new MixedDAO();
+	private final Session session;
+	private final Transaction transaction;
 
 	public PaymentTrigger(Session session, Payment payment, FeePolicy feePolicy) {
 		this.session = session;
@@ -54,9 +54,16 @@ public class PaymentTrigger {
 	}
 
 	private BigDecimal calculateTotalBreakfastFee() {
-		BigDecimal penaltyFee = this.feePolicy.getPenaltyFeePerBreakfast()
-				.multiply(BigDecimal.valueOf(this.payment.getAbsenceCount()));
-		return this.feePolicy.getTotalBreakfastFee().subtract(penaltyFee);
+		BigDecimal actualBreakfastFee = BigDecimal.valueOf(0);
+		// Check whether has breakfast or not
+		if (this.payment.getHasBreakfast() == Constant.BUSINESS_LOGIC.HAS_BREAKFAST) {
+			BigDecimal penaltyFee = this.feePolicy.getPenaltyFeePerBreakfast()
+					.multiply(
+							BigDecimal.valueOf(this.payment.getAbsenceCount()));
+			actualBreakfastFee = this.feePolicy.getTotalBreakfastFee()
+					.subtract(penaltyFee);
+		}
+		return actualBreakfastFee;
 	}
 
 	private BigDecimal calculateTotalNormalFee() {
