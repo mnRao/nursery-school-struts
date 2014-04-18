@@ -1,6 +1,7 @@
 package com.duke.nurseryschool.helper;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.opensymphony.xwork2.Action;
@@ -133,5 +134,53 @@ public class Helper {
 
 	public static String getDateFormatPlaceHolder() {
 		return "dd-MM-YYYY";
+	}
+
+	public static int calculateTotalDaysInMonth(int year, int month) {
+		int monthOfficialNumber = Integer.MIN_VALUE;
+		switch (month) {
+
+			case 1:
+				monthOfficialNumber = Calendar.JANUARY;
+				break;
+			case 2:
+				monthOfficialNumber = Calendar.FEBRUARY;
+				break;
+			case 3:
+				monthOfficialNumber = Calendar.MARCH;
+				break;
+			case 4:
+				monthOfficialNumber = Calendar.APRIL;
+				break;
+			case 5:
+				monthOfficialNumber = Calendar.MAY;
+				break;
+			case 6:
+				monthOfficialNumber = Calendar.JUNE;
+				break;
+			case 7:
+				monthOfficialNumber = Calendar.JULY;
+				break;
+			case 8:
+				monthOfficialNumber = Calendar.AUGUST;
+				break;
+			case 9:
+				monthOfficialNumber = Calendar.SEPTEMBER;
+				break;
+			case 10:
+				monthOfficialNumber = Calendar.OCTOBER;
+				break;
+			case 11:
+				monthOfficialNumber = Calendar.NOVEMBER;
+				break;
+			case 12:
+				monthOfficialNumber = Calendar.DECEMBER;
+				break;
+		}
+
+		Calendar mycal = new GregorianCalendar(year, monthOfficialNumber, 1);
+		int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		return daysInMonth;
 	}
 }
