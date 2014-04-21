@@ -1,11 +1,6 @@
-#summary One-sentence summary of this page.
+#summary How to import .sql file.
 
-= Introduction =
-
-How to import .sql file
-
-
-= Details =
+= TO DO =
 
 1. Empty database
 
