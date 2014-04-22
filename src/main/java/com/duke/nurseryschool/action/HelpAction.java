@@ -1,4 +1,4 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.io.InputStream;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.duke.nurseryschool.core.AuthenticationRequiredAction;
+import com.duke.nurseryschool.action.core.AuthenticationRequiredAction;
 import com.duke.nurseryschool.helper.Constant;
 
 public class HelpAction extends AuthenticationRequiredAction {

@@ -1,4 +1,4 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
 import java.io.IOException;
 import java.io.InputStream;

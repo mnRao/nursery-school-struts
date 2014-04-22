@@ -1,6 +1,6 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
-import com.duke.nurseryschool.core.AuthenticationRequiredAction;
+import com.duke.nurseryschool.action.core.AuthenticationRequiredAction;
 import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 
 public class DashboardAction extends AuthenticationRequiredAction {

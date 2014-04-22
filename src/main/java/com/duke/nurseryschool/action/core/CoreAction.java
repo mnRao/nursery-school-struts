@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.core;
+package com.duke.nurseryschool.action.core;
 
 import java.util.Map;
 

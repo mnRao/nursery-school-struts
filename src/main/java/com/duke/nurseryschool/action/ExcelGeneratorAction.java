@@ -1,4 +1,4 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
 import java.io.File;
 import java.io.FileInputStream;

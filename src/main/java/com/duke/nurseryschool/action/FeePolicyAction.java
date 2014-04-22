@@ -1,4 +1,4 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,12 +8,13 @@ import java.util.Set;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.action.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
@@ -46,9 +47,11 @@ public class FeePolicyAction extends CoreAction implements
 
 	private int classId;
 	private int monthId;
+	private int feePolicyId;
 
 	private List<Classes> classList;
 	private List<Month> monthList;
+	private List<Fee> feeList;
 
 	private int feePolicyIdToClone;
 
@@ -122,9 +125,7 @@ public class FeePolicyAction extends CoreAction implements
 
 	@SkipValidation
 	public String edit() {
-		// Get params
-		String feePolicyId = this.request.getParameter("feePolicyId");
-		this.feePolicy = this.dao.getFeePolicy(Integer.parseInt(feePolicyId));
+		this.feePolicy = this.dao.getFeePolicy(this.feePolicyId);
 
 		this.classId = this.feePolicy.getAssociatedClass().getClassId();
 		this.monthId = this.feePolicy.getMonth().getMonthId();
@@ -151,6 +152,13 @@ public class FeePolicyAction extends CoreAction implements
 		this.feePolicyIdToClone = Integer.parseInt(this.request
 				.getParameter("feePolicyId"));
 
+		// Only allow clone-all option for the same class (different month)
+		FeePolicy feePolicy = this.dao.getFeePolicy(this.feePolicyIdToClone);
+		List<Classes> classList = new ArrayList<Classes>();
+		classList.add(this.classesDAO.getClasses(feePolicy.getAssociatedClass()
+				.getClassId()));
+		this.classList = classList;
+
 		return Constant.ACTION_RESULT.CLONE_ALL;
 	}
 
@@ -167,7 +175,11 @@ public class FeePolicyAction extends CoreAction implements
 		Set<FeeMap> newFeeMaps = feePolicyToClone.cloneFeeMaps(newFeePolicy);
 
 		// Validate then save
-		this.checkUniqueness();
+		boolean isUnique = this.checkUniqueness();
+		if (!isUnique) {
+			return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+		}
+
 		this.dao.saveOrUpdateFeePolicy(newFeePolicy);
 		this.dao.getSession().flush();
 		for (FeeMap newFeeMap : newFeeMaps) {
@@ -188,8 +200,12 @@ public class FeePolicyAction extends CoreAction implements
 		FeePolicy newFeePolicy = feePolicyToClone.clone(newAssociatedClass,
 				newMonth);
 		// Validate & save fee policy
-		this.checkUniqueness(newFeePolicy.getFeePolicyId(),
+		boolean isUnique = this.checkUniqueness(newFeePolicy.getFeePolicyId(),
 				newAssociatedClass.getClassId(), newMonth.getMonthId());
+		if (!isUnique) {
+			return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+		}
+
 		this.dao.saveOrUpdateFeePolicy(newFeePolicy);
 		this.dao.getSession().flush();
 
@@ -286,23 +302,23 @@ public class FeePolicyAction extends CoreAction implements
 		super.validate();
 	}
 
-	private void checkUniqueness(int feePolicyId, int classId, int monthId) {
+	private boolean checkUniqueness(int feePolicyId, int classId, int monthId) {
 		if (this.dao.hasDuplicates(feePolicyId, this.classId, this.monthId)) {
 			this.addFieldError("classId",
 					this.getText(I18N.ERROR_DUPLICATION_FEEPOLICY));
+			return false;
 		}
+
+		return true;
 	}
 
-	private void checkUniqueness() {
-		this.checkUniqueness(this.feePolicy.getFeePolicyId(), this.classId,
-				this.monthId);
+	private boolean checkUniqueness() {
+		return this.checkUniqueness(this.feePolicy.getFeePolicyId(),
+				this.classId, this.monthId);
 	}
 
 	@Override
 	public void prepare() throws Exception {
-		this.feePolicies = this.dao.getFeePolicies();
-		this.classList = this.classesDAO.getClasses();
-		this.monthList = this.monthDAO.getMonths();
 	}
 
 	public void prepareList() throws Exception {
@@ -317,7 +333,22 @@ public class FeePolicyAction extends CoreAction implements
 		this.populateData();
 	}
 
+	public void prepareAutoSetClass() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareClone() throws Exception {
+		this.populateData();
+	}
+
+	public void prepareCloneAll() throws Exception {
+		this.monthList = this.monthDAO.getMonths();
+	}
+
 	private void populateData() {
+		this.feePolicies = this.dao.getFeePolicies();
+		this.classList = this.classesDAO.getClasses();
+		this.monthList = this.monthDAO.getMonths();
 	}
 
 	public FeePolicy getFeePolicy() {
@@ -374,6 +405,22 @@ public class FeePolicyAction extends CoreAction implements
 
 	public void setFeePolicyIdToClone(int feePolicyIdToClone) {
 		this.feePolicyIdToClone = feePolicyIdToClone;
+	}
+
+	public List<Fee> getFeeList() {
+		return this.feeList;
+	}
+
+	public void setFeeList(List<Fee> feeList) {
+		this.feeList = feeList;
+	}
+
+	public int getFeePolicyId() {
+		return this.feePolicyId;
+	}
+
+	public void setFeePolicyId(int feePolicyId) {
+		this.feePolicyId = feePolicyId;
 	}
 
 }

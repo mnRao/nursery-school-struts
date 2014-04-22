@@ -91,6 +91,11 @@
 		<put-attribute name="body" value="/CloneAllFeePolicy.jsp" />
 	</definition>
 	
+	<definition name="BatchFeeMap" extends="MainLayout">
+		<put-attribute name="headTitle" value="headTitle.feeMap" />
+		<put-attribute name="body" value="/BatchFeeMap.jsp" />
+	</definition>
+	
 	<definition name="Payment" extends="MainLayout">
 		<put-attribute name="headTitle" value="headTitle.payment" />
 		<put-attribute name="body" value="/Payment.jsp" />
@@ -114,6 +119,11 @@
 	<definition name="AlternativeFeeMap" extends="MainLayout">
 		<put-attribute name="headTitle" value="headTitle.alternativeFeeMap" />
 		<put-attribute name="body" value="/AlternativeFeeMap.jsp" />
+	</definition>
+	
+	<definition name="BatchAlternativeFeeMap" extends="MainLayout">
+		<put-attribute name="headTitle" value="headTitle.alternativeFeeMap" />
+		<put-attribute name="body" value="/BatchAlternativeFeeMap.jsp" />
 	</definition>
 
 </tiles-definitions>

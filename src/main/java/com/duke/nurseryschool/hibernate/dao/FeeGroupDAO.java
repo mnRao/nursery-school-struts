@@ -3,7 +3,6 @@ package com.duke.nurseryschool.hibernate.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.FeeGroup;
 

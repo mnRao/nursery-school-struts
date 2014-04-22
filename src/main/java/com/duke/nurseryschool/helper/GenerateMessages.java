@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.duke.nurseryschool.PropertyLoader;
+import com.duke.nurseryschool.action.PropertyLoader;
 
 public class GenerateMessages {
 	private static final String CLASS_NAME = "I18N";
