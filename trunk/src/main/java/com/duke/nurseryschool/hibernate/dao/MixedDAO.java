@@ -7,9 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
-import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.hibernate.bean.Fee;
+import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 
@@ -138,4 +138,22 @@ public class MixedDAO extends CoreDAO {
 
 		return results.get(0);
 	}
+
+	@SuppressWarnings("unchecked")
+	public FeeMap getFeeMapByFeeIdAndFeePolicyId(int feeId, int feePolicyId) {
+		// SELECT * FROM fee_map fm WHERE fm.`feeId` = 1 AND fm.`feePolicyId` =
+		// 1
+		String sql = "SELECT * FROM fee_map fm WHERE fm.`feeId` = :feeId AND fm.`feePolicyId` = :feePolicyId";
+		SQLQuery query = this.session.createSQLQuery(sql);
+		query.addEntity(FeeMap.class);
+		query.setParameter("feeId", feeId);
+		query.setParameter("feePolicyId", feePolicyId);
+		List<FeeMap> results = query.list();
+
+		if (results.isEmpty())
+			return null;
+
+		return results.get(0);
+	}
+
 }

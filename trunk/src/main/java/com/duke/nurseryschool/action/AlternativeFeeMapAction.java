@@ -1,4 +1,4 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.action.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;

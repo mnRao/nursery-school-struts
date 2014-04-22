@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.core;
+package com.duke.nurseryschool.hibernate.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;

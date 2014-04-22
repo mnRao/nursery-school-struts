@@ -63,6 +63,7 @@ public class I18N {
 	public static final String FORM_GENDER_FEMALE = "form.gender.female";
 	public static final String FORM_GENDER_MALE = "form.gender.male";
 	public static final String FORM_LEGEND = "form.legend";
+	public static final String FORM_LEGEND_BATCHEDIT_FEEMAP = "form.legend.batchEdit.feeMap";
 	public static final String FORM_LEGEND_BATCHEDIT_PAYMENT = "form.legend.batchEdit.payment";
 	public static final String FORM_LEGEND_CLONE = "form.legend.clone";
 	public static final String FORM_LEGEND_COMPUTED = "form.legend.computed";
@@ -88,6 +89,7 @@ public class I18N {
 	public static final String GRID_ACTION_EXCEL = "grid.action.excel";
 	public static final String GRID_ACTION_EXCEL_BREAKFAST = "grid.action.excel.breakfast";
 	public static final String GRID_ACTION_EXCEL_SELECTEDONLYFEE = "grid.action.excel.selectedOnlyFee";
+	public static final String GRID_ACTION_MANAGEFEEMAP = "grid.action.manageFeeMap";
 	public static final String GRID_ACTION_MANAGEPAYMENT = "grid.action.managePayment";
 	public static final String GRID_ACTION_SHOWFEE = "grid.action.showFee";
 	public static final String GRID_ACTION_SHOWFEEMAP = "grid.action.showFeeMap";

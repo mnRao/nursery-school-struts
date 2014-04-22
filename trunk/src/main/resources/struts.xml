@@ -50,14 +50,14 @@
 
 		<!-- Locale -->
 		<action name="locale" method="execute"
-			class="com.duke.nurseryschool.core.LocaleAction">
+			class="com.duke.nurseryschool.action.LocaleAction">
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
 			<result name="success" type="redirect">Dashboard</result>
 		</action>
 		<!-- Authentication -->
 		<action name="*LoginAuth" method="{1}"
-			class="com.duke.nurseryschool.AuthenticationAction">
+			class="com.duke.nurseryschool.action.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
 			<result name="success" type="redirect">Dashboard</result>
@@ -65,17 +65,17 @@
 			<result name="input" type="tiles">Login</result>
 		</action>
 		<action name="logoutAuth" method="logout"
-			class="com.duke.nurseryschool.AuthenticationAction">
+			class="com.duke.nurseryschool.action.AuthenticationAction">
 			<interceptor-ref name="noLoginStack" />
 
 			<result name="LogoutSuccess" type="redirect">formLoginAuth</result>
 		</action>
 		<!-- Help -->
-		<action name="Help" method="execute" class="com.duke.nurseryschool.HelpAction">
+		<action name="Help" method="execute" class="com.duke.nurseryschool.action.HelpAction">
 			<result name="success" type="tiles">Help</result>
 		</action>
 		<action name="UserGuide" method="userGuideDownload"
-			class="com.duke.nurseryschool.HelpAction">
+			class="com.duke.nurseryschool.action.HelpAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
 				<param name="contentType">application/pdf</param>
@@ -104,53 +104,53 @@
 
 		<!-- Dashboard -->
 		<action name="Dashboard" method="execute"
-			class="com.duke.nurseryschool.DashboardAction">
+			class="com.duke.nurseryschool.action.DashboardAction">
 			<result name="success" type="tiles">Dashboard</result>
 		</action>
 		<!-- Student -->
 		<action name="*Student" method="{1}"
-			class="com.duke.nurseryschool.StudentAction">
+			class="com.duke.nurseryschool.action.StudentAction">
 			<result name="success" type="tiles">Student</result>
 			<result name="successRedirect" type="redirect">listStudent</result>
 			<result name="input" type="tiles">Student</result>
 		</action>
 		<!-- Month -->
 		<action name="*Month" method="{1}"
-			class="com.duke.nurseryschool.MonthAction">
+			class="com.duke.nurseryschool.action.MonthAction">
 			<result name="success" type="tiles">Month</result>
 			<result name="successRedirect" type="redirect">listMonth</result>
 			<result name="input" type="tiles">Month</result>
 		</action>
 		<!-- Fee -->
-		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.FeeAction">
+		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.action.FeeAction">
 			<result name="success" type="tiles">Fee</result>
 			<result name="successRedirect" type="redirect">listFee</result>
 			<result name="input" type="tiles">Fee</result>
 		</action>
 		<!-- Course -->
 		<action name="*Course" method="{1}"
-			class="com.duke.nurseryschool.CourseAction">
+			class="com.duke.nurseryschool.action.CourseAction">
 			<result name="success" type="tiles">Course</result>
 			<result name="successRedirect" type="redirect">listCourse</result>
 			<result name="input" type="tiles">Course</result>
 		</action>
 		<!-- Classes -->
 		<action name="*Classes" method="{1}"
-			class="com.duke.nurseryschool.ClassesAction">
+			class="com.duke.nurseryschool.action.ClassesAction">
 			<result name="success" type="tiles">Classes</result>
 			<result name="successRedirect" type="redirect">listClasses</result>
 			<result name="input" type="tiles">Classes</result>
 		</action>
 		<!-- Parent -->
 		<action name="*Parent" method="{1}"
-			class="com.duke.nurseryschool.ParentAction">
+			class="com.duke.nurseryschool.action.ParentAction">
 			<result name="success" type="tiles">Parent</result>
 			<result name="successRedirect" type="redirect">listParent</result>
 			<result name="input" type="tiles">Parent</result>
 		</action>
 		<!-- Fee Policy -->
 		<action name="*FeePolicy" method="{1}"
-			class="com.duke.nurseryschool.FeePolicyAction">
+			class="com.duke.nurseryschool.action.FeePolicyAction">
 			<result name="clone" type="tiles">CloneFeePolicy</result>
 			<result name="cloneAll" type="tiles">CloneAllFeePolicy</result>
 			<result name="success" type="tiles">FeePolicy</result>
@@ -159,7 +159,7 @@
 		</action>
 		<!-- Payment -->
 		<action name="*Payment" method="{1}"
-			class="com.duke.nurseryschool.PaymentAction">
+			class="com.duke.nurseryschool.action.PaymentAction">
 			<result name="batch" type="tiles">BatchPayment</result>
 			<result name="success" type="tiles">Payment</result>
 			<result name="successRedirect" type="redirect">listPayment</result>
@@ -167,21 +167,23 @@
 		</action>
 		<!-- FeeGroup -->
 		<action name="*FeeGroup" method="{1}"
-			class="com.duke.nurseryschool.FeeGroupAction">
+			class="com.duke.nurseryschool.action.FeeGroupAction">
 			<result name="success" type="tiles">FeeGroup</result>
 			<result name="successRedirect" type="redirect">listFeeGroup</result>
 			<result name="input" type="tiles">FeeGroup</result>
 		</action>
 		<!-- FeeMap -->
 		<action name="*FeeMap" method="{1}"
-			class="com.duke.nurseryschool.FeeMapAction">
+			class="com.duke.nurseryschool.action.FeeMapAction">
+			<result name="batch" type="tiles">BatchFeeMap</result>
 			<result name="success" type="tiles">FeeMap</result>
 			<result name="successRedirect" type="redirect">listFeeMap</result>
 			<result name="input" type="tiles">FeeMap</result>
 		</action>
 		<!-- AlternativeFeeMap -->
 		<action name="*AlternativeFeeChargeMap" method="{1}"
-			class="com.duke.nurseryschool.AlternativeFeeMapAction">
+			class="com.duke.nurseryschool.action.AlternativeFeeMapAction">
+			<result name="batch" type="tiles">BatchAlternativeFeeMap</result>
 			<result name="success" type="tiles">AlternativeFeeMap</result>
 			<result name="successRedirect" type="redirect">listAlternativeFeeChargeMap
 			</result>
@@ -189,7 +191,7 @@
 		</action>
 		<!-- Excel Generator -->
 		<action name="*GenerateExcel" method="{1}"
-			class="com.duke.nurseryschool.ExcelGeneratorAction">
+			class="com.duke.nurseryschool.action.ExcelGeneratorAction">
 			<result name="success" type="stream">
 				<param name="contentDisposition">attachment;filename=${fileName}</param>
 				<param name="contentType">application/vnd.ms-excel</param>

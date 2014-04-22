@@ -1,12 +1,13 @@
-package com.duke.nurseryschool;
+package com.duke.nurseryschool.action;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import com.duke.nurseryschool.core.CoreAction;
+import com.duke.nurseryschool.action.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
@@ -41,6 +42,9 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 
 	private List<Fee> feeList;
 	private List<FeePolicy> feePolicyList;
+	private List<FeeMap> feeMapList;
+
+	private String[] selectFeeMap;
 
 	@Override
 	public FeeMap getModel() {
@@ -88,6 +92,59 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	@SkipValidation
 	public String autoSetFeePolicy() {
 		return Action.SUCCESS;
+	}
+
+	@SkipValidation
+	public String batchSaveOrUpdate() {
+		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
+		for (FeeMap feeMap : this.feeMapList) {
+			int feeId = feeMap.getFeePolicyFee().getFee().getFeeId();
+
+			// If is checked then save
+			if (Arrays.asList(this.selectFeeMap).contains(
+					Integer.toString(feeId))) {
+				this.dao.getSession().evict(
+						this.dao.getFeeMap(feeId, this.feePolicyId));
+
+				FeePolicyFee feePolicyFee = new FeePolicyFee(feePolicy,
+						this.feeDAO.getFee(feeId));
+				feeMap.setFeePolicyFee(feePolicyFee);
+				this.dao.saveOrUpdateFeeMap(feeMap);
+			}
+			else {// Else delete (if exists)
+				this.dao.deleteFeeMap(feeId, this.feePolicyId);
+			}
+
+			// Recalculate payment
+			this.triggerPaymentRecalculation();
+		}
+
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String autoBatchSetFeePolicy() {
+		this.feeList = this.feeDAO.getFees();
+		this.feeMapList = new ArrayList<FeeMap>();
+
+		// For each fee, check whether already created fee map
+		for (Fee fee : this.feeList) {
+			FeeMap feeMap = this.mixedDAO.getFeeMapByFeeIdAndFeePolicyId(
+					fee.getFeeId(), this.feePolicyId);
+			if (feeMap == null) {
+				feeMap = new FeeMap();
+
+				FeePolicyFee feePolicyFee = new FeePolicyFee();
+				feePolicyFee.setFee(fee);
+				feePolicyFee.setFeePolicy(this.feePolicyDAO
+						.getFeePolicy(this.feePolicyId));
+
+				feeMap.setFeePolicyFee(feePolicyFee);
+			}
+			this.feeMapList.add(feeMap);
+		}
+
+		return Constant.ACTION_RESULT.BATCH_EDIT;
 	}
 
 	@Override
@@ -209,4 +266,19 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 		this.feePolicyList = feePolicyList;
 	}
 
+	public List<FeeMap> getFeeMapList() {
+		return this.feeMapList;
+	}
+
+	public void setFeeMapList(List<FeeMap> feeMapList) {
+		this.feeMapList = feeMapList;
+	}
+
+	public String[] getSelectFeeMap() {
+		return this.selectFeeMap;
+	}
+
+	public void setSelectFeeMap(String[] selectFeeMap) {
+		this.selectFeeMap = selectFeeMap;
+	}
 }

@@ -8,15 +8,33 @@ $(document).ready(function() {
 
 	$("#loginLoginAuth_username").focus();
 
+	toggleFeeMapCheckboxes();
 });
 
-//===== Tooltip =====//
+// ===== Tooltip =====//
 
-$('.leftDir').tipsy({fade: true, gravity: 'e', html:true});
-$('.rightDir').tipsy({fade: true, gravity: 'w', html:true});
-$('.topDir').tipsy({fade: true, gravity: 's', html:true});
-$('.botDir').tipsy({fade: true, gravity: 'n', html:true});
+$('.leftDir').tipsy({
+	fade : true,
+	gravity : 'e',
+	html : true
+});
+$('.rightDir').tipsy({
+	fade : true,
+	gravity : 'w',
+	html : true
+});
+$('.topDir').tipsy({
+	fade : true,
+	gravity : 's',
+	html : true
+});
+$('.botDir').tipsy({
+	fade : true,
+	gravity : 'n',
+	html : true
+});
 
+/* Message and errors */
 function hideActionMessagesAndErrors() {
 	var timeOut = 3000;
 	window.setTimeout(function() {
@@ -29,7 +47,221 @@ function hideActionMessagesAndErrors() {
 	}, 8000);
 }
 
+/* Login */
 function setFocusToLoginTextBox() {
 	document.getElementById("login_username").focus();
 }
 
+/* Checkbox */
+function toggleFeeMapCheckboxes() {
+	// Initialize: tick whose has non-empty amount value
+	$(':input[type="text"]').each(function() {
+		var textFieldId = $(this).prop("id");
+		var order = extractNumber(textFieldId);
+
+		if ($(this).val() == '') {
+			untickCheckbox(order);
+			enableTextDecoration(order);
+			disableInputVisibility(order);
+		} else {
+			tickCheckbox(order);
+			disableTextDecoration(order);
+			enableInputVisibility(order);
+		}
+	});
+	manageCheckAll();
+
+	// Toggle all on click
+	$("#selectAllFeeMaps").click(function() {
+		if ($("#selectAllFeeMaps").is(':checked')) {
+			$(".selectFeeMap").each(function() {
+				$(this).trigger('tickAll');
+				$(this).prop("checked", true);
+			});
+		} else {
+			$(".selectFeeMap").each(function() {
+				$(this).trigger('untickAll');
+				$(this).prop("checked", false);
+			});
+		}
+	});
+
+	// On click each checkbox
+	$('.selectFeeMap').bind('click', function() {
+		var cbId = $(this).prop("id");
+		var order = extractNumber(cbId);
+
+		toogleTextDecoration(order);
+		toogleInputVisibility(order);
+
+		// Set checked or not checked for toggle-all button
+		manageCheckAll();
+	});
+
+	$('.selectFeeMap').bind('tickAll', function() {
+		var cbId = $(this).prop("id");
+		var order = extractNumber(cbId);
+
+		disableTextDecoration(order);
+		enableInputVisibility(order);
+	});
+
+	$('.selectFeeMap').bind('untickAll', function() {
+		var cbId = $(this).prop("id");
+		var order = extractNumber(cbId);
+
+		enableTextDecoration(order);
+		disableInputVisibility(order);
+	});
+}
+
+function manageCheckAll() {
+	if (isAllChecked()) {
+		$("#selectAllFeeMaps").prop("checked", true);
+	} else {
+		$("#selectAllFeeMaps").prop("checked", false);
+	}
+}
+
+function isAllChecked() {
+	var isAllChecked = true;
+	$('.selectFeeMap').each(function() {
+		if ($(this).prop("checked") == false) {
+			isAllChecked = false;
+		}
+	});
+
+	return isAllChecked;
+}
+
+// Extract number from string
+function extractNumber(text) {
+	return text.match(/\d+/)[0];
+}
+
+/* Toggle checkbox */
+function tickCheckbox(order) {
+	$("#selectFeeMap_" + order).each(function() {
+		$(this).doCheck();
+	});
+}
+
+function untickCheckbox(order) {
+	$("#selectFeeMap_" + order).each(function() {
+		$(this).undoCheck();
+	});
+}
+
+function toogleCheckbox(order) {
+	$("#selectFeeMap_" + order).each(function() {
+		$(this).checkboxToggle();
+	});
+}
+
+/* Toggle decoration for text input */
+function toogleInputVisibility(order) {
+	$("#amount-toggle_" + order + " input").each(function() {
+		$(this).inputRequiredToggle();
+		$(this).visibilityToggle();
+	});
+}
+
+function disableInputVisibility(order) {
+	$("#amount-toggle_" + order + " input").each(function() {
+		$(this).inputNotRequired();
+		$(this).invisible();
+	});
+}
+
+function enableInputVisibility(order) {
+	$("#amount-toggle_" + order + " input").each(function() {
+		$(this).inputRequired();
+		$(this).visible();
+	});
+}
+
+/* Toggle decoration for label */
+function toogleTextDecoration(order) {
+	$("#recordRow_" + order + " label").each(function() {
+		$(this).decorationToggle();
+	});
+}
+
+function disableTextDecoration(order) {
+	$("#recordRow_" + order + " label").each(function() {
+		$(this).disableDecoration();
+	});
+}
+
+function enableTextDecoration(order) {
+	$("#recordRow_" + order + " label").each(function() {
+		$(this).crossOut();
+	});
+}
+
+/* Plugin */
+
+// Visibility for input
+jQuery.fn.visible = function() {
+	return this.css('visibility', 'visible');
+};
+
+jQuery.fn.invisible = function() {
+	return this.css('visibility', 'hidden');
+};
+
+jQuery.fn.visibilityToggle = function() {
+	return this.css('visibility', function(i, visibility) {
+		return (visibility == 'visible') ? 'hidden' : 'visible';
+	});
+};
+
+// Input required validation
+jQuery.fn.inputRequired = function() {
+	return this.prop('required', 'true');
+};
+
+jQuery.fn.inputNotRequired = function() {
+	return this.removeProp('required');
+};
+
+jQuery.fn.inputRequiredToggle = function() {
+	var attr = this.attr('required');
+	if (typeof attr !== 'undefined' && attr !== false) 
+		this.inputNotRequired();
+	else
+		this.inputRequired();
+};
+
+// Text decoration for label
+jQuery.fn.crossOut = function() {
+	return this.css('textDecoration', 'line-through');
+};
+
+jQuery.fn.disableDecoration = function() {
+	return this.css('textDecoration', 'none');
+};
+
+jQuery.fn.decorationToggle = function() {
+	return this.css('textDecoration', function(i, textDecoration) {
+		// Use indexOf instead of '==' as in Chrome the text decoration has
+		// several more values (solid rgb...)
+		return (textDecoration.indexOf('line-through') > -1) ? ''
+				: 'line-through';
+	});
+};
+
+// Checkbox toggle
+jQuery.fn.doCheck = function() {
+	return this.prop('checked', true);
+};
+
+jQuery.fn.undoCheck = function() {
+	return this.prop('checked', false);
+};
+
+jQuery.fn.checkboxToggle = function() {
+	return this.prop('checked', function(i, checkedStatus) {
+		return (checkedStatus == true) ? false : true;
+	});
+};

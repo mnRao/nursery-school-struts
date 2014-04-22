@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.core;
+package com.duke.nurseryschool.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 

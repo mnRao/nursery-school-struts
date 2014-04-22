@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.duke.nurseryschool.PropertyLoader;
+import com.duke.nurseryschool.action.PropertyLoader;
 
 public class TestMessages {
 	Properties globalENProperties;

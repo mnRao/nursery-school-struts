@@ -78,15 +78,18 @@
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
 												<s:text name="grid.action.delete" />
-											</s:a> <s:url id="addFeeMapUrl" action="autoSetFeePolicyFeeMap">
+											</s:a> <s:url id="addFeeMapUrl" action="autoBatchSetFeePolicyFeeMap">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addFeeMapUrl}">
-												<s:text name="grid.action.addFeeMap" />
-											</s:a> <s:url id="addPaymentUrl" action="autoBatchSetFeePolicyPayment">
+												<s:text name="grid.action.manageFeeMap" />
+											</s:a> 
+											<s:url id="addPaymentUrl" action="autoBatchSetFeePolicyPayment">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">
+											</s:url> 
+											<s:a cssClass="btn btn-sm btn-info" href="%{addPaymentUrl}">
 												<s:text name="grid.action.managePayment" />
-											</s:a> <s:url id="excelUrl" action="singlePolicyGenerateExcel">
+											</s:a> 
+											<s:url id="excelUrl" action="singlePolicyGenerateExcel">
 												<s:param name="feePolicyId" value="%{feePolicyId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{excelUrl}">
 												<s:text name="grid.action.excel" />

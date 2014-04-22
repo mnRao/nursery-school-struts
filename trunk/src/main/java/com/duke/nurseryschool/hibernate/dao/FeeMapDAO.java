@@ -3,7 +3,6 @@ package com.duke.nurseryschool.hibernate.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.duke.nurseryschool.core.CoreDAO;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
@@ -53,14 +52,16 @@ public class FeeMapDAO extends CoreDAO {
 
 		// Flush before recalculating
 		this.session.flush();
-		// TODO
-		// BusinessLogicSolver.recalculateFee(feeMap.getFeePolicyFee()
-		// .getFeePolicy().getFeePolicyId(), this.session);
-
 	}
 
 	public void deleteFeeMap(int feeId, int feePolicyId) {
 		FeeMap feeMap = this.getFeeMap(feeId, feePolicyId);
+		if (feeMap == null)
+			return;
+
+		if (!this.transaction.isActive()) {
+			this.transaction.begin();
+		}
 
 		try {
 			this.session.delete(feeMap);
@@ -72,8 +73,6 @@ public class FeeMapDAO extends CoreDAO {
 
 		// Flush before recalculating
 		this.session.flush();
-		// TODO
-		// BusinessLogicSolver.recalculateFee(feePolicyId, this.session);
 	}
 
 }
