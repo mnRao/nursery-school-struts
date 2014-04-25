@@ -12,21 +12,26 @@ import jxl.write.biff.RowsExceededException;
 
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
 
-public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
+public class AttendanceChecklistExcelGenerator extends ExcelManager {
 
 	private static final int CONTENT_START_ROW = 2;
 	private static final int CONTENT_LAST_COLUMN = 10;
-	private final Month month;
-	private final List<String> studentNames;
-	private final String feeName;
 
-	public StudentHasSelectedOnlyFeeExcelGenerator(WritableWorkbook workbook,
-			Month month, String feeName, List<String> studentNames) {
+	private final List<String> studentNames;
+	private final Month month;
+	private final Classes associatedClass;
+	private final FeePolicy feePolicy;
+
+	public AttendanceChecklistExcelGenerator(WritableWorkbook workbook,
+			FeePolicy feePolicy, List<String> studentNames) {
 		super(workbook);
-		this.month = month;
-		this.feeName = feeName;
+		this.feePolicy = feePolicy;
+		this.month = feePolicy.getMonth();
+		this.associatedClass = this.feePolicy.getAssociatedClass();
 		this.studentNames = studentNames;
 		// Sort student name
 		this.sortStudentNames();
@@ -34,8 +39,8 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = this.workbook.createSheet(this.feeName,
-				sheetNumber);
+		WritableSheet sheet = this.workbook.createSheet(this.feePolicy
+				.getAssociatedClass().getCurrentName(), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
@@ -51,6 +56,19 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
+
+		// Add days in month
+		int startColumn = 2;
+		int totalDaysInMonth = Helper.calculateTotalDaysInMonth(
+				this.month.getYear(), this.month.getMonthName());
+		for (int i = 1; i <= totalDaysInMonth; i++, startColumn++) {
+			this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
+					Integer.toString(i));
+		}
+
+		// Total breakfast absence count
+		this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
+				Helper.getI18N(I18N.LABEL_PAYMENT_ABSENCECOUNT));
 
 		this.mergeHeaderCells(sheet);
 	}
@@ -76,12 +94,18 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop.append(Helper.getI18N(
-				I18N.EXCEL_HEADER_TOP_STUDENTHASSELECTEDONLYFEE,
-				new String[] {
-						Integer.toString(this.month.getMonthName()),
-						Integer.toString(this.month.getYear())
-				}));
+		headerTop
+				.append(Helper.getI18N(
+						I18N.EXCEL_HEADER_TOP_ATTENDANCECHECKLIST,
+						new String[] {
+								Integer.toString(this.month.getMonthName()),
+								Integer.toString(this.month.getYear()),
+								Integer.toString(Helper
+										.calculateTotalDaysInMonth(
+												this.month.getYear(),
+												this.month.getMonthName())),
+								this.associatedClass.getCurrentName()
+						}));
 		return headerTop.toString();
 	}
 

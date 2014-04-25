@@ -1,6 +1,8 @@
 package com.duke.nurseryschool.helper.excel;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import jxl.write.WritableSheet;
@@ -9,7 +11,6 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import com.duke.nurseryschool.generated.I18N;
-import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.hibernate.bean.Month;
 
@@ -26,6 +27,8 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 		super(workbook);
 		this.month = month;
 		this.studentNames = studentNames;
+		// Sort student name
+		this.sortStudentNames();
 	}
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
@@ -47,19 +50,6 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
-
-		// Add days in month
-		int startColumn = 2;
-		int totalDaysInMonth = Helper.calculateTotalDaysInMonth(
-				this.month.getYear(), this.month.getMonthName());
-		for (int i = 1; i <= totalDaysInMonth; i++, startColumn++) {
-			this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
-					Integer.toString(i));
-		}
-
-		// Total breakfast absence count
-		this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.LABEL_PAYMENT_ABSENCECOUNT));
 
 		this.mergeHeaderCells(sheet);
 	}
@@ -92,5 +82,15 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 						Integer.toString(this.month.getYear())
 				}));
 		return headerTop.toString();
+	}
+
+	private void sortStudentNames() {
+		Collections.sort(this.studentNames, new Comparator<String>() {
+			@Override
+			public int compare(String string1, String string2) {
+				return Helper.extractLastWord(string1).compareTo(
+						Helper.extractLastWord(string2));
+			}
+		});
 	}
 }

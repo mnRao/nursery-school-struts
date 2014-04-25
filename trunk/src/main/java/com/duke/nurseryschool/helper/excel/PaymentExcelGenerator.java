@@ -3,6 +3,7 @@ package com.duke.nurseryschool.helper.excel;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +18,8 @@ import org.hibernate.Transaction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
-import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.comparator.PaymentComparator;
 import com.duke.nurseryschool.hibernate.HibernateUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
 import com.duke.nurseryschool.hibernate.bean.Fee;
@@ -78,6 +79,9 @@ public class PaymentExcelGenerator extends ExcelManager {
 					"No payment applied. Please specify one first.");
 		}
 
+		// Sort students (via payments)
+		Collections.sort(this.payments, new PaymentComparator());
+
 		// Calculate columns
 		this.calculateDataPositions();
 	}
@@ -126,7 +130,6 @@ public class PaymentExcelGenerator extends ExcelManager {
 
 		// Dynamic fees
 		// int dynamicCol = CONTENT_DYNAMIC_FEES_START_COL;
-		int feeCount = 0;
 		for (FeeGroup feeGroup : this.feeGroups) {
 			this.addCaption(sheet, dynamicCol, HEADER_NORMAL_ROW,
 					feeGroup.getName());
@@ -134,7 +137,6 @@ public class PaymentExcelGenerator extends ExcelManager {
 				this.addCaption(sheet, dynamicCol, HEADER_NORMAL_SPANNED_ROW,
 						fee.getName());
 				dynamicCol++;
-				feeCount++;
 			}
 		}
 

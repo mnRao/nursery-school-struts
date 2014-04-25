@@ -61,6 +61,11 @@
 											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{selectedOnlyFeeExcelUrl}">
 												<s:text name="grid.action.excel.selectedOnlyFee" />
 											</s:a>
+											<s:url id="attendanceExcelUrl" action="allAttendanceChecklistGenerateExcel">
+												<s:param name="monthId" value="%{monthId}" />
+											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{attendanceExcelUrl}">
+												<s:text name="grid.action.excel.attendance" />
+											</s:a>
 										</td>
 									</tr>
 								</s:iterator>

@@ -82,13 +82,13 @@
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
 												<s:text name="grid.action.delete" />
 											</s:a> <s:url id="addAlternativeFeeChargeMapUrl"
-												action="autoSetPaymentAlternativeFeeChargeMap"
+												action="autoBatchSetPaymentAlternativeFeeChargeMap"
 											>
 												<s:param name="paymentId" value="%{paymentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-info"
 												href="%{addAlternativeFeeChargeMapUrl}"
 											>
-												<s:text name="grid.action.addAlternativeFeeMap" />
+												<s:text name="grid.action.manageAlternativeFeeMap" />
 											</s:a></td>
 									</tr>
 								</s:iterator>

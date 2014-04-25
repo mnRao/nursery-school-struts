@@ -188,7 +188,8 @@ public class BusinessLogicSolver {
 		double amount;
 		FeeMap feeMap = (FeeMap) session.get(FeeMap.class, new FeePolicyFee(
 				feePolicy, fee));
-		amount = (feeMap == null) ? 0 : feeMap.getAmount().doubleValue();
+		amount = (feeMap == null || feeMap.getAmount() == null) ? 0 : feeMap
+				.getAmount().doubleValue();
 		return amount;
 	}
 

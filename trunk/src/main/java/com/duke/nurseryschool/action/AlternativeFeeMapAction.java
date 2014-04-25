@@ -2,6 +2,8 @@ package com.duke.nurseryschool.action;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -12,10 +14,13 @@ import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
+import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
 import com.duke.nurseryschool.hibernate.dao.AlternativeFeeChargeMapDAO;
 import com.duke.nurseryschool.hibernate.dao.FeeDAO;
+import com.duke.nurseryschool.hibernate.dao.FeeMapDAO;
+import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
@@ -32,12 +37,17 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 	private final PaymentDAO paymentDAO = new PaymentDAO();
 	private final FeeDAO feeDAO = new FeeDAO();
+	private final FeeMapDAO feeMapDAO = new FeeMapDAO();
+	private final MixedDAO mixedDAO = new MixedDAO();
 
 	private int paymentId;
 	private int feeId;
 
 	private List<Fee> feeList;
 	private List<Payment> paymentList;
+	private List<AlternativeFeeMap> alternativeFeeMapList;
+
+	private String[] selectAlternativeFeeMap;
 
 	@Override
 	public AlternativeFeeMap getModel() {
@@ -93,6 +103,73 @@ public class AlternativeFeeMapAction extends CoreAction implements
 	@SkipValidation
 	public String autoSetPayment() {
 		return Action.SUCCESS;
+	}
+
+	@SkipValidation
+	public String batchSaveOrUpdate() {
+		Payment payment = this.paymentDAO.getPayment(this.paymentId);
+		for (AlternativeFeeMap alternativeFeeMap : this.alternativeFeeMapList) {
+			int feeId = alternativeFeeMap.getPaymentFee().getFee().getFeeId();
+
+			// If is checked then save
+			if (Arrays.asList(this.selectAlternativeFeeMap).contains(
+					Integer.toString(feeId))) {
+				this.dao.getSession().evict(
+						this.dao.getAlternativeFeeMap(feeId, this.paymentId));
+
+				PaymentFee paymentFee = new PaymentFee(payment,
+						this.feeDAO.getFee(feeId));
+				alternativeFeeMap.setPaymentFee(paymentFee);
+				this.dao.saveOrUpdateAlternativeFeeMap(alternativeFeeMap);
+			}
+			else {// Else delete (if exists)
+				this.dao.deleteAlternativeFeeMap(this.paymentId, feeId);
+			}
+
+			// Recalculate payment
+			this.triggerPaymentRecalculation();
+		}
+
+		return Constant.ACTION_RESULT.BATCH_EDIT;
+	}
+
+	@SkipValidation
+	public String autoBatchSetPayment() {
+		this.feeList = this.feeDAO.getFees();
+		this.alternativeFeeMapList = new ArrayList<AlternativeFeeMap>();
+
+		Payment payment = this.paymentDAO.getPayment(this.paymentId);
+		int feePolicyId = payment.getFeePolicy().getFeePolicyId();
+
+		// For each fee, check whether already created alternative fee map
+		Iterator<Fee> iterator = this.feeList.iterator();
+		while (iterator.hasNext()) {
+			Fee fee = iterator.next();
+			// Choose only fee with existing fee map
+			FeeMap feeMap = this.feeMapDAO.getFeeMap(fee.getFeeId(),
+					feePolicyId);
+			if (feeMap == null) {
+				iterator.remove();
+				continue;
+			}
+
+			AlternativeFeeMap alternativeFeeMap = this.mixedDAO
+					.getAlternativeFeeMapByFeeIdAndFeePolicyId(fee.getFeeId(),
+							this.paymentId);
+			if (alternativeFeeMap == null) {
+				alternativeFeeMap = new AlternativeFeeMap();
+
+				PaymentFee paymentFee = new PaymentFee();
+				paymentFee.setFee(fee);
+				paymentFee.setPayment(this.paymentDAO
+						.getPayment(this.paymentId));
+
+				alternativeFeeMap.setPaymentFee(paymentFee);
+			}
+			this.alternativeFeeMapList.add(alternativeFeeMap);
+		}
+
+		return Constant.ACTION_RESULT.BATCH_EDIT;
 	}
 
 	@Override
@@ -200,6 +277,23 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 	public void setPaymentList(List<Payment> paymentList) {
 		this.paymentList = paymentList;
+	}
+
+	public List<AlternativeFeeMap> getAlternativeFeeMapList() {
+		return this.alternativeFeeMapList;
+	}
+
+	public void setAlternativeFeeMapList(
+			List<AlternativeFeeMap> alternativeFeeMapList) {
+		this.alternativeFeeMapList = alternativeFeeMapList;
+	}
+
+	public String[] getSelectAlternativeFeeMap() {
+		return this.selectAlternativeFeeMap;
+	}
+
+	public void setSelectAlternativeFeeMap(String[] selectAlternativeFeeMap) {
+		this.selectAlternativeFeeMap = selectAlternativeFeeMap;
 	}
 
 }

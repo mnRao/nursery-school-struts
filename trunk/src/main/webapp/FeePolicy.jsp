@@ -142,7 +142,7 @@
 																						value="feePolicyFee.feePolicy.label"
 																					/></td>
 																				<td><s:property value="feePolicyFee.fee.name" /></td>
-																				<td><s:property value="amount" /></td>
+																				<td><s:property value="getText('{0,number,#,##0.##}',{amount})" /></td>
 																				<td class="modal-action"><s:url id="editUrl"
 																						action="editFeeMap"
 																					>
