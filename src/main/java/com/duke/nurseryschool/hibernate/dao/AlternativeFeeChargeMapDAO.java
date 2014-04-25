@@ -52,10 +52,7 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 			e.printStackTrace();
 		}
 
-		// Flush before recalculating
 		this.session.flush();
-		// BusinessLogicSolver.recalculateExtraStudyFee(alternativeFeeMap
-		// .getAlternativeFee().getPayment().getPaymentId(), this.session);
 	}
 
 	public void deleteAlternativeFeeMap(int paymentId, int feeId) {
@@ -69,10 +66,7 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 			e.printStackTrace();
 		}
 
-		// Flush before recalculating
 		this.session.flush();
-		// BusinessLogicSolver
-		// .recalculateExtraStudyFee(feeDetailsId, this.session);
 	}
 
 }

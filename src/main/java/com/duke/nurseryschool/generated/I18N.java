@@ -40,6 +40,7 @@ public class I18N {
 	public static final String ERROR_NO_PAYMENT_APPLIED = "error.no.payment.applied";
 	public static final String ERROR_REQUIRED = "error.required";
 	public static final String EXCEL_FILE_PREFIX_TITLE = "excel.file.prefix_title";
+	public static final String EXCEL_FILE_PREFIX_TITLE_ATTENDANCECHECKLIST = "excel.file.prefix_title.attendanceChecklist";
 	public static final String EXCEL_FILE_PREFIX_TITLE_STATISTICS = "excel.file.prefix_title.statistics";
 	public static final String EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST = "excel.file.prefix_title.studentHasBreakfast";
 	public static final String EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE = "excel.file.prefix_title.studentHasSelectedOnlyFee";
@@ -54,6 +55,7 @@ public class I18N {
 	public static final String EXCEL_HEADER_NORMAL_TOTAL = "excel.header.normal.total";
 	public static final String EXCEL_HEADER_NORMAL_TOTALBREAKFASTFEE = "excel.header.normal.totalBreakfastFee";
 	public static final String EXCEL_HEADER_NORMAL_TOTALNORMALMEALFEE = "excel.header.normal.totalNormalMealFee";
+	public static final String EXCEL_HEADER_TOP_ATTENDANCECHECKLIST = "excel.header.top.attendanceChecklist";
 	public static final String EXCEL_HEADER_TOP_PAYMENT = "excel.header.top.payment";
 	public static final String EXCEL_HEADER_TOP_STATISTICS = "excel.header.top.statistics";
 	public static final String EXCEL_HEADER_TOP_STUDENTHASBREAKFAST = "excel.header.top.studentHasBreakfast";
@@ -63,6 +65,7 @@ public class I18N {
 	public static final String FORM_GENDER_FEMALE = "form.gender.female";
 	public static final String FORM_GENDER_MALE = "form.gender.male";
 	public static final String FORM_LEGEND = "form.legend";
+	public static final String FORM_LEGEND_BATCHEDIT_ALTERNATIVEFEEMAP = "form.legend.batchEdit.alternativeFeeMap";
 	public static final String FORM_LEGEND_BATCHEDIT_FEEMAP = "form.legend.batchEdit.feeMap";
 	public static final String FORM_LEGEND_BATCHEDIT_PAYMENT = "form.legend.batchEdit.payment";
 	public static final String FORM_LEGEND_CLONE = "form.legend.clone";
@@ -87,8 +90,10 @@ public class I18N {
 	public static final String GRID_ACTION_DELETEMAPPING = "grid.action.deleteMapping";
 	public static final String GRID_ACTION_EDIT = "grid.action.edit";
 	public static final String GRID_ACTION_EXCEL = "grid.action.excel";
+	public static final String GRID_ACTION_EXCEL_ATTENDANCE = "grid.action.excel.attendance";
 	public static final String GRID_ACTION_EXCEL_BREAKFAST = "grid.action.excel.breakfast";
 	public static final String GRID_ACTION_EXCEL_SELECTEDONLYFEE = "grid.action.excel.selectedOnlyFee";
+	public static final String GRID_ACTION_MANAGEALTERNATIVEFEEMAP = "grid.action.manageAlternativeFeeMap";
 	public static final String GRID_ACTION_MANAGEFEEMAP = "grid.action.manageFeeMap";
 	public static final String GRID_ACTION_MANAGEPAYMENT = "grid.action.managePayment";
 	public static final String GRID_ACTION_SHOWFEE = "grid.action.showFee";

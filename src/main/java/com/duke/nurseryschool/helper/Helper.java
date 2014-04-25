@@ -183,4 +183,11 @@ public class Helper {
 
 		return daysInMonth;
 	}
+
+	public static String extractLastWord(String original) {
+		int lastSpace = original.lastIndexOf(" ");
+		String filtered = original.substring(lastSpace + 1, original.length());
+
+		return filtered;
+	}
 }

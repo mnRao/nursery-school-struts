@@ -8,10 +8,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import com.duke.nurseryschool.helper.FeeType;
+import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.Payment;
-import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class MixedDAO extends CoreDAO {
 
@@ -58,7 +58,9 @@ public class MixedDAO extends CoreDAO {
 	// and f.feeId = 4;
 	@SuppressWarnings("unchecked")
 	public List<String> getStudentsHavingSelectedOnlyFee(int monthId, int feeId) {
-		String sql = "SELECT DISTINCT s.name from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId where f.type = 2 and fp.monthId = "
+		String sql = "SELECT DISTINCT s.name from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId where f.type = "
+				+ FeeType.SELECTED_ONLY.getType()
+				+ " and fp.monthId = "
 				+ monthId + " and f.feeId = " + feeId + ";";
 		Query query = this.session.createSQLQuery(sql);
 		return query.list();
@@ -156,4 +158,22 @@ public class MixedDAO extends CoreDAO {
 		return results.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
+	public AlternativeFeeMap getAlternativeFeeMapByFeeIdAndFeePolicyId(
+			int feeId, int paymentId) {
+		// SELECT * FROM alternative_fee_map afm WHERE afm.`feeId` = 1 AND
+		// afm.`paymentId` =
+		// 1
+		String sql = "SELECT * FROM alternative_fee_map afm WHERE afm.`feeId` = :feeId AND afm.`paymentId` = :paymentId";
+		SQLQuery query = this.session.createSQLQuery(sql);
+		query.addEntity(AlternativeFeeMap.class);
+		query.setParameter("feeId", feeId);
+		query.setParameter("paymentId", paymentId);
+		List<AlternativeFeeMap> results = query.list();
+
+		if (results.isEmpty())
+			return null;
+
+		return results.get(0);
+	}
 }

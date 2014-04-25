@@ -13,30 +13,22 @@
 			</div>
 			<div class="widget-content">
 				<div class="tab-content" id="myTabContent">
-					<s:form action="batchSaveOrUpdateFeeMap"
+					<s:form action="batchSaveOrUpdateAlternativeFeeChargeMap"
 						cssClass="form-horizontal"
 					>
 						<fieldset>
 							<legend class="section">
-								<s:text name="form.legend.batchEdit.feeMap">
+								<s:text name="form.legend.batchEdit.alternativeFeeMap">
 									<s:param>
-										<s:property value="feeMapList[0].feePolicyFee.feePolicy.label" />
-									</s:param>
-									<s:param>
-										<s:property
-											value="feeMapList[0].feePolicyFee.feePolicy.associatedClass.label"
-										/>
-									</s:param>
-									<s:param>
-										<s:property value="feeMapList[0].feePolicyFee.feePolicy.month.label" />
+										<s:property value="alternativeFeeMapList[0].paymentFee.payment.label" />
 									</s:param>
 								</s:text>
 							</legend>
 							<div class="control-group">
-								<s:push value="feeMap">
+								<s:push value="alternativeFeeMap">
 
 									<s:fielderror />
-									<s:hidden name="feePolicyId" />
+									<s:hidden name="paymentId" />
 
 									<div class="col-md-2">
 										<s:checkbox id="selectAllCheckboxes" name="selectAllCheckboxes" />
@@ -52,28 +44,28 @@
 										<s:checkbox name="unrelated" cssClass="app-hidden" />
 									</div>
 
-									<s:iterator value="feeMapList" var="feeMap" status="count">
-										<s:div id="recordRow_%{#feeMap.feePolicyFee.fee.feeId}" cssClass="recordRow">
-											<s:hidden name="feeMapList[%{#count.index}].feePolicyId" />
+									<s:iterator value="alternativeFeeMapList" var="alternativeFeeMap" status="count">
+										<s:div id="recordRow_%{#alternativeFeeMap.paymentFee.fee.feeId}" cssClass="recordRow">
+											<s:hidden name="alternativeFeeMapList[%{#count.index}].paymentId" />
 											<s:hidden
-												name="feeMapList[%{#count.index}].feePolicyFee.fee.feeId"
+												name="alternativeFeeMapList[%{#count.index}].paymentFee.fee.feeId"
 											/>
 
 											<div class="col-md-2">
-												<s:checkbox id="selectedElement_%{#feeMap.feePolicyFee.fee.feeId}"
-													name="selectFeeMap" fieldValue="%{#feeMap.feePolicyFee.fee.feeId}" cssClass="selectedElement"
+												<s:checkbox id="selectedElement_%{#alternativeFeeMap.paymentFee.fee.feeId}"
+													name="selectAlternativeFeeMap" fieldValue="%{#alternativeFeeMap.paymentFee.fee.feeId}" cssClass="selectedElement"
 												/>
 											</div>
 											<div class="col-md-4">
-												<label><s:property value="feePolicyFee.fee.name" /></label>
+												<label><s:property value="paymentFee.fee.name" /></label>
 											</div>
 											<div class="col-md-2">
-												<s:label key="label.feeMap.amount" cssClass="control-label" />
+												<s:label key="label.alternativeFeeMap.alternativeAmount" cssClass="control-label" />
 											</div>
-											<s:div cssClass="col-md-4" id="amount-toggle_%{#feeMap.feePolicyFee.fee.feeId}">
+											<s:div cssClass="col-md-4" id="amount-toggle_%{#alternativeFeeMap.paymentFee.fee.feeId}">
 												<div class="form-group">
-													<s:textfield id="amount_%{#feeMap.feePolicyFee.fee.feeId}" key="label.feeMap.amount"
-														name="feeMapList[%{#count.index}].amount"
+													<s:textfield id="amount_%{#alternativeFeeMap.paymentFee.fee.feeId}" key="label.alternativeFeeMap.amount"
+														name="alternativeFeeMapList[%{#count.index}].alternativeAmount"
 														cssClass="form-control parsley-validated amount-toggle"
 													/>
 												</div>
@@ -95,3 +87,4 @@
 		</div>
 	</div>
 </div>
+

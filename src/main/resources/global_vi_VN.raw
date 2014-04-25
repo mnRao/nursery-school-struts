@@ -23,7 +23,8 @@ error.label.guidance.system = Hệ thống đang gặp sự cố. Hãy liên h�
 error.label.guidance.user = Có vấn đề xảy ra ở hành động vừa rồi của bạn. Hãy xem thêm thông tin dưới đây:
 
 form.widget.header = 
-form.legend = Hãy điền thông tin vào biểu mẫu bên dưới 
+form.legend = Hãy điền thông tin vào biểu mẫu bên dưới
+form.legend.batchEdit.alternativeFeeMap = Hãy điền các tiền phí điều chỉnh cho học sinh cho phiếu thu tiền {0}
 form.legend.batchEdit.feeMap = Hãy điền các tiền phí theo lớp cho chính sách phí {0} (lớp {0} tháng {1})
 form.legend.batchEdit.payment = Hãy điền các phiếu thu tiền cho chính sách phí {0} (lớp {0} tháng {1})
 form.legend.clone = Sao chép từ
@@ -47,9 +48,11 @@ grid.action.addClass = Thêm %{getText('label.classes')}
 grid.action.addFeeMap = Thêm %{getText('label.feeMap')}
 grid.action.addFeePolicy = Thêm %{getText('label.feePolicy')}
 grid.action.addParent = Thêm %{getText('label.parent')}
+grid.action.manageAlternativeFeeMap = Quản lý %{getText('label.alternativeFeeMap')}
 grid.action.manageFeeMap = Quản lý %{getText('label.feeMap')}
 grid.action.managePayment = Quản lý %{getText('label.payment')}
 grid.action.excel = Excel Thu tiền
+grid.action.excel.attendance = Excel Điểm danh
 grid.action.excel.breakfast = Excel Ăn sáng
 grid.action.excel.selectedOnlyFee = Excel Môn năng khiếu
 
@@ -203,6 +206,7 @@ tooltip.month = Tháng: {0} <br/> Năm: {1}
 
 # Excel
 excel.file.prefix_title = THU TIỀN THÁNG
+excel.file.prefix_title.attendanceChecklist = DANH SÁCH HỌC SINH 
 excel.file.prefix_title.statistics = TỔNG TIỀN THU
 excel.file.prefix_title.studentHasBreakfast = HỌC SINH ĂN SÁNG
 excel.file.prefix_title.studentHasSelectedOnlyFee = HỌC SINH HỌC NĂNG KHIẾU
@@ -210,6 +214,7 @@ excel.file.prefix_title.studentHasSelectedOnlyFee = HỌC SINH HỌC NĂNG KHI�
 excel.sheet.title.statistics = Thống kê
 excel.sheet.title.all = Cả trường
 
+excel.header.top.attendanceChecklist = DANH SÁCH HỌC SINH THÁNG {0}-{1} ({2} DAYS) - CLASS {3}
 excel.header.top.payment = THU TIỀN THÁNG {0}-{1} ({2} NGÀY) - LỚP {3}
 excel.header.top.statistics = TỔNG TIỀN THU THÁNG {0}-{1}
 excel.header.top.studentHasBreakfast = HỌC SINH ĂN SÁNG THÁNG {0}-{1}

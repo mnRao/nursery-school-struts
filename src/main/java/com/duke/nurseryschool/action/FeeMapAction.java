@@ -119,7 +119,7 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 			this.triggerPaymentRecalculation();
 		}
 
-		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+		return Constant.ACTION_RESULT.BATCH_EDIT;
 	}
 
 	@SkipValidation

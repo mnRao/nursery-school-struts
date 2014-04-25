@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 	$("#loginLoginAuth_username").focus();
 
-	toggleFeeMapCheckboxes();
+	initializeCheckboxes();
 });
 
 // ===== Tooltip =====//
@@ -52,8 +52,9 @@ function setFocusToLoginTextBox() {
 	document.getElementById("login_username").focus();
 }
 
-/* Checkbox */
-function toggleFeeMapCheckboxes() {
+/************************************************************************************************************/
+
+function initializeCheckboxes() {
 	// Initialize: tick whose has non-empty amount value
 	$(':input[type="text"]').each(function() {
 		var textFieldId = $(this).prop("id");
@@ -69,63 +70,64 @@ function toggleFeeMapCheckboxes() {
 			enableInputVisibility(order);
 		}
 	});
+	// Set state for check-all checkbox according to other checkboxes
 	manageCheckAll();
-
-	// Toggle all on click
-	$("#selectAllFeeMaps").click(function() {
-		if ($("#selectAllFeeMaps").is(':checked')) {
-			$(".selectFeeMap").each(function() {
-				$(this).trigger('tickAll');
-				$(this).prop("checked", true);
-			});
-		} else {
-			$(".selectFeeMap").each(function() {
-				$(this).trigger('untickAll');
-				$(this).prop("checked", false);
-			});
-		}
-	});
-
-	// On click each checkbox
-	$('.selectFeeMap').bind('click', function() {
-		var cbId = $(this).prop("id");
-		var order = extractNumber(cbId);
-
-		toogleTextDecoration(order);
-		toogleInputVisibility(order);
-
-		// Set checked or not checked for toggle-all button
-		manageCheckAll();
-	});
-
-	$('.selectFeeMap').bind('tickAll', function() {
-		var cbId = $(this).prop("id");
-		var order = extractNumber(cbId);
-
-		disableTextDecoration(order);
-		enableInputVisibility(order);
-	});
-
-	$('.selectFeeMap').bind('untickAll', function() {
-		var cbId = $(this).prop("id");
-		var order = extractNumber(cbId);
-
-		enableTextDecoration(order);
-		disableInputVisibility(order);
-	});
 }
+
+//Toggle all on click
+$("#selectAllCheckboxes").click(function() {
+	if ($("#selectAllCheckboxes").is(':checked')) {
+		$(".selectedElement").each(function() {
+			$(this).trigger('tickAll');
+			$(this).prop("checked", true);
+		});
+	} else {
+		$(".selectedElement").each(function() {
+			$(this).trigger('untickAll');
+			$(this).prop("checked", false);
+		});
+	}
+});
+
+// On click each checkbox
+$('.selectedElement').bind('click', function() {
+	var cbId = $(this).prop("id");
+	var order = extractNumber(cbId);
+
+	toogleTextDecoration(order);
+	toogleInputVisibility(order);
+
+	// Set checked or not checked for toggle-all button
+	manageCheckAll();
+});
+
+$('.selectedElement').bind('tickAll', function() {
+	var cbId = $(this).prop("id");
+	var order = extractNumber(cbId);
+
+	disableTextDecoration(order);
+	enableInputVisibility(order);
+});
+
+$('.selectedElement').bind('untickAll', function() {
+	var cbId = $(this).prop("id");
+	var order = extractNumber(cbId);
+
+	enableTextDecoration(order);
+	disableInputVisibility(order);
+});
 
 function manageCheckAll() {
 	if (isAllChecked()) {
-		$("#selectAllFeeMaps").prop("checked", true);
+		$("#selectAllCheckboxes").prop("checked", true);
 	} else {
-		$("#selectAllFeeMaps").prop("checked", false);
+		$("#selectAllCheckboxes").prop("checked", false);
 	}
 }
 
 function isAllChecked() {
 	var isAllChecked = true;
-	$('.selectFeeMap').each(function() {
+	$('.selectedElement').each(function() {
 		if ($(this).prop("checked") == false) {
 			isAllChecked = false;
 		}
@@ -141,19 +143,19 @@ function extractNumber(text) {
 
 /* Toggle checkbox */
 function tickCheckbox(order) {
-	$("#selectFeeMap_" + order).each(function() {
+	$("#selectedElement_" + order).each(function() {
 		$(this).doCheck();
 	});
 }
 
 function untickCheckbox(order) {
-	$("#selectFeeMap_" + order).each(function() {
+	$("#selectedElement_" + order).each(function() {
 		$(this).undoCheck();
 	});
 }
 
 function toogleCheckbox(order) {
-	$("#selectFeeMap_" + order).each(function() {
+	$("#selectedElement_" + order).each(function() {
 		$(this).checkboxToggle();
 	});
 }
@@ -161,8 +163,9 @@ function toogleCheckbox(order) {
 /* Toggle decoration for text input */
 function toogleInputVisibility(order) {
 	$("#amount-toggle_" + order + " input").each(function() {
-		$(this).inputRequiredToggle();
 		$(this).visibilityToggle();
+//		$(this).inputRequiredToggle();
+		$(this).inputRequired();
 	});
 }
 
@@ -218,7 +221,7 @@ jQuery.fn.visibilityToggle = function() {
 
 // Input required validation
 jQuery.fn.inputRequired = function() {
-	return this.prop('required', 'true');
+	return this.prop('required', true);
 };
 
 jQuery.fn.inputNotRequired = function() {
@@ -227,10 +230,10 @@ jQuery.fn.inputNotRequired = function() {
 
 jQuery.fn.inputRequiredToggle = function() {
 	var attr = this.attr('required');
-	if (typeof attr !== 'undefined' && attr !== false) 
-		this.inputNotRequired();
-	else
+	if (attr == 'undefined') 
 		this.inputRequired();
+	else
+		this.inputNotRequired();
 };
 
 // Text decoration for label
@@ -265,3 +268,5 @@ jQuery.fn.checkboxToggle = function() {
 		return (checkedStatus == true) ? false : true;
 	});
 };
+
+/************************************************************************************************************/

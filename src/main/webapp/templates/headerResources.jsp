@@ -1,5 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon -->
+<link rel="shortcut icon" href="assets/app/favicon.ico" type="image/x-icon">
+<link rel="icon" href="assets/app/favicon.ico" type="image/x-icon">
 <!-- Bootstrap -->
 <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="assets/css/thin-admin.css" rel="stylesheet" media="screen">
@@ -8,7 +11,8 @@
 <link href="assets/style/dashboard.css" rel="stylesheet">
 <link href="assets/css/dynamic_table.css" rel="stylesheet">
 <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css"
-	rel="stylesheet" type="text/css" media="screen" />
+	rel="stylesheet" type="text/css" media="screen"
+/>
 <link href="assets/css/app.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

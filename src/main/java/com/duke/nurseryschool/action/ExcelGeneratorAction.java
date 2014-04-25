@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,8 @@ import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.FeeType;
 import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.helper.StatisticsBean;
+import com.duke.nurseryschool.helper.comparator.StudentComparator;
+import com.duke.nurseryschool.helper.excel.AttendanceChecklistExcelGenerator;
 import com.duke.nurseryschool.helper.excel.PaymentExcelGenerator;
 import com.duke.nurseryschool.helper.excel.StatisticsExcelGenerator;
 import com.duke.nurseryschool.helper.excel.StudentHasBreakfastExcelGenerator;
@@ -27,6 +31,7 @@ import com.duke.nurseryschool.helper.excel.StudentHasSelectedOnlyFeeExcelGenerat
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Month;
+import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.dao.FeePolicyDAO;
 import com.duke.nurseryschool.hibernate.dao.MixedDAO;
 import com.duke.nurseryschool.hibernate.dao.MonthDAO;
@@ -80,6 +85,33 @@ public class ExcelGeneratorAction extends ActionSupport {
 		return Action.SUCCESS;
 	}
 
+	public String allAttendanceChecklist() throws Exception {
+		Month month = this.monthDAO.getMonth(this.monthId);
+		Set<FeePolicy> feePolicies = month.getFeePolicies();
+		// If no class setup for this month then fail
+		if (feePolicies.size() == 0) {
+			throw new Exception(this.getText(I18N.ERROR_NO_FEEPOLICY_APPLIED));
+		}
+
+		File tempFile = this.createTemporaryFile(this
+				.generateAttendanceChecklistExcelFilePrefix(this
+						.generateMonthLabel(month)));
+		int sheetNumber = 0;
+		// Initialize work book the very first time
+		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
+		for (FeePolicy feePolicy : feePolicies) {
+			this.addContentToAttendanceChecklistExcelFile(workbook,
+					sheetNumber, feePolicy);
+			sheetNumber++;
+		}
+
+		this.closeWorkbook(workbook);
+		// Configure for download
+		this.configureFileForDownload(tempFile);
+
+		return Action.SUCCESS;
+	}
+
 	public String allSelectedOnlyFee() throws Exception {
 		Month month = this.monthDAO.getMonth(this.monthId);
 		File tempFile = this.createTemporaryFile(this
@@ -87,7 +119,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 						.generateMonthLabel(month)));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		int sheetNumber = 0;
-		for (Fee fee : this.mixedDAO.getFeeByType(FeeType.SELECTED_ONLY)) {
+		List<Fee> selectedOnlyFees = this.mixedDAO
+				.getFeeByType(FeeType.SELECTED_ONLY);
+		for (Fee fee : selectedOnlyFees) {
 			List<String> studentNamesInFee = this.mixedDAO
 					.getStudentsHavingSelectedOnlyFee(this.monthId,
 							fee.getFeeId());
@@ -95,7 +129,12 @@ public class ExcelGeneratorAction extends ActionSupport {
 					month, fee.getName(), studentNamesInFee);
 			sheetNumber++;
 		}
-		this.closeWorkbook(workbook);
+		// Prevent IndexOutOfBound exception: sheets without content been
+		// written
+		// TODO THROW EXCEPTION FOR USER NOTICE
+		if (selectedOnlyFees.size() > 0) {
+			this.closeWorkbook(workbook);
+		}
 		this.configureFileForDownload(tempFile);
 
 		return Action.SUCCESS;
@@ -189,6 +228,26 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
+	private void addContentToAttendanceChecklistExcelFile(
+			WritableWorkbook workbook, int sheetNumber, FeePolicy feePolicy)
+			throws IOException, WriteException, Exception {
+		Set<Student> students = feePolicy.getAssociatedClass().getStudents();
+		List<String> studentNames = new ArrayList<String>();
+		for (Student student : students) {
+			studentNames.add(student.getName());
+		}
+
+		try {
+			AttendanceChecklistExcelGenerator excelGenerator = new AttendanceChecklistExcelGenerator(
+					workbook, feePolicy, studentNames);
+			excelGenerator.addContent(sheetNumber);
+		}
+		catch (IllegalStateException e) {
+			// Handle illegal state exception for no payment to show on screen
+			throw new Exception(this.getText(I18N.ERROR_NO_PAYMENT_APPLIED));
+		}
+	}
+
 	private void addContentToSelectedOnlyFeeExcelFile(
 			WritableWorkbook workbook, int sheetNumber, Month month,
 			String feeName, List<String> studentNames) throws IOException,
@@ -226,6 +285,12 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 	private String generateBreakfastExcelFilePrefix(String monthLabel) {
 		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST)
+				+ Constant.SPACE + monthLabel
+				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+	}
+
+	private String generateAttendanceChecklistExcelFilePrefix(String monthLabel) {
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_ATTENDANCECHECKLIST)
 				+ Constant.SPACE + monthLabel
 				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
