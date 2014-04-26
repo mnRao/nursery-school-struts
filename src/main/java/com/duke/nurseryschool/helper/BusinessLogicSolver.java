@@ -11,6 +11,8 @@ import org.hibernate.Session;
 
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.comparator.FeeComparator;
+import com.duke.nurseryschool.helper.date.CurrentCalendar;
+import com.duke.nurseryschool.helper.date.ICurrentCalendar;
 import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
@@ -23,63 +25,81 @@ import com.opensymphony.xwork2.TextProvider;
 
 public class BusinessLogicSolver {
 
-	/**
-	 * Calculate <i>current</i> grade for students in course
-	 */
+	private static volatile BusinessLogicSolver instance = new BusinessLogicSolver();
 
-	public static Grade calculateGrade(int startYear, int endYear) {
-		// Base on month actualYear (Ex: Course: [2013-2014]; Current month:
-		// 01-2014 => actualYear = 2013
-		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-		int currentYear = Helper.calculateCurrentYear();
+	private ICurrentCalendar currentCalendar;
 
-		return calculateGrade(startYear, endYear, currentMonth, currentYear);
+	private BusinessLogicSolver() {
+		this.currentCalendar = new CurrentCalendar();
 	}
 
-	public static Grade calculateGrade(int startYear, int endYear,
-			int currentMonth, int currentYear) {
+	public static BusinessLogicSolver getInstance() {
+		return instance;
+	}
+
+	/**
+	 * Calculate <i>current</i> grade for students in course <br/> Base on month
+	 * actualYear (Ex: Course: [2013-2014]; Current month: 01-2014 => actualYear
+	 * = 2013
+	 */
+	public Grade calculateGrade(int startYear, int endYear) {
+		return this.calculateGrade(startYear, endYear,
+				this.currentCalendar.getCurrentMonth(),
+				this.currentCalendar.getCurrentYear());
+	}
+
+	private Grade calculateGrade(int startYear, int endYear, int currentMonth,
+			int currentYear) {
 		Grade grade = Grade.UNIDENTIFIED;
 		// Choose grade
 		if (currentYear > endYear
-				|| (currentYear == endYear && isCurrentMonthPrevPart(currentMonth))) {
+				|| (currentYear == endYear && this
+						.isCurrentMonthPrevPart(currentMonth))) {
 			grade = Grade.UNIDENTIFIED;
 		}
-		else if ((currentYear == endYear - 1 && isCurrentMonthPrevPart(currentMonth))
+		else if ((currentYear == endYear - 1 && this
+				.isCurrentMonthPrevPart(currentMonth))
 				|| currentYear == endYear
-				&& isCurrentMonthNextPart(currentMonth)) {
+				&& this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.FIFTH;
 		}
-		else if ((currentYear == endYear - 2 && isCurrentMonthPrevPart(currentMonth))
+		else if ((currentYear == endYear - 2 && this
+				.isCurrentMonthPrevPart(currentMonth))
 				|| currentYear == endYear - 1
-				&& isCurrentMonthNextPart(currentMonth)) {
+				&& this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.FOURTH;
 		}
-		else if ((currentYear == endYear - 3 && isCurrentMonthPrevPart(currentMonth))
+		else if ((currentYear == endYear - 3 && this
+				.isCurrentMonthPrevPart(currentMonth))
 				|| currentYear == endYear - 2
-				&& isCurrentMonthNextPart(currentMonth)) {
+				&& this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.THIRD;
 		}
-		else if ((currentYear == endYear - 4 && isCurrentMonthPrevPart(currentMonth))
+		else if ((currentYear == endYear - 4 && this
+				.isCurrentMonthPrevPart(currentMonth))
 				|| currentYear == endYear - 3
-				&& isCurrentMonthNextPart(currentMonth)) {
+				&& this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.SECOND;
 		}
 
 		return grade;
 	}
 
-	private static boolean isCurrentMonthNextPart(int currentMonth) {
+	private boolean isCurrentMonthNextPart(int currentMonth) {
 		return currentMonth < Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH;
 	}
 
-	private static boolean isCurrentMonthPrevPart(int currentMonth) {
+	private boolean isCurrentMonthPrevPart(int currentMonth) {
 		return currentMonth >= Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH;
 	}
 
 	/**
 	 * Get I18N text for gender
+	 * 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
-	public static String calculateGenderText(int gender)
+	public String calculateGenderText(int gender)
 			throws InstantiationException, IllegalAccessException {
 		TextProvider textProvider = DefaultTextProvider.class.newInstance();
 
@@ -99,16 +119,15 @@ public class BusinessLogicSolver {
 	/**
 	 * Ex: [2012-2013]
 	 */
-	public static String calculateCurrentAcademicYear() {
+	public String calculateCurrentAcademicYear() {
 		// Month starting at 0 (from January)
 		// => plus 1 to compare
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		int currentYear = Helper.calculateCurrentYear();
-		return calculateCurrentAcademicYear(currentMonth, currentYear);
+		return this.calculateCurrentAcademicYear(currentMonth, currentYear);
 	}
 
-	public static String calculateCurrentAcademicYear(int currentMonth,
-			int currentYear) {
+	public String calculateCurrentAcademicYear(int currentMonth, int currentYear) {
 		int startingYear, endingYear;
 		// Check current month to define starting year
 		if (currentMonth >= 9 && currentMonth <= 12) {
@@ -131,15 +150,17 @@ public class BusinessLogicSolver {
 	/**
 	 * Add extra ZERO symbol as prefix for month name. Ex: 1 => 01
 	 */
-	public static String getStandardMonthName(int monthName) {
-		if (monthName > 9)
-			return Integer.toString(monthName);
+	public String getStandardMonthName(int monthName) {
+		if (monthName < 1 || monthName > 12)
+			throw new IllegalArgumentException();
+		else if (monthName > 9)
+			return Integer.toString(monthName); // 10 -> 12
 		else
-			return Constant.ZERO + monthName;
+			return Constant.ZERO + monthName; // 01 -> 09
 	}
 
 	/* Calculate fee amount base on inherent and overriding items */
-	public static double calculateFeeAmount(Session session, Fee fee,
+	public double calculateFeeAmount(Session session, Fee fee,
 			FeePolicy feePolicy, Payment payment) {
 		// TODO Refactor this method
 		double amount = 0;
@@ -158,7 +179,7 @@ public class BusinessLogicSolver {
 			// if (isAlternativeFeeMapNull && isAlternativeAmountNull){
 			if (isAlternativeFeeMapNull
 					|| (!isAlternativeFeeMapNull && isAlternativeAmountNull)) {
-				amount = getAmountFromFeeMap(session, fee, feePolicy);
+				amount = this.getAmountFromFeeMap(session, fee, feePolicy);
 			}
 			else {
 				amount = alternativeFeeMap.getAlternativeAmount().doubleValue();
@@ -171,7 +192,7 @@ public class BusinessLogicSolver {
 			}
 			else {
 				if (isAlternativeAmountNull) {
-					amount = getAmountFromFeeMap(session, fee, feePolicy);
+					amount = this.getAmountFromFeeMap(session, fee, feePolicy);
 				}
 				else {
 					amount = alternativeFeeMap.getAlternativeAmount()
@@ -183,7 +204,7 @@ public class BusinessLogicSolver {
 		return amount;// FeeType.UNKNOWN
 	}
 
-	private static double getAmountFromFeeMap(Session session, Fee fee,
+	private double getAmountFromFeeMap(Session session, Fee fee,
 			FeePolicy feePolicy) {
 		double amount;
 		FeeMap feeMap = (FeeMap) session.get(FeeMap.class, new FeePolicyFee(
@@ -193,11 +214,15 @@ public class BusinessLogicSolver {
 		return amount;
 	}
 
-	public static HashSet<Fee> sortFeeSet(Set<Fee> set) {
+	public HashSet<Fee> sortFeeSet(Set<Fee> set) {
 		List<Fee> feeList = new ArrayList<Fee>(set);
 		Collections.sort(feeList, new FeeComparator());
 		HashSet<Fee> sortedSet = new HashSet<Fee>(feeList);
 		return sortedSet;
+	}
+
+	public void setCurrentCalendar(ICurrentCalendar currentCalendar) {
+		this.currentCalendar = currentCalendar;
 	}
 
 }

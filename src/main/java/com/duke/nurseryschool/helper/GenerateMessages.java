@@ -12,6 +12,9 @@ import java.util.TreeSet;
 
 import com.duke.nurseryschool.action.PropertyLoader;
 
+/**
+ * Automatically generate I18N class from property file
+ */
 public class GenerateMessages {
 	private static final String CLASS_NAME = "I18N";
 	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/"
@@ -25,7 +28,6 @@ public class GenerateMessages {
 		System.out.println("Finished");
 	}
 
-	@SuppressWarnings("unchecked")
 	private static void writeMessageClass() {
 		List<String> sortedEnKeySet = sortKeys();
 		System.out.println(sortedEnKeySet.size() + " keys in total");

@@ -11,6 +11,9 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 
 @Embeddable
 public class PaymentFee implements Serializable {
+
+	private static final long serialVersionUID = -8396945263430010046L;
+
 	@ManyToOne
 	@JoinColumn(name = "paymentId")
 	private Payment payment;

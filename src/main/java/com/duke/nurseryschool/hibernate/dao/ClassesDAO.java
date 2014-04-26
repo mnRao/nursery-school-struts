@@ -46,9 +46,12 @@ public class ClassesDAO extends CoreDAO {
 	public void saveOrUpdateClasses(Classes classes) {
 		// Update grade
 		if (classes.getCourse() != null) {
-			classes.setGrade(BusinessLogicSolver.calculateGrade(classes
-					.getCourse().getStartYear(), classes.getCourse()
-					.getEndYear()));
+			int startYear = classes.getCourse().getStartYear();
+			int endYear = classes.getCourse().getEndYear();
+			Grade calculatedGrade = BusinessLogicSolver.getInstance()
+					.calculateGrade(startYear,
+							endYear);
+			classes.setGrade(calculatedGrade);
 		}
 		else {
 			classes.setGrade(Grade.UNIDENTIFIED);
