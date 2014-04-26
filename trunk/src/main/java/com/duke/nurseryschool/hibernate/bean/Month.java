@@ -20,15 +20,15 @@ import com.duke.nurseryschool.helper.Helper;
 public class Month implements BeanLabel {
 	@Id
 	@GeneratedValue
-	private int				monthId;
+	private int monthId;
 	@Column(name = "month")
-	private int				monthName;		// Avoid using "month" => might be
-											// misunderstood
+	private int monthName; // Avoid using "month" => might be
+							// misunderstood
 	@Column(name = "year")
-	private int				year;
+	private int year;
 
 	@OneToMany(mappedBy = "month")
-	private Set<FeePolicy>	feePolicies;
+	private Set<FeePolicy> feePolicies;
 
 	public Month() {
 	}
@@ -40,9 +40,11 @@ public class Month implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.year
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN
+				+ this.year
 				+ Constant.PUNCTUATION_MARK.HYPHEN
-				+ BusinessLogicSolver.getStandardMonthName(this.monthName)
+				+ BusinessLogicSolver.getInstance().getStandardMonthName(
+						this.monthName)
 				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 

@@ -87,8 +87,9 @@ public class PaymentTrigger {
 				this.payment.getTotalBreakfastFee());
 		// Append static fees
 		for (Fee fee : this.allFeesExceptMeal) {
-			double actualAmount = BusinessLogicSolver.calculateFeeAmount(
-					this.session, fee, this.feePolicy, this.payment);
+			double actualAmount = BusinessLogicSolver.getInstance()
+					.calculateFeeAmount(this.session, fee, this.feePolicy,
+							this.payment);
 			totalFee = totalFee.add(new BigDecimal(actualAmount));
 		}
 

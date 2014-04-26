@@ -11,6 +11,9 @@ import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 
 @Embeddable
 public class FeePolicyFee implements Serializable {
+
+	private static final long serialVersionUID = 3871262136219929998L;
+
 	@ManyToOne
 	@JoinColumn(name = "feePolicyId")
 	private FeePolicy feePolicy;

@@ -2,7 +2,6 @@ package com.duke.nurseryschool.hibernate.bean;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -21,11 +20,11 @@ import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Helper;
-import com.duke.nurseryschool.helper.comparator.PaymentComparator;
 
 @Entity
 @Table(name = "fee_policy")
 public class FeePolicy implements BeanLabel, Cloneable {
+
 	@Id
 	@GeneratedValue
 	private int feePolicyId;
@@ -112,9 +111,6 @@ public class FeePolicy implements BeanLabel, Cloneable {
 			Payment oldPayment = iterator.next();
 			newPayments.add(oldPayment.clone(newFeePolicy));
 		}
-		// for (Payment payment : this.payments) {
-		// newPayments.add(payment.clone(newFeePolicy));
-		// }
 		// Convert list to set
 		Set<Payment> newPaymentsSet = new HashSet<Payment>(newPayments);
 

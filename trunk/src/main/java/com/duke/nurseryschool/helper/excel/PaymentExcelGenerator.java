@@ -210,7 +210,7 @@ public class PaymentExcelGenerator extends ExcelManager {
 			// Static fees
 			int dynamicCol = CONTENT_STATIC_FEES_START_COL;
 			for (Fee staticFee : this.staticFees) {
-				double calculatedAmount = BusinessLogicSolver
+				double calculatedAmount = BusinessLogicSolver.getInstance()
 						.calculateFeeAmount(this.session, staticFee,
 								this.feePolicy, payment);
 				this.addNumber(sheet, dynamicCol, row, calculatedAmount,
@@ -223,7 +223,7 @@ public class PaymentExcelGenerator extends ExcelManager {
 				Set<Fee> groupFees = feeGroup.getFees();
 
 				for (Fee fee : groupFees) {
-					double calculatedAmount = BusinessLogicSolver
+					double calculatedAmount = BusinessLogicSolver.getInstance()
 							.calculateFeeAmount(this.session, fee,
 									this.feePolicy, payment);
 					this.addNumber(sheet, dynamicCol, row, calculatedAmount,

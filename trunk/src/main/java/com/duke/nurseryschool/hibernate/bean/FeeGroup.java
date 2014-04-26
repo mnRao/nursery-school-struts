@@ -44,7 +44,8 @@ public class FeeGroup implements BeanLabel {
 	}
 
 	public Set<Fee> getFees() {
-		HashSet<Fee> sortedSet = BusinessLogicSolver.sortFeeSet(this.fees);
+		HashSet<Fee> sortedSet = BusinessLogicSolver.getInstance().sortFeeSet(
+				this.fees);
 		return sortedSet;
 	}
 

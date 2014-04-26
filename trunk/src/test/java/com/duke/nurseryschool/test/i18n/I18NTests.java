@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test;
+package com.duke.nurseryschool.test.i18n;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,9 +12,12 @@ import org.junit.Test;
 
 import com.duke.nurseryschool.action.PropertyLoader;
 
-public class TestMessages {
+public class I18NTests {
 	Properties globalENProperties;
 	Properties globalVIProperties;
+
+	Set<Object> enKeySet;
+	Set<Object> viKeySet;
 
 	@Before
 	public void setUp() throws Exception {
@@ -24,26 +27,40 @@ public class TestMessages {
 		PropertyLoader viPropertyLoader = new PropertyLoader(
 				"global_vi_VN.properties");
 		this.globalVIProperties = viPropertyLoader.getGlobalProperties();
+
+		this.enKeySet = this.globalENProperties.keySet();
+		this.viKeySet = this.globalVIProperties.keySet();
 	}
 
+	/**
+	 * Numbers of keys are equal
+	 */
 	@Test
-	public void test() {
-		// Numbers of keys are equal
+	public void sizeEqualityCheck() {
 		assertEquals(this.globalENProperties.size(),
 				this.globalVIProperties.size());
+	}
 
-		Set<Object> enKeySet = this.globalENProperties.keySet();
-		Set<Object> viKeySet = this.globalVIProperties.keySet();
-		// At least the two have common keys
-		boolean isSameKeySet = !Collections.disjoint(enKeySet, viKeySet);
+	/**
+	 * At least the two have common keys
+	 */
+	@Test
+	public void sameKeySetCheck() {
+		boolean isSameKeySet = !Collections.disjoint(this.enKeySet,
+				this.viKeySet);
 		assertEquals(true, isSameKeySet);
+	}
 
-		Set<Object> commonKeys = new HashSet<Object>(enKeySet);
-		commonKeys.retainAll(viKeySet);
+	/**
+	 * Ensure no different keys among locales
+	 */
+	@Test
+	public void noDifferentKeysCheck() {
+		Set<Object> commonKeys = new HashSet<Object>(this.enKeySet);
+		commonKeys.retainAll(this.viKeySet);
 		int commonKeysCount = commonKeys.size();
-		// Ensure no different keys
-		assertEquals(commonKeysCount, enKeySet.size());
-		assertEquals(commonKeysCount, viKeySet.size());
+		assertEquals(commonKeysCount, this.enKeySet.size());
+		assertEquals(commonKeysCount, this.viKeySet.size());
 	}
 
 }
