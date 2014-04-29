@@ -2,7 +2,6 @@ package com.duke.nurseryschool.helper;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -185,7 +184,10 @@ public class Helper {
 	}
 
 	public static String extractLastWord(String original) {
-		int lastSpace = original.lastIndexOf(" ");
+		// Trim first
+		original = original.trim();
+
+		int lastSpace = original.lastIndexOf(Constant.SPACE);
 		String filtered = original.substring(lastSpace + 1, original.length());
 
 		return filtered;
