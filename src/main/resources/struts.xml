@@ -71,7 +71,8 @@
 			<result name="LogoutSuccess" type="redirect">formLoginAuth</result>
 		</action>
 		<!-- Help -->
-		<action name="Help" method="execute" class="com.duke.nurseryschool.action.HelpAction">
+		<action name="Help" method="execute"
+			class="com.duke.nurseryschool.action.HelpAction">
 			<result name="success" type="tiles">Help</result>
 		</action>
 		<action name="UserGuide" method="userGuideDownload"
@@ -122,7 +123,8 @@
 			<result name="input" type="tiles">Month</result>
 		</action>
 		<!-- Fee -->
-		<action name="*Fee" method="{1}" class="com.duke.nurseryschool.action.FeeAction">
+		<action name="*Fee" method="{1}"
+			class="com.duke.nurseryschool.action.FeeAction">
 			<result name="success" type="tiles">Fee</result>
 			<result name="successRedirect" type="redirect">listFee</result>
 			<result name="input" type="tiles">Fee</result>

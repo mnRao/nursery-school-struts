@@ -29,7 +29,7 @@ import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 
 @SuppressWarnings("deprecation")
-public class TestHibernate {
+public class HibernateTests {
 
 	private SessionFactory sessionFactory;
 	private Session session;
@@ -82,9 +82,6 @@ public class TestHibernate {
 		this.session.save(feePolicy2);
 
 		this.session.flush();
-
-		// BusinessLogicSolver.recalculateExtraStudyFee(
-		// feeDetails1.getFeeDetailsId(), this.session);
 
 		// Commit all
 		this.session.getTransaction().commit();

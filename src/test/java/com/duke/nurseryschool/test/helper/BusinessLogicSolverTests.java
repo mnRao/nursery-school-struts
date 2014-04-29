@@ -5,21 +5,31 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
-import com.duke.nurseryschool.test.helper.date.StubCurrentCalendar;
+import com.duke.nurseryschool.helper.date.CurrentCalendar;
+import com.duke.nurseryschool.test.BaseTestCase;
 
-public class BusinessLogicSolverTests {
+public class BusinessLogicSolverTests extends BaseTestCase {
 
 	private BusinessLogicSolver businessLogicSolver;
 
+	@Mock
+	private CurrentCalendar currentCalendarStub;
+
+	@Override
 	@Before
 	public void setUp() throws Exception {
+		super.setUp();
 		this.businessLogicSolver = BusinessLogicSolver.getInstance();
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -45,9 +55,10 @@ public class BusinessLogicSolverTests {
 	@Test
 	public void calculateGrade_currentDateIsWithinCurrentAcademicYear() {
 		// [2-2014]
-		StubCurrentCalendar stubCurrentCalendar = new StubCurrentCalendar(2,
-				2014);
-		this.businessLogicSolver.setCurrentCalendar(stubCurrentCalendar);
+		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(2);
+		Mockito.when(this.currentCalendarStub.getCurrentYear())
+				.thenReturn(2014);
+		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		assertEquals(Grade.UNIDENTIFIED,
 				this.businessLogicSolver.calculateGrade(2009, 2013));
@@ -66,9 +77,10 @@ public class BusinessLogicSolverTests {
 	@Test
 	public void calculateGrade_currentDateIsBetweenAcademicYears() {
 		// [9-2014]
-		StubCurrentCalendar stubCurrentCalendar = new StubCurrentCalendar(9,
-				2014);
-		this.businessLogicSolver.setCurrentCalendar(stubCurrentCalendar);
+		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(9);
+		Mockito.when(this.currentCalendarStub.getCurrentYear())
+				.thenReturn(2014);
+		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		// Tests at future time (from September of endYear to ever after)
 		assertEquals(Grade.UNIDENTIFIED,
@@ -88,9 +100,10 @@ public class BusinessLogicSolverTests {
 	@Test
 	public void calculateGrade_currentDateIsInTheFarPast_UnidentifiedGrade() {
 		// [9-2010]
-		StubCurrentCalendar stubCurrentCalendar = new StubCurrentCalendar(9,
-				2010);
-		this.businessLogicSolver.setCurrentCalendar(stubCurrentCalendar);
+		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(9);
+		Mockito.when(this.currentCalendarStub.getCurrentYear())
+				.thenReturn(2010);
+		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		// Tests at future time (from September of endYear to ever after)
 		assertEquals(Grade.SECOND,
@@ -110,9 +123,10 @@ public class BusinessLogicSolverTests {
 	@Test
 	public void calculateGrade_currentDateIsInTheFarFuture_UnidentifiedGrade() {
 		// [2-2019]
-		StubCurrentCalendar stubCurrentCalendar = new StubCurrentCalendar(2,
-				2019);
-		this.businessLogicSolver.setCurrentCalendar(stubCurrentCalendar);
+		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(2);
+		Mockito.when(this.currentCalendarStub.getCurrentYear())
+				.thenReturn(2019);
+		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		// Tests at future time (from September of endYear to ever after)
 		assertEquals(Grade.UNIDENTIFIED,
