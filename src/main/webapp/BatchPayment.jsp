@@ -1,6 +1,7 @@
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
 <%@page import="com.duke.nurseryschool.helper.Helper"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <div class="row">
 	<div class="col-lg-12">
 		<div class="widget">
@@ -18,9 +19,17 @@
 						<fieldset>
 							<legend class="section">
 								<s:text name="form.legend.batchEdit.payment">
-									<s:param><s:property value="paymentList[0].feePolicy.label"/></s:param>
-									<s:param><s:property value="paymentList[0].feePolicy.associatedClass.label"/></s:param>
-									<s:param><s:property value="paymentList[0].feePolicy.month.label"/></s:param>
+									<s:param>
+										<s:property value="paymentList[0].feePolicy.label" />
+									</s:param>
+									<s:param>
+										<s:property
+											value="paymentList[0].feePolicy.associatedClass.label"
+										/>
+									</s:param>
+									<s:param>
+										<s:property value="paymentList[0].feePolicy.month.label" />
+									</s:param>
 								</s:text>
 							</legend>
 							<div class="control-group">
@@ -30,7 +39,9 @@
 									<s:hidden name="feePolicyId" />
 									<s:iterator value="paymentList" var="payments" status="count">
 										<s:hidden name="paymentList[%{#count.index}].paymentId" />
-										<s:hidden name="paymentList[%{#count.index}].student.studentId" />
+										<s:hidden
+											name="paymentList[%{#count.index}].student.studentId"
+										/>
 										<div class="col-md-2">
 											<s:property value="student.name" />
 										</div>
@@ -57,10 +68,25 @@
 											<div class="form-group">
 												<s:textfield key="label.payment.absenceCount"
 													name="paymentList[%{#count.index}].absenceCount"
-													cssClass="form-control" type="number"
+													cssClass="form-control" type="number" required=""
 												/>
+
+												<s:if test="%{paymentId}">
+													<s:url id="addAlternativeFeeChargeMapUrl"
+														action="autoBatchSetPaymentAlternativeFeeChargeMap"
+													>
+														<s:param name="paymentId" value="%{paymentId}" />
+													</s:url>
+													<s:a cssClass="btn btn-sm btn-info"
+														href="%{addAlternativeFeeChargeMapUrl}"
+													>
+														<s:text name="grid.action.manageAlternativeFeeMap" />
+													</s:a>
+												</s:if>
+
 											</div>
 										</div>
+
 									</s:iterator>
 								</s:push>
 							</div>

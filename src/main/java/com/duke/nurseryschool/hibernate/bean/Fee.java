@@ -63,6 +63,10 @@ public class Fee implements BeanLabel {
 		});
 	}
 
+	public String getFeeIdAsString() {
+		return Integer.toString(this.feeId);
+	}
+
 	public int getFeeId() {
 		return this.feeId;
 	}

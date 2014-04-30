@@ -115,7 +115,7 @@ public class AlternativeFeeMapAction extends CoreAction implements
 			if (Arrays.asList(this.selectAlternativeFeeMap).contains(
 					Integer.toString(feeId))) {
 				this.dao.getSession().evict(
-						this.dao.getAlternativeFeeMap(feeId, this.paymentId));
+						this.dao.getAlternativeFeeMap(this.paymentId, feeId));
 
 				PaymentFee paymentFee = new PaymentFee(payment,
 						this.feeDAO.getFee(feeId));
@@ -140,6 +140,8 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 		Payment payment = this.paymentDAO.getPayment(this.paymentId);
 		int feePolicyId = payment.getFeePolicy().getFeePolicyId();
+
+		List<String> selectAlternativeFeeMapList = new ArrayList<String>();
 
 		// For each fee, check whether already created alternative fee map
 		Iterator<Fee> iterator = this.feeList.iterator();
@@ -166,7 +168,18 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 				alternativeFeeMap.setPaymentFee(paymentFee);
 			}
+			else {
+				selectAlternativeFeeMapList
+						.add(Integer.toString(fee.getFeeId()));
+			}
 			this.alternativeFeeMapList.add(alternativeFeeMap);
+		}
+		// Cast list to string
+		this.selectAlternativeFeeMap = new String[selectAlternativeFeeMapList
+				.size()];
+		for (int i = 0; i < selectAlternativeFeeMapList.size(); i++) {
+			this.selectAlternativeFeeMap[i] = selectAlternativeFeeMapList
+					.get(i);
 		}
 
 		return Constant.ACTION_RESULT.BATCH_EDIT;
@@ -188,11 +201,12 @@ public class AlternativeFeeMapAction extends CoreAction implements
 						this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_PAYMENTID)
 					}));
 		}
-		if (alternativeAmount != null && alternativeAmount.doubleValue() < 0) {
-			this.addFieldError(
-					"alternativeFeeMap.alternativeAmount",
-					this.getText(I18N.ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT));
-		}
+		// if (alternativeAmount != null && alternativeAmount.doubleValue() < 0)
+		// {
+		// this.addFieldError(
+		// "alternativeFeeMap.alternativeAmount",
+		// this.getText(I18N.ERROR_CONSTRAINT_ALTERNATIVEFEEMAP_ALTERNATIVEAMOUNT));
+		// }
 
 		super.validate();
 	}

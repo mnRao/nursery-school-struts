@@ -7,8 +7,6 @@ $(document).ready(function() {
 	hideActionMessagesAndErrors();
 
 	$("#loginLoginAuth_username").focus();
-
-	initializeCheckboxes();
 });
 
 // ===== Tooltip =====//
@@ -54,25 +52,6 @@ function setFocusToLoginTextBox() {
 
 /************************************************************************************************************/
 
-function initializeCheckboxes() {
-	// Initialize: tick whose has non-empty amount value
-	$(':input[type="text"]').each(function() {
-		var textFieldId = $(this).prop("id");
-		var order = extractNumber(textFieldId);
-
-		if ($(this).val() == '') {
-			untickCheckbox(order);
-			enableTextDecoration(order);
-			disableInputVisibility(order);
-		} else {
-			tickCheckbox(order);
-			disableTextDecoration(order);
-			enableInputVisibility(order);
-		}
-	});
-	// Set state for check-all checkbox according to other checkboxes
-	manageCheckAll();
-}
 
 //Toggle all on click
 $("#selectAllCheckboxes").click(function() {
@@ -89,33 +68,6 @@ $("#selectAllCheckboxes").click(function() {
 	}
 });
 
-// On click each checkbox
-$('.selectedElement').bind('click', function() {
-	var cbId = $(this).prop("id");
-	var order = extractNumber(cbId);
-
-	toogleTextDecoration(order);
-	toogleInputVisibility(order);
-
-	// Set checked or not checked for toggle-all button
-	manageCheckAll();
-});
-
-$('.selectedElement').bind('tickAll', function() {
-	var cbId = $(this).prop("id");
-	var order = extractNumber(cbId);
-
-	disableTextDecoration(order);
-	enableInputVisibility(order);
-});
-
-$('.selectedElement').bind('untickAll', function() {
-	var cbId = $(this).prop("id");
-	var order = extractNumber(cbId);
-
-	enableTextDecoration(order);
-	disableInputVisibility(order);
-});
 
 function manageCheckAll() {
 	if (isAllChecked()) {
@@ -164,22 +116,37 @@ function toogleCheckbox(order) {
 function toogleInputVisibility(order) {
 	$("#amount-toggle_" + order + " input").each(function() {
 		$(this).visibilityToggle();
-//		$(this).inputRequiredToggle();
-		$(this).inputRequired();
 	});
 }
 
 function disableInputVisibility(order) {
 	$("#amount-toggle_" + order + " input").each(function() {
-		$(this).inputNotRequired();
 		$(this).invisible();
 	});
 }
 
 function enableInputVisibility(order) {
 	$("#amount-toggle_" + order + " input").each(function() {
-		$(this).inputRequired();
 		$(this).visible();
+	});
+}
+
+/* Toggle require for text input */
+function toggleInputRequired(order) {
+	$("#amount-toggle_" + order + " input").each(function() {
+		$(this).inputRequiredToggle();
+	});
+}
+
+function disableInputRequired(order) {
+	$("#amount-toggle_" + order + " input").each(function() {
+		$(this).inputNotRequired();
+	});
+}
+
+function enableInputRequired(order) {
+	$("#amount-toggle_" + order + " input").each(function() {
+		$(this).inputRequired();
 	});
 }
 
@@ -201,10 +168,11 @@ function enableTextDecoration(order) {
 		$(this).crossOut();
 	});
 }
+/****************/
 
 /* Plugin */
 
-// Visibility for input
+//Visibility for input
 jQuery.fn.visible = function() {
 	return this.css('visibility', 'visible');
 };
@@ -219,7 +187,7 @@ jQuery.fn.visibilityToggle = function() {
 	});
 };
 
-// Input required validation
+//Input required validation
 jQuery.fn.inputRequired = function() {
 	return this.prop('required', true);
 };
@@ -230,13 +198,13 @@ jQuery.fn.inputNotRequired = function() {
 
 jQuery.fn.inputRequiredToggle = function() {
 	var attr = this.attr('required');
-	if (attr == 'undefined') 
+	if (attr == undefined) 
 		this.inputRequired();
 	else
 		this.inputNotRequired();
 };
 
-// Text decoration for label
+//Text decoration for label
 jQuery.fn.crossOut = function() {
 	return this.css('textDecoration', 'line-through');
 };
@@ -254,7 +222,7 @@ jQuery.fn.decorationToggle = function() {
 	});
 };
 
-// Checkbox toggle
+//Checkbox toggle
 jQuery.fn.doCheck = function() {
 	return this.prop('checked', true);
 };
@@ -268,5 +236,7 @@ jQuery.fn.checkboxToggle = function() {
 		return (checkedStatus == true) ? false : true;
 	});
 };
+
+
 
 /************************************************************************************************************/

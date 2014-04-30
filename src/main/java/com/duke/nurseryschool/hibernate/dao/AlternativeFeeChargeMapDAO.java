@@ -58,6 +58,13 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 	public void deleteAlternativeFeeMap(int paymentId, int feeId) {
 		AlternativeFeeMap alternativeFeeMap = this.getAlternativeFeeMap(
 				paymentId, feeId);
+		if (alternativeFeeMap == null)
+			return;
+
+		if (!this.transaction.isActive()) {
+			this.transaction.begin();
+		}
+
 		try {
 			this.session.delete(alternativeFeeMap);
 		}

@@ -2,6 +2,8 @@
 <%@page import="com.duke.nurseryschool.helper.Helper"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
+<script src="assets/app/js/batchFeeMap.js"></script>
+
 <div class="row">
 	<div class="col-lg-12">
 		<div class="widget">
