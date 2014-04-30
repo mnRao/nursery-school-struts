@@ -214,7 +214,7 @@ excel.file.prefix_title.studentHasSelectedOnlyFee = HỌC SINH HỌC NĂNG KHI�
 excel.sheet.title.statistics = Thống kê
 excel.sheet.title.all = Cả trường
 
-excel.header.top.attendanceChecklist = DANH SÁCH HỌC SINH THÁNG {0}-{1} ({2} DAYS) - CLASS {3}
+excel.header.top.attendanceChecklist = DANH SÁCH HỌC SINH THÁNG {0}-{1} ({2} NGÀY) - LỚP {3}
 excel.header.top.payment = THU TIỀN THÁNG {0}-{1} ({2} NGÀY) - LỚP {3}
 excel.header.top.statistics = TỔNG TIỀN THU THÁNG {0}-{1}
 excel.header.top.studentHasBreakfast = HỌC SINH ĂN SÁNG THÁNG {0}-{1}

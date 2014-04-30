@@ -19,3 +19,6 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+    
+<script src="assets/js/jquery.js"></script>
+

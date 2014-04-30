@@ -2,7 +2,6 @@
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/js/smooth-sliding-menu.js"></script>
 <script class="include" type="text/javascript"
@@ -23,9 +22,7 @@
 <script src="assets/js/jquery.tipsy.js"></script>
 
 <!-- Dynamic Table -->
-<script type="text/javascript" language="javascript"
-	src="assets/js/jquery.dataTables.js"
-></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.js"></script>
 
 <%
 	Locale locale = ActionContext.getContext().getLocale();
