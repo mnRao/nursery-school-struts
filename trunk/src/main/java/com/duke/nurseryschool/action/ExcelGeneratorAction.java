@@ -215,11 +215,11 @@ public class ExcelGeneratorAction extends ActionSupport {
 	}
 
 	private void addContentToBreakfastExcelFile(WritableWorkbook workbook,
-			int sheetNumber, Month month, List<String> studentNames)
+			int sheetNumber, Month month, List<Student> students)
 			throws IOException, WriteException, Exception {
 		try {
 			StudentHasBreakfastExcelGenerator excelGenerator = new StudentHasBreakfastExcelGenerator(
-					workbook, month, studentNames);
+					workbook, month, students);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {

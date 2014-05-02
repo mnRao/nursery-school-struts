@@ -1,9 +1,14 @@
 package com.duke.nurseryschool.helper.excel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -12,23 +17,25 @@ import jxl.write.biff.RowsExceededException;
 
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.comparator.StudentComparator;
 import com.duke.nurseryschool.hibernate.bean.Month;
+import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 
 	private static final int CONTENT_START_ROW = 2;
 	private static final int CONTENT_LAST_COLUMN = 10;
 
-	private final List<String> studentNames;
+	private final Map<String, List<Student>> studentsByClasses;
 	private final Month month;
 
 	public StudentHasBreakfastExcelGenerator(WritableWorkbook workbook,
-			Month month, List<String> studentNames) {
+			Month month, List<Student> students) {
 		super(workbook);
 		this.month = month;
-		this.studentNames = studentNames;
-		// Sort student name
-		this.sortStudentNames();
+
+		this.studentsByClasses = new TreeMap<String, List<Student>>();
+		this.populateAndSortData(students);
 	}
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
@@ -50,6 +57,8 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
+		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_CLASS));
 
 		this.mergeHeaderCells(sheet);
 	}
@@ -65,11 +74,21 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 			throws RowsExceededException, WriteException {
 		int count = 1;
 		int row = CONTENT_START_ROW;
-		for (String name : this.studentNames) {
-			this.addNumber(sheet, 0, row, count);
-			this.addLabel(sheet, 1, row, name);
-			count++;
-			row++;
+
+		java.util.Iterator<Entry<String, List<Student>>> iterator = this.studentsByClasses
+				.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, List<Student>> entry = iterator.next();
+			List<Student> studentsByClass = entry.getValue();
+
+			for (Student student : studentsByClass) {
+				this.addNumber(sheet, 0, row, count);
+				this.addLabel(sheet, 1, row, student.getName());
+				this.addLabel(sheet, 2, row, student.getAssociatedClass()
+						.getCurrentName());
+				count++;
+				row++;
+			}
 		}
 	}
 
@@ -84,13 +103,28 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 		return headerTop.toString();
 	}
 
-	private void sortStudentNames() {
-		Collections.sort(this.studentNames, new Comparator<String>() {
-			@Override
-			public int compare(String string1, String string2) {
-				return Helper.extractLastWord(string1).compareTo(
-						Helper.extractLastWord(string2));
+	private void populateAndSortData(List<Student> students) {
+		Set<String> unsortedClasses = new TreeSet<String>();
+		// Populate all related classes
+		for (Student student : students) {
+			unsortedClasses.add(student.getAssociatedClass().getCurrentName());
+		}
+		// Sort classes
+		List<String> sortedClasses = new ArrayList<>(unsortedClasses);
+		Collections.sort(sortedClasses);
+		// Populate into class-student hash map
+		for (String className : sortedClasses) {
+			List<Student> studentByClass = new ArrayList<Student>();
+			for (Student student : students) {
+				if (className.equals(student.getAssociatedClass()
+						.getCurrentName())) {
+					studentByClass.add(student);
+				}
 			}
-		});
+			// Sort student names
+			Collections.sort(studentByClass, new StudentComparator());
+			// Add to map
+			this.studentsByClasses.put(className, studentByClass);
+		}
 	}
 }
