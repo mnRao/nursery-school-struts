@@ -12,6 +12,7 @@ import com.duke.nurseryschool.hibernate.bean.AlternativeFeeMap;
 import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.Payment;
+import com.duke.nurseryschool.hibernate.bean.Student;
 
 public class MixedDAO extends CoreDAO {
 
@@ -43,10 +44,10 @@ public class MixedDAO extends CoreDAO {
 	// RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId WHERE
 	// p.hasBreakfast = 1 AND fp.classId = 4;
 	@SuppressWarnings("unchecked")
-	public List<String> getStudentsHavingBreakfast(int monthId) {
-		String sql = "SELECT s.name FROM student s RIGHT JOIN payment p ON p.studentId = s.studentId RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId WHERE p.hasBreakfast = 1 AND fp.monthId = "
-				+ monthId + ";";
-		Query query = this.session.createSQLQuery(sql);
+	public List<Student> getStudentsHavingBreakfast(int monthId) {
+		String sql = "SELECT * FROM student s RIGHT JOIN payment p ON p.studentId = s.studentId RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId  RIGHT JOIN class c ON s.`classId` = c.`classId` WHERE p.hasBreakfast = 1 AND fp.monthId = "
+				+ monthId + " ORDER BY c.`code` ASC, s.`name` DESC ;";
+		Query query = this.session.createSQLQuery(sql).addEntity(Student.class);
 		return query.list();
 	}
 

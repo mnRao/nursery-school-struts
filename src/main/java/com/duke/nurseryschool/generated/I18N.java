@@ -45,6 +45,7 @@ public class I18N {
 	public static final String EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST = "excel.file.prefix_title.studentHasBreakfast";
 	public static final String EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE = "excel.file.prefix_title.studentHasSelectedOnlyFee";
 	public static final String EXCEL_HEADER_NORMAL_ABSENCECOUNT = "excel.header.normal.absenceCount";
+	public static final String EXCEL_HEADER_NORMAL_CLASS = "excel.header.normal.class";
 	public static final String EXCEL_HEADER_NORMAL_MEAL = "excel.header.normal.meal";
 	public static final String EXCEL_HEADER_NORMAL_MONTH = "excel.header.normal.month";
 	public static final String EXCEL_HEADER_NORMAL_NAME = "excel.header.normal.name";
