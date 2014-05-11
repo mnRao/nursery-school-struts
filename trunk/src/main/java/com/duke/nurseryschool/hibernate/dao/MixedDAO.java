@@ -58,12 +58,15 @@ public class MixedDAO extends CoreDAO {
 	// right join fee f on a.feeId = f.feeId where f.type = 2 and fp.monthId = 1
 	// and f.feeId = 4;
 	@SuppressWarnings("unchecked")
-	public List<String> getStudentsHavingSelectedOnlyFee(int monthId, int feeId) {
-		String sql = "SELECT DISTINCT s.name from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId where f.type = "
+	public List<Student> getStudentsHavingSelectedOnlyFee(int monthId, int feeId) {
+		String sql = "SELECT * from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId join class c on fp.classId = c.classId where f.type = "
 				+ FeeType.SELECTED_ONLY.getType()
 				+ " and fp.monthId = "
-				+ monthId + " and f.feeId = " + feeId + ";";
-		Query query = this.session.createSQLQuery(sql);
+				+ monthId
+				+ " and f.feeId = "
+				+ feeId
+				+ " ORDER BY c.`code` ASC, s.`name` DESC ;";
+		Query query = this.session.createSQLQuery(sql).addEntity(Student.class);
 		return query.list();
 	}
 
