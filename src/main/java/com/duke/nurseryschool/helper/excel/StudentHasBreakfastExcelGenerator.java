@@ -1,14 +1,8 @@
 package com.duke.nurseryschool.helper.excel;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -17,24 +11,20 @@ import jxl.write.biff.RowsExceededException;
 
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Helper;
-import com.duke.nurseryschool.helper.comparator.StudentComparator;
 import com.duke.nurseryschool.hibernate.bean.Month;
 import com.duke.nurseryschool.hibernate.bean.Student;
 
-public class StudentHasBreakfastExcelGenerator extends ExcelManager {
+public class StudentHasBreakfastExcelGenerator extends StudentExcelManager {
 
 	private static final int CONTENT_START_ROW = 2;
 	private static final int CONTENT_LAST_COLUMN = 10;
 
-	private final Map<String, List<Student>> studentsByClasses;
 	private final Month month;
 
 	public StudentHasBreakfastExcelGenerator(WritableWorkbook workbook,
 			Month month, List<Student> students) {
-		super(workbook);
+		super(workbook, students);
 		this.month = month;
-
-		this.studentsByClasses = new TreeMap<String, List<Student>>();
 		this.populateAndSortData(students);
 	}
 
@@ -103,28 +93,4 @@ public class StudentHasBreakfastExcelGenerator extends ExcelManager {
 		return headerTop.toString();
 	}
 
-	private void populateAndSortData(List<Student> students) {
-		Set<String> unsortedClasses = new TreeSet<String>();
-		// Populate all related classes
-		for (Student student : students) {
-			unsortedClasses.add(student.getAssociatedClass().getCurrentName());
-		}
-		// Sort classes
-		List<String> sortedClasses = new ArrayList<>(unsortedClasses);
-		Collections.sort(sortedClasses);
-		// Populate into class-student hash map
-		for (String className : sortedClasses) {
-			List<Student> studentByClass = new ArrayList<Student>();
-			for (Student student : students) {
-				if (className.equals(student.getAssociatedClass()
-						.getCurrentName())) {
-					studentByClass.add(student);
-				}
-			}
-			// Sort student names
-			Collections.sort(studentByClass, new StudentComparator());
-			// Add to map
-			this.studentsByClasses.put(className, studentByClass);
-		}
-	}
 }

@@ -122,11 +122,11 @@ public class ExcelGeneratorAction extends ActionSupport {
 		List<Fee> selectedOnlyFees = this.mixedDAO
 				.getFeeByType(FeeType.SELECTED_ONLY);
 		for (Fee fee : selectedOnlyFees) {
-			List<String> studentNamesInFee = this.mixedDAO
+			List<Student> students = this.mixedDAO
 					.getStudentsHavingSelectedOnlyFee(this.monthId,
 							fee.getFeeId());
 			this.addContentToSelectedOnlyFeeExcelFile(workbook, sheetNumber,
-					month, fee.getName(), studentNamesInFee);
+					month, fee.getName(), students);
 			sheetNumber++;
 		}
 		// Prevent IndexOutOfBound exception: sheets without content been
@@ -250,11 +250,11 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 	private void addContentToSelectedOnlyFeeExcelFile(
 			WritableWorkbook workbook, int sheetNumber, Month month,
-			String feeName, List<String> studentNames) throws IOException,
+			String feeName, List<Student> students) throws IOException,
 			WriteException, Exception {
 		try {
 			StudentHasSelectedOnlyFeeExcelGenerator excelGenerator = new StudentHasSelectedOnlyFeeExcelGenerator(
-					workbook, month, feeName, studentNames);
+					workbook, month, feeName, students);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {

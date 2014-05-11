@@ -1,9 +1,8 @@
 package com.duke.nurseryschool.helper.excel;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -13,23 +12,23 @@ import jxl.write.biff.RowsExceededException;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Helper;
 import com.duke.nurseryschool.hibernate.bean.Month;
+import com.duke.nurseryschool.hibernate.bean.Student;
 
-public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
+public class StudentHasSelectedOnlyFeeExcelGenerator extends
+		StudentExcelManager {
 
 	private static final int CONTENT_START_ROW = 2;
 	private static final int CONTENT_LAST_COLUMN = 10;
 	private final Month month;
-	private final List<String> studentNames;
 	private final String feeName;
 
 	public StudentHasSelectedOnlyFeeExcelGenerator(WritableWorkbook workbook,
-			Month month, String feeName, List<String> studentNames) {
-		super(workbook);
+			Month month, String feeName, List<Student> students) {
+		super(workbook, students);
 		this.month = month;
 		this.feeName = feeName;
-		this.studentNames = studentNames;
 		// Sort student name
-		this.sortStudentNames();
+		this.populateAndSortData(students);
 	}
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
@@ -51,6 +50,8 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
 		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
 				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
+		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
+				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_CLASS));
 
 		this.mergeHeaderCells(sheet);
 	}
@@ -66,11 +67,21 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 			throws RowsExceededException, WriteException {
 		int count = 1;
 		int row = CONTENT_START_ROW;
-		for (String name : this.studentNames) {
-			this.addNumber(sheet, 0, row, count);
-			this.addLabel(sheet, 1, row, name);
-			count++;
-			row++;
+
+		java.util.Iterator<Entry<String, List<Student>>> iterator = this.studentsByClasses
+				.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, List<Student>> entry = iterator.next();
+			List<Student> studentsByClass = entry.getValue();
+
+			for (Student student : studentsByClass) {
+				this.addNumber(sheet, 0, row, count);
+				this.addLabel(sheet, 1, row, student.getName());
+				this.addLabel(sheet, 2, row, student.getAssociatedClass()
+						.getCurrentName());
+				count++;
+				row++;
+			}
 		}
 	}
 
@@ -85,13 +96,4 @@ public class StudentHasSelectedOnlyFeeExcelGenerator extends ExcelManager {
 		return headerTop.toString();
 	}
 
-	private void sortStudentNames() {
-		Collections.sort(this.studentNames, new Comparator<String>() {
-			@Override
-			public int compare(String string1, String string2) {
-				return Helper.extractLastWord(string1).compareTo(
-						Helper.extractLastWord(string2));
-			}
-		});
-	}
 }
