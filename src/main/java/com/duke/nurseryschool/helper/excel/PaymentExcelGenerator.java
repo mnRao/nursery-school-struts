@@ -213,8 +213,10 @@ public class PaymentExcelGenerator extends ExcelManager {
 				double calculatedAmount = BusinessLogicSolver.getInstance()
 						.calculateFeeAmount(this.session, staticFee,
 								this.feePolicy, payment);
-				this.addNumber(sheet, dynamicCol, row, calculatedAmount,
-						OBMITING_ZEROS);
+				if (calculatedAmount != 0) {
+					this.addNumber(sheet, dynamicCol, row, calculatedAmount,
+							OBMITING_ZEROS);
+				}
 				dynamicCol++;
 			}
 			// Dynamic fees
@@ -226,8 +228,10 @@ public class PaymentExcelGenerator extends ExcelManager {
 					double calculatedAmount = BusinessLogicSolver.getInstance()
 							.calculateFeeAmount(this.session, fee,
 									this.feePolicy, payment);
-					this.addNumber(sheet, dynamicCol, row, calculatedAmount,
-							OBMITING_ZEROS);
+					if (calculatedAmount != 0) {
+						this.addNumber(sheet, dynamicCol, row,
+								calculatedAmount, OBMITING_ZEROS);
+					}
 					dynamicCol++;
 				}
 			}
@@ -251,11 +255,9 @@ public class PaymentExcelGenerator extends ExcelManager {
 			String className, FeePolicy feePolicy) {
 		StringBuffer headerTop = new StringBuffer();
 		headerTop.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_PAYMENT,
-				new String[] {
-						Integer.toString(month), Integer.toString(year),
+				new String[] { Integer.toString(month), Integer.toString(year),
 						Integer.toString(feePolicy.getAvailableDays()),
-						className
-				}));
+						className }));
 
 		return headerTop.toString();
 	}
@@ -279,8 +281,7 @@ public class PaymentExcelGenerator extends ExcelManager {
 			// this.staticFees = this.mixedDAO.getFeeByType(this.session,
 			// FeeType.STATIC);
 			this.staticFees = this.mixedDAO.getFeeWithNoGroup(this.session);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
