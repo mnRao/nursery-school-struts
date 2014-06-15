@@ -2,6 +2,7 @@ package com.duke.nurseryschool.hibernate.bean;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,9 @@ public class Course implements BeanLabel {
 	// @NotNull(message = "Could not be null")
 	@Column(name = "endYear")
 	private int endYear;
-	@OneToMany(mappedBy = "course")
+	@OneToMany(mappedBy = "course", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<Classes> classes;
 
 	public Course() {
@@ -40,19 +43,14 @@ public class Course implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.startYear
-				+ Constant.PUNCTUATION_MARK.HYPHEN + this.endYear
-				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.startYear + Constant.PUNCTUATION_MARK.HYPHEN + this.endYear + Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 
 	@Override
 	public String getTooltip() {
-		return Helper.getI18N(
-				I18N.TOOLTIP_COURSE,
-				new String[] {
-						Integer.toString(this.startYear),
-						Integer.toString(this.endYear)
-				});
+		return Helper.getI18N(I18N.TOOLTIP_COURSE, new String[] {
+				Integer.toString(this.startYear), Integer.toString(this.endYear)
+		});
 	}
 
 	public int getCourseId() {

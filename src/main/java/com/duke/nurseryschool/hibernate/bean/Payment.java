@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,9 @@ public class Payment implements BeanLabel, Cloneable {
 	@JoinColumn(name = "studentId")
 	private Student student;
 
-	@OneToMany(mappedBy = "paymentFee.payment", cascade = javax.persistence.CascadeType.ALL)
+	@OneToMany(mappedBy = "paymentFee.payment", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<AlternativeFeeMap> alternativeFeeMaps;
 
 	public Payment() {
@@ -60,8 +63,7 @@ public class Payment implements BeanLabel, Cloneable {
 			label.append(this.getStudent().getName());
 		}
 		if (this.getFeePolicy() != null) {
-			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(
-					this.getFeePolicy().getMonth().getLabel());
+			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(this.getFeePolicy().getMonth().getLabel());
 		}
 
 		return label.toString();
@@ -70,16 +72,13 @@ public class Payment implements BeanLabel, Cloneable {
 	@Override
 	public String getTooltip() {
 		return Helper.getI18N(I18N.TOOLTIP_PAYMENT, new String[] {
-				this.getStudent().getName(),
-				this.getFeePolicy().getMonth().getLabel()
+				this.getStudent().getName(), this.getFeePolicy().getMonth().getLabel()
 		});
 	}
 
-	protected Payment clone(FeePolicy newFeePolicy)
-			throws CloneNotSupportedException {
+	protected Payment clone(FeePolicy newFeePolicy) throws CloneNotSupportedException {
 		Payment newPayment = (Payment) this.clone();
-		Set<AlternativeFeeMap> oldAltFeeMaps = new HashSet<AlternativeFeeMap>(
-				this.alternativeFeeMaps);
+		Set<AlternativeFeeMap> oldAltFeeMaps = new HashSet<AlternativeFeeMap>(this.alternativeFeeMaps);
 		// Point new fee policy to same inherent payment
 		newPayment.setPaymentId(0);
 		newPayment.setFeePolicy(newFeePolicy);

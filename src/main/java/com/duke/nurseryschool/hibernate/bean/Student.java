@@ -49,7 +49,7 @@ public class Student implements BeanLabel {
 	private Classes associatedClass;
 
 	@ManyToMany(cascade = {
-		CascadeType.ALL
+		CascadeType.REMOVE
 	})
 	@JoinTable(name = "parent_student_map", joinColumns = {
 		@JoinColumn(name = "studentId")
@@ -58,14 +58,15 @@ public class Student implements BeanLabel {
 	})
 	private Set<Parent> parents = new HashSet<Parent>();
 
-	@OneToMany(mappedBy = "student")
+	@OneToMany(mappedBy = "student", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<Payment> payments;
 
 	public Student() {
 	}
 
-	public Student(String name, Date dateOfBirth, int gender, String address,
-			String homePhone, boolean isActive, String description) {
+	public Student(String name, Date dateOfBirth, int gender, String address, String homePhone, boolean isActive, String description) {
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
@@ -79,15 +80,10 @@ public class Student implements BeanLabel {
 	public String getLabel() {
 		StringBuilder label = new StringBuilder();
 		if (!StringUtil.isEmpty(this.name)) {
-			label.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN)
-					.append(this.name)
-					.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE);
+			label.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN).append(this.name).append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE);
 		}
-		if (this.getAssociatedClass() != null
-				&& this.getAssociatedClass().getCourse() != null) {
-			label.append(Constant.PUNCTUATION_MARK.HYPHEN)
-					.append(this.getAssociatedClass().getCourse().getLabel())
-					.append(this.getAssociatedClass().getCode());
+		if (this.getAssociatedClass() != null && this.getAssociatedClass().getCourse() != null) {
+			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(this.getAssociatedClass().getCourse().getLabel()).append(this.getAssociatedClass().getCode());
 		}
 		return label.toString();
 	}
@@ -99,10 +95,8 @@ public class Student implements BeanLabel {
 		});
 	}
 
-	public String getGenderText() throws InstantiationException,
-			IllegalAccessException {
-		return BusinessLogicSolver.getInstance().calculateGenderText(
-				this.gender);
+	public String getGenderText() throws InstantiationException, IllegalAccessException {
+		return BusinessLogicSolver.getInstance().calculateGenderText(this.gender);
 	}
 
 	public int getStudentId() {

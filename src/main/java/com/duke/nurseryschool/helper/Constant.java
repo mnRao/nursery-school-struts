@@ -69,7 +69,7 @@ public final class Constant {
 	}
 
 	public static final class BUSINESS_LOGIC {
-		public static final int YEAR_STARTING_MONTH = 9;
+		public static final int YEAR_STARTING_MONTH = 7;
 		public static final int YEAR_ENDING_MONTH = 5;
 
 		public static final int FEMALE = 0;

@@ -2,6 +2,7 @@ package com.duke.nurseryschool.hibernate.bean;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,10 +30,14 @@ public class Fee implements BeanLabel {
 	@Column(name = "type")
 	private FeeType type;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "feePolicyFee.fee")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "feePolicyFee.fee", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<FeeMap> feeMaps;
 
-	@OneToMany(mappedBy = "paymentFee.fee")
+	@OneToMany(mappedBy = "paymentFee.fee", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<AlternativeFeeMap> alternativeFeeMaps;
 
 	@ManyToOne
@@ -49,8 +54,7 @@ public class Fee implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		String label = (this.feeGroup == null) ? Constant.EMPTY_STRING
-				: this.feeGroup.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN;
+		String label = (this.feeGroup == null) ? Constant.EMPTY_STRING : this.feeGroup.getLabel() + Constant.PUNCTUATION_MARK.HYPHEN;
 		label += this.name;
 
 		return label;

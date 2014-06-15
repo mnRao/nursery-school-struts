@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,10 +45,14 @@ public class FeePolicy implements BeanLabel, Cloneable {
 	@JoinColumn(name = "monthId")
 	private Month month;
 
-	@OneToMany(mappedBy = "feePolicy")
+	@OneToMany(mappedBy = "feePolicy", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<Payment> payments;
 
-	@OneToMany(mappedBy = "feePolicyFee.feePolicy")
+	@OneToMany(mappedBy = "feePolicyFee.feePolicy", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<FeeMap> feeMaps;
 
 	public FeePolicy() {
@@ -61,24 +66,19 @@ public class FeePolicy implements BeanLabel, Cloneable {
 			label.append(this.associatedClass.getLabel());
 		}
 		if (this.month != null) {
-			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(
-					this.month.getLabel());
+			label.append(Constant.PUNCTUATION_MARK.HYPHEN).append(this.month.getLabel());
 		}
 		return label.toString();
 	}
 
 	@Override
 	public String getTooltip() {
-		return Helper.getI18N(I18N.TOOLTIP_FEEPOLICY,
-				new String[] {
-						this.associatedClass.getCourse().getLabel(),
-						this.associatedClass.getCurrentName(),
-						this.associatedClass.getCode(), this.month.getLabel()
-				});
+		return Helper.getI18N(I18N.TOOLTIP_FEEPOLICY, new String[] {
+				this.associatedClass.getCourse().getLabel(), this.associatedClass.getCurrentName(), this.associatedClass.getCode(), this.month.getLabel()
+		});
 	}
 
-	public FeePolicy clone(Classes associatedClass, Month month)
-			throws CloneNotSupportedException {
+	public FeePolicy clone(Classes associatedClass, Month month) throws CloneNotSupportedException {
 		FeePolicy newFeePolicy = (FeePolicy) this.clone();
 		// Set new attributes
 		newFeePolicy.setAssociatedClass(associatedClass);
@@ -91,8 +91,7 @@ public class FeePolicy implements BeanLabel, Cloneable {
 		return newFeePolicy;
 	}
 
-	public Set<FeeMap> cloneFeeMaps(FeePolicy newFeePolicy)
-			throws CloneNotSupportedException {
+	public Set<FeeMap> cloneFeeMaps(FeePolicy newFeePolicy) throws CloneNotSupportedException {
 		List<FeeMap> newFeeMaps = new ArrayList<FeeMap>();
 		for (FeeMap feeMap : this.feeMaps) {
 			newFeeMaps.add(feeMap.clone(newFeePolicy));
@@ -103,8 +102,7 @@ public class FeePolicy implements BeanLabel, Cloneable {
 		return newFeeMapsSet;
 	}
 
-	public Set<Payment> clonePayments(FeePolicy newFeePolicy)
-			throws CloneNotSupportedException {
+	public Set<Payment> clonePayments(FeePolicy newFeePolicy) throws CloneNotSupportedException {
 		List<Payment> newPayments = new ArrayList<Payment>();
 		Iterator<Payment> iterator = this.payments.iterator();
 		while (iterator.hasNext()) {
