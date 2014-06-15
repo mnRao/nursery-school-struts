@@ -1,8 +1,11 @@
 package com.duke.nurseryschool.helper;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 
+import com.duke.nurseryschool.hibernate.bean.Student;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.DefaultTextProvider;
@@ -51,9 +54,7 @@ public class Helper {
 		String opened = Constant.UI.OPENED;
 
 		String[] menuItems = {
-				Constant.MENU_ITEM.MONTH, Constant.MENU_ITEM.FEE_POLICY,
-				Constant.MENU_ITEM.FEE_GROUP, Constant.MENU_ITEM.FEE,
-				Constant.MENU_ITEM.FEE_MAP, Constant.MENU_ITEM.PAYMENT,
+				Constant.MENU_ITEM.MONTH, Constant.MENU_ITEM.FEE_POLICY, Constant.MENU_ITEM.FEE_GROUP, Constant.MENU_ITEM.FEE, Constant.MENU_ITEM.FEE_MAP, Constant.MENU_ITEM.PAYMENT,
 				Constant.MENU_ITEM.ALTERNATIVE_FEE_MAP,
 		};
 		for (String item : menuItems) {
@@ -67,28 +68,22 @@ public class Helper {
 	/**
 	 * Compute CSS class for given tab (header | content), regarding tab number
 	 */
-	public static String getTabCss(int tabNumber, boolean isContent,
-			String resultCode) {
+	public static String getTabCss(int tabNumber, boolean isContent, String resultCode) {
 		String actionName = ActionContext.getContext().getName();
 
 		// Cases for necessary hidden tab
 		if (isInvisible(tabNumber, actionName))
 			return Constant.UI.APP_HIDDEN;
 
-		boolean isSpecialCase = actionName
-				.contains(Constant.TAG.ACTION_PREFIX_EDIT)
-				|| actionName.contains(Constant.TAG.ACTION_PREFIX_AUTOSET)
-				|| resultCode.equalsIgnoreCase(Action.INPUT);
+		boolean isSpecialCase = actionName.contains(Constant.TAG.ACTION_PREFIX_EDIT) || actionName.contains(Constant.TAG.ACTION_PREFIX_AUTOSET) || resultCode.equalsIgnoreCase(Action.INPUT);
 		String cssClass = calculateTabCss(tabNumber, isSpecialCase, isContent);
 
 		return cssClass;
 	}
 
-	private static String calculateTabCss(int tabNumber, boolean isSpecialCase,
-			boolean isContent) {
+	private static String calculateTabCss(int tabNumber, boolean isSpecialCase, boolean isContent) {
 		String cssClass = Constant.EMPTY_STRING;
-		if ((isSpecialCase && tabNumber == 2)
-				|| (!isSpecialCase && tabNumber == 1)) {
+		if ((isSpecialCase && tabNumber == 2) || (!isSpecialCase && tabNumber == 1)) {
 			cssClass = isContent ? Constant.UI.ACTIVE_IN : Constant.UI.ACTIVE;
 		}
 
@@ -99,9 +94,7 @@ public class Helper {
 	 * Prevent from editing directly. Only allow create in auto-set mode
 	 */
 	private static boolean isInvisible(int tabNumber, String actionName) {
-		if (tabNumber == 2 && actionName.contains("Parent")
-				&& !actionName.contains(Constant.TAG.ACTION_PREFIX_AUTOSET)
-				&& !actionName.contains(Constant.TAG.ACTION_PREFIX_EDIT))
+		if (tabNumber == 2 && actionName.contains("Parent") && !actionName.contains(Constant.TAG.ACTION_PREFIX_AUTOSET) && !actionName.contains(Constant.TAG.ACTION_PREFIX_EDIT))
 			return true;
 		else
 			return false;
@@ -191,5 +184,73 @@ public class Helper {
 		String filtered = original.substring(lastSpace + 1, original.length());
 
 		return filtered;
+	}
+
+	public static String[] extractAndReverseNameFragments(Student student) {
+		return extractAndReverseNameFragments(student.getName());
+	}
+
+	public static String[] extractAndReverseNameFragments(String studentName) {
+		// Split strings
+		String[] nameFragments = studentName.split(Constant.SPACE);
+		// Reverse orders
+		Helper.reverse(nameFragments);
+
+		return nameFragments;
+	}
+
+	public static <T> void reverse(T[] array) {
+		Collections.reverse(Arrays.asList(array));
+	}
+
+	public static int compareNames(String[] array1, String[] array2) {
+		if (array1.length >= array2.length) {
+			int lowerBound = array2.length - 1;
+			for (int i = 0; i <= array1.length - 1; i++) {
+				if (i == lowerBound) {
+					int result = array1[i].compareTo(array2[i]);
+					if (result == 0) {
+						return -1; // longer loses
+					}
+					else {
+						return result;
+					}
+				}
+				else {
+					int result = array1[i].compareTo(array2[i]);
+					if (result == 0) {
+						continue;
+					}
+					else {
+						return result;
+					}
+				}
+			}
+		}
+		else {
+			int lowerBound = array1.length - 1;
+			for (int i = 0; i <= array2.length - 1; i++) {
+				if (i == lowerBound) {
+					int result = array1[i].compareTo(array2[i]);
+					if (result == 0) {
+						return 1; // longer wins
+					}
+					else {
+						return result;
+					}
+				}
+				else {
+					int result = array1[i].compareTo(array2[i]);
+					if (result == 0) {
+						continue;
+					}
+					else {
+						return result;
+					}
+				}
+			}
+		}
+
+		return 0;
 	}
 }
