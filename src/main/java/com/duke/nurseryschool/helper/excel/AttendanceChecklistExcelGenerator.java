@@ -26,8 +26,7 @@ public class AttendanceChecklistExcelGenerator extends ExcelManager {
 	private final Classes associatedClass;
 	private final FeePolicy feePolicy;
 
-	public AttendanceChecklistExcelGenerator(WritableWorkbook workbook,
-			FeePolicy feePolicy, List<String> studentNames) {
+	public AttendanceChecklistExcelGenerator(WritableWorkbook workbook, FeePolicy feePolicy, List<String> studentNames) {
 		super(workbook);
 		this.feePolicy = feePolicy;
 		this.month = feePolicy.getMonth();
@@ -39,49 +38,38 @@ public class AttendanceChecklistExcelGenerator extends ExcelManager {
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = this.workbook.createSheet(this.feePolicy
-				.getAssociatedClass().getCurrentName(), sheetNumber);
+		WritableSheet sheet = this.workbook.createSheet(this.feePolicy.getAssociatedClass().getCurrentName(), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
 		this.createContents(sheet);
 	}
 
-	private void createHeaders(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
-		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW,
-				this.generateTopMostHeaderLabel());
+	private void createHeaders(WritableSheet sheet) throws RowsExceededException, WriteException {
+		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW, this.generateTopMostHeaderLabel());
 
-		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
-		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
+		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
+		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
 
 		// Add days in month
 		int startColumn = 2;
-		int totalDaysInMonth = Helper.calculateTotalDaysInMonth(
-				this.month.getYear(), this.month.getMonthName());
+		int totalDaysInMonth = Helper.calculateTotalDaysInMonth(this.month.getYear(), this.month.getMonthName());
 		for (int i = 1; i <= totalDaysInMonth; i++, startColumn++) {
-			this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
-					Integer.toString(i));
+			this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW, Integer.toString(i));
 		}
 
 		// Total breakfast absence count
-		this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.LABEL_PAYMENT_ABSENCECOUNT));
+		this.addCaption(sheet, startColumn, HEADER_NORMAL_ROW, Helper.getI18N(I18N.LABEL_PAYMENT_ABSENCECOUNT));
 
 		this.mergeHeaderCells(sheet);
 	}
 
-	private void mergeHeaderCells(WritableSheet sheet) throws WriteException,
-			RowsExceededException {
+	private void mergeHeaderCells(WritableSheet sheet) throws WriteException, RowsExceededException {
 		// All columns top row
-		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW,
-				CONTENT_LAST_COLUMN, HEADER_TOP_ROW);
+		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW, CONTENT_LAST_COLUMN, HEADER_TOP_ROW);
 	}
 
-	private void createContents(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
+	private void createContents(WritableSheet sheet) throws RowsExceededException, WriteException {
 		int count = 1;
 		int row = CONTENT_START_ROW;
 		for (String name : this.studentNames) {
@@ -94,18 +82,12 @@ public class AttendanceChecklistExcelGenerator extends ExcelManager {
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop
-				.append(Helper.getI18N(
-						I18N.EXCEL_HEADER_TOP_ATTENDANCECHECKLIST,
-						new String[] {
-								Integer.toString(this.month.getMonthName()),
-								Integer.toString(this.month.getYear()),
-								Integer.toString(Helper
-										.calculateTotalDaysInMonth(
-												this.month.getYear(),
-												this.month.getMonthName())),
-								this.associatedClass.getCurrentName()
-						}));
+		headerTop.append(Helper.getI18N(
+				I18N.EXCEL_HEADER_TOP_ATTENDANCECHECKLIST,
+				new String[] {
+						Integer.toString(this.month.getMonthName()), Integer.toString(this.month.getYear()),
+						Integer.toString(Helper.calculateTotalDaysInMonth(this.month.getYear(), this.month.getMonthName())), this.associatedClass.getCurrentName()
+				}));
 		return headerTop.toString();
 	}
 
@@ -113,8 +95,10 @@ public class AttendanceChecklistExcelGenerator extends ExcelManager {
 		Collections.sort(this.studentNames, new Comparator<String>() {
 			@Override
 			public int compare(String string1, String string2) {
-				return Helper.extractLastWord(string1).compareTo(
-						Helper.extractLastWord(string2));
+				String[] reversedFragments1 = Helper.extractAndReverseNameFragments(string1);
+				String[] reversedFragments2 = Helper.extractAndReverseNameFragments(string2);
+
+				return Helper.compareNames(reversedFragments1, reversedFragments2);
 			}
 		});
 	}

@@ -14,13 +14,14 @@ public class PaymentComparator implements Comparator<Payment> {
 	}
 
 	private int sortAscending(Student student1, Student student2) {
-		return Helper.extractLastWord(student1.getName()).compareTo(
-				Helper.extractLastWord(student2.getName()));
+		String[] reversedFragments1 = Helper.extractAndReverseNameFragments(student1);
+		String[] reversedFragments2 = Helper.extractAndReverseNameFragments(student2);
+
+		return Helper.compareNames(reversedFragments1, reversedFragments2);
 	}
 
 	private int sortDescending(Student student1, Student student2) {
-		return Helper.extractLastWord(student2.getName()).compareTo(
-				Helper.extractLastWord(student1.getName()));
+		return this.sortAscending(student2, student1);
 	}
 
 }
