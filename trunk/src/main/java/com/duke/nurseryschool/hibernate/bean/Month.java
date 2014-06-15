@@ -2,6 +2,7 @@ package com.duke.nurseryschool.hibernate.bean;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,9 @@ public class Month implements BeanLabel {
 	@Column(name = "year")
 	private int year;
 
-	@OneToMany(mappedBy = "month")
+	@OneToMany(mappedBy = "month", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<FeePolicy> feePolicies;
 
 	public Month() {
@@ -40,11 +43,7 @@ public class Month implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN
-				+ this.year
-				+ Constant.PUNCTUATION_MARK.HYPHEN
-				+ BusinessLogicSolver.getInstance().getStandardMonthName(
-						this.monthName)
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.year + Constant.PUNCTUATION_MARK.HYPHEN + BusinessLogicSolver.getInstance().getStandardMonthName(this.monthName)
 				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 

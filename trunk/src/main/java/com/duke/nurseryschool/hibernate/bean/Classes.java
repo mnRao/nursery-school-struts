@@ -2,6 +2,7 @@ package com.duke.nurseryschool.hibernate.bean;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,10 +35,14 @@ public class Classes implements BeanLabel {
 	@JoinColumn(name = "courseId")
 	private Course course;
 
-	@OneToMany(mappedBy = "associatedClass")
+	@OneToMany(mappedBy = "associatedClass", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<Student> students;
 
-	@OneToMany(mappedBy = "associatedClass")
+	@OneToMany(mappedBy = "associatedClass", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<FeePolicy> feePolicies;
 
 	// Virtual current grade
@@ -56,8 +61,7 @@ public class Classes implements BeanLabel {
 		StringBuilder label = new StringBuilder();
 		label.append(Constant.PUNCTUATION_MARK.BRACKET_CURLY_OPEN);
 		if (this.course != null) {
-			label.append(this.course.getLabel()).append(
-					Constant.PUNCTUATION_MARK.HYPHEN);
+			label.append(this.course.getLabel()).append(Constant.PUNCTUATION_MARK.HYPHEN);
 		}
 		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN);
 		if (this.grade != null) {

@@ -3,6 +3,7 @@ package com.duke.nurseryschool.hibernate.bean;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,9 @@ public class FeeGroup implements BeanLabel {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "feeGroup")
+	@OneToMany(mappedBy = "feeGroup", cascade = {
+		CascadeType.REMOVE
+	})
 	private Set<Fee> fees;
 
 	public FeeGroup() {
@@ -44,8 +47,7 @@ public class FeeGroup implements BeanLabel {
 	}
 
 	public Set<Fee> getFees() {
-		HashSet<Fee> sortedSet = BusinessLogicSolver.getInstance().sortFeeSet(
-				this.fees);
+		HashSet<Fee> sortedSet = BusinessLogicSolver.getInstance().sortFeeSet(this.fees);
 		return sortedSet;
 	}
 
