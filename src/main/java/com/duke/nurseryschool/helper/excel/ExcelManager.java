@@ -29,14 +29,12 @@ public abstract class ExcelManager {
 		this.workbook = workbook;
 	}
 
-	protected void addCaption(WritableSheet sheet, int column, int row,
-			String text) throws RowsExceededException, WriteException {
+	protected void addCaption(WritableSheet sheet, int column, int row, String text) throws RowsExceededException, WriteException {
 		Label label = new Label(column, row, text, this.timesBold);
 		sheet.addCell(label);
 	}
 
-	protected void addNumber(WritableSheet sheet, int column, int row,
-			double amount) throws RowsExceededException, WriteException {
+	protected void addNumber(WritableSheet sheet, int column, int row, double amount) throws RowsExceededException, WriteException {
 		Number number = new Number(column, row, amount, this.times);
 		sheet.addCell(number);
 	}
@@ -44,17 +42,17 @@ public abstract class ExcelManager {
 	/**
 	 * Add number and obmiting zeros beforehand
 	 */
-	protected void addNumber(WritableSheet sheet, int column, int row,
-			double amount, int numberOfOmitingZeros)
-			throws RowsExceededException, WriteException {
+	protected void addNumber(WritableSheet sheet, int column, int row, double amount, int numberOfOmitingZeros, boolean ignoreZero) throws RowsExceededException, WriteException {
 		for (int i = 0; i < numberOfOmitingZeros; i++) {
 			amount = amount / 10;
 		}
+		if (ignoreZero && amount == 0)
+			return;
+
 		this.addNumber(sheet, column, row, amount);
 	}
 
-	protected void addLabel(WritableSheet sheet, int column, int row,
-			String text) throws RowsExceededException, WriteException {
+	protected void addLabel(WritableSheet sheet, int column, int row, String text) throws RowsExceededException, WriteException {
 		Label label = new Label(column, row, text, this.times);
 		sheet.addCell(label);
 	}
@@ -66,8 +64,7 @@ public abstract class ExcelManager {
 		this.times.setAlignment(Alignment.CENTRE);
 		this.times.setWrap(true);
 
-		WritableFont times10ptBold = new WritableFont(WritableFont.TIMES, 10,
-				WritableFont.BOLD, false);
+		WritableFont times10ptBold = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false);
 		this.timesBold = new WritableCellFormat(times10ptBold);
 		this.timesBold.setAlignment(Alignment.CENTRE);
 		this.timesBold.setVerticalAlignment(VerticalAlignment.CENTRE);
