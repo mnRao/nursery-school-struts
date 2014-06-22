@@ -23,77 +23,57 @@ public class StatisticsExcelGenerator extends ExcelManager {
 
 	private final StatisticsBean statisticsBean;
 
-	public StatisticsExcelGenerator(WritableWorkbook workbook,
-			StatisticsBean statisticsBean) {
+	public StatisticsExcelGenerator(WritableWorkbook workbook, StatisticsBean statisticsBean) {
 		super(workbook);
 		this.statisticsBean = statisticsBean;
 	}
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = this.workbook.createSheet(
-				Helper.getI18N(I18N.EXCEL_SHEET_TITLE_STATISTICS), sheetNumber);
+		WritableSheet sheet = this.workbook.createSheet(Helper.getI18N(I18N.EXCEL_SHEET_TITLE_STATISTICS), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
 		this.createContents(sheet);
 	}
 
-	private void createHeaders(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
-		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW,
-				this.generateTopMostHeaderLabel());
+	private void createHeaders(WritableSheet sheet) throws RowsExceededException, WriteException {
+		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW, this.generateTopMostHeaderLabel());
 
-		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
-		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_MONTH));
-		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
+		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
+		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_MONTH));
+		this.addCaption(sheet, 2, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
 
 		this.mergeHeaderCells(sheet);
 	}
 
-	private void mergeHeaderCells(WritableSheet sheet) throws WriteException,
-			RowsExceededException {
+	private void mergeHeaderCells(WritableSheet sheet) throws WriteException, RowsExceededException {
 		// All columns top row
-		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW,
-				CONTENT_LAST_COLUMN, HEADER_TOP_ROW);
+		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW, CONTENT_LAST_COLUMN, HEADER_TOP_ROW);
 	}
 
-	private void createContents(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
+	private void createContents(WritableSheet sheet) throws RowsExceededException, WriteException {
 		int count = 1;
 		int row = CONTENT_START_ROW;
-		Map<Classes, BigDecimal> totalFeeForClasses = this.statisticsBean
-				.getTotalFeeForClasses();
-		Set<Entry<Classes, BigDecimal>> entrySet = totalFeeForClasses
-				.entrySet();
+		Map<Classes, BigDecimal> totalFeeForClasses = this.statisticsBean.getTotalFeeForClasses();
+		Set<Entry<Classes, BigDecimal>> entrySet = totalFeeForClasses.entrySet();
 		for (Entry<Classes, BigDecimal> entry : entrySet) {
 			this.addNumber(sheet, 0, row, count);
 			this.addLabel(sheet, 1, row, entry.getKey().getCurrentName());
-			this.addNumber(sheet, 2, row, entry.getValue().doubleValue(),
-					OBMITING_ZEROS);
+			this.addNumber(sheet, 2, row, entry.getValue().doubleValue(), OBMITING_ZEROS, false);
 			count++;
 			row++;
 		}
 
-		this.addLabel(sheet, 1, row + 1,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
-		this.addNumber(sheet, 2, row + 1, this.statisticsBean
-				.getTotalFeeForSchool().doubleValue(), OBMITING_ZEROS);
+		this.addLabel(sheet, 1, row + 1, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_TOTAL));
+		this.addNumber(sheet, 2, row + 1, this.statisticsBean.getTotalFeeForSchool().doubleValue(), OBMITING_ZEROS, false);
 	}
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop.append(Helper.getI18N(
-				I18N.EXCEL_HEADER_TOP_STATISTICS,
-				new String[] {
-						Integer.toString(this.statisticsBean.getMonth()
-								.getMonthName()),
-						Integer.toString(this.statisticsBean.getMonth()
-								.getYear()),
-				}));
+		headerTop.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_STATISTICS, new String[] {
+				Integer.toString(this.statisticsBean.getMonth().getMonthName()), Integer.toString(this.statisticsBean.getMonth().getYear()),
+		}));
 		return headerTop.toString();
 	}
 }
