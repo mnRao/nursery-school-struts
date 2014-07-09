@@ -86,11 +86,11 @@ public class BusinessLogicSolver {
 	}
 
 	private boolean isCurrentMonthNextPart(int currentMonth) {
-		return currentMonth < Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH;
+		return currentMonth < Constant.BUSINESS_LOGIC.ACADEMIC_YEAR_STARTING_MONTH;
 	}
 
 	private boolean isCurrentMonthPrevPart(int currentMonth) {
-		return currentMonth >= Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH;
+		return currentMonth >= Constant.BUSINESS_LOGIC.ACADEMIC_YEAR_STARTING_MONTH;
 	}
 
 	/**
@@ -130,7 +130,8 @@ public class BusinessLogicSolver {
 	public String calculateCurrentAcademicYear(int currentMonth, int currentYear) {
 		int startingYear, endingYear;
 		// Check current month to define starting year
-		if (currentMonth >= 9 && currentMonth <= 12) {
+		if (currentMonth >= Constant.BUSINESS_LOGIC.ACADEMIC_YEAR_STARTING_MONTH
+				&& currentMonth <= Constant.BUSINESS_LOGIC.YEAR_ENDING_MONTH) {
 			startingYear = currentYear;
 		}
 		else {
@@ -151,7 +152,8 @@ public class BusinessLogicSolver {
 	 * Add extra ZERO symbol as prefix for month name. Ex: 1 => 01
 	 */
 	public String getStandardMonthName(int monthName) {
-		if (monthName < 1 || monthName > 12)
+		if (monthName < Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH
+				|| monthName > Constant.BUSINESS_LOGIC.YEAR_ENDING_MONTH)
 			throw new IllegalArgumentException();
 		else if (monthName > 9)
 			return Integer.toString(monthName); // 10 -> 12

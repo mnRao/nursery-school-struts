@@ -47,12 +47,12 @@ public class FeePolicy implements BeanLabel, Cloneable {
 
 	@OneToMany(mappedBy = "feePolicy", cascade = {
 		CascadeType.REMOVE
-	})
+	}, orphanRemoval = true)
 	private Set<Payment> payments;
 
 	@OneToMany(mappedBy = "feePolicyFee.feePolicy", cascade = {
 		CascadeType.REMOVE
-	})
+	}, orphanRemoval = true)
 	private Set<FeeMap> feeMaps;
 
 	public FeePolicy() {

@@ -62,10 +62,11 @@ public class FeePolicyDAO extends CoreDAO {
 		try {
 			FeePolicy feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
 					feePolicyId);
-			if (feePolicy.getFeeMaps().size() > 0
-					|| feePolicy.getPayments().size() > 0) {
-				return false;
-			}
+			// REMOVE COMMENT WHEN ENABLING DELETE PROTECTION
+			// if (feePolicy.getFeeMaps().size() > 0
+			// || feePolicy.getPayments().size() > 0) {
+			// return false;
+			// }
 
 			this.session.delete(feePolicy);
 		}
