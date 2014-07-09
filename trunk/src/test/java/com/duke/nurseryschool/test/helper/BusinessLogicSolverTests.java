@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
@@ -43,7 +42,7 @@ public class BusinessLogicSolverTests extends BaseTestCase {
 	@Test
 	public void calculateCurrentAcademicYear_betweenAcademicYears_newAcademicYear() {
 		assertEquals("[2013-2014]",
-				this.businessLogicSolver.calculateCurrentAcademicYear(9, 2013));
+				this.businessLogicSolver.calculateCurrentAcademicYear(7, 2013));
 	}
 
 	@Test
@@ -76,8 +75,8 @@ public class BusinessLogicSolverTests extends BaseTestCase {
 
 	@Test
 	public void calculateGrade_currentDateIsBetweenAcademicYears() {
-		// [9-2014]
-		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(9);
+		// [7-2014]
+		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(7);
 		Mockito.when(this.currentCalendarStub.getCurrentYear())
 				.thenReturn(2014);
 		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
@@ -99,8 +98,8 @@ public class BusinessLogicSolverTests extends BaseTestCase {
 
 	@Test
 	public void calculateGrade_currentDateIsInTheFarPast_UnidentifiedGrade() {
-		// [9-2010]
-		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(9);
+		// [7-2010]
+		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(7);
 		Mockito.when(this.currentCalendarStub.getCurrentYear())
 				.thenReturn(2010);
 		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);

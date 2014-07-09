@@ -25,6 +25,14 @@ public class ClassesDAO extends CoreDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		for (Classes singleClass : classes) {
+			boolean needsAlternativeGrade = this
+					.needsAlternativeGrade(singleClass);
+			if (needsAlternativeGrade) {
+				this.saveOrUpdateClasses(singleClass);
+			}
+		}
+
 		// Sort
 		Collections.sort(classes, new ClassComparator());
 
@@ -40,22 +48,19 @@ public class ClassesDAO extends CoreDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		// FIXME Avoid duplicate checking
+		boolean needsAlternativeGrade = this.needsAlternativeGrade(classes);
+		if (needsAlternativeGrade) {
+			this.saveOrUpdateClasses(classes);
+		}
+
 		return classes;
 	}
 
 	public void saveOrUpdateClasses(Classes classes) {
 		// Update grade
-		if (classes.getCourse() != null) {
-			int startYear = classes.getCourse().getStartYear();
-			int endYear = classes.getCourse().getEndYear();
-			Grade calculatedGrade = BusinessLogicSolver.getInstance()
-					.calculateGrade(startYear,
-							endYear);
-			classes.setGrade(calculatedGrade);
-		}
-		else {
-			classes.setGrade(Grade.UNIDENTIFIED);
-		}
+		this.needsAlternativeGrade(classes);
 
 		try {
 			this.session.saveOrUpdate(classes);
@@ -64,6 +69,27 @@ public class ClassesDAO extends CoreDAO {
 			this.transaction.rollback();
 			e.printStackTrace();
 		}
+	}
+
+	private boolean needsAlternativeGrade(Classes classes) {
+		if (classes == null)
+			return false;
+
+		Grade oldGrade = classes.getGrade();
+		Grade calculatedGrade = Grade.UNIDENTIFIED;
+		if (classes.getCourse() != null) {
+			int startYear = classes.getCourse().getStartYear();
+			int endYear = classes.getCourse().getEndYear();
+			calculatedGrade = BusinessLogicSolver.getInstance().calculateGrade(
+					startYear, endYear);
+		}
+
+		classes.setGrade(calculatedGrade);
+
+		if (oldGrade == calculatedGrade)
+			return false;
+		else
+			return true;
 	}
 
 	public boolean deleteClasses(int classesId) {
