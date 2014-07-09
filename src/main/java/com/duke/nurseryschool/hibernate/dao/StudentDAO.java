@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Expression;
+
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.comparator.StudentComparator;
 import com.duke.nurseryschool.hibernate.bean.Parent;
@@ -27,6 +30,15 @@ public class StudentDAO extends CoreDAO {
 		Collections.sort(students, new StudentComparator());
 
 		return students;
+	}
+
+	@SuppressWarnings({
+			"deprecation", "unchecked"
+	})
+	public List<Student> getActiveStudents() {
+		Criteria criteria = this.session.createCriteria(Student.class);
+		criteria.add(Expression.eq("isActive", true));
+		return criteria.list();
 	}
 
 	public Student getStudent(int studentId) {
