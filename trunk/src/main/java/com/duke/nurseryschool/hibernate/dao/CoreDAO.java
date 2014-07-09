@@ -13,6 +13,10 @@ public abstract class CoreDAO {
 	@TransactionTarget
 	protected Transaction transaction;
 
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
 	public Session getSession() {
 		return this.session;
 	}
