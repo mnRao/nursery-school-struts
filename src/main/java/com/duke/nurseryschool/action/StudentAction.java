@@ -89,6 +89,22 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 		return Action.SUCCESS;
 	}
 
+	@SkipValidation
+	public String disable() {
+		this.dao.disableStudent(Integer.parseInt(this.request
+				.getParameter("studentId")));
+
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	@SkipValidation
+	public String enable() {
+		this.dao.enableStudent(Integer.parseInt(this.request
+				.getParameter("studentId")));
+
+		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
 	@Override
 	public void validate() {
 		if (this.classId == 0) {
@@ -132,7 +148,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	private void populateData() {
 		// Populate class list
 		this.classList = this.classesDAO.getClasses();
-		this.students = this.dao.getStudents();
+		this.students = this.dao.getStudents();// All active & inactive students
 	}
 
 	public Student getStudent() {

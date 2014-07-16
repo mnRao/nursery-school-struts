@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test;
+package com.duke.nurseryschool;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

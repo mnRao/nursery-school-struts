@@ -42,8 +42,16 @@
 										<s:hidden
 											name="paymentList[%{#count.index}].student.studentId"
 										/>
+										<s:set var="currentStudentId" name="paymentList[%{#count.index}].paymentId"/>
 										<div class="col-md-2">
-											<s:property value="student.name" />
+											<s:url id="studentUrl"
+												action="editStudent"
+											>
+												<s:param name="studentId"><s:property value="#currentStudentId"/></s:param>
+											</s:url>
+											<s:a href="%{studentUrl}">
+												<s:property value="student.name" />
+											</s:a>
 										</div>
 										<div class="col-md-2">
 											<s:label key="label.payment.hasBreakfast"

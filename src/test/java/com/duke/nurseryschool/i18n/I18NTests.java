@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test.i18n;
+package com.duke.nurseryschool.i18n;
 
 import static org.junit.Assert.assertEquals;
 

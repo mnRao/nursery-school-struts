@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test;
+package com.duke.nurseryschool;
 
 import org.junit.After;
 import org.junit.Before;

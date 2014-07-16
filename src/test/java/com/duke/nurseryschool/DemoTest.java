@@ -1,9 +1,7 @@
-package com.duke.nurseryschool.test;
+package com.duke.nurseryschool;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.hibernate.Transaction;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
@@ -19,7 +17,8 @@ public class DemoTest extends AbstractTest {
 
 	@Test
 	public void test() {
-		assertEquals(129, this.studentDAO.getStudents().size());
+		assertEquals(130, this.studentDAO.getStudents().size());
+		assertEquals(129, this.studentDAO.getActiveStudents().size());
 	}
 
 }

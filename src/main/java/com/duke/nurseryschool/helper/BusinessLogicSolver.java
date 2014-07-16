@@ -18,6 +18,7 @@ import com.duke.nurseryschool.hibernate.bean.Fee;
 import com.duke.nurseryschool.hibernate.bean.FeeMap;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Payment;
+import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.bean.embedded.FeePolicyFee;
 import com.duke.nurseryschool.hibernate.bean.embedded.PaymentFee;
 import com.opensymphony.xwork2.DefaultTextProvider;
@@ -114,6 +115,21 @@ public class BusinessLogicSolver {
 		}
 
 		return genderText;
+	}
+
+	public String getBooleanText(boolean booleanValue)
+			throws InstantiationException, IllegalAccessException {
+		TextProvider textProvider = DefaultTextProvider.class.newInstance();
+
+		String booleanText = Constant.EMPTY_STRING;
+		if (booleanValue) {
+			booleanText = textProvider.getText(I18N.FORM_TRUEFALSE_TRUE);
+		}
+		else {
+			booleanText = textProvider.getText(I18N.FORM_TRUEFALSE_FALSE);
+		}
+
+		return booleanText;
 	}
 
 	/**
@@ -227,4 +243,13 @@ public class BusinessLogicSolver {
 		this.currentCalendar = currentCalendar;
 	}
 
+	public Set<Student> filterActiveStudents(Set<Student> students) {
+		Set<Student> activeStudents = new HashSet<Student>();
+		for (Student student : students) {
+			if (student.isActive()) {
+				activeStudents.add(student);
+			}
+		}
+		return activeStudents;
+	}
 }

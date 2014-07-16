@@ -107,6 +107,11 @@ public class Student implements BeanLabel {
 				this.gender);
 	}
 
+	public String getIsActiveText() throws InstantiationException,
+			IllegalAccessException {
+		return BusinessLogicSolver.getInstance().getBooleanText(this.isActive);
+	}
+
 	public int getStudentId() {
 		return this.studentId;
 	}
