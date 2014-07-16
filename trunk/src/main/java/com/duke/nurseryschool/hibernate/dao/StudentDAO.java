@@ -93,4 +93,30 @@ public class StudentDAO extends CoreDAO {
 		student.setParents(parents);
 		this.saveOrUpdateStudent(student);
 	}
+
+	public void enableStudent(int studentId) {
+		try {
+			Student student = (Student) this.session.get(Student.class,
+					studentId);
+			student.setActive(true);
+			this.session.saveOrUpdate(student);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	public void disableStudent(int studentId) {
+		try {
+			Student student = (Student) this.session.get(Student.class,
+					studentId);
+			student.setActive(false);
+			this.session.saveOrUpdate(student);
+		}
+		catch (Exception e) {
+			this.transaction.rollback();
+			e.printStackTrace();
+		}
+	}
 }

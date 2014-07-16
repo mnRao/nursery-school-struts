@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test.helper;
+package com.duke.nurseryschool.helper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class ComparatorTests {
 
 		Student student2 = new Student();
 		student2.setStudentId(2);
-		student2.setName("Hà Vũ Đức Anh");
+		student2.setName("Hà Vũ �?ức Anh");
 
 		Student student3 = new Student();
 		student3.setStudentId(3);
@@ -39,7 +39,7 @@ public class ComparatorTests {
 
 		Student student4 = new Student();
 		student4.setStudentId(4);
-		student4.setName("Trần Đình Việt Anh");
+		student4.setName("Trần �?ình Việt Anh");
 
 		// Add all students
 		List<Student> students = new ArrayList<>();

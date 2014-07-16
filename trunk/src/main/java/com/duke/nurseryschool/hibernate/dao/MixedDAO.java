@@ -31,11 +31,11 @@ public class MixedDAO extends CoreDAO {
 	}
 
 	// SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId
-	// = class.classId WHERE class.grade != 4;
+	// = class.classId WHERE class.grade != 4 AND student.isActive = 1;
 	@SuppressWarnings("rawtypes")
 	public int getActiveStudentsCount() {
 		Query query = this.session
-				.createSQLQuery("SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId = class.classId WHERE class.grade != 4;");
+				.createSQLQuery("SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId = class.classId WHERE class.grade != 4 AND student.isActive = 1;");
 		List result = query.list();
 		return ((BigInteger) result.get(0)).intValue();
 	}
@@ -46,7 +46,8 @@ public class MixedDAO extends CoreDAO {
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsHavingBreakfast(int monthId) {
 		String sql = "SELECT * FROM student s RIGHT JOIN payment p ON p.studentId = s.studentId RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId  RIGHT JOIN class c ON s.`classId` = c.`classId` WHERE p.hasBreakfast = 1 AND fp.monthId = "
-				+ monthId + " ORDER BY c.`code` ASC, s.`name` DESC ;";
+				+ monthId
+				+ " AND s.isActive = 1 ORDER BY c.`code` ASC, s.`name` DESC ;";
 		Query query = this.session.createSQLQuery(sql).addEntity(Student.class);
 		return query.list();
 	}
@@ -61,10 +62,11 @@ public class MixedDAO extends CoreDAO {
 	public List<Student> getStudentsHavingSelectedOnlyFee(int monthId, int feeId) {
 		String sql = "SELECT * from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId join class c on fp.classId = c.classId where f.type = "
 				+ FeeType.SELECTED_ONLY.getType()
-				+ " and fp.monthId = "
+				+ " AND fp.monthId = "
 				+ monthId
-				+ " and f.feeId = "
+				+ " AND f.feeId = "
 				+ feeId
+				+ " AND s.isActive = 1 "
 				+ " ORDER BY c.`code` ASC, s.`name` DESC ;";
 		Query query = this.session.createSQLQuery(sql).addEntity(Student.class);
 		return query.list();

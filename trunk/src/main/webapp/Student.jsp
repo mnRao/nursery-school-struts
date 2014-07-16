@@ -48,7 +48,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="students">
+								<s:iterator value="students" var="student">
 									<tr class="gradeC">
 										<td><s:property value="studentId" /></td>
 										<td><s:property value="name" /></td>
@@ -56,7 +56,7 @@
 										<td><s:property value="genderText" /></td>
 										<td><s:property value="address" /></td>
 										<td><s:property value="homePhone" /></td>
-										<td><s:property value="isActive" /></td>
+										<td><s:property value="isActiveText" /></td>
 										<td class="rightDir"
 											original-title="<s:property value="associatedClass.tooltip" />"
 										><s:url id="classUrl" action="editClasses">
@@ -72,15 +72,36 @@
 												<s:param name="studentId" value="%{studentId}" />
 											</s:url> <s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
 												<s:text name="grid.action.delete" />
-											</s:a> <s:url id="addParentUrl" action="autoSetStudentParent">
+											</s:a> 
+											
+											<s:url id="addParentUrl" action="autoSetStudentParent">
 												<s:param name="studentId" value="%{studentId}" />
-											</s:url> <s:a cssClass="btn btn-sm btn-info" href="%{addParentUrl}">
+											</s:url> 
+											<s:a cssClass="btn btn-sm btn-info" href="%{addParentUrl}">
 												<s:text name="grid.action.addParent" />
-											</s:a> <s:a href="#myModal%{studentId}" data-toggle="modal"
+											</s:a> 
+											
+											<!-- Enable / Disable student -->
+											<s:if test="%{#student.active}">
+												<s:url id="disableStudentUrl" action="disableStudent">
+													<s:param name="studentId" value="%{studentId}" />
+												</s:url> 
+												<s:a cssClass="btn btn-sm btn-danger" href="%{disableStudentUrl}"><s:text name="grid.action.disable" /></s:a> 
+											</s:if>
+											<s:else>
+												<s:url id="enableStudentUrl" action="enableStudent">
+													<s:param name="studentId" value="%{studentId}" />
+												</s:url> 
+												<s:a cssClass="btn btn-sm btn-success" href="%{enableStudentUrl}"><s:text name="grid.action.enable" /></s:a>
+											</s:else>
+											
+											<s:a href="#myModal%{studentId}" data-toggle="modal"
 												cssClass="btn btn-sm btn-success"
 											>
 												<s:text name="grid.action.showParent" />
-											</s:a> <s:div aria-hidden="true" aria-labelledby="myModalLabel"
+											</s:a> 
+											
+											<s:div aria-hidden="true" aria-labelledby="myModalLabel"
 												role="dialog" tabindex="-1" id="myModal%{studentId}"
 												cssClass="modal fade" style="display: none;"
 											>

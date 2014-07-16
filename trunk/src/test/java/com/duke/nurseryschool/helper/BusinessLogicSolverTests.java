@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test.helper;
+package com.duke.nurseryschool.helper;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,11 +8,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import com.duke.nurseryschool.BaseTestCase;
 import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.date.CurrentCalendar;
-import com.duke.nurseryschool.test.BaseTestCase;
 
 public class BusinessLogicSolverTests extends BaseTestCase {
 

@@ -206,14 +206,14 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 			if (feePolicy != null) {
 				this.studentList = new ArrayList<Student>();
 				this.studentList.addAll(feePolicy.getAssociatedClass()
-						.getStudents());
+						.getActiveStudents());
 			}
 
 			// Sort
 			Collections.sort(this.studentList, new StudentComparator());
 		}
 		else {
-			this.studentList = this.studentDAO.getStudents();
+			this.studentList = this.studentDAO.getActiveStudents();
 		}
 	}
 

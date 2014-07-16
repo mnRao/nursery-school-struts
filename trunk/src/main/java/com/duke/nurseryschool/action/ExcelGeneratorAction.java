@@ -231,7 +231,8 @@ public class ExcelGeneratorAction extends ActionSupport {
 	private void addContentToAttendanceChecklistExcelFile(
 			WritableWorkbook workbook, int sheetNumber, FeePolicy feePolicy)
 			throws IOException, WriteException, Exception {
-		Set<Student> students = feePolicy.getAssociatedClass().getStudents();
+		Set<Student> students = feePolicy.getAssociatedClass()
+				.getActiveStudents();
 		List<String> studentNames = new ArrayList<String>();
 		for (Student student : students) {
 			studentNames.add(student.getName());

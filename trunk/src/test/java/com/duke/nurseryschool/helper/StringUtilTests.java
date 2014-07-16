@@ -1,4 +1,4 @@
-package com.duke.nurseryschool.test.helper;
+package com.duke.nurseryschool.helper;
 
 import static org.junit.Assert.*;
 

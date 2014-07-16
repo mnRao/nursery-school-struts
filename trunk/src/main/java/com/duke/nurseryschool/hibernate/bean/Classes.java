@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.duke.nurseryschool.core.BeanLabel;
 import com.duke.nurseryschool.generated.I18N;
+import com.duke.nurseryschool.helper.BusinessLogicSolver;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Grade;
 import com.duke.nurseryschool.helper.Helper;
@@ -61,7 +62,8 @@ public class Classes implements BeanLabel {
 		StringBuilder label = new StringBuilder();
 		label.append(Constant.PUNCTUATION_MARK.BRACKET_CURLY_OPEN);
 		if (this.course != null) {
-			label.append(this.course.getLabel()).append(Constant.PUNCTUATION_MARK.HYPHEN);
+			label.append(this.course.getLabel()).append(
+					Constant.PUNCTUATION_MARK.HYPHEN);
 		}
 		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN);
 		if (this.grade != null) {
@@ -118,8 +120,14 @@ public class Classes implements BeanLabel {
 		this.course = course;
 	}
 
+	// CAUTION
 	public Set<Student> getStudents() {
 		return this.students;
+	}
+
+	public Set<Student> getActiveStudents() {
+		return BusinessLogicSolver.getInstance().filterActiveStudents(
+				this.students);
 	}
 
 	public void setStudents(Set<Student> students) {
