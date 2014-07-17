@@ -183,106 +183,132 @@
 					.getActionInvocation().getResultCode())%>"
 					>
 						<s:form action="saveOrUpdateStudent" cssClass="form-horizontal">
-							<fieldset>
-								<legend class="section">
-									<s:text name="form.legend" />
-								</legend>
-
-								<div class="control-group">
-									<s:fielderror />
-									<div class="col-md-2">
-										<s:label key="label.student.classId" cssClass="control-label" />
+							<s:push value="student">
+								<fieldset>
+									<legend class="section">
+										<s:text name="form.legend" />
+									</legend>
+									
+									<div class="control-group">
+										<s:fielderror />
+										<div class="col-md-2">
+											<s:label key="label.student.classId" cssClass="control-label" />
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<s:select list="classList" listKey="classId"
+													listValue="label" name="classId"
+													headerValue="%{getText('select.class')}" value="%{classId}"
+												/>
+											</div>
+										</div>
+	
+										
+											<s:hidden name="studentId" />
+											<s:hidden name="active" />
+											<div class="col-md-2">
+												<s:label key="label.student.name" cssClass="control-label" />
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<s:textfield key="label.student.name" name="name"
+														cssClass="form-control"
+													/>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<s:label key="label.student.dateOfBirth"
+													cssClass="control-label"
+												/>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<%-- 																								<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/> --%>
+													<s:textfield key="label.student.dateOfBirth"
+														name="dateOfBirth"
+														cssClass="form-control parsley-validated"
+														value="%{getText('format.date',{student.dateOfBirth})}"
+														data-type="dateIso" placeholder="%{getText('global.format.date')}"
+													/>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<s:label key="label.student.address" cssClass="control-label" />
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<s:textfield key="label.student.address" name="address"
+														cssClass="form-control"
+													/>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<s:label key="label.student.gender" cssClass="control-label" />
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<s:select name="gender" headerKey="-1"
+														list="#{0: getText('form.gender.female'), '1': getText('form.gender.male')}"
+														value="gender"
+													/>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<s:label key="label.student.homePhone"
+													cssClass="control-label"
+												/>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<s:textfield key="label.student.homePhone" name="homePhone"
+														cssClass="form-control"
+													/>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<s:label key="label.student.description"
+													cssClass="control-label"
+												/>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<s:textarea key="label.student.description"
+														name="description" cssClass="form-control"
+													/>
+												</div>
+											</div>
+										
 									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<s:select list="classList" listKey="classId"
-												listValue="label" name="classId"
-												headerValue="%{getText('select.class')}" value="%{classId}"
-											/>
-										</div>
-									</div>
+								</fieldset>
+								<div class="form-actions">
+									<div>
+										<s:submit key="form.submit" cssClass="btn btn-primary" />
 
-									<s:push value="student">
-										<s:hidden name="studentId" />
-										<div class="col-md-2">
-											<s:label key="label.student.name" cssClass="control-label" />
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:textfield key="label.student.name" name="name"
-													cssClass="form-control"
-												/>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<s:label key="label.student.dateOfBirth"
-												cssClass="control-label"
-											/>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<%-- 																								<sj:datepicker name="dateOfBirth" displayFormat="dd-MMM-yyyy"/> --%>
-												<s:textfield key="label.student.dateOfBirth"
-													name="dateOfBirth"
-													cssClass="form-control parsley-validated"
-													value="%{getText('format.date',{student.dateOfBirth})}"
-													data-type="dateIso" placeholder="%{getText('global.format.date')}"
-												/>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<s:label key="label.student.address" cssClass="control-label" />
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:textfield key="label.student.address" name="address"
-													cssClass="form-control"
-												/>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<s:label key="label.student.gender" cssClass="control-label" />
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:select name="gender" headerKey="-1"
-													list="#{0: getText('form.gender.female'), '1': getText('form.gender.male')}"
-													value="gender"
-												/>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<s:label key="label.student.homePhone"
-												cssClass="control-label"
-											/>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:textfield key="label.student.homePhone" name="homePhone"
-													cssClass="form-control"
-												/>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<s:label key="label.student.description"
-												cssClass="control-label"
-											/>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<s:textarea key="label.student.description"
-													name="description" cssClass="form-control"
-												/>
-											</div>
-										</div>
-									</s:push>
+										<!-- If is update action -->										
+										<s:if test="%{studentId != 0}">
+											<s:url id="deleteUrl" action="deleteStudent">
+												<s:param name="studentId" value="%{studentId}" />
+											</s:url>
+											<s:a cssClass="btn btn-sm btn-warning" href="%{deleteUrl}">
+												<s:text name="grid.action.delete" />
+											</s:a>
+											<!-- Enable / Disable student -->
+											<s:if test="%{active}">
+												<s:url id="disableStudentUrl" action="disableStudent">
+													<s:param name="studentId" value="%{studentId}" />
+												</s:url> 
+												<s:a cssClass="btn btn-sm btn-danger" href="%{disableStudentUrl}"><s:text name="grid.action.disable" /></s:a> 
+											</s:if>
+											<s:else>
+												<s:url id="enableStudentUrl" action="enableStudent">
+													<s:param name="studentId" value="%{studentId}" />
+												</s:url> 
+												<s:a cssClass="btn btn-sm btn-success" href="%{enableStudentUrl}"><s:text name="grid.action.enable" /></s:a>
+											</s:else>
+										</s:if>
+									</div>
 								</div>
-							</fieldset>
-							<div class="form-actions">
-								<div>
-									<s:submit key="form.submit" cssClass="btn btn-primary" />
-								</div>
-							</div>
+							</s:push>
 						</s:form>
 					</div>
 				</div>
