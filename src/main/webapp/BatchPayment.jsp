@@ -35,14 +35,15 @@
 							<div class="control-group">
 								<s:push value="payment">
 									<s:fielderror />
-
 									<s:hidden name="feePolicyId" />
-									<s:iterator value="paymentList" var="payments" status="count">
+									<s:iterator value="paymentList" var="payment" status="count">
 										<s:hidden name="paymentList[%{#count.index}].paymentId" />
 										<s:hidden
 											name="paymentList[%{#count.index}].student.studentId"
 										/>
-										<s:set var="currentStudentId" name="paymentList[%{#count.index}].paymentId"/>
+										
+<%-- 										<s:property value="#payment.student.studentId"/> --%>
+										<s:set var="currentStudentId" value="#payment.student.studentId"/>
 										<div class="col-md-2">
 											<s:url id="studentUrl"
 												action="editStudent"
