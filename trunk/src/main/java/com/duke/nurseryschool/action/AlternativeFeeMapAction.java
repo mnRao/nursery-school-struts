@@ -112,7 +112,8 @@ public class AlternativeFeeMapAction extends CoreAction implements
 			int feeId = alternativeFeeMap.getPaymentFee().getFee().getFeeId();
 
 			// If is checked then save
-			if (Arrays.asList(this.selectAlternativeFeeMap).contains(
+			if (this.selectAlternativeFeeMap != null &&
+					Arrays.asList(this.selectAlternativeFeeMap).contains(
 					Integer.toString(feeId))) {
 				this.dao.getSession().evict(
 						this.dao.getAlternativeFeeMap(this.paymentId, feeId));
