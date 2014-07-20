@@ -9,10 +9,13 @@ import com.duke.nurseryschool.action.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
 import com.duke.nurseryschool.helper.Helper;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.helper.StringUtil;
 import com.duke.nurseryschool.hibernate.bean.Classes;
+import com.duke.nurseryschool.hibernate.bean.Payment;
 import com.duke.nurseryschool.hibernate.bean.Student;
 import com.duke.nurseryschool.hibernate.dao.ClassesDAO;
+import com.duke.nurseryschool.hibernate.dao.PaymentDAO;
 import com.duke.nurseryschool.hibernate.dao.StudentDAO;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
@@ -27,6 +30,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	private List<Student> students = new ArrayList<Student>();
 	private final StudentDAO dao = new StudentDAO();
 	private final ClassesDAO classesDAO = new ClassesDAO();
+	private final PaymentDAO paymentDAO = new PaymentDAO();
 
 	private int classId;
 	private List<Classes> classList;
@@ -91,18 +95,36 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 
 	@SkipValidation
 	public String disable() {
-		this.dao.disableStudent(Integer.parseInt(this.request
-				.getParameter("studentId")));
+		int studentId = Integer
+				.parseInt(this.request.getParameter("studentId"));
+		Student student = this.dao.getStudent(studentId);
+
+		this.dao.disableStudent(studentId);
+		// Auto update payment's total fee
+		this.triggerPaymentRecalculation(student);
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	@SkipValidation
 	public String enable() {
-		this.dao.enableStudent(Integer.parseInt(this.request
-				.getParameter("studentId")));
+		int studentId = Integer
+				.parseInt(this.request.getParameter("studentId"));
+		Student student = this.dao.getStudent(studentId);
+
+		this.dao.enableStudent(studentId);
+		// Auto update payment's total fee
+		this.triggerPaymentRecalculation(student);
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
+	}
+
+	private void triggerPaymentRecalculation(Student student) {
+		this.dao.getSession().flush();
+		for (Payment payment : student.getPayments()) {
+			new PaymentTrigger(this.dao.getSession(), payment)
+					.calculateAndSetTotalFee();
+		}
 	}
 
 	@Override

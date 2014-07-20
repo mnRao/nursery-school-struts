@@ -190,8 +190,18 @@ public class BusinessLogicSolver {
 		if (!isAlternativeFeeMapNull) {
 			isAlternativeAmountNull = alternativeFeeMap.getAlternativeAmount() == null;
 		}
+
 		//
 		if (type == FeeType.ALL_EXCEPT_SELECTED) {
+			// Disabled student => 0
+			Student student = payment.getStudent();
+			if (student.getStudentId() == 81) {
+				System.out.println("sdfsdf");
+			}
+			if (!student.isActive()) {
+				return 0;
+			}
+
 			// If AlternativeFeeMap null or exists but contains no value then
 			// find in FeeMap
 			// if (isAlternativeFeeMapNull && isAlternativeAmountNull){
