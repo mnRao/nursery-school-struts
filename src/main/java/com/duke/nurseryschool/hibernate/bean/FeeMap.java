@@ -21,12 +21,10 @@ public class FeeMap implements Cloneable {
 	public FeeMap() {
 	}
 
-	protected FeeMap clone(FeePolicy newFeePolicy)
-			throws CloneNotSupportedException {
+	protected FeeMap clone(FeePolicy newFeePolicy) throws CloneNotSupportedException {
 		FeeMap newFeeMap = (FeeMap) this.clone();
 		// Point new fee policy to same inherent fee
-		newFeeMap.setFeePolicyFee(new FeePolicyFee(newFeePolicy, newFeeMap
-				.getFeePolicyFee().getFee()));
+		newFeeMap.setFeePolicyFee(new FeePolicyFee(newFeePolicy, newFeeMap.getFeePolicyFee().getFee()));
 
 		return newFeeMap;
 	}

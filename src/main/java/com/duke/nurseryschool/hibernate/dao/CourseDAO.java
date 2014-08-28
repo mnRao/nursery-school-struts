@@ -15,8 +15,7 @@ public class CourseDAO extends CoreDAO {
 	public List<Course> getCourses() {
 		List<Course> courses = new ArrayList<Course>();
 		try {
-			courses = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_COURSES).list();
+			courses = this.session.createQuery(Constant.DATABASE_QUERY.ALL_COURSES).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

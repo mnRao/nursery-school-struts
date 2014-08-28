@@ -1,10 +1,13 @@
 package com.duke.nurseryschool.helper.comparator;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import com.duke.nurseryschool.hibernate.bean.Month;
 
-public class MonthComparator implements Comparator<Month> {
+public class MonthComparator implements Comparator<Month>, Serializable {
+
+	private static final long serialVersionUID = -6825086268836763623L;
 
 	@Override
 	public int compare(Month month1, Month month2) {

@@ -1,6 +1,5 @@
 package com.duke.nurseryschool.action;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,8 +25,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class AlternativeFeeMapAction extends CoreAction implements
-		ModelDriven<AlternativeFeeMap>, Preparable {
+public class AlternativeFeeMapAction extends CoreAction implements ModelDriven<AlternativeFeeMap>, Preparable {
 
 	private static final long serialVersionUID = 9152332966087222436L;
 
@@ -55,10 +53,7 @@ public class AlternativeFeeMapAction extends CoreAction implements
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getAlternativeFeeMap(Integer.parseInt(this.request
-						.getParameter("paymentId")), Integer
-						.parseInt(this.request.getParameter("feeId"))));
+		this.dao.getSession().evict(this.dao.getAlternativeFeeMap(Integer.parseInt(this.request.getParameter("paymentId")), Integer.parseInt(this.request.getParameter("feeId"))));
 
 		Payment payment = this.paymentDAO.getPayment(this.paymentId);
 		Fee fee = this.feeDAO.getFee(this.feeId);
@@ -88,15 +83,12 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 	private void triggerPaymentRecalculation() {
 		this.dao.getSession().flush();
-		new PaymentTrigger(this.dao.getSession(),
-				this.paymentDAO.getPayment(this.paymentId))
-				.calculateAndSetTotalFee();
+		new PaymentTrigger(this.dao.getSession(), this.paymentDAO.getPayment(this.paymentId)).calculateAndSetTotalFee();
 	}
 
 	@SkipValidation
 	public String edit() {
-		this.alternativeFeeMap = this.dao.getAlternativeFeeMap(this.paymentId,
-				this.feeId);
+		this.alternativeFeeMap = this.dao.getAlternativeFeeMap(this.paymentId, this.feeId);
 		return Action.SUCCESS;
 	}
 
@@ -112,14 +104,10 @@ public class AlternativeFeeMapAction extends CoreAction implements
 			int feeId = alternativeFeeMap.getPaymentFee().getFee().getFeeId();
 
 			// If is checked then save
-			if (this.selectAlternativeFeeMap != null &&
-					Arrays.asList(this.selectAlternativeFeeMap).contains(
-					Integer.toString(feeId))) {
-				this.dao.getSession().evict(
-						this.dao.getAlternativeFeeMap(this.paymentId, feeId));
+			if (this.selectAlternativeFeeMap != null && Arrays.asList(this.selectAlternativeFeeMap).contains(Integer.toString(feeId))) {
+				this.dao.getSession().evict(this.dao.getAlternativeFeeMap(this.paymentId, feeId));
 
-				PaymentFee paymentFee = new PaymentFee(payment,
-						this.feeDAO.getFee(feeId));
+				PaymentFee paymentFee = new PaymentFee(payment, this.feeDAO.getFee(feeId));
 				alternativeFeeMap.setPaymentFee(paymentFee);
 				this.dao.saveOrUpdateAlternativeFeeMap(alternativeFeeMap);
 			}
@@ -149,38 +137,31 @@ public class AlternativeFeeMapAction extends CoreAction implements
 		while (iterator.hasNext()) {
 			Fee fee = iterator.next();
 			// Choose only fee with existing fee map
-			FeeMap feeMap = this.feeMapDAO.getFeeMap(fee.getFeeId(),
-					feePolicyId);
+			FeeMap feeMap = this.feeMapDAO.getFeeMap(fee.getFeeId(), feePolicyId);
 			if (feeMap == null) {
 				iterator.remove();
 				continue;
 			}
 
-			AlternativeFeeMap alternativeFeeMap = this.mixedDAO
-					.getAlternativeFeeMapByFeeIdAndFeePolicyId(fee.getFeeId(),
-							this.paymentId);
+			AlternativeFeeMap alternativeFeeMap = this.mixedDAO.getAlternativeFeeMapByFeeIdAndFeePolicyId(fee.getFeeId(), this.paymentId);
 			if (alternativeFeeMap == null) {
 				alternativeFeeMap = new AlternativeFeeMap();
 
 				PaymentFee paymentFee = new PaymentFee();
 				paymentFee.setFee(fee);
-				paymentFee.setPayment(this.paymentDAO
-						.getPayment(this.paymentId));
+				paymentFee.setPayment(this.paymentDAO.getPayment(this.paymentId));
 
 				alternativeFeeMap.setPaymentFee(paymentFee);
 			}
 			else {
-				selectAlternativeFeeMapList
-						.add(Integer.toString(fee.getFeeId()));
+				selectAlternativeFeeMapList.add(Integer.toString(fee.getFeeId()));
 			}
 			this.alternativeFeeMapList.add(alternativeFeeMap);
 		}
 		// Cast list to string
-		this.selectAlternativeFeeMap = new String[selectAlternativeFeeMapList
-				.size()];
+		this.selectAlternativeFeeMap = new String[selectAlternativeFeeMapList.size()];
 		for (int i = 0; i < selectAlternativeFeeMapList.size(); i++) {
-			this.selectAlternativeFeeMap[i] = selectAlternativeFeeMapList
-					.get(i);
+			this.selectAlternativeFeeMap[i] = selectAlternativeFeeMapList.get(i);
 		}
 
 		return Constant.ACTION_RESULT.BATCH_EDIT;
@@ -188,20 +169,18 @@ public class AlternativeFeeMapAction extends CoreAction implements
 
 	@Override
 	public void validate() {
-		BigDecimal alternativeAmount = this.alternativeFeeMap
-				.getAlternativeAmount();
 		if (this.feeId == 0) {
-			this.addFieldError("alternativeFeeMap.feeId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_FEEID)
-					}));
+			this.addFieldError("alternativeFeeMap.feeId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_FEEID)
+			}));
 		}
 		if (this.paymentId == 0) {
-			this.addFieldError("alternativeFeeMap.paymentId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_PAYMENTID)
-					}));
+			this.addFieldError("alternativeFeeMap.paymentId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_ALTERNATIVEFEEMAP_PAYMENTID)
+			}));
 		}
+		// BigDecimal alternativeAmount = this.alternativeFeeMap
+		// .getAlternativeAmount();
 		// if (alternativeAmount != null && alternativeAmount.doubleValue() < 0)
 		// {
 		// this.addFieldError(
@@ -298,8 +277,7 @@ public class AlternativeFeeMapAction extends CoreAction implements
 		return this.alternativeFeeMapList;
 	}
 
-	public void setAlternativeFeeMapList(
-			List<AlternativeFeeMap> alternativeFeeMapList) {
+	public void setAlternativeFeeMapList(List<AlternativeFeeMap> alternativeFeeMapList) {
 		this.alternativeFeeMapList = alternativeFeeMapList;
 	}
 

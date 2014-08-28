@@ -27,14 +27,12 @@ public class SessionFactoryRule implements MethodRule {
 	private Session session;
 
 	@Override
-	public Statement apply(final Statement statement, FrameworkMethod method,
-			Object test) {
+	public Statement apply(final Statement statement, FrameworkMethod method, Object test) {
 		return new Statement() {
 
 			@Override
 			public void evaluate() throws Throwable {
-				SessionFactoryRule.this.sessionFactory = SessionFactoryRule.this
-						.createSessionFactory();
+				SessionFactoryRule.this.sessionFactory = SessionFactoryRule.this.createSessionFactory();
 				SessionFactoryRule.this.createSession();
 				SessionFactoryRule.this.beginTransaction();
 				try {
@@ -72,23 +70,14 @@ public class SessionFactoryRule implements MethodRule {
 	private SessionFactory createSessionFactory() {
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 		// Includes all beans
-		configuration.addAnnotatedClass(Classes.class)
-				.addAnnotatedClass(Course.class).addAnnotatedClass(Fee.class)
-				.addAnnotatedClass(FeeGroup.class)
-				.addAnnotatedClass(FeeMap.class)
-				.addAnnotatedClass(FeePolicy.class)
-				.addAnnotatedClass(Month.class).addAnnotatedClass(Parent.class)
-				.addAnnotatedClass(Payment.class)
-				.addAnnotatedClass(Student.class)
+		configuration.addAnnotatedClass(Classes.class).addAnnotatedClass(Course.class).addAnnotatedClass(Fee.class).addAnnotatedClass(FeeGroup.class).addAnnotatedClass(FeeMap.class)
+				.addAnnotatedClass(FeePolicy.class).addAnnotatedClass(Month.class).addAnnotatedClass(Parent.class).addAnnotatedClass(Payment.class).addAnnotatedClass(Student.class)
 				.addAnnotatedClass(AlternativeFeeMap.class);
 		// H2 memory database for testing
-		configuration.setProperty("hibernate.dialect",
-				"org.hibernate.dialect.H2Dialect");
-		configuration.setProperty("hibernate.connection.driver_class",
-				"org.h2.Driver");
+		configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+		configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
 		// configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem");
-		configuration.setProperty("hibernate.connection.url",
-				"jdbc:h2:mem:demoDB");
+		configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem:demoDB");
 		configuration.setProperty("hibernate.hbm2ddl.auto", "update");
 		configuration.setProperty("show_sql", "true");
 

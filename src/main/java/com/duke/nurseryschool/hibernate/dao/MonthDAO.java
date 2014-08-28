@@ -17,8 +17,7 @@ public class MonthDAO extends CoreDAO {
 	public List<Month> getMonths() {
 		List<Month> months = new ArrayList<Month>();
 		try {
-			months = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_MONTHS).list();
+			months = this.session.createQuery(Constant.DATABASE_QUERY.ALL_MONTHS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

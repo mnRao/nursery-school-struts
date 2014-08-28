@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import com.duke.nurseryschool.action.core.CoreAction;
 import com.duke.nurseryschool.generated.I18N;
 import com.duke.nurseryschool.helper.Constant;
+import com.duke.nurseryschool.helper.PaymentTrigger;
 import com.duke.nurseryschool.helper.comparator.StudentComparator;
 import com.duke.nurseryschool.hibernate.bean.FeePolicy;
 import com.duke.nurseryschool.hibernate.bean.Payment;
@@ -21,8 +22,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
-		Preparable {
+public class PaymentAction extends CoreAction implements ModelDriven<Payment>, Preparable {
 	private static final long serialVersionUID = 8722338141340223665L;
 
 	private Payment payment = new Payment();
@@ -46,9 +46,7 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getPayment(Integer.parseInt(this.request
-						.getParameter("paymentId"))));
+		this.dao.getSession().evict(this.dao.getPayment(Integer.parseInt(this.request.getParameter("paymentId"))));
 
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		Student student = this.studentDAO.getStudent(this.studentId);
@@ -63,9 +61,7 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 	public String batchSaveOrUpdate() {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		for (Payment payment : this.paymentList) {
-			this.dao.getSession().evict(
-					this.dao.getPayment(payment.getPaymentId()));
-
+			this.dao.getSession().evict(this.dao.getPayment(payment.getPaymentId()));
 			payment.setFeePolicy(feePolicy);
 			this.dao.saveOrUpdatePayment(payment);
 		}
@@ -80,8 +76,7 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deletePayment(Integer
-				.parseInt(this.request.getParameter("paymentId")));
+		boolean isDeleted = this.dao.deletePayment(Integer.parseInt(this.request.getParameter("paymentId")));
 
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
@@ -96,8 +91,7 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 
 	@SkipValidation
 	public String edit() {
-		this.payment = this.dao.getPayment(Integer.parseInt(this.request
-				.getParameter("paymentId")));
+		this.payment = this.dao.getPayment(Integer.parseInt(this.request.getParameter("paymentId")));
 		this.feePolicyId = this.payment.getFeePolicy().getFeePolicyId();
 		this.studentId = this.payment.getStudent().getStudentId();
 
@@ -120,14 +114,11 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 		// For each student, check whether already created Payment
 		// If not yet then create
 		for (Student student : this.studentList) {
-			Payment payment = this.mixedDAO
-					.getPaymentByStudentIdAndFeePolicyId(
-							student.getStudentId(), this.feePolicyId);
+			Payment payment = this.mixedDAO.getPaymentByStudentIdAndFeePolicyId(student.getStudentId(), this.feePolicyId);
 			if (payment == null) {
 				payment = new Payment();
 				payment.setStudent(student);
-				payment.setFeePolicy(this.feePolicyDAO
-						.getFeePolicy(this.feePolicyId));
+				payment.setFeePolicy(this.feePolicyDAO.getFeePolicy(this.feePolicyId));
 			}
 			this.paymentList.add(payment);
 		}
@@ -138,26 +129,21 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 	@Override
 	public void validate() {
 		if (this.studentId == 0) {
-			this.addFieldError("payment.studentId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_PAYMENT_STUDENTID)
-					}));
+			this.addFieldError("payment.studentId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_PAYMENT_STUDENTID)
+			}));
 		}
 		if (this.feePolicyId == 0) {
-			this.addFieldError("payment.feePolicyId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_PAYMENT_FEEPOLICYID)
-					}));
+			this.addFieldError("payment.feePolicyId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_PAYMENT_FEEPOLICYID)
+			}));
 		}
 		if (this.payment.getAbsenceCount() < 0) {
-			this.addFieldError("payment.absenceCount",
-					this.getText(I18N.ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT));
+			this.addFieldError("payment.absenceCount", this.getText(I18N.ERROR_CONSTRAINT_PAYMENT_ABSENCECOUNT));
 		}
 		// Check for uniqueness
-		if (this.dao.hasDuplicates(this.payment.getPaymentId(), this.studentId,
-				this.feePolicyId)) {
-			this.addFieldError("payment.studentId",
-					this.getText(I18N.ERROR_DUPLICATION_PAYMENT));
+		if (this.dao.hasDuplicates(this.payment.getPaymentId(), this.studentId, this.feePolicyId)) {
+			this.addFieldError("payment.studentId", this.getText(I18N.ERROR_DUPLICATION_PAYMENT));
 		}
 
 		super.validate();
@@ -201,12 +187,10 @@ public class PaymentAction extends CoreAction implements ModelDriven<Payment>,
 
 	private void populateStudentList() {
 		if (this.feePolicyId != 0) {
-			FeePolicy feePolicy = this.feePolicyDAO
-					.getFeePolicy(this.feePolicyId);
+			FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 			if (feePolicy != null) {
 				this.studentList = new ArrayList<Student>();
-				this.studentList.addAll(feePolicy.getAssociatedClass()
-						.getActiveStudents());
+				this.studentList.addAll(feePolicy.getAssociatedClass().getActiveStudents());
 			}
 
 			// Sort

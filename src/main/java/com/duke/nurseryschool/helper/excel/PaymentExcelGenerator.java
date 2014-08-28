@@ -167,6 +167,11 @@ public class PaymentExcelGenerator extends ExcelManager {
 		int count = 1;
 		int row = CONTENT_START_ROW;
 		for (Payment payment : this.payments) {
+			// Skip if student is disabled
+			if (!payment.getStudent().isActive()) {
+				continue;
+			}
+
 			this.addNumber(sheet, 0, row, count);
 			this.addLabel(sheet, 1, row, payment.getStudent().getName());
 			this.addNumber(sheet, 2, row, payment.getAbsenceCount());

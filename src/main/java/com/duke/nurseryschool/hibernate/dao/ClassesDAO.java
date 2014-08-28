@@ -19,15 +19,13 @@ public class ClassesDAO extends CoreDAO {
 	public List<Classes> getClasses() {
 		List<Classes> classes = new ArrayList<Classes>();
 		try {
-			classes = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_CLASSES).list();
+			classes = this.session.createQuery(Constant.DATABASE_QUERY.ALL_CLASSES).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		for (Classes singleClass : classes) {
-			boolean needsAlternativeGrade = this
-					.needsAlternativeGrade(singleClass);
+			boolean needsAlternativeGrade = this.needsAlternativeGrade(singleClass);
 			if (needsAlternativeGrade) {
 				this.saveOrUpdateClasses(singleClass);
 			}
@@ -42,8 +40,7 @@ public class ClassesDAO extends CoreDAO {
 	public Classes getClasses(int classesId) {
 		Classes classes = null;
 		try {
-			classes = (Classes) this.session.get(Classes.class,
-					Integer.valueOf(classesId));
+			classes = (Classes) this.session.get(Classes.class, Integer.valueOf(classesId));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -80,8 +77,7 @@ public class ClassesDAO extends CoreDAO {
 		if (classes.getCourse() != null) {
 			int startYear = classes.getCourse().getStartYear();
 			int endYear = classes.getCourse().getEndYear();
-			calculatedGrade = BusinessLogicSolver.getInstance().calculateGrade(
-					startYear, endYear);
+			calculatedGrade = BusinessLogicSolver.getInstance().calculateGrade(startYear, endYear);
 		}
 
 		classes.setGrade(calculatedGrade);
@@ -94,8 +90,7 @@ public class ClassesDAO extends CoreDAO {
 
 	public boolean deleteClasses(int classesId) {
 		try {
-			Classes classes = (Classes) this.session.get(Classes.class,
-					classesId);
+			Classes classes = (Classes) this.session.get(Classes.class, classesId);
 			this.session.delete(classes);
 			this.session.flush();
 		}

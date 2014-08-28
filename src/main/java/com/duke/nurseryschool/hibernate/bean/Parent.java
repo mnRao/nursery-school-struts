@@ -44,9 +44,7 @@ public class Parent implements BeanLabel {
 
 	@Override
 	public String getLabel() {
-		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.name
-				+ Constant.PUNCTUATION_MARK.HYPHEN + this.job
-				+ Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
+		return Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN + this.name + Constant.PUNCTUATION_MARK.HYPHEN + this.job + Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE;
 	}
 
 	@Override
@@ -54,10 +52,8 @@ public class Parent implements BeanLabel {
 		return this.getLabel();
 	}
 
-	public String getGenderText() throws InstantiationException,
-			IllegalAccessException {
-		return BusinessLogicSolver.getInstance().calculateGenderText(
-				this.gender);
+	public String getGenderText() throws InstantiationException, IllegalAccessException {
+		return BusinessLogicSolver.getInstance().calculateGenderText(this.gender);
 	}
 
 	public int getParentId() {

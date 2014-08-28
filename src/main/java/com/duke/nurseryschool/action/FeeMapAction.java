@@ -24,8 +24,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
-		Preparable {
+public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>, Preparable {
 
 	private static final long serialVersionUID = 4032871480596984037L;
 
@@ -52,10 +51,7 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getFeeMap(Integer.parseInt(this.request
-						.getParameter("feeId")), Integer.parseInt(this.request
-						.getParameter("feePolicyId"))));
+		this.dao.getSession().evict(this.dao.getFeeMap(Integer.parseInt(this.request.getParameter("feeId")), Integer.parseInt(this.request.getParameter("feePolicyId"))));
 
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
 		Fee fee = this.feeDAO.getFee(this.feeId);
@@ -101,13 +97,10 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 			int feeId = feeMap.getFeePolicyFee().getFee().getFeeId();
 
 			// If is checked then save
-			if (Arrays.asList(this.selectFeeMap).contains(
-					Integer.toString(feeId))) {
-				this.dao.getSession().evict(
-						this.dao.getFeeMap(feeId, this.feePolicyId));
+			if (Arrays.asList(this.selectFeeMap).contains(Integer.toString(feeId))) {
+				this.dao.getSession().evict(this.dao.getFeeMap(feeId, this.feePolicyId));
 
-				FeePolicyFee feePolicyFee = new FeePolicyFee(feePolicy,
-						this.feeDAO.getFee(feeId));
+				FeePolicyFee feePolicyFee = new FeePolicyFee(feePolicy, this.feeDAO.getFee(feeId));
 				feeMap.setFeePolicyFee(feePolicyFee);
 				this.dao.saveOrUpdateFeeMap(feeMap);
 			}
@@ -129,15 +122,13 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 
 		// For each fee, check whether already created fee map
 		for (Fee fee : this.feeList) {
-			FeeMap feeMap = this.mixedDAO.getFeeMapByFeeIdAndFeePolicyId(
-					fee.getFeeId(), this.feePolicyId);
+			FeeMap feeMap = this.mixedDAO.getFeeMapByFeeIdAndFeePolicyId(fee.getFeeId(), this.feePolicyId);
 			if (feeMap == null) {
 				feeMap = new FeeMap();
 
 				FeePolicyFee feePolicyFee = new FeePolicyFee();
 				feePolicyFee.setFee(fee);
-				feePolicyFee.setFeePolicy(this.feePolicyDAO
-						.getFeePolicy(this.feePolicyId));
+				feePolicyFee.setFeePolicy(this.feePolicyDAO.getFeePolicy(this.feePolicyId));
 
 				feeMap.setFeePolicyFee(feePolicyFee);
 			}
@@ -151,26 +142,22 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	public void validate() {
 		BigDecimal amount = this.feeMap.getAmount();
 		if (this.feeId == 0) {
-			this.addFieldError("feeMap.feeId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_FEEMAP_FEEID)
-					}));
+			this.addFieldError("feeMap.feeId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_FEEMAP_FEEID)
+			}));
 		}
 		if (this.feePolicyId == 0) {
-			this.addFieldError("feeMap.feePolicyId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_FEEMAP_FEEPOLICYID)
-					}));
+			this.addFieldError("feeMap.feePolicyId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_FEEMAP_FEEPOLICYID)
+			}));
 		}
 		if (amount == null) {
-			this.addFieldError("feeMap.amount",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_FEEMAP_AMOUNT)
-					}));
+			this.addFieldError("feeMap.amount", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_FEEMAP_AMOUNT)
+			}));
 		}
 		if (amount != null && amount.doubleValue() < 0) {
-			this.addFieldError("feeMap.amount",
-					this.getText(I18N.ERROR_CONSTRAINT_FEEMAP_AMOUNT));
+			this.addFieldError("feeMap.amount", this.getText(I18N.ERROR_CONSTRAINT_FEEMAP_AMOUNT));
 		}
 
 		super.validate();
@@ -205,15 +192,11 @@ public class FeeMapAction extends CoreAction implements ModelDriven<FeeMap>,
 	private void triggerPaymentRecalculation() {
 		this.dao.getSession().flush();
 		// Load all payments for this fee policy
-		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(
-				this.dao.getSession(), this.feePolicyId);
+		List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(this.dao.getSession(), this.feePolicyId);
 		if (relatedPayments != null && relatedPayments.size() > 0) {
 			// Set total fee save
-			if (relatedPayments != null) {
-				for (Payment payment : relatedPayments) {
-					new PaymentTrigger(this.dao.getSession(), payment)
-							.calculateAndSetTotalFee();
-				}
+			for (Payment payment : relatedPayments) {
+				new PaymentTrigger(this.dao.getSession(), payment).calculateAndSetTotalFee();
 			}
 		}
 	}

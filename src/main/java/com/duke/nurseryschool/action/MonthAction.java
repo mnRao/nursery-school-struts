@@ -14,8 +14,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class MonthAction extends CoreAction implements ModelDriven<Month>,
-		Preparable {
+public class MonthAction extends CoreAction implements ModelDriven<Month>, Preparable {
 
 	private static final long serialVersionUID = -6627850634722739973L;
 
@@ -29,9 +28,7 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getMonth(Integer.parseInt(this.request
-						.getParameter("monthId"))));
+		this.dao.getSession().evict(this.dao.getMonth(Integer.parseInt(this.request.getParameter("monthId"))));
 
 		this.dao.saveOrUpdateMonth(this.month);
 
@@ -46,8 +43,7 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteMonth(Integer.parseInt(this.request
-				.getParameter("monthId")));
+		boolean isDeleted = this.dao.deleteMonth(Integer.parseInt(this.request.getParameter("monthId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -61,8 +57,7 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 
 	@SkipValidation
 	public String edit() {
-		this.month = this.dao.getMonth(Integer.parseInt(this.request
-				.getParameter("monthId")));
+		this.month = this.dao.getMonth(Integer.parseInt(this.request.getParameter("monthId")));
 		// Load all
 		return Action.SUCCESS;
 	}
@@ -70,18 +65,14 @@ public class MonthAction extends CoreAction implements ModelDriven<Month>,
 	@Override
 	public void validate() {
 		if (this.month.getMonthName() > 12 || this.month.getMonthName() < 1) {
-			this.addFieldError("month.monthName",
-					this.getText(I18N.ERROR_CONSTRAINT_MONTH_MONTHNAME));
+			this.addFieldError("month.monthName", this.getText(I18N.ERROR_CONSTRAINT_MONTH_MONTHNAME));
 		}
 		if (this.month.getYear() <= 0) {
-			this.addFieldError("month.year",
-					this.getText(I18N.ERROR_CONSTRAINT_MONTH_YEAR));
+			this.addFieldError("month.year", this.getText(I18N.ERROR_CONSTRAINT_MONTH_YEAR));
 		}
 		// Check for uniqueness
-		if (this.dao.hasDuplicates(this.month.getMonthId(),
-				this.month.getMonthName(), this.month.getYear())) {
-			this.addFieldError("month.monthName",
-					this.getText(I18N.ERROR_DUPLICATION_MONTH));
+		if (this.dao.hasDuplicates(this.month.getMonthId(), this.month.getMonthName(), this.month.getYear())) {
+			this.addFieldError("month.monthName", this.getText(I18N.ERROR_DUPLICATION_MONTH));
 		}
 
 		super.validate();

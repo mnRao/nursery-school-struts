@@ -21,8 +21,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class StudentAction extends CoreAction implements ModelDriven<Student>,
-		Preparable {
+public class StudentAction extends CoreAction implements ModelDriven<Student>, Preparable {
 
 	private static final long serialVersionUID = -3023527426370035860L;
 
@@ -41,9 +40,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getStudent(Integer.parseInt(this.request
-						.getParameter("studentId"))));
+		this.dao.getSession().evict(this.dao.getStudent(Integer.parseInt(this.request.getParameter("studentId"))));
 
 		// Set class based on ID
 		Classes associatedClass = this.classesDAO.getClasses(this.classId);
@@ -57,13 +54,15 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 
 	@SkipValidation
 	public String list() {
+		// Set new student as active
+		this.student.setActive(true);
+
 		return Action.SUCCESS;
 	}
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteStudent(Integer
-				.parseInt(this.request.getParameter("studentId")));
+		boolean isDeleted = this.dao.deleteStudent(Integer.parseInt(this.request.getParameter("studentId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -77,17 +76,14 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 
 	@SkipValidation
 	public String deleteParentMap() {
-		this.dao.deleteParentMap(
-				Integer.parseInt(this.request.getParameter("studentId")),
-				Integer.parseInt(this.request.getParameter("parentId")));
+		this.dao.deleteParentMap(Integer.parseInt(this.request.getParameter("studentId")), Integer.parseInt(this.request.getParameter("parentId")));
 
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	@SkipValidation
 	public String edit() {
-		this.student = this.dao.getStudent(Integer.parseInt(this.request
-				.getParameter("studentId")));
+		this.student = this.dao.getStudent(Integer.parseInt(this.request.getParameter("studentId")));
 		this.classId = this.student.getAssociatedClass().getClassId();
 
 		return Action.SUCCESS;
@@ -95,8 +91,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 
 	@SkipValidation
 	public String disable() {
-		int studentId = Integer
-				.parseInt(this.request.getParameter("studentId"));
+		int studentId = Integer.parseInt(this.request.getParameter("studentId"));
 		Student student = this.dao.getStudent(studentId);
 
 		this.dao.disableStudent(studentId);
@@ -108,8 +103,7 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 
 	@SkipValidation
 	public String enable() {
-		int studentId = Integer
-				.parseInt(this.request.getParameter("studentId"));
+		int studentId = Integer.parseInt(this.request.getParameter("studentId"));
 		Student student = this.dao.getStudent(studentId);
 
 		this.dao.enableStudent(studentId);
@@ -122,30 +116,24 @@ public class StudentAction extends CoreAction implements ModelDriven<Student>,
 	private void triggerPaymentRecalculation(Student student) {
 		this.dao.getSession().flush();
 		for (Payment payment : student.getPayments()) {
-			new PaymentTrigger(this.dao.getSession(), payment)
-					.calculateAndSetTotalFee();
+			new PaymentTrigger(this.dao.getSession(), payment).calculateAndSetTotalFee();
 		}
 	}
 
 	@Override
 	public void validate() {
 		if (this.classId == 0) {
-			this.addFieldError("student.classId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_STUDENT_CLASSID)
-					}));
+			this.addFieldError("student.classId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_STUDENT_CLASSID)
+			}));
 		}
 		if (StringUtil.isEmpty(this.student.getName().trim())) {
-			this.addFieldError("student.name",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_STUDENT_NAME)
-					}));
+			this.addFieldError("student.name", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_STUDENT_NAME)
+			}));
 		}
-		if (this.student.getDateOfBirth() != null
-				&& (this.student.getDateOfBirth().getYear() + 1900) >= Helper
-						.calculateCurrentYear()) {
-			this.addFieldError("student.dateOfBirth",
-					this.getText(I18N.ERROR_CONSTRAINT_STUDENT_DATEOFBIRTH));
+		if (this.student.getDateOfBirth() != null && (this.student.getDateOfBirth().getYear() + 1900) >= Helper.calculateCurrentYear()) {
+			this.addFieldError("student.dateOfBirth", this.getText(I18N.ERROR_CONSTRAINT_STUDENT_DATEOFBIRTH));
 		}
 
 		super.validate();

@@ -54,9 +54,7 @@ public class ExcelGeneratorAction extends ActionSupport {
 	/* Single sheet for the specified fee policy */
 	public String singlePolicy() throws Exception {
 		FeePolicy feePolicy = this.feePolicyDAO.getFeePolicy(this.feePolicyId);
-		File tempFile = this.createTemporaryFile(this
-				.generatePaymentExcelFilePrefix(this
-						.generateMonthLabel(feePolicy.getMonth())));
+		File tempFile = this.createTemporaryFile(this.generatePaymentExcelFilePrefix(this.generateMonthLabel(feePolicy.getMonth())));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		this.addContentToPaymentExcelFile(feePolicy, workbook, 0);
 
@@ -72,12 +70,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 	public String singleBreakfast() throws Exception {
 		Month month = this.monthDAO.getMonth(this.monthId);
-		File tempFile = this.createTemporaryFile(this
-				.generateBreakfastExcelFilePrefix(this
-						.generateMonthLabel(month)));
+		File tempFile = this.createTemporaryFile(this.generateBreakfastExcelFilePrefix(this.generateMonthLabel(month)));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
-		this.addContentToBreakfastExcelFile(workbook, 0, month,
-				this.mixedDAO.getStudentsHavingBreakfast(this.monthId));
+		this.addContentToBreakfastExcelFile(workbook, 0, month, this.mixedDAO.getStudentsHavingBreakfast(this.monthId));
 		this.closeWorkbook(workbook);
 		// Configure for download
 		this.configureFileForDownload(tempFile);
@@ -93,15 +88,12 @@ public class ExcelGeneratorAction extends ActionSupport {
 			throw new Exception(this.getText(I18N.ERROR_NO_FEEPOLICY_APPLIED));
 		}
 
-		File tempFile = this.createTemporaryFile(this
-				.generateAttendanceChecklistExcelFilePrefix(this
-						.generateMonthLabel(month)));
+		File tempFile = this.createTemporaryFile(this.generateAttendanceChecklistExcelFilePrefix(this.generateMonthLabel(month)));
 		int sheetNumber = 0;
 		// Initialize work book the very first time
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		for (FeePolicy feePolicy : feePolicies) {
-			this.addContentToAttendanceChecklistExcelFile(workbook,
-					sheetNumber, feePolicy);
+			this.addContentToAttendanceChecklistExcelFile(workbook, sheetNumber, feePolicy);
 			sheetNumber++;
 		}
 
@@ -114,19 +106,13 @@ public class ExcelGeneratorAction extends ActionSupport {
 
 	public String allSelectedOnlyFee() throws Exception {
 		Month month = this.monthDAO.getMonth(this.monthId);
-		File tempFile = this.createTemporaryFile(this
-				.generateSelectedOnlyExcelFilePrefix(this
-						.generateMonthLabel(month)));
+		File tempFile = this.createTemporaryFile(this.generateSelectedOnlyExcelFilePrefix(this.generateMonthLabel(month)));
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		int sheetNumber = 0;
-		List<Fee> selectedOnlyFees = this.mixedDAO
-				.getFeeByType(FeeType.SELECTED_ONLY);
+		List<Fee> selectedOnlyFees = this.mixedDAO.getFeeByType(FeeType.SELECTED_ONLY);
 		for (Fee fee : selectedOnlyFees) {
-			List<Student> students = this.mixedDAO
-					.getStudentsHavingSelectedOnlyFee(this.monthId,
-							fee.getFeeId());
-			this.addContentToSelectedOnlyFeeExcelFile(workbook, sheetNumber,
-					month, fee.getName(), students);
+			List<Student> students = this.mixedDAO.getStudentsHavingSelectedOnlyFee(this.monthId, fee.getFeeId());
+			this.addContentToSelectedOnlyFeeExcelFile(workbook, sheetNumber, month, fee.getName(), students);
 			sheetNumber++;
 		}
 		// Prevent IndexOutOfBound exception: sheets without content been
@@ -148,28 +134,23 @@ public class ExcelGeneratorAction extends ActionSupport {
 			throw new Exception(this.getText(I18N.ERROR_NO_FEEPOLICY_APPLIED));
 		}
 
-		File tempFile = this
-				.createTemporaryFile(this.generatePaymentExcelFilePrefix(this
-						.generateMonthLabel(month)));
+		File tempFile = this.createTemporaryFile(this.generatePaymentExcelFilePrefix(this.generateMonthLabel(month)));
 		int sheetNumber = 0;
 		StatisticsBean statisticsBean = new StatisticsBean(month);
 		// Initialize work book the very first time
 		WritableWorkbook workbook = Workbook.createWorkbook(tempFile);
 		for (FeePolicy feePolicy : feePolicies) {
-			BigDecimal totalFeeForClass = this.addContentToPaymentExcelFile(
-					feePolicy, workbook, sheetNumber);
+			BigDecimal totalFeeForClass = this.addContentToPaymentExcelFile(feePolicy, workbook, sheetNumber);
 
 			if (this.hasActionErrors())
 				return Constant.ACTION_RESULT.MESSAGE;
 
-			statisticsBean.addTotalFee(feePolicy.getAssociatedClass(),
-					totalFeeForClass);
+			statisticsBean.addTotalFee(feePolicy.getAssociatedClass(), totalFeeForClass);
 			sheetNumber++;
 		}
 
 		// Last sheet - Statistics
-		this.addStatisticContentToPaymentExcelFile(statisticsBean, workbook,
-				sheetNumber);
+		this.addStatisticContentToPaymentExcelFile(statisticsBean, workbook, sheetNumber);
 
 		this.closeWorkbook(workbook);
 		this.configureFileForDownload(tempFile);
@@ -177,20 +158,16 @@ public class ExcelGeneratorAction extends ActionSupport {
 		return Action.SUCCESS;
 	}
 
-	private void closeWorkbook(WritableWorkbook workbook) throws IOException,
-			WriteException {
+	private void closeWorkbook(WritableWorkbook workbook) throws IOException, WriteException {
 		if (workbook != null) {
 			workbook.write();
 			workbook.close();
 		}
 	}
 
-	private void addStatisticContentToPaymentExcelFile(
-			StatisticsBean statisticsBean, WritableWorkbook workbook,
-			int sheetNumber) throws Exception {
+	private void addStatisticContentToPaymentExcelFile(StatisticsBean statisticsBean, WritableWorkbook workbook, int sheetNumber) throws Exception {
 		try {
-			StatisticsExcelGenerator excelGenerator = new StatisticsExcelGenerator(
-					workbook, statisticsBean);
+			StatisticsExcelGenerator excelGenerator = new StatisticsExcelGenerator(workbook, statisticsBean);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
@@ -199,12 +176,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
-	private BigDecimal addContentToPaymentExcelFile(FeePolicy feePolicy,
-			WritableWorkbook workbook, int sheetNumber) throws IOException,
-			WriteException, Exception {
+	private BigDecimal addContentToPaymentExcelFile(FeePolicy feePolicy, WritableWorkbook workbook, int sheetNumber) throws IOException, WriteException, Exception {
 		try {
-			PaymentExcelGenerator excelGenerator = new PaymentExcelGenerator(
-					workbook, feePolicy);
+			PaymentExcelGenerator excelGenerator = new PaymentExcelGenerator(workbook, feePolicy);
 			return excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
@@ -214,12 +188,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
-	private void addContentToBreakfastExcelFile(WritableWorkbook workbook,
-			int sheetNumber, Month month, List<Student> students)
-			throws IOException, WriteException, Exception {
+	private void addContentToBreakfastExcelFile(WritableWorkbook workbook, int sheetNumber, Month month, List<Student> students) throws IOException, WriteException, Exception {
 		try {
-			StudentHasBreakfastExcelGenerator excelGenerator = new StudentHasBreakfastExcelGenerator(
-					workbook, month, students);
+			StudentHasBreakfastExcelGenerator excelGenerator = new StudentHasBreakfastExcelGenerator(workbook, month, students);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
@@ -228,19 +199,15 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
-	private void addContentToAttendanceChecklistExcelFile(
-			WritableWorkbook workbook, int sheetNumber, FeePolicy feePolicy)
-			throws IOException, WriteException, Exception {
-		Set<Student> students = feePolicy.getAssociatedClass()
-				.getActiveStudents();
+	private void addContentToAttendanceChecklistExcelFile(WritableWorkbook workbook, int sheetNumber, FeePolicy feePolicy) throws IOException, WriteException, Exception {
+		Set<Student> students = feePolicy.getAssociatedClass().getActiveStudents();
 		List<String> studentNames = new ArrayList<String>();
 		for (Student student : students) {
 			studentNames.add(student.getName());
 		}
 
 		try {
-			AttendanceChecklistExcelGenerator excelGenerator = new AttendanceChecklistExcelGenerator(
-					workbook, feePolicy, studentNames);
+			AttendanceChecklistExcelGenerator excelGenerator = new AttendanceChecklistExcelGenerator(workbook, feePolicy, studentNames);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
@@ -249,13 +216,9 @@ public class ExcelGeneratorAction extends ActionSupport {
 		}
 	}
 
-	private void addContentToSelectedOnlyFeeExcelFile(
-			WritableWorkbook workbook, int sheetNumber, Month month,
-			String feeName, List<Student> students) throws IOException,
-			WriteException, Exception {
+	private void addContentToSelectedOnlyFeeExcelFile(WritableWorkbook workbook, int sheetNumber, Month month, String feeName, List<Student> students) throws IOException, WriteException, Exception {
 		try {
-			StudentHasSelectedOnlyFeeExcelGenerator excelGenerator = new StudentHasSelectedOnlyFeeExcelGenerator(
-					workbook, month, feeName, students);
+			StudentHasSelectedOnlyFeeExcelGenerator excelGenerator = new StudentHasSelectedOnlyFeeExcelGenerator(workbook, month, feeName, students);
 			excelGenerator.addContent(sheetNumber);
 		}
 		catch (IllegalStateException e) {
@@ -271,42 +234,30 @@ public class ExcelGeneratorAction extends ActionSupport {
 		return tempFile;
 	}
 
-	private void configureFileForDownload(File tempFile)
-			throws FileNotFoundException, UnsupportedEncodingException {
+	private void configureFileForDownload(File tempFile) throws FileNotFoundException, UnsupportedEncodingException {
 		this.fileInputStream = new FileInputStream(tempFile);
 		// Encode file name in UTF-8
 		this.fileName = URLEncoder.encode(tempFile.getName(), "UTF-8");
 	}
 
 	private String generatePaymentExcelFilePrefix(String monthLabel) {
-		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE) + Constant.SPACE
-				+ monthLabel + Constant.PUNCTUATION_MARK.HYPHEN
-				+ System.currentTimeMillis();
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE) + Constant.SPACE + monthLabel + Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
 	private String generateBreakfastExcelFilePrefix(String monthLabel) {
-		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST)
-				+ Constant.SPACE + monthLabel
-				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASBREAKFAST) + Constant.SPACE + monthLabel + Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
 	private String generateAttendanceChecklistExcelFilePrefix(String monthLabel) {
-		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_ATTENDANCECHECKLIST)
-				+ Constant.SPACE + monthLabel
-				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_ATTENDANCECHECKLIST) + Constant.SPACE + monthLabel + Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
 	private String generateSelectedOnlyExcelFilePrefix(String monthLabel) {
-		return Helper
-				.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE)
-				+ Constant.SPACE
-				+ monthLabel
-				+ Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
+		return Helper.getI18N(I18N.EXCEL_FILE_PREFIX_TITLE_STUDENTHASSELECTEDONLYFEE) + Constant.SPACE + monthLabel + Constant.PUNCTUATION_MARK.HYPHEN + System.currentTimeMillis();
 	}
 
 	private String generateMonthLabel(Month month) {
-		return month.getYear() + Constant.PUNCTUATION_MARK.HYPHEN
-				+ month.getMonthName();
+		return month.getYear() + Constant.PUNCTUATION_MARK.HYPHEN + month.getMonthName();
 	}
 
 	public InputStream getFileInputStream() {

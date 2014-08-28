@@ -18,8 +18,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
-		Preparable {
+public class ClassesAction extends CoreAction implements ModelDriven<Classes>, Preparable {
 
 	private static final long serialVersionUID = 8744171277878043481L;
 
@@ -41,12 +40,9 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 		// 1st solution: this.dao.getSession().clear();
 		// => clear all in session
 		// 2nd solution: evict() the previous one in session
-		this.dao.getSession().evict(
-				this.dao.getClasses(Integer.parseInt(this.request
-						.getParameter("classId"))));
+		this.dao.getSession().evict(this.dao.getClasses(Integer.parseInt(this.request.getParameter("classId"))));
 		// Save course based on ID
-		Course course = this.courseDAO
-				.getCourse(Integer.valueOf(this.courseId));
+		Course course = this.courseDAO.getCourse(Integer.valueOf(this.courseId));
 		this.classes.setCourse(course);
 
 		this.dao.saveOrUpdateClasses(this.classes);
@@ -63,8 +59,7 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteClasses(Integer
-				.parseInt(this.request.getParameter("classId")));
+		boolean isDeleted = this.dao.deleteClasses(Integer.parseInt(this.request.getParameter("classId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -77,15 +72,13 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 
 	@SkipValidation
 	public String deleteFeePolicyMap() {
-		this.feePolicyDAO.deleteFeePolicy(Integer.parseInt(this.request
-				.getParameter("feePolicyId")));
+		this.feePolicyDAO.deleteFeePolicy(Integer.parseInt(this.request.getParameter("feePolicyId")));
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	@SkipValidation
 	public String edit() {
-		this.classes = this.dao.getClasses(Integer.parseInt(this.request
-				.getParameter("classId")));
+		this.classes = this.dao.getClasses(Integer.parseInt(this.request.getParameter("classId")));
 		// Load courseId
 		this.courseId = this.classes.getCourse().getCourseId();
 
@@ -100,30 +93,25 @@ public class ClassesAction extends CoreAction implements ModelDriven<Classes>,
 	@Override
 	public void validate() {
 		if (this.courseId <= 0) {
-			this.addFieldError("courseId",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_CLASSES_COURSEID)
-					}));
+			this.addFieldError("courseId", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_CLASSES_COURSEID)
+			}));
 		}
 		if (StringUtil.isEmpty(this.classes.getCode())) {
-			this.addFieldError("classes.code",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_CLASSES_CODE)
-					}));
+			this.addFieldError("classes.code", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_CLASSES_CODE)
+			}));
 		}
 		else {
 			int codeLength = this.classes.getCode().length();
 			if (codeLength > 20 || codeLength < 2) {
-				this.addFieldError("classes.code",
-						this.getText(I18N.ERROR_CONSTRAINT_CLASSES_CODE));
+				this.addFieldError("classes.code", this.getText(I18N.ERROR_CONSTRAINT_CLASSES_CODE));
 			}
 		}
 
 		// Check for uniqueness
-		if (this.dao.hasDuplicates(this.classes.getClassId(), this.courseId,
-				this.classes.getCode())) {
-			this.addFieldError("classes.code",
-					this.getText(I18N.ERROR_DUPLICATION_CLASS));
+		if (this.dao.hasDuplicates(this.classes.getClassId(), this.courseId, this.classes.getCode())) {
+			this.addFieldError("classes.code", this.getText(I18N.ERROR_DUPLICATION_CLASS));
 		}
 		super.validate();
 	}

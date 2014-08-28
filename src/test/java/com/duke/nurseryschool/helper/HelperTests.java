@@ -52,8 +52,7 @@ public class HelperTests {
 
 	@Test
 	public void extractLastWord_normalName_ReturnsLastWord() {
-		assertEquals("Levitt",
-				Helper.extractLastWord("Joseph Leonard Gordon Levitt"));
+		assertEquals("Levitt", Helper.extractLastWord("Joseph Leonard Gordon Levitt"));
 		assertEquals("Willis", Helper.extractLastWord("Bruce Willis"));
 	}
 
@@ -75,15 +74,13 @@ public class HelperTests {
 	@Test
 	public void extractLastWord_normalNameWithSpaceAsPrefix_ReturnsItself() {
 		assertEquals("Willis", Helper.extractLastWord(" Bruce Willis"));
-		assertEquals("Levitt",
-				Helper.extractLastWord(" Joseph Leonard Gordon Levitt"));
+		assertEquals("Levitt", Helper.extractLastWord(" Joseph Leonard Gordon Levitt"));
 	}
 
 	@Test
 	public void extractLastWord_normalNameWithSpaceAsSuffix_ReturnsItself() {
 		assertEquals("Willis", Helper.extractLastWord("Bruce Willis "));
-		assertEquals("Levitt",
-				Helper.extractLastWord("Joseph Leonard Gordon Levitt "));
+		assertEquals("Levitt", Helper.extractLastWord("Joseph Leonard Gordon Levitt "));
 	}
 
 }

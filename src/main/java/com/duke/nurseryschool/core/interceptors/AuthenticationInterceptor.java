@@ -27,14 +27,10 @@ public class AuthenticationInterceptor implements Interceptor {
 
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
-		Logger.getLogger(this.getClass()).info(
-				"Inside authentication interceptor ... "
-						+ actionInvocation.getAction().toString());
+		Logger.getLogger(this.getClass()).info("Inside authentication interceptor ... " + actionInvocation.getAction().toString());
 		// Check user in session
-		Map<String, Object> sessionAttributes = actionInvocation
-				.getInvocationContext().getSession();
-		String userInSession = (String) sessionAttributes
-				.get(Constant.SESSION_USER);
+		Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext().getSession();
+		String userInSession = (String) sessionAttributes.get(Constant.SESSION_USER);
 
 		// Get user in cookie (if exists)
 		String userInCookie = CookieManager.getInstance().getUserInCookies();

@@ -7,9 +7,7 @@ import java.util.List;
 import com.duke.nurseryschool.generated.I18N;
 
 public enum FeeType {
-	ALL_EXCEPT_SELECTED(0, I18N.LABEL_FEETYPE_ALLEXCEPTSELECTED), SELECTED_ONLY(
-			1, I18N.LABEL_FEETYPE_SELECTEDONLY), UNKNOWN(Integer.MIN_VALUE,
-			I18N.LABEL_FEETYPE_UNKNOWN);
+	ALL_EXCEPT_SELECTED(0, I18N.LABEL_FEETYPE_ALLEXCEPTSELECTED), SELECTED_ONLY(1, I18N.LABEL_FEETYPE_SELECTEDONLY), UNKNOWN(Integer.MIN_VALUE, I18N.LABEL_FEETYPE_UNKNOWN);
 
 	private int type;
 	private String name;
@@ -31,8 +29,7 @@ public enum FeeType {
 	 * Get all types except unknown one
 	 */
 	public static List<FeeType> getAll() {
-		List<FeeType> allFeeTypes = new LinkedList<FeeType>(
-				Arrays.asList(FeeType.values()));
+		List<FeeType> allFeeTypes = new LinkedList<FeeType>(Arrays.asList(FeeType.values()));
 		allFeeTypes.remove(UNKNOWN);
 
 		return allFeeTypes;

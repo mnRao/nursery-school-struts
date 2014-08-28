@@ -57,21 +57,14 @@ public class PaymentTrigger {
 		BigDecimal actualBreakfastFee = BigDecimal.valueOf(0);
 		// Check whether has breakfast or not
 		if (this.payment.getHasBreakfast() == Constant.BUSINESS_LOGIC.HAS_BREAKFAST) {
-			BigDecimal penaltyFee = this.feePolicy.getPenaltyFeePerBreakfast()
-					.multiply(
-							BigDecimal.valueOf(this.payment.getAbsenceCount()));
-			actualBreakfastFee = this.feePolicy.getTotalBreakfastFee()
-					.subtract(penaltyFee);
+			BigDecimal penaltyFee = this.feePolicy.getPenaltyFeePerBreakfast().multiply(BigDecimal.valueOf(this.payment.getAbsenceCount()));
+			actualBreakfastFee = this.feePolicy.getTotalBreakfastFee().subtract(penaltyFee);
 		}
 		return actualBreakfastFee;
 	}
 
 	private BigDecimal calculateTotalNormalFee() {
-		return this.feePolicy
-				.getFeePerNormalMeal()
-				.multiply(
-						BigDecimal.valueOf((this.feePolicy.getAvailableDays() - this.payment
-								.getAbsenceCount())));
+		return this.feePolicy.getFeePerNormalMeal().multiply(BigDecimal.valueOf((this.feePolicy.getAvailableDays() - this.payment.getAbsenceCount())));
 	}
 
 	/**
@@ -83,13 +76,10 @@ public class PaymentTrigger {
 			return BigDecimal.valueOf(0);
 
 		// Append meal fees
-		BigDecimal totalFee = this.payment.getTotalNormalMealFee().add(
-				this.payment.getTotalBreakfastFee());
+		BigDecimal totalFee = this.payment.getTotalNormalMealFee().add(this.payment.getTotalBreakfastFee());
 		// Append static fees
 		for (Fee fee : this.allFeesExceptMeal) {
-			double actualAmount = BusinessLogicSolver.getInstance()
-					.calculateFeeAmount(this.session, fee, this.feePolicy,
-							this.payment);
+			double actualAmount = BusinessLogicSolver.getInstance().calculateFeeAmount(this.session, fee, this.feePolicy, this.payment);
 			totalFee = totalFee.add(new BigDecimal(actualAmount));
 		}
 

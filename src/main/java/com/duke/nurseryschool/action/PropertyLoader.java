@@ -12,8 +12,7 @@ public class PropertyLoader {
 	}
 
 	public void loadProperties(String filePath) {
-		InputStream in = this.getClass().getClassLoader()
-				.getResourceAsStream(filePath);
+		InputStream in = this.getClass().getClassLoader().getResourceAsStream(filePath);
 		try {
 			this.globalProperties.load(in);
 		}

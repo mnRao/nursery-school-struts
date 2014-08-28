@@ -16,8 +16,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class ParentAction extends CoreAction implements ModelDriven<Parent>,
-		Preparable {
+public class ParentAction extends CoreAction implements ModelDriven<Parent>, Preparable {
 
 	private static final long serialVersionUID = 8974142884447954547L;
 
@@ -36,9 +35,7 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getParent(Integer.parseInt(this.request
-						.getParameter("parentId"))));
+		this.dao.getSession().evict(this.dao.getParent(Integer.parseInt(this.request.getParameter("parentId"))));
 
 		// If chosen from drop-down list
 		// if (this.parentId != 0) {
@@ -62,8 +59,7 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteParent(Integer.parseInt(this.request
-				.getParameter("parentId")));
+		boolean isDeleted = this.dao.deleteParent(Integer.parseInt(this.request.getParameter("parentId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -77,8 +73,7 @@ public class ParentAction extends CoreAction implements ModelDriven<Parent>,
 
 	@SkipValidation
 	public String edit() {
-		this.parent = this.dao.getParent(Integer.parseInt(this.request
-				.getParameter("parentId")));
+		this.parent = this.dao.getParent(Integer.parseInt(this.request.getParameter("parentId")));
 		return Action.SUCCESS;
 	}
 

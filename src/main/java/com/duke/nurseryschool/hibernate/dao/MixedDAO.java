@@ -24,8 +24,7 @@ public class MixedDAO extends CoreDAO {
 	// UNIDENTIFIED
 	@SuppressWarnings("rawtypes")
 	public int getActiveClassesCount() {
-		Query query = this.session
-				.createSQLQuery("SELECT COUNT(classId) FROM class WHERE grade != 4;");
+		Query query = this.session.createSQLQuery("SELECT COUNT(classId) FROM class WHERE grade != 4;");
 		List result = query.list();
 		return ((BigInteger) result.get(0)).intValue();
 	}
@@ -34,8 +33,7 @@ public class MixedDAO extends CoreDAO {
 	// = class.classId WHERE class.grade != 4 AND student.isActive = 1;
 	@SuppressWarnings("rawtypes")
 	public int getActiveStudentsCount() {
-		Query query = this.session
-				.createSQLQuery("SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId = class.classId WHERE class.grade != 4 AND student.isActive = 1;");
+		Query query = this.session.createSQLQuery("SELECT COUNT(studentId) FROM student RIGHT JOIN class ON student.classId = class.classId WHERE class.grade != 4 AND student.isActive = 1;");
 		List result = query.list();
 		return ((BigInteger) result.get(0)).intValue();
 	}
@@ -46,8 +44,7 @@ public class MixedDAO extends CoreDAO {
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsHavingBreakfast(int monthId) {
 		String sql = "SELECT * FROM student s RIGHT JOIN payment p ON p.studentId = s.studentId RIGHT JOIN fee_policy fp ON fp.feePolicyId = p.feePolicyId  RIGHT JOIN class c ON s.`classId` = c.`classId` WHERE p.hasBreakfast = 1 AND fp.monthId = "
-				+ monthId
-				+ " AND s.isActive = 1 ORDER BY c.`code` ASC, s.`name` DESC ;";
+				+ monthId + " AND s.isActive = 1 ORDER BY c.`code` ASC, s.`name` DESC ;";
 		Query query = this.session.createSQLQuery(sql).addEntity(Student.class);
 		return query.list();
 	}
@@ -61,13 +58,7 @@ public class MixedDAO extends CoreDAO {
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsHavingSelectedOnlyFee(int monthId, int feeId) {
 		String sql = "SELECT * from student s right join payment p on s.studentId = p.studentId right join fee_policy fp on fp.feePolicyId = p.feePolicyId right join alternative_fee_map a on a.paymentId = p.paymentId right join fee f on a.feeId = f.feeId join class c on fp.classId = c.classId where f.type = "
-				+ FeeType.SELECTED_ONLY.getType()
-				+ " AND fp.monthId = "
-				+ monthId
-				+ " AND f.feeId = "
-				+ feeId
-				+ " AND s.isActive = 1 "
-				+ " ORDER BY c.`code` ASC, s.`name` DESC ;";
+				+ FeeType.SELECTED_ONLY.getType() + " AND fp.monthId = " + monthId + " AND f.feeId = " + feeId + " AND s.isActive = 1 " + " ORDER BY c.`code` ASC, s.`name` DESC ;";
 		Query query = this.session.createSQLQuery(sql).addEntity(Student.class);
 		return query.list();
 	}
@@ -129,8 +120,7 @@ public class MixedDAO extends CoreDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Payment getPaymentByStudentIdAndFeePolicyId(int studentId,
-			int feePolicyId) {
+	public Payment getPaymentByStudentIdAndFeePolicyId(int studentId, int feePolicyId) {
 		// String sql =
 		// "SELECT * FROM payment P LEFT JOIN student S ON P.studentId = S.studentId WHERE P.studentId = :studentId AND P.feePolicyId = :feePolicyId";
 		String sql = "SELECT * FROM payment P WHERE P.studentId = :studentId AND P.feePolicyId = :feePolicyId";
@@ -165,8 +155,7 @@ public class MixedDAO extends CoreDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public AlternativeFeeMap getAlternativeFeeMapByFeeIdAndFeePolicyId(
-			int feeId, int paymentId) {
+	public AlternativeFeeMap getAlternativeFeeMapByFeeIdAndFeePolicyId(int feeId, int paymentId) {
 		// SELECT * FROM alternative_fee_map afm WHERE afm.`feeId` = 1 AND
 		// afm.`paymentId` =
 		// 1

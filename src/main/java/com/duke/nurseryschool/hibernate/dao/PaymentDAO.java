@@ -16,8 +16,7 @@ public class PaymentDAO extends CoreDAO {
 	public List<Payment> getPayments() {
 		List<Payment> payments = new ArrayList<Payment>();
 		try {
-			payments = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_PAYMENTS).list();
+			payments = this.session.createQuery(Constant.DATABASE_QUERY.ALL_PAYMENTS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -55,8 +54,7 @@ public class PaymentDAO extends CoreDAO {
 
 	public boolean deletePayment(int paymentId) {
 		try {
-			Payment payment = (Payment) this.session.get(Payment.class,
-					paymentId);
+			Payment payment = (Payment) this.session.get(Payment.class, paymentId);
 
 			if (payment.getAlternativeFeeMaps().size() > 0) {
 				return false;
@@ -75,8 +73,7 @@ public class PaymentDAO extends CoreDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public boolean hasDuplicates(int keyPaymentId, int studentId,
-			int feePolicyId) {
+	public boolean hasDuplicates(int keyPaymentId, int studentId, int feePolicyId) {
 		if (keyPaymentId != 0)
 			return false;
 		Criteria criteria = this.session.createCriteria(Payment.class);

@@ -35,120 +35,86 @@ public class BusinessLogicSolverTests extends BaseTestCase {
 
 	@Test
 	public void calculateCurrentAcademicYear_earlierInYear_oldAcademicYear() {
-		assertEquals("[2012-2013]",
-				this.businessLogicSolver.calculateCurrentAcademicYear(1, 2013));
+		assertEquals("[2012-2013]", this.businessLogicSolver.calculateCurrentAcademicYear(1, 2013));
 	}
 
 	@Test
 	public void calculateCurrentAcademicYear_betweenAcademicYears_newAcademicYear() {
-		assertEquals("[2013-2014]",
-				this.businessLogicSolver.calculateCurrentAcademicYear(7, 2013));
+		assertEquals("[2013-2014]", this.businessLogicSolver.calculateCurrentAcademicYear(7, 2013));
 	}
 
 	@Test
 	public void calculateCurrentAcademicYear_laterInYears_newAcademicYear() {
-		assertEquals("[2013-2014]",
-				this.businessLogicSolver.calculateCurrentAcademicYear(12, 2013));
+		assertEquals("[2013-2014]", this.businessLogicSolver.calculateCurrentAcademicYear(12, 2013));
 	}
 
 	@Test
 	public void calculateGrade_currentDateIsWithinCurrentAcademicYear() {
 		// [2-2014]
 		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(2);
-		Mockito.when(this.currentCalendarStub.getCurrentYear())
-				.thenReturn(2014);
+		Mockito.when(this.currentCalendarStub.getCurrentYear()).thenReturn(2014);
 		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2009, 2013));
-		assertEquals(Grade.FIFTH,
-				this.businessLogicSolver.calculateGrade(2010, 2014));
-		assertEquals(Grade.FOURTH,
-				this.businessLogicSolver.calculateGrade(2011, 2015));
-		assertEquals(Grade.THIRD,
-				this.businessLogicSolver.calculateGrade(2012, 2016));
-		assertEquals(Grade.SECOND,
-				this.businessLogicSolver.calculateGrade(2013, 2017));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2014, 2018));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2009, 2013));
+		assertEquals(Grade.FIFTH, this.businessLogicSolver.calculateGrade(2010, 2014));
+		assertEquals(Grade.FOURTH, this.businessLogicSolver.calculateGrade(2011, 2015));
+		assertEquals(Grade.THIRD, this.businessLogicSolver.calculateGrade(2012, 2016));
+		assertEquals(Grade.SECOND, this.businessLogicSolver.calculateGrade(2013, 2017));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2014, 2018));
 	}
 
 	@Test
 	public void calculateGrade_currentDateIsBetweenAcademicYears() {
 		// [7-2014]
 		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(7);
-		Mockito.when(this.currentCalendarStub.getCurrentYear())
-				.thenReturn(2014);
+		Mockito.when(this.currentCalendarStub.getCurrentYear()).thenReturn(2014);
 		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		// Tests at future time (from September of endYear to ever after)
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2010, 2014));
-		assertEquals(Grade.FIFTH,
-				this.businessLogicSolver.calculateGrade(2011, 2015));
-		assertEquals(Grade.FOURTH,
-				this.businessLogicSolver.calculateGrade(2012, 2016));
-		assertEquals(Grade.THIRD,
-				this.businessLogicSolver.calculateGrade(2013, 2017));
-		assertEquals(Grade.SECOND,
-				this.businessLogicSolver.calculateGrade(2014, 2018));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2015, 2019));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2010, 2014));
+		assertEquals(Grade.FIFTH, this.businessLogicSolver.calculateGrade(2011, 2015));
+		assertEquals(Grade.FOURTH, this.businessLogicSolver.calculateGrade(2012, 2016));
+		assertEquals(Grade.THIRD, this.businessLogicSolver.calculateGrade(2013, 2017));
+		assertEquals(Grade.SECOND, this.businessLogicSolver.calculateGrade(2014, 2018));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2015, 2019));
 	}
 
 	@Test
 	public void calculateGrade_currentDateIsInTheFarPast_UnidentifiedGrade() {
 		// [7-2010]
 		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(7);
-		Mockito.when(this.currentCalendarStub.getCurrentYear())
-				.thenReturn(2010);
+		Mockito.when(this.currentCalendarStub.getCurrentYear()).thenReturn(2010);
 		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		// Tests at future time (from September of endYear to ever after)
-		assertEquals(Grade.SECOND,
-				this.businessLogicSolver.calculateGrade(2010, 2014));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2011, 2015));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2012, 2016));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2013, 2017));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2014, 2018));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2015, 2019));
+		assertEquals(Grade.SECOND, this.businessLogicSolver.calculateGrade(2010, 2014));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2011, 2015));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2012, 2016));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2013, 2017));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2014, 2018));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2015, 2019));
 	}
 
 	@Test
 	public void calculateGrade_currentDateIsInTheFarFuture_UnidentifiedGrade() {
 		// [2-2019]
 		Mockito.when(this.currentCalendarStub.getCurrentMonth()).thenReturn(2);
-		Mockito.when(this.currentCalendarStub.getCurrentYear())
-				.thenReturn(2019);
+		Mockito.when(this.currentCalendarStub.getCurrentYear()).thenReturn(2019);
 		this.businessLogicSolver.setCurrentCalendar(this.currentCalendarStub);
 
 		// Tests at future time (from September of endYear to ever after)
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2010, 2014));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2011, 2015));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2012, 2016));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2013, 2017));
-		assertEquals(Grade.UNIDENTIFIED,
-				this.businessLogicSolver.calculateGrade(2014, 2018));
-		assertEquals(Grade.FIFTH,
-				this.businessLogicSolver.calculateGrade(2015, 2019));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2010, 2014));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2011, 2015));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2012, 2016));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2013, 2017));
+		assertEquals(Grade.UNIDENTIFIED, this.businessLogicSolver.calculateGrade(2014, 2018));
+		assertEquals(Grade.FIFTH, this.businessLogicSolver.calculateGrade(2015, 2019));
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void calculateGenderText_Both0And1_NullPointerException()
-			throws InstantiationException, IllegalAccessException {
-		assertEquals(Constant.BUSINESS_LOGIC.FEMALE,
-				this.businessLogicSolver.calculateGenderText(0));
-		assertEquals(Constant.BUSINESS_LOGIC.MALE,
-				this.businessLogicSolver.calculateGenderText(1));
+	public void calculateGenderText_Both0And1_NullPointerException() throws InstantiationException, IllegalAccessException {
+		this.businessLogicSolver.calculateGenderText(0);
+		this.businessLogicSolver.calculateGenderText(1);
 	}
 
 	@Test
