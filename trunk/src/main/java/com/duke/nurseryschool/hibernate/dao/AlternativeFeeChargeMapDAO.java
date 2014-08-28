@@ -15,8 +15,7 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 	public List<AlternativeFeeMap> getAlternativeFeeMaps() {
 		List<AlternativeFeeMap> alternativeFeeMaps = new ArrayList<AlternativeFeeMap>();
 		try {
-			alternativeFeeMaps = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_ALTERNATIVE_FEE_MAPS).list();
+			alternativeFeeMaps = this.session.createQuery(Constant.DATABASE_QUERY.ALL_ALTERNATIVE_FEE_MAPS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -26,15 +25,13 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 	}
 
 	public AlternativeFeeMap getAlternativeFeeMap(int paymentId, int feeId) {
-		Payment payment = (Payment) this.session.get(Payment.class,
-				Integer.valueOf(paymentId));
+		Payment payment = (Payment) this.session.get(Payment.class, Integer.valueOf(paymentId));
 		Fee fee = (Fee) this.session.get(Fee.class, Integer.valueOf(feeId));
 		PaymentFee paymentFee = new PaymentFee(payment, fee);
 
 		AlternativeFeeMap alternativeFeeMap = null;
 		try {
-			alternativeFeeMap = (AlternativeFeeMap) this.session.get(
-					AlternativeFeeMap.class, paymentFee);
+			alternativeFeeMap = (AlternativeFeeMap) this.session.get(AlternativeFeeMap.class, paymentFee);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -42,8 +39,7 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 		return alternativeFeeMap;
 	}
 
-	public void saveOrUpdateAlternativeFeeMap(
-			AlternativeFeeMap alternativeFeeMap) {
+	public void saveOrUpdateAlternativeFeeMap(AlternativeFeeMap alternativeFeeMap) {
 		try {
 			this.session.saveOrUpdate(alternativeFeeMap);
 		}
@@ -56,8 +52,7 @@ public class AlternativeFeeChargeMapDAO extends CoreDAO {
 	}
 
 	public void deleteAlternativeFeeMap(int paymentId, int feeId) {
-		AlternativeFeeMap alternativeFeeMap = this.getAlternativeFeeMap(
-				paymentId, feeId);
+		AlternativeFeeMap alternativeFeeMap = this.getAlternativeFeeMap(paymentId, feeId);
 		if (alternativeFeeMap == null)
 			return;
 

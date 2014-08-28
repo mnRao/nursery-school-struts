@@ -5,8 +5,7 @@ import com.duke.nurseryschool.core.interceptors.UserAware;
 /**
  * Base class for authentication-required actions
  */
-public class AuthenticationRequiredAction extends CoreAction implements
-		UserAware {
+public class AuthenticationRequiredAction extends CoreAction implements UserAware {
 	private static final long serialVersionUID = -718474123858655169L;
 
 	private String user;

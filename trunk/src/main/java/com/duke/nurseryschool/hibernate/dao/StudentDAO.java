@@ -20,8 +20,7 @@ public class StudentDAO extends CoreDAO {
 	public List<Student> getStudents() {
 		List<Student> students = new ArrayList<Student>();
 		try {
-			students = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_STUDENTS).list();
+			students = this.session.createQuery(Constant.DATABASE_QUERY.ALL_STUDENTS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -64,8 +63,7 @@ public class StudentDAO extends CoreDAO {
 
 	public boolean deleteStudent(int studentId) {
 		try {
-			Student student = (Student) this.session.get(Student.class,
-					studentId);
+			Student student = (Student) this.session.get(Student.class, studentId);
 			this.session.delete(student);
 			this.session.flush();
 		}
@@ -96,8 +94,7 @@ public class StudentDAO extends CoreDAO {
 
 	public void enableStudent(int studentId) {
 		try {
-			Student student = (Student) this.session.get(Student.class,
-					studentId);
+			Student student = (Student) this.session.get(Student.class, studentId);
 			student.setActive(true);
 			this.session.saveOrUpdate(student);
 		}
@@ -109,8 +106,7 @@ public class StudentDAO extends CoreDAO {
 
 	public void disableStudent(int studentId) {
 		try {
-			Student student = (Student) this.session.get(Student.class,
-					studentId);
+			Student student = (Student) this.session.get(Student.class, studentId);
 			student.setActive(false);
 			this.session.saveOrUpdate(student);
 		}

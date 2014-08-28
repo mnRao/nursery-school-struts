@@ -21,8 +21,7 @@ public class StudentHasBreakfastExcelGenerator extends StudentExcelManager {
 
 	private final Month month;
 
-	public StudentHasBreakfastExcelGenerator(WritableWorkbook workbook,
-			Month month, List<Student> students) {
+	public StudentHasBreakfastExcelGenerator(WritableWorkbook workbook, Month month, List<Student> students) {
 		super(workbook, students);
 		this.month = month;
 		this.populateAndSortData(students);
@@ -30,43 +29,33 @@ public class StudentHasBreakfastExcelGenerator extends StudentExcelManager {
 
 	public void addContent(int sheetNumber) throws IOException, WriteException {
 		// Sheet for current class
-		WritableSheet sheet = this.workbook.createSheet(
-				Helper.getI18N(I18N.EXCEL_SHEET_TITLE_ALL), sheetNumber);
+		WritableSheet sheet = this.workbook.createSheet(Helper.getI18N(I18N.EXCEL_SHEET_TITLE_ALL), sheetNumber);
 		// Write contents
 		this.addStyles();
 		this.createHeaders(sheet);
 		this.createContents(sheet);
 	}
 
-	private void createHeaders(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
-		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW,
-				this.generateTopMostHeaderLabel());
+	private void createHeaders(WritableSheet sheet) throws RowsExceededException, WriteException {
+		this.addCaption(sheet, HEADER_TOP_COLUMN, HEADER_TOP_ROW, this.generateTopMostHeaderLabel());
 
-		this.addCaption(sheet, 0, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
-		this.addCaption(sheet, 1, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
-		this.addCaption(sheet, 2, HEADER_NORMAL_ROW,
-				Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_CLASS));
+		this.addCaption(sheet, 0, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_ORDER));
+		this.addCaption(sheet, 1, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_NAME));
+		this.addCaption(sheet, 2, HEADER_NORMAL_ROW, Helper.getI18N(I18N.EXCEL_HEADER_NORMAL_CLASS));
 
 		this.mergeHeaderCells(sheet);
 	}
 
-	private void mergeHeaderCells(WritableSheet sheet) throws WriteException,
-			RowsExceededException {
+	private void mergeHeaderCells(WritableSheet sheet) throws WriteException, RowsExceededException {
 		// All columns top row
-		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW,
-				CONTENT_LAST_COLUMN, HEADER_TOP_ROW);
+		sheet.mergeCells(HEADER_TOP_COLUMN, HEADER_TOP_ROW, CONTENT_LAST_COLUMN, HEADER_TOP_ROW);
 	}
 
-	private void createContents(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
+	private void createContents(WritableSheet sheet) throws RowsExceededException, WriteException {
 		int count = 1;
 		int row = CONTENT_START_ROW;
 
-		java.util.Iterator<Entry<String, List<Student>>> iterator = this.studentsByClasses
-				.entrySet().iterator();
+		java.util.Iterator<Entry<String, List<Student>>> iterator = this.studentsByClasses.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Entry<String, List<Student>> entry = iterator.next();
 			List<Student> studentsByClass = entry.getValue();
@@ -74,8 +63,7 @@ public class StudentHasBreakfastExcelGenerator extends StudentExcelManager {
 			for (Student student : studentsByClass) {
 				this.addNumber(sheet, 0, row, count);
 				this.addLabel(sheet, 1, row, student.getName());
-				this.addLabel(sheet, 2, row, student.getAssociatedClass()
-						.getCurrentName());
+				this.addLabel(sheet, 2, row, student.getAssociatedClass().getCurrentName());
 				count++;
 				row++;
 			}
@@ -84,12 +72,9 @@ public class StudentHasBreakfastExcelGenerator extends StudentExcelManager {
 
 	private String generateTopMostHeaderLabel() {
 		StringBuffer headerTop = new StringBuffer();
-		headerTop.append(Helper.getI18N(
-				I18N.EXCEL_HEADER_TOP_STUDENTHASBREAKFAST,
-				new String[] {
-						Integer.toString(this.month.getMonthName()),
-						Integer.toString(this.month.getYear())
-				}));
+		headerTop.append(Helper.getI18N(I18N.EXCEL_HEADER_TOP_STUDENTHASBREAKFAST, new String[] {
+				Integer.toString(this.month.getMonthName()), Integer.toString(this.month.getYear())
+		}));
 		return headerTop.toString();
 	}
 

@@ -47,27 +47,17 @@ public abstract class AbstractTest {
 	private SessionFactory createSessionFactory() {
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 		// Includes all beans
-		configuration.addAnnotatedClass(Classes.class)
-				.addAnnotatedClass(Course.class).addAnnotatedClass(Fee.class)
-				.addAnnotatedClass(FeeGroup.class)
-				.addAnnotatedClass(FeeMap.class)
-				.addAnnotatedClass(FeePolicy.class)
-				.addAnnotatedClass(Month.class).addAnnotatedClass(Parent.class)
-				.addAnnotatedClass(Payment.class)
-				.addAnnotatedClass(Student.class)
+		configuration.addAnnotatedClass(Classes.class).addAnnotatedClass(Course.class).addAnnotatedClass(Fee.class).addAnnotatedClass(FeeGroup.class).addAnnotatedClass(FeeMap.class)
+				.addAnnotatedClass(FeePolicy.class).addAnnotatedClass(Month.class).addAnnotatedClass(Parent.class).addAnnotatedClass(Payment.class).addAnnotatedClass(Student.class)
 				.addAnnotatedClass(AlternativeFeeMap.class);
 		// H2 memory database for testing
 		// Note: Need to specify a trivial database name (not to test on actual
 		// database & rollback)
-		configuration.setProperty("hibernate.dialect",
-				"org.hibernate.dialect.H2Dialect");
-		configuration.setProperty("hibernate.connection.driver_class",
-				"org.h2.Driver");
-		configuration.setProperty("hibernate.connection.url",
-				"jdbc:h2:mem:testDB");
+		configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+		configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
+		configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem:testDB");
 		configuration.setProperty("hibernate.hbm2ddl.auto", "create");
-		configuration.setProperty("hibernate.hbm2ddl.import_files",
-				"/initial-data-test.sql");
+		configuration.setProperty("hibernate.hbm2ddl.import_files", "/initial-data-test.sql");
 		configuration.setProperty("show_sql", "true");
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();

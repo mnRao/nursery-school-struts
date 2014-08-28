@@ -12,8 +12,7 @@ public class FeeDAO extends CoreDAO {
 	public List<Fee> getFees() {
 		List<Fee> fees = new ArrayList<Fee>();
 		try {
-			fees = this.session.createQuery(Constant.DATABASE_QUERY.ALL_FEES)
-					.list();
+			fees = this.session.createQuery(Constant.DATABASE_QUERY.ALL_FEES).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

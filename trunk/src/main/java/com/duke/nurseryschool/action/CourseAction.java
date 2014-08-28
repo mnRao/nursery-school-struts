@@ -14,8 +14,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class CourseAction extends CoreAction implements ModelDriven<Course>,
-		Preparable {
+public class CourseAction extends CoreAction implements ModelDriven<Course>, Preparable {
 
 	private static final long serialVersionUID = 3695720869043076543L;
 
@@ -29,9 +28,7 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getCourse(Integer.parseInt(this.request
-						.getParameter("courseId"))));
+		this.dao.getSession().evict(this.dao.getCourse(Integer.parseInt(this.request.getParameter("courseId"))));
 
 		this.dao.saveOrUpdateCourse(this.course);
 
@@ -46,8 +43,7 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteCourse(Integer.parseInt(this.request
-				.getParameter("courseId")));
+		boolean isDeleted = this.dao.deleteCourse(Integer.parseInt(this.request.getParameter("courseId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -61,8 +57,7 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 
 	@SkipValidation
 	public String edit() {
-		this.course = this.dao.getCourse(Integer.parseInt(this.request
-				.getParameter("courseId")));
+		this.course = this.dao.getCourse(Integer.parseInt(this.request.getParameter("courseId")));
 		// Load all
 		this.courses = this.dao.getCourses();
 		return Action.SUCCESS;
@@ -74,21 +69,17 @@ public class CourseAction extends CoreAction implements ModelDriven<Course>,
 		int endYear = this.course.getEndYear();
 		int courseId = this.course.getCourseId();
 		if (startYear <= 0) {
-			this.addFieldError("course.startYear",
-					this.getText(I18N.ERROR_CONSTRAINT_COURSE_STARTYEAR));
+			this.addFieldError("course.startYear", this.getText(I18N.ERROR_CONSTRAINT_COURSE_STARTYEAR));
 		}
 		if (endYear <= 0) {
-			this.addFieldError("course.endYear",
-					this.getText(I18N.ERROR_CONSTRAINT_COURSE_ENDYEAR));
+			this.addFieldError("course.endYear", this.getText(I18N.ERROR_CONSTRAINT_COURSE_ENDYEAR));
 		}
 		if (startYear != endYear - 4) {
-			this.addFieldError("course.startYear",
-					this.getText(I18N.ERROR_CONSTRAINT_COURSE_YEARS));
+			this.addFieldError("course.startYear", this.getText(I18N.ERROR_CONSTRAINT_COURSE_YEARS));
 		}
 		// Check for uniqueness
 		if (this.dao.hasDuplicates(courseId, startYear, endYear)) {
-			this.addFieldError("course.startYear",
-					this.getText(I18N.ERROR_DUPLICATION_COURSE));
+			this.addFieldError("course.startYear", this.getText(I18N.ERROR_DUPLICATION_COURSE));
 		}
 
 		super.validate();

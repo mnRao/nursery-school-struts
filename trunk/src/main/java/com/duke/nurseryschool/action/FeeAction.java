@@ -24,8 +24,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class FeeAction extends CoreAction implements ModelDriven<Fee>,
-		Preparable {
+public class FeeAction extends CoreAction implements ModelDriven<Fee>, Preparable {
 
 	private static final long serialVersionUID = -559372069321576936L;
 
@@ -70,16 +69,11 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 				FeePolicy feePolicy = feeMap.getFeePolicyFee().getFeePolicy();
 
 				// Load all payments for this fee policy
-				List<Payment> relatedPayments = this.mixedDAO
-						.getPaymentsByFeePolicy(this.mixedDAO.getSession(),
-								feePolicy.getFeePolicyId());
+				List<Payment> relatedPayments = this.mixedDAO.getPaymentsByFeePolicy(this.mixedDAO.getSession(), feePolicy.getFeePolicyId());
 				if (relatedPayments != null && relatedPayments.size() > 0) {
 					// Set total fee save
-					if (relatedPayments != null) {
-						for (Payment payment : relatedPayments) {
-							new PaymentTrigger(this.mixedDAO.getSession(),
-									payment, feePolicy).calculateAndSetAll();
-						}
+					for (Payment payment : relatedPayments) {
+						new PaymentTrigger(this.mixedDAO.getSession(), payment, feePolicy).calculateAndSetAll();
 					}
 				}
 			}
@@ -95,8 +89,7 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteFee(Integer.parseInt(this.request
-				.getParameter("feeId")));
+		boolean isDeleted = this.dao.deleteFee(Integer.parseInt(this.request.getParameter("feeId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -109,8 +102,7 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 
 	@SkipValidation
 	public String edit() {
-		this.fee = this.dao.getFee(Integer.parseInt(this.request
-				.getParameter("feeId")));
+		this.fee = this.dao.getFee(Integer.parseInt(this.request.getParameter("feeId")));
 
 		if (this.fee.getFeeGroup() != null)
 			this.feeGroupId = this.fee.getFeeGroup().getFeeGroupId();
@@ -123,10 +115,9 @@ public class FeeAction extends CoreAction implements ModelDriven<Fee>,
 	@Override
 	public void validate() {
 		if (StringUtil.isEmpty(this.fee.getName())) {
-			this.addFieldError("fee.name",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_FEE_NAME)
-					}));
+			this.addFieldError("fee.name", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_FEE_NAME)
+			}));
 		}
 
 		super.validate();

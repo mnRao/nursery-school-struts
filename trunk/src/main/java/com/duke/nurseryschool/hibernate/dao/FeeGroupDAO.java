@@ -12,8 +12,7 @@ public class FeeGroupDAO extends CoreDAO {
 	public List<FeeGroup> getFeeGroups() {
 		List<FeeGroup> feeGroups = new ArrayList<FeeGroup>();
 		try {
-			feeGroups = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_FEE_GROUPS).list();
+			feeGroups = this.session.createQuery(Constant.DATABASE_QUERY.ALL_FEE_GROUPS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -45,8 +44,7 @@ public class FeeGroupDAO extends CoreDAO {
 
 	public boolean deleteFeeGroup(int feeGroupId) {
 		try {
-			FeeGroup feeGroup = (FeeGroup) this.session.get(FeeGroup.class,
-					feeGroupId);
+			FeeGroup feeGroup = (FeeGroup) this.session.get(FeeGroup.class, feeGroupId);
 			this.session.delete(feeGroup);
 			this.session.flush();
 		}

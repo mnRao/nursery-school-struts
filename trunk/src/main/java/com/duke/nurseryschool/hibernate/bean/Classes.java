@@ -62,8 +62,7 @@ public class Classes implements BeanLabel {
 		StringBuilder label = new StringBuilder();
 		label.append(Constant.PUNCTUATION_MARK.BRACKET_CURLY_OPEN);
 		if (this.course != null) {
-			label.append(this.course.getLabel()).append(
-					Constant.PUNCTUATION_MARK.HYPHEN);
+			label.append(this.course.getLabel()).append(Constant.PUNCTUATION_MARK.HYPHEN);
 		}
 		label.append(Constant.PUNCTUATION_MARK.PARENTHESIS_OPEN);
 		if (this.grade != null) {
@@ -126,8 +125,7 @@ public class Classes implements BeanLabel {
 	}
 
 	public Set<Student> getActiveStudents() {
-		return BusinessLogicSolver.getInstance().filterActiveStudents(
-				this.students);
+		return BusinessLogicSolver.getInstance().filterActiveStudents(this.students);
 	}
 
 	public void setStudents(Set<Student> students) {

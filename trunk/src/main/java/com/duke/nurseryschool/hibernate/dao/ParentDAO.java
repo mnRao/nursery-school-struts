@@ -12,8 +12,7 @@ public class ParentDAO extends CoreDAO {
 	public List<Parent> getParents() {
 		List<Parent> parents = new ArrayList<Parent>();
 		try {
-			parents = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_PARENTS).list();
+			parents = this.session.createQuery(Constant.DATABASE_QUERY.ALL_PARENTS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

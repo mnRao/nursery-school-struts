@@ -168,6 +168,8 @@ public class Helper {
 			case 12:
 				monthOfficialNumber = Calendar.DECEMBER;
 				break;
+			default:
+				monthOfficialNumber = Integer.MIN_VALUE;
 		}
 
 		Calendar mycal = new GregorianCalendar(year, monthOfficialNumber, 1);

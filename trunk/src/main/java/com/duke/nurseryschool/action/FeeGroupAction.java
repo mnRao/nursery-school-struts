@@ -16,8 +16,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class FeeGroupAction extends CoreAction implements
-		ModelDriven<FeeGroup>, Preparable {
+public class FeeGroupAction extends CoreAction implements ModelDriven<FeeGroup>, Preparable {
 
 	private static final long serialVersionUID = 2143537118962764732L;
 
@@ -32,9 +31,7 @@ public class FeeGroupAction extends CoreAction implements
 	}
 
 	public String saveOrUpdate() {
-		this.dao.getSession().evict(
-				this.dao.getFeeGroup(Integer.parseInt(this.request
-						.getParameter("feeGroupId"))));
+		this.dao.getSession().evict(this.dao.getFeeGroup(Integer.parseInt(this.request.getParameter("feeGroupId"))));
 
 		this.dao.saveOrUpdateFeeGroup(this.feeGroup);
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
@@ -47,8 +44,7 @@ public class FeeGroupAction extends CoreAction implements
 
 	@SkipValidation
 	public String delete() {
-		boolean isDeleted = this.dao.deleteFeeGroup(Integer
-				.parseInt(this.request.getParameter("feeGroupId")));
+		boolean isDeleted = this.dao.deleteFeeGroup(Integer.parseInt(this.request.getParameter("feeGroupId")));
 		if (!isDeleted) {
 			this.addActionError(this.getText(I18N.ERROR_DELETE_CHILDREN_FIRST));
 			// Populate data
@@ -62,25 +58,22 @@ public class FeeGroupAction extends CoreAction implements
 
 	@SkipValidation
 	public String deleteFeeMap() {
-		this.feeDAO.deleteFee(Integer.parseInt(this.request
-				.getParameter("feeId")));
+		this.feeDAO.deleteFee(Integer.parseInt(this.request.getParameter("feeId")));
 		return Constant.ACTION_RESULT.SUCCESS_REDIRECT;
 	}
 
 	@SkipValidation
 	public String edit() {
-		this.feeGroup = this.dao.getFeeGroup(Integer.parseInt(this.request
-				.getParameter("feeGroupId")));
+		this.feeGroup = this.dao.getFeeGroup(Integer.parseInt(this.request.getParameter("feeGroupId")));
 		return Action.SUCCESS;
 	}
 
 	@Override
 	public void validate() {
 		if (StringUtil.isEmpty(this.feeGroup.getName())) {
-			this.addFieldError("feeGroup.name",
-					this.getText(I18N.ERROR_REQUIRED, new String[] {
-						this.getText(I18N.LABEL_FEEGROUP_NAME)
-					}));
+			this.addFieldError("feeGroup.name", this.getText(I18N.ERROR_REQUIRED, new String[] {
+				this.getText(I18N.LABEL_FEEGROUP_NAME)
+			}));
 		}
 
 		super.validate();

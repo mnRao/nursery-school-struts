@@ -18,8 +18,7 @@ public class FeePolicyDAO extends CoreDAO {
 	public List<FeePolicy> getFeePolicies() {
 		List<FeePolicy> feePolicies = new ArrayList<FeePolicy>();
 		try {
-			feePolicies = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_FEE_POLICIES).list();
+			feePolicies = this.session.createQuery(Constant.DATABASE_QUERY.ALL_FEE_POLICIES).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -31,8 +30,7 @@ public class FeePolicyDAO extends CoreDAO {
 	public FeePolicy getFeePolicy(int feePolicyId) {
 		FeePolicy feePolicy = null;
 		try {
-			feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
-					feePolicyId);
+			feePolicy = (FeePolicy) this.session.get(FeePolicy.class, feePolicyId);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -60,8 +58,7 @@ public class FeePolicyDAO extends CoreDAO {
 
 	public boolean deleteFeePolicy(int feePolicyId) {
 		try {
-			FeePolicy feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
-					feePolicyId);
+			FeePolicy feePolicy = (FeePolicy) this.session.get(FeePolicy.class, feePolicyId);
 			// REMOVE COMMENT WHEN ENABLING DELETE PROTECTION
 			// if (feePolicy.getFeeMaps().size() > 0
 			// || feePolicy.getPayments().size() > 0) {

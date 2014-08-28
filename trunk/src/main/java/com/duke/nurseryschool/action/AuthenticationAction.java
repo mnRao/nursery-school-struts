@@ -15,8 +15,7 @@ public class AuthenticationAction extends CoreAction {
 	private boolean rememberMe;
 
 	public String login() {
-		if (Constant.ROOT_USERNAME.equals(this.username)
-				&& Constant.ROOT_PASSWORD.equals(this.password)) {
+		if (Constant.ROOT_USERNAME.equals(this.username) && Constant.ROOT_PASSWORD.equals(this.password)) {
 
 			// If REMEMBER_ME is chosen => store cookies
 			if (this.isRememberMe()) {
@@ -24,8 +23,7 @@ public class AuthenticationAction extends CoreAction {
 			}
 			else {
 				// Set user in session
-				this.sessionAttributes
-						.put(Constant.SESSION_USER, this.username);
+				this.sessionAttributes.put(Constant.SESSION_USER, this.username);
 			}
 
 			return SUCCESS;
@@ -50,15 +48,11 @@ public class AuthenticationAction extends CoreAction {
 
 	@Override
 	public void validate() {
-		if (this.username == null
-				|| this.username.trim().equals(Constant.EMPTY_STRING)) {
-			this.addFieldError(Constant.TAG.LOGIN_USERNAME,
-					this.getText(I18N.ERROR_LOGIN_USERNAME));
+		if (this.username == null || this.username.trim().equals(Constant.EMPTY_STRING)) {
+			this.addFieldError(Constant.TAG.LOGIN_USERNAME, this.getText(I18N.ERROR_LOGIN_USERNAME));
 		}
-		if (this.password == null
-				|| this.password.trim().equals(Constant.EMPTY_STRING)) {
-			this.addFieldError(Constant.TAG.LOGIN_PASSWORD,
-					this.getText(I18N.ERROR_LOGIN_PASSWORD));
+		if (this.password == null || this.password.trim().equals(Constant.EMPTY_STRING)) {
+			this.addFieldError(Constant.TAG.LOGIN_PASSWORD, this.getText(I18N.ERROR_LOGIN_PASSWORD));
 		}
 		this.logger.info("Authenticating ...");
 

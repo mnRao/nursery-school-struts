@@ -40,33 +40,22 @@ public class MixedDAOTests extends AbstractTest {
 
 	@Test
 	public void testGetStudentsHavingSelectedOnlyFee() {
-		assertEquals(3, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 2)
-				.size());
-		assertEquals(11, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 3)
-				.size());
-		assertEquals(10, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 4)
-				.size());
-		assertEquals(0, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 5)
-				.size());
-		assertEquals(5, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 6)
-				.size());
-		assertEquals(15, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 7)
-				.size());
-		assertEquals(22, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 8)
-				.size());
+		assertEquals(3, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 2).size());
+		assertEquals(11, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 3).size());
+		assertEquals(10, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 4).size());
+		assertEquals(0, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 5).size());
+		assertEquals(5, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 6).size());
+		assertEquals(15, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 7).size());
+		assertEquals(22, this.mixedDAO.getStudentsHavingSelectedOnlyFee(1, 8).size());
 		// 0 as 1 student is disabled (studentId = 133)
-		assertEquals(0, this.mixedDAO.getStudentsHavingSelectedOnlyFee(3, 2)
-				.size());
+		assertEquals(0, this.mixedDAO.getStudentsHavingSelectedOnlyFee(3, 2).size());
 	}
 
 	@Test
 	public void testGetPaymentsByFeePolicy() {
-		assertEquals(31, this.mixedDAO.getPaymentsByFeePolicy(this.session, 1)
-				.size());
-		assertEquals(30, this.mixedDAO.getPaymentsByFeePolicy(this.session, 2)
-				.size());
-		assertEquals(32, this.mixedDAO.getPaymentsByFeePolicy(this.session, 3)
-				.size());
+		assertEquals(31, this.mixedDAO.getPaymentsByFeePolicy(this.session, 1).size());
+		assertEquals(30, this.mixedDAO.getPaymentsByFeePolicy(this.session, 2).size());
+		assertEquals(32, this.mixedDAO.getPaymentsByFeePolicy(this.session, 3).size());
 	}
 
 	@Test
@@ -76,8 +65,7 @@ public class MixedDAOTests extends AbstractTest {
 
 	@Test
 	public void testGetFeesWithNoGroup() {
-		List<Fee> feeWithNoGroup = this.mixedDAO
-				.getFeeWithNoGroup(this.session);
+		List<Fee> feeWithNoGroup = this.mixedDAO.getFeeWithNoGroup(this.session);
 		assertEquals(1, feeWithNoGroup.size());
 		assertEquals(1, feeWithNoGroup.get(0).getFeeId());
 		assertEquals(0, feeWithNoGroup.get(0).getType().getType());
@@ -95,8 +83,7 @@ public class MixedDAOTests extends AbstractTest {
 
 	@Test
 	public void testGetPaymentByStudentIdAndFeePolicyId() {
-		assertEquals(24, this.mixedDAO
-				.getPaymentByStudentIdAndFeePolicyId(1, 1).getPaymentId());
+		assertEquals(24, this.mixedDAO.getPaymentByStudentIdAndFeePolicyId(1, 1).getPaymentId());
 	}
 
 	@Test

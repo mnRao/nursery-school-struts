@@ -44,42 +44,25 @@ public class BusinessLogicSolver {
 	 * = 2013
 	 */
 	public Grade calculateGrade(int startYear, int endYear) {
-		return this.calculateGrade(startYear, endYear,
-				this.currentCalendar.getCurrentMonth(),
-				this.currentCalendar.getCurrentYear());
+		return this.calculateGrade(startYear, endYear, this.currentCalendar.getCurrentMonth(), this.currentCalendar.getCurrentYear());
 	}
 
-	private Grade calculateGrade(int startYear, int endYear, int currentMonth,
-			int currentYear) {
+	private Grade calculateGrade(int startYear, int endYear, int currentMonth, int currentYear) {
 		Grade grade = Grade.UNIDENTIFIED;
 		// Choose grade
-		if (currentYear > endYear
-				|| (currentYear == endYear && this
-						.isCurrentMonthPrevPart(currentMonth))) {
+		if (currentYear > endYear || (currentYear == endYear && this.isCurrentMonthPrevPart(currentMonth))) {
 			grade = Grade.UNIDENTIFIED;
 		}
-		else if ((currentYear == endYear - 1 && this
-				.isCurrentMonthPrevPart(currentMonth))
-				|| currentYear == endYear
-				&& this.isCurrentMonthNextPart(currentMonth)) {
+		else if ((currentYear == endYear - 1 && this.isCurrentMonthPrevPart(currentMonth)) || currentYear == endYear && this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.FIFTH;
 		}
-		else if ((currentYear == endYear - 2 && this
-				.isCurrentMonthPrevPart(currentMonth))
-				|| currentYear == endYear - 1
-				&& this.isCurrentMonthNextPart(currentMonth)) {
+		else if ((currentYear == endYear - 2 && this.isCurrentMonthPrevPart(currentMonth)) || currentYear == endYear - 1 && this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.FOURTH;
 		}
-		else if ((currentYear == endYear - 3 && this
-				.isCurrentMonthPrevPart(currentMonth))
-				|| currentYear == endYear - 2
-				&& this.isCurrentMonthNextPart(currentMonth)) {
+		else if ((currentYear == endYear - 3 && this.isCurrentMonthPrevPart(currentMonth)) || currentYear == endYear - 2 && this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.THIRD;
 		}
-		else if ((currentYear == endYear - 4 && this
-				.isCurrentMonthPrevPart(currentMonth))
-				|| currentYear == endYear - 3
-				&& this.isCurrentMonthNextPart(currentMonth)) {
+		else if ((currentYear == endYear - 4 && this.isCurrentMonthPrevPart(currentMonth)) || currentYear == endYear - 3 && this.isCurrentMonthNextPart(currentMonth)) {
 			grade = Grade.SECOND;
 		}
 
@@ -100,8 +83,7 @@ public class BusinessLogicSolver {
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
 	 */
-	public String calculateGenderText(int gender)
-			throws InstantiationException, IllegalAccessException {
+	public String calculateGenderText(int gender) throws InstantiationException, IllegalAccessException {
 		TextProvider textProvider = DefaultTextProvider.class.newInstance();
 
 		String genderText = Constant.EMPTY_STRING;
@@ -112,13 +94,14 @@ public class BusinessLogicSolver {
 			case Constant.BUSINESS_LOGIC.MALE:
 				genderText = textProvider.getText(I18N.FORM_GENDER_MALE);
 				break;
+			default:
+				genderText = Constant.EMPTY_STRING;
 		}
 
 		return genderText;
 	}
 
-	public String getBooleanText(boolean booleanValue)
-			throws InstantiationException, IllegalAccessException {
+	public String getBooleanText(boolean booleanValue) throws InstantiationException, IllegalAccessException {
 		TextProvider textProvider = DefaultTextProvider.class.newInstance();
 
 		String booleanText = Constant.EMPTY_STRING;
@@ -146,8 +129,7 @@ public class BusinessLogicSolver {
 	public String calculateCurrentAcademicYear(int currentMonth, int currentYear) {
 		int startingYear, endingYear;
 		// Check current month to define starting year
-		if (currentMonth >= Constant.BUSINESS_LOGIC.ACADEMIC_YEAR_STARTING_MONTH
-				&& currentMonth <= Constant.BUSINESS_LOGIC.YEAR_ENDING_MONTH) {
+		if (currentMonth >= Constant.BUSINESS_LOGIC.ACADEMIC_YEAR_STARTING_MONTH && currentMonth <= Constant.BUSINESS_LOGIC.YEAR_ENDING_MONTH) {
 			startingYear = currentYear;
 		}
 		else {
@@ -156,9 +138,7 @@ public class BusinessLogicSolver {
 		endingYear = startingYear + 1;
 
 		StringBuffer academicYear = new StringBuffer();
-		academicYear.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN)
-				.append(startingYear).append(Constant.PUNCTUATION_MARK.HYPHEN)
-				.append(endingYear)
+		academicYear.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_OPEN).append(startingYear).append(Constant.PUNCTUATION_MARK.HYPHEN).append(endingYear)
 				.append(Constant.PUNCTUATION_MARK.BRACKET_SQUARE_CLOSE);
 
 		return academicYear.toString();
@@ -168,8 +148,7 @@ public class BusinessLogicSolver {
 	 * Add extra ZERO symbol as prefix for month name. Ex: 1 => 01
 	 */
 	public String getStandardMonthName(int monthName) {
-		if (monthName < Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH
-				|| monthName > Constant.BUSINESS_LOGIC.YEAR_ENDING_MONTH)
+		if (monthName < Constant.BUSINESS_LOGIC.YEAR_STARTING_MONTH || monthName > Constant.BUSINESS_LOGIC.YEAR_ENDING_MONTH)
 			throw new IllegalArgumentException();
 		else if (monthName > 9)
 			return Integer.toString(monthName); // 10 -> 12
@@ -178,13 +157,11 @@ public class BusinessLogicSolver {
 	}
 
 	/* Calculate fee amount base on inherent and overriding items */
-	public double calculateFeeAmount(Session session, Fee fee,
-			FeePolicy feePolicy, Payment payment) {
+	public double calculateFeeAmount(Session session, Fee fee, FeePolicy feePolicy, Payment payment) {
 		// TODO Refactor this method
 		double amount = 0;
 		FeeType type = fee.getType();
-		AlternativeFeeMap alternativeFeeMap = (AlternativeFeeMap) session.get(
-				AlternativeFeeMap.class, new PaymentFee(payment, fee));
+		AlternativeFeeMap alternativeFeeMap = (AlternativeFeeMap) session.get(AlternativeFeeMap.class, new PaymentFee(payment, fee));
 		boolean isAlternativeFeeMapNull = (alternativeFeeMap == null);
 		boolean isAlternativeAmountNull = true;
 		if (!isAlternativeFeeMapNull) {
@@ -195,18 +172,17 @@ public class BusinessLogicSolver {
 		if (type == FeeType.ALL_EXCEPT_SELECTED) {
 			// Disabled student => 0
 			Student student = payment.getStudent();
-			if (student.getStudentId() == 81) {
+			if (student.getStudentId() == 88) {
 				System.out.println("sdfsdf");
 			}
-			if (!student.isActive()) {
-				return 0;
-			}
+			// if (!student.isActive()) {
+			// return 0;
+			// }
 
 			// If AlternativeFeeMap null or exists but contains no value then
 			// find in FeeMap
 			// if (isAlternativeFeeMapNull && isAlternativeAmountNull){
-			if (isAlternativeFeeMapNull
-					|| (!isAlternativeFeeMapNull && isAlternativeAmountNull)) {
+			if (isAlternativeFeeMapNull || (!isAlternativeFeeMapNull && isAlternativeAmountNull)) {
 				amount = this.getAmountFromFeeMap(session, fee, feePolicy);
 			}
 			else {
@@ -223,8 +199,7 @@ public class BusinessLogicSolver {
 					amount = this.getAmountFromFeeMap(session, fee, feePolicy);
 				}
 				else {
-					amount = alternativeFeeMap.getAlternativeAmount()
-							.doubleValue();
+					amount = alternativeFeeMap.getAlternativeAmount().doubleValue();
 				}
 			}
 		}
@@ -232,13 +207,10 @@ public class BusinessLogicSolver {
 		return amount;// FeeType.UNKNOWN
 	}
 
-	private double getAmountFromFeeMap(Session session, Fee fee,
-			FeePolicy feePolicy) {
+	private double getAmountFromFeeMap(Session session, Fee fee, FeePolicy feePolicy) {
 		double amount;
-		FeeMap feeMap = (FeeMap) session.get(FeeMap.class, new FeePolicyFee(
-				feePolicy, fee));
-		amount = (feeMap == null || feeMap.getAmount() == null) ? 0 : feeMap
-				.getAmount().doubleValue();
+		FeeMap feeMap = (FeeMap) session.get(FeeMap.class, new FeePolicyFee(feePolicy, fee));
+		amount = (feeMap == null || feeMap.getAmount() == null) ? 0 : feeMap.getAmount().doubleValue();
 		return amount;
 	}
 

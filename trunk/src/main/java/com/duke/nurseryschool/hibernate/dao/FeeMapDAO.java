@@ -15,8 +15,7 @@ public class FeeMapDAO extends CoreDAO {
 	public List<FeeMap> getFeeMaps() {
 		List<FeeMap> feeMaps = new ArrayList<FeeMap>();
 		try {
-			feeMaps = this.session.createQuery(
-					Constant.DATABASE_QUERY.ALL_FEE_MAPS).list();
+			feeMaps = this.session.createQuery(Constant.DATABASE_QUERY.ALL_FEE_MAPS).list();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -26,8 +25,7 @@ public class FeeMapDAO extends CoreDAO {
 	}
 
 	public FeeMap getFeeMap(int feeId, int feePolicyId) {
-		FeePolicy feePolicy = (FeePolicy) this.session.get(FeePolicy.class,
-				Integer.valueOf(feePolicyId));
+		FeePolicy feePolicy = (FeePolicy) this.session.get(FeePolicy.class, Integer.valueOf(feePolicyId));
 		Fee fee = (Fee) this.session.get(Fee.class, Integer.valueOf(feeId));
 		FeePolicyFee feePolicyFee = new FeePolicyFee(feePolicy, fee);
 

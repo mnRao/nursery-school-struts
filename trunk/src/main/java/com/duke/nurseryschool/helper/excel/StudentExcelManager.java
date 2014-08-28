@@ -35,8 +35,7 @@ public class StudentExcelManager extends ExcelManager {
 		for (String className : sortedClasses) {
 			List<Student> studentByClass = new ArrayList<Student>();
 			for (Student student : students) {
-				if (className.equals(student.getAssociatedClass()
-						.getCurrentName())) {
+				if (className.equals(student.getAssociatedClass().getCurrentName())) {
 					studentByClass.add(student);
 				}
 			}

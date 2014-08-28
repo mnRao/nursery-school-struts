@@ -23,8 +23,7 @@ public class HelpAction extends AuthenticationRequiredAction {
 
 	public String userGuideDownload() throws FileNotFoundException {
 		// Get file in www/ folder
-		this.fileInputStream = new FileInputStream(ServletActionContext
-				.getServletContext().getRealPath(Constant.USER_GUIDE_FILE_PATH));
+		this.fileInputStream = new FileInputStream(ServletActionContext.getServletContext().getRealPath(Constant.USER_GUIDE_FILE_PATH));
 		this.fileName = Constant.USER_GUIDE_FILE_NAME;
 
 		return SUCCESS;

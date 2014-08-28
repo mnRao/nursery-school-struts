@@ -1,10 +1,13 @@
 package com.duke.nurseryschool.helper.comparator;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import com.duke.nurseryschool.hibernate.bean.Classes;
 
-public class ClassComparator implements Comparator<Classes> {
+public class ClassComparator implements Comparator<Classes>, Serializable {
+
+	private static final long serialVersionUID = -3475326909758258964L;
 
 	/**
 	 * Compare by label (actually by course starting year)

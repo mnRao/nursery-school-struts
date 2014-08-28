@@ -21,11 +21,9 @@ public class I18NTests {
 
 	@Before
 	public void setUp() throws Exception {
-		PropertyLoader enPropertyLoader = new PropertyLoader(
-				"global.properties");
+		PropertyLoader enPropertyLoader = new PropertyLoader("global.properties");
 		this.globalENProperties = enPropertyLoader.getGlobalProperties();
-		PropertyLoader viPropertyLoader = new PropertyLoader(
-				"global_vi_VN.properties");
+		PropertyLoader viPropertyLoader = new PropertyLoader("global_vi_VN.properties");
 		this.globalVIProperties = viPropertyLoader.getGlobalProperties();
 
 		this.enKeySet = this.globalENProperties.keySet();
@@ -37,8 +35,7 @@ public class I18NTests {
 	 */
 	@Test
 	public void sizeEqualityCheck() {
-		assertEquals(this.globalENProperties.size(),
-				this.globalVIProperties.size());
+		assertEquals(this.globalENProperties.size(), this.globalVIProperties.size());
 	}
 
 	/**
@@ -46,8 +43,7 @@ public class I18NTests {
 	 */
 	@Test
 	public void sameKeySetCheck() {
-		boolean isSameKeySet = !Collections.disjoint(this.enKeySet,
-				this.viKeySet);
+		boolean isSameKeySet = !Collections.disjoint(this.enKeySet, this.viKeySet);
 		assertEquals(true, isSameKeySet);
 	}
 

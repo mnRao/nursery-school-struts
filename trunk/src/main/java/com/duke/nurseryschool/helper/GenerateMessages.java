@@ -17,8 +17,7 @@ import com.duke.nurseryschool.action.PropertyLoader;
  */
 public class GenerateMessages {
 	private static final String CLASS_NAME = "I18N";
-	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/"
-			+ CLASS_NAME + ".java";
+	private static final String MESSAGE_FILE_PATH = "../java/com/duke/nurseryschool/generated/" + CLASS_NAME + ".java";
 	private static final String PACKAGE = "com.duke.nurseryschool.generated";
 	private static final String PROPERTY_FILE_PATH = "global.properties";
 
@@ -43,9 +42,7 @@ public class GenerateMessages {
 			output.newLine();
 
 			for (String key : sortedEnKeySet) {
-				output.write("\tpublic static final String "
-						+ transformKey(key.toString()) + " = \""
-						+ key.toString() + "\";");
+				output.write("\tpublic static final String " + transformKey(key.toString()) + " = \"" + key.toString() + "\";");
 				output.newLine();
 			}
 
@@ -63,8 +60,7 @@ public class GenerateMessages {
 		Properties globalENProperties = enPropertyLoader.getGlobalProperties();
 		Set<Object> enKeySet = globalENProperties.keySet();
 		// Sort
-		List<String> sortedEnKeySet = new ArrayList<String>(new TreeSet(
-				enKeySet));
+		List<String> sortedEnKeySet = new ArrayList<String>(new TreeSet(enKeySet));
 		return sortedEnKeySet;
 	}
 
